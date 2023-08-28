@@ -29,8 +29,8 @@ services:
     image: calculator_projects_production_postgres
     container_name: calculator_projects_local_postgres
     volumes:
-      - calculator_projects_local_postgres_data:/var/lib/postgresql/data
-      - calculator_projects_local_postgres_data_backups:/backups
+      - calculator_projects_local_postgres_data:/var/lib/postgresql/data:Z
+      - calculator_projects_local_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.local/.postgres
 
