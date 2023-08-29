@@ -1,3 +1,4 @@
+#Docker user = NgCHJDnWjAZetBIMnLviiIIEKOfBTGvp ; password = ydt38l5ctRbIpoOYCcOd8nKcxOQaoRbnxFdO3eIDy2X8Mkwods4q0kWesqgDW1bx
 # PostgreSQL
 # ------------------------------------------------------------------------------
 POSTGRES_HOST=postgres

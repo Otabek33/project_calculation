@@ -16,24 +16,32 @@ if settings.DJANGO_ADMIN_FORCE_ALLAUTH:
 
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
-    form = UserAdminChangeForm
-    add_form = UserAdminCreationForm
+    model = User
+    list_display = [
+        "username",
+        "first_name",
+        "last_name",
+        "mid_name",
+        "email",
+        "user_role",
+
+    ]
+    list_editable = ['user_role']
     fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("name", "email")}),
         (
-            _("Permissions"),
+            None,
             {
                 "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                ),
+                    "username",
+                    "first_name",
+                    "last_name",
+                    "mid_name",
+                    "email",
+                    "user_role",
+                    "deportment",
+                    "job_title",
+
+                )
             },
         ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "name", "is_superuser"]
-    search_fields = ["name"]
