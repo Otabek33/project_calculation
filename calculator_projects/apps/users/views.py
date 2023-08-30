@@ -32,7 +32,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 user_update_view = UserUpdateView.as_view()
-
+# dw
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
