@@ -1,31 +1,126 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
-{% load crispy_forms_tags %}
+{% load static i18n crispy_forms_tags %}
 
 {% block title %}
-
-
-  {{ user.username }}
+  {{ user.first_name }} {{ user.last_name }}
 
 
 {% endblock title %}
 {% block content %}
-  <h1>
-  
-  
-    {{ user.username }}
-  
-  
-</h1>
-<form class="form-horizontal"
-      method="post"
-      action="{% url 'users:update' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary">Update</button>
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Здравствуйте , {{ user.first_name }} {{ user.last_name }}</h4>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="profile-tab">
+            <div class="custom-tab-1">
+              <ul class="nav nav-tabs">
+
+                <li class="nav-item"><a href="{% url 'users:detail' user.id %}" class="nav-link ">Персональная
+                  Информация</a>
+                </li>
+                <li class="nav-item"><a href="{% url 'users:update' user.id %}" class="nav-link active show">Изменит
+                  профиль</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+
+
+                <div class="tab-pane fade active show">
+                  <div class="pt-3">
+                    <div class="settings-form">
+                      <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label>Фото</label>
+                          <img
+                            src=" {{ user.photo.url }}"
+                            alt="user-avatar"
+                            class="d-block rounded"
+                            height="100"
+                            width="100"
+                            id="uploadedAvatar"
+                          />
+
+                        </div>
+                        {#                        <div class="form-row">#}
+                        {#                          <div class="form-group col-md-6">#}
+                        {#                            <label>Имя пользователя</label>#}
+                        {#                            <input type="email" value="{{ user.username }}" class="form-control">#}
+                        {#                          </div>#}
+                        {#                          <div class="form-group col-md-6">#}
+                        {#                            <label>Password</label>#}
+                        {#                            <input type="password" value="{{ user.password }}" class="form-control show">#}
+                        {#                          </div>#}
+                        {#                        </div>#}
+                        <div class="form-row">
+                          <div class="form-group col-md-4">
+                            <label>Имя</label>
+{#                            <input type="text" value="" class="form-control">#}
+                          {{ form.first_name }}
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>Фамилия</label>
+{#                            <input type="text" value="" class="form-control">#}
+                            {{ form.last_name }}
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>Отчество</label>
+{#                            <input type="text" value="" class="form-control">#}
+                            {{ form.mid_name }}
+                          </div>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label>Эл.почта</label>
+{#                          <input type="email" value="" class="form-control">#}
+                          {{ form.email }}
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label>Департамент</label>
+                            <input type="text" value="{{ user.deportment }}" class="form-control readonly"
+                                   readonly>
+{#                            {{ form.deportment.name }}#}
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>Должность</label>
+                            <input type="text" value="{{ user.job_title }}" class="form-control readonly" readonly>
+{#                          {{ form.job_title.name }}#}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Тип пользователя:</label>
+                          <input type="text" value="{{ user.get_user_role_display }}" class="form-control readonly"
+                                 readonly>
+{#                          {{ form.get_user_role_display }}#}
+                        </div>
+
+
+                        <button class="btn btn-primary" type="submit">Сохранить
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</form>
+
+
 {% endblock content %}

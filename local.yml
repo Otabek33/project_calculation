@@ -15,12 +15,13 @@ services:
       - postgres
     volumes:
       - .:/app:z
+      - .:/code
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
       - '8000:8000'
-    command: /start
+    command: -/start
 
   postgres:
     build:

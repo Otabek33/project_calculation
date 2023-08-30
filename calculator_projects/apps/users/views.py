@@ -2,18 +2,19 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView
+from django.views.generic import DetailView, RedirectView, UpdateView, TemplateView
 from django.contrib import auth, messages
+
+from calculator_projects.apps.users.forms import UserUpdateForm
 
 User = get_user_model()
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
-    slug_field = "username"
-    slug_url_kwarg = "username"
+    template_name = "users/user_detail.html"
 
 
 user_detail_view = UserDetailView.as_view()
@@ -21,15 +22,13 @@ user_detail_view = UserDetailView.as_view()
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
-    fields = ["name"]
-    success_message = _("Information successfully updated")
+    template_name = 'users/user_form.html'
+    form_class = UserUpdateForm
 
-    def get_success_url(self):
-        assert self.request.user.is_authenticated  # for mypy to know that the user is authenticated
-        return self.request.user.get_absolute_url()
-
-    def get_object(self):
-        return self.request.user
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.save()
+        return redirect('users:detail', pk=self.object.id)
 
 
 user_update_view = UserUpdateView.as_view()
@@ -53,17 +52,24 @@ def login_request(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect("accounts:user-detail")
-            # try:
-            #     return redirect("accounts:user-detail", user.role.code)
-            # except AttributeError:
-            #     messages.error(request, 'Пользователь должен иметь роль!')
-            # return redirect('accounts:login')
+            return redirect("users:entrance")
         else:
             messages.error(request, "Неправильное имя пользователя или пароль")
-            return redirect("accounts:login")
+            return redirect("users:login")
 
     if request.user.is_authenticated:
-        return redirect("users:user-detail", request.user.pk)
+        return redirect("users:entrance")
 
     return render(request, "account/login.html")
+
+
+class EntranceView(LoginRequiredMixin, TemplateView):
+    template_name = "base.html"
+
+
+entrance = EntranceView.as_view()
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect("users:login")

@@ -3,39 +3,120 @@
 {% load static %}
 
 {% block title %}
-  User: 
-  
-    {{ object.username }}
-  
-  
+  {{ user.first_name }} {{ user.last_name }}
+
+
 {% endblock title %}
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>
-        
-        
-          {{ object.username }}
-        
-      </h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
-    </div>
-  </div>
-  {% if object == request.user %}
-    <!-- Action buttons -->
-    <div class="row">
-      <div class="col-sm-12">
-        <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-        <a class="btn btn-primary"
-           href="{% url 'account_email' %}"
-           role="button">E-Mail</a>
-        <!-- Your Stuff: Custom user template urls -->
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Здравствуйте , {{ user.first_name }} {{ user.last_name }}</h4>
       </div>
     </div>
-    <!-- End Action buttons -->
-  {% endif %}
-</div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="profile-tab">
+            <div class="custom-tab-1">
+              <ul class="nav nav-tabs">
+
+                <li class="nav-item"><a href="{% url 'users:detail' user.id %}"  class="nav-link active show">Персональная
+                  Информация</a>
+                </li>
+                <li class="nav-item"><a href="{% url 'users:update' user.id %}"  class="nav-link">Изменит профиль</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div  class="tab-pane fade active show">
+                  <div class="row">
+                    <div class="col-4">
+                        <h4 class="text-primary mb-4"></h4>
+                         <div class="row mb-4">
+
+                      <div class="col-12 text-center"><span>  <img
+                        src="{{ user.photo.url }}"
+                        alt="user-avatar"
+                        class="d-block rounded"
+                        height="200"
+                        width="200"
+                        id="uploadedAvatar"
+                      /></span>
+                      </div>
+
+
+                    </div>
+
+                    </div>
+                    <div class="col-8">
+                      <div class="profile-personal-info">
+                    <h4 class="text-primary mb-4"></h4>
+
+                    <div class="row mb-4">
+                      <div class="col-3">
+                        <h5 class="f-w-500">Имя <span class="pull-right">:</span>
+                        </h5>
+                      </div>
+                      <div class="col-9"><span>{{ user.first_name }} {{ user.last_name }}</span>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-3">
+                        <h5 class="f-w-500">Эл.почта <span class="pull-right">:</span>
+                        </h5>
+                      </div>
+                      <div class="col-9"><span>{{ user.email }}</span>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-3">
+                        <h5 class="f-w-500">Департамент <span class="pull-right">:</span>
+                        </h5>
+                      </div>
+                      <div class="col-9"><span>{{ user.deportment }}</span>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-3">
+                        <h5 class="f-w-500">Должность <span class="pull-right">:</span></h5>
+                      </div>
+                      <div class="col-9"><span>{{ user.job_title }}</span>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-3">
+                        <h5 class="f-w-500"><span class="pull-right"></span></h5>
+                      </div>
+                      <div class="col-9"><span></span>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-3">
+                        <h5 class="f-w-500">Тип пользователя <span class="pull-right">:</span></h5>
+                      </div>
+                      <div class="col-9"><span>{{ user.get_user_role_display }}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                    </div>
+
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 {% endblock content %}

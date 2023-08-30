@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model, decorators
 from django.utils.translation import gettext_lazy as _
 
 from calculator_projects.apps.users.forms import UserAdminChangeForm, UserAdminCreationForm
+from calculator_projects.apps.users.models import Department, JobTitle
 
 User = get_user_model()
 
@@ -24,6 +25,7 @@ class UserAdmin(auth_admin.UserAdmin):
         "mid_name",
         "email",
         "user_role",
+        "photo",
 
     ]
     list_editable = ['user_role']
@@ -40,8 +42,24 @@ class UserAdmin(auth_admin.UserAdmin):
                     "user_role",
                     "deportment",
                     "job_title",
+                    "photo",
 
                 )
             },
         ),
     )
+
+
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    model = Department
+    list_display = ["name"]
+
+
+@admin.register(JobTitle)
+class JobTitleAdmin(admin.ModelAdmin):
+    model = JobTitle
+    list_display = [
+        "name",
+        "code",
+    ]

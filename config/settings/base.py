@@ -5,6 +5,7 @@ from pathlib import Path
 
 import environ
 import os
+
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # calculator_projects/
 APPS_DIR = BASE_DIR / "calculator_projects"
@@ -48,14 +49,24 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASES = {"default":  DB_URL}
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DB',"calculator_projects"),
+#         'USER':  os.getenv('POSTGRES_USER',"NgCHJDnWjAZetBIMnLviiIIEKOfBTGvp"),
+#         'PASSWORD':  os.getenv('POSTGRES_PASSWORD',"ydt38l5ctRbIpoOYCcOd8nKcxOQaoRbnxFdO3eIDy2X8Mkwods4q0kWesqgDW1bx"),
+#         'HOST':  os.getenv('POSTGRES_HOST',"postgres"),
+#         'PORT': os.getenv("POSTGRES_PORT", "5432"),
+#     }}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER':  os.getenv('POSTGRES_USER'),
-        'PASSWORD':  os.getenv('POSTGRES_PASSWORD'),
-        'HOST':  os.getenv('POSTGRES_HOST'),
-        'PORT': 5432
+        'NAME': "postgres",
+        'USER': "postgres",
+        'PASSWORD': "postgres",
+        'HOST': "localhost",
+        'PORT': "5432",
     }}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 

@@ -71,14 +71,17 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-    # def get_absolute_url(self) -> str:
-    #     """Get URL for user's detail view.
-    #
-    #     Returns:
-    #         str: URL for user detail.
-    #
-    #     """
-    #     return reverse("accounts:user-detail", kwargs={"pk": self.id})
+
+
+        # def get_absolute_url(self) -> str:
+        #
+        # """Get URL for user's detail view.
+        #
+        # Returns:
+        #     str: URL for user detail.
+        #
+        # """
+        # return reverse("users:user-detail", kwargs={"pk": self.id})
 
     def user_role_display(self):
         """
