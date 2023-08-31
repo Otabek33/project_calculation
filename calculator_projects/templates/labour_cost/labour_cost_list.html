@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  {{ user.first_name }} {{ user.last_name }}
+
+
+{% endblock title %}
+{% block content %}
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Стоимость труда в час</h4>
+
+      </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">Панель </a></li>
+        <li class="breadcrumb-item active"><a href="{% url 'labour_cost:view' %}">Стоимость труда в час </a></li>
+      </ol>
+    </div>
+  </div>
+  <!-- row -->
+
+  <div class="row">
+
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="d-flex justify-content-between ">
+          <h5 class="card-header"></h5>
+
+          <h5 class="card-header"><a href="{% url 'labour_cost:add' %}" class="btn btn-primary">Добавить
+            <br>Cтоимость труда в час</a></h5>
+
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered verticle-middle table-responsive-sm text-center">
+              <thead>
+              <tr>
+                <th scope="col">Месяц</th>
+                <th scope="col">Общая цена</th>
+                <th scope="col">Себестоимость <br>(Расходы на опл.труда)</th>
+                <th scope="col">Себестоимость<br>реализованной услуги<br>(другие
+                  издержки без ФОТ)
+                </th>
+                <th scope="col">Косвенные<br>производственные<br>затраты</th>
+                <th scope="col">Расходы<br>на взносы<br>в IT-парк</th>
+                <th scope="col">Файл</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Действие</th>
+
+              </tr>
+              </thead>
+              <tbody>
+              {% for labour_cost in page_obj %}
+                {% if labour_cost %}
+                  <tr>
+                    <td>{{ labour_cost.report_month }}</td>
+                    <td>
+                      <strong>{{ labour_cost.total_cost|floatformat:"2g" }}</strong>
+                    </td>
+                    <td>{{ labour_cost.salary_cost|floatformat:"2g" }}</td>
+                    <td><span>{{ labour_cost.cost_price|floatformat:"2g" }}</span>
+                    </td>
+                    <td><span>{{ labour_cost.period_expenses|floatformat:"2g" }}</span>
+                    </td>
+                    <td><span
+                    >{{ labour_cost.contributions_to_IT_park|floatformat:"2g" }}</span>
+                    </td>
+                    <td><a href="{{ labour_cost.file_order.url }}">Приказ</a>
+                    </td>
+                    </td>
+                    <td>
+                      {% if labour_cost.calculation_for_projects %}
+                        <span class="badge badge-success">Активный</span>
+                      {% else %}
+                        <span class="badge badge-dark">Не Активный</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                                                    <span>  <a href="javascript:void()" class="mr-4"
+                                                               data-toggle="tooltip"
+                                                               data-placement="top" title="Activate"><i
+                                                      class="fa fa-check-circle color-muted"></i> </a>
+
+                                                        <a href="{% url 'labour_cost:update' labour_cost.id %}"
+                                                           class="mr-4" data-toggle="tooltip"
+                                                           data-placement="top" title="Edit"><i
+                                                          class="fa fa-pencil color-muted"></i> </a>
+                                                        <a href="javascript:void()" data-toggle="tooltip"
+                                                           class="for_delete_labour_cost"
+                                                           data-labourcost-id="{{ labour_cost.id }}"
+                                                           data-placement="top" title="Close"><i
+                                                          class="fa fa-close color-danger"></i></a>
+
+                                                    </span>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+          {% if is_paginated %}
+            <div class=" col-12 d-flex justify-content-end">
+              <div class="demo-inline-spacing">
+                <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item prev">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                        ><i class="icon-arrow-left"></i></a>
+                      </li>
+
+                      <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                      </li>
+                    {% endif %}
+                    <li class="page-item active">
+                      <a class="page-link" href="javascript:void(0);">{{ page_obj.number }}</a>
+                    </li>
+                    {% if page_obj.has_next %}
+                      <li class="page-item ">
+                        <a class="page-link"
+                           href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                      </li>
+
+
+                      <li class="page-item next">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                        ><i class="icon-arrow-right"></i></a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+
+
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="modal fade" id="labour_cost_delete">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить расчет</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Вы уверены, что хотите удалить этот расчет ?</p>
+        </div>
+        <div class="modal-footer">
+           <form method="post"
+                    >
+                        {% csrf_token %}
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+          <button type="button" class="btn btn-primary">Да</button>
+             </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  {#  <div class="modal" id="labour_cost_delete" tabindex="-1" aria-hidden="true">#}
+  {#    <div class="modal-dialog modal-dialog-centered" role="document">#}
+  {#      <div class="modal-content">#}
+  {#        <div class="modal-header">#}
+  {#          <h5 class="modal-title">Вы уверены, что хотите удалить этот расчет ?</h5>#}
+  {#          <button#}
+  {#            type="button"#}
+  {#            class="btn-close"#}
+  {#            data-bs-dismiss="modal"#}
+  {#            aria-label="Close"#}
+  {#          ></button>#}
+  {##}
+  {#        </div>#}
+  {#        <div class="modal-footer">#}
+  {#          <form method="post"#}
+  {#          >#}
+  {#            {% csrf_token %}#}
+  {#            <input type="hidden" name="labour_cost_delete_name"#}
+  {#                   id="labour_cost_delete_id">#}
+  {#            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">#}
+  {#              Назад#}
+  {#            </button>#}
+  {#            <button type="button" class="btn btn-primary"#}
+  {#                    data-href-template="#"#}
+  {#                    id="labour_cost_delete_id_button">Да#}
+  {#            </button>#}
+  {#          </form>#}
+  {#        </div>#}
+  {#      </div>#}
+  {#    </div>#}
+  {#  </div>#}
+  {% block js %}
+    <script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.for_project_calculation').on('click', (e) => {
+        document.getElementById('labour_cost_for_project_calculation_id').value = e.target.dataset['labourcostId'];
+        $('#labour_cost_for_project_calculation').modal('show');
+      })
+    });
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.for_delete_labour_cost').on('click', (e) => {
+        {#document.getElementById('labour_cost_delete_id').value = e.target.dataset['labourcostId'];#}
+        $('#labour_cost_delete').modal('show');
+      })
+    });
+
+
+  </script>
+
+  {% endblock %}
+
+
+
+
+
+{% endblock content %}

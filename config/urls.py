@@ -14,6 +14,7 @@ urlpatterns = [
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("", include("calculator_projects.apps.users.urls", namespace="users")),
+                  path("labour-cost/", include("calculator_projects.apps.labour_costs.urls", namespace="labour_cost")),
                   path("accounts/", include("allauth.urls")),
                   # path("", include("calculator_projects.apps.users", namespace="accounts")),
                   # Your stuff: custom urls includes go here

@@ -107,6 +107,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "calculator_projects.apps.users",
+    "calculator_projects.apps.labour_costs",
 
     # Your stuff: custom apps go here
 ]

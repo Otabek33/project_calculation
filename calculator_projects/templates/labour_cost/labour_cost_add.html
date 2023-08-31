@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  {{ user.first_name }} {{ user.last_name }}
+
+
+{% endblock title %}
+{% block content %}
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Стоимость труда в час</h4>
+
+      </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">Панель </a></li>
+        <li class="breadcrumb-item"><a href="{% url 'labour_cost:view' %}">Стоимость труда в час </a></li>
+        <li class="breadcrumb-item active"><a href="{% url 'labour_cost:add' %}">Добавить </a></li>
+      </ol>
+    </div>
+  </div>
+   <div class="row">
+        <div class="col-6">
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Общая стоимость [<span class="ml-4 text-danger fw-bold"
+                                                            id="result"><strong>{{ object.total_cost|default:"0.0" }}</strong></span>
+                        сўм]</h5>
+                    <small class="text-muted float-end">Разбивка затрат по группам</small>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label class="col-sm-6  col-form-label" for="basic-default-name">Себестоимость
+                                (Расходы на опл.труда)</label>
+                            <div class="col-sm-6 ">
+                                <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-label"></i
+                              ></span>
+                                    {{ form.salary_cost }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-6  col-form-label" for="basic-default-company">Себестоимость
+                                реализованной услуги (другие
+                                издержки без ФОТ)</label>
+                            <div class="col-sm-6 ">
+                                <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-label"></i
+                              ></span>
+                                    {{ form.cost_price }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-6  col-form-label" for="basic-default-company">Косвенные
+                                производственные затраты</label>
+                            <div class="col-sm-6 ">
+                                <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-label"></i
+                              ></span>
+                                    {{ form.period_expenses }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-6  col-form-label" for="basic-default-company">Расходы на взносы
+                                в IT-парк</label>
+                            <div class="col-sm-6 ">
+                                <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-label"></i
+                              ></span>
+                                    {{ form.contributions_to_IT_park }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-6 col-form-label" for="basic-default-company">Месяц</label>
+                            <div class="col-sm-6">
+                                <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-label"></i
+                              ></span>
+                                    {{ form.report_month }}
+                                    {#                                            <input type="month" class="form-control" id="start" name="start"#}
+                                    {#       min="2023-01" value="2023-12">#}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label" for="basic-default-company">Загрузить
+                                приказ</label>
+
+                            <div class="col-sm-8">
+                                <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-label"></i
+                              ></span>
+                                    {{ form.file_order }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form.total_cost.as_hidden }}
+
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Cохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock content %}
