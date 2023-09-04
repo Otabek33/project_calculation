@@ -15,7 +15,7 @@ class LabourCostAdmin(admin.ModelAdmin):
         "contributions_to_IT_park",
         "created_by",
         "created_at",
-        "deleted_status",
+        "calculation_for_projects",
     ]
 
 

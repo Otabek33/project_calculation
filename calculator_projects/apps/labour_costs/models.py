@@ -56,6 +56,9 @@ class LabourCost(models.Model):
     def get_absolute_url(self):
         return reverse("app_namespace:view_name", args=[self.pk])
 
+    def total_cost_calculation(self):
+        self.total_cost = self.salary_cost + self.cost_price + self.period_expenses + self.contributions_to_IT_park
+
     def percentage_calculation(self):
         self.percent_salary_cost = self.salary_cost / self.total_cost
         self.percent_cost_price = self.cost_price / self.total_cost

@@ -23,111 +23,125 @@
       </ol>
     </div>
   </div>
-   <div class="row">
-        <div class="col-6">
-            <div class="card mb-4">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Общая стоимость [<span class="ml-4 text-danger fw-bold"
-                                                            id="result"><strong>{{ object.total_cost|default:"0.0" }}</strong></span>
-                        сўм]</h5>
-                    <small class="text-muted float-end">Разбивка затрат по группам</small>
-                </div>
-                <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row mb-3">
-                            <label class="col-sm-6  col-form-label" for="basic-default-name">Себестоимость
-                                (Расходы на опл.труда)</label>
-                            <div class="col-sm-6 ">
-                                <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-label"></i
-                              ></span>
-                                    {{ form.salary_cost }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-6  col-form-label" for="basic-default-company">Себестоимость
-                                реализованной услуги (другие
-                                издержки без ФОТ)</label>
-                            <div class="col-sm-6 ">
-                                <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-label"></i
-                              ></span>
-                                    {{ form.cost_price }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-6  col-form-label" for="basic-default-company">Косвенные
-                                производственные затраты</label>
-                            <div class="col-sm-6 ">
-                                <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-label"></i
-                              ></span>
-                                    {{ form.period_expenses }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-6  col-form-label" for="basic-default-company">Расходы на взносы
-                                в IT-парк</label>
-                            <div class="col-sm-6 ">
-                                <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-label"></i
-                              ></span>
-                                    {{ form.contributions_to_IT_park }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-6 col-form-label" for="basic-default-company">Месяц</label>
-                            <div class="col-sm-6">
-                                <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-label"></i
-                              ></span>
-                                    {{ form.report_month }}
-                                    {#                                            <input type="month" class="form-control" id="start" name="start"#}
-                                    {#       min="2023-01" value="2023-12">#}
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-3">
-                            <label class="col-sm-4 col-form-label" for="basic-default-company">Загрузить
-                                приказ</label>
-
-                            <div class="col-sm-8">
-                                <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"
-                              ><i class="bx bx-label"></i
-                              ></span>
-                                    {{ form.file_order }}
-                                </div>
-                            </div>
-                        </div>
-                        {{ form.total_cost.as_hidden }}
-
-                        <div class="row justify-content-end">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Cохранить</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="card mb-4">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="mb-0">Общая стоимость [<span class="ml-4 text-danger fw-bold" id="result"
+          ><strong>{{ object.total_cost|default:"0.0" }}</strong></span>
+            сўм]</h5>
+          <small class="text-muted float-end">Разбивка затрат по группам</small>
         </div>
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mb-3">
+              <label class="col-sm-6  col-form-label" for="basic-default-name">Себестоимость
+                (Расходы на опл.труда)</label>
+              <div class="col-sm-6 ">
+                <div class="input-group input-group-merge">
+                              <span class="input-group-text amount" onkeyup="AddInputs()"
+                              ><i class="bx icon-calculator"></i
+                              ></span>
+                  {{ form.salary_cost }}
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-6  col-form-label " for="basic-default-company">Себестоимость
+                реализованной услуги (другие
+                издержки без ФОТ)</label>
+              <div class="col-sm-6 ">
+                <div class="input-group input-group-merge">
+                              <span class="input-group-text" onkeyup="AddInputs()"
+                              ><i class="bx icon-calculator"></i
+                              ></span>
+                  {{ form.cost_price }}
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-6  col-form-label" for="basic-default-company">Косвенные
+                производственные затраты</label>
+              <div class="col-sm-6 ">
+                <div class="input-group input-group-merge">
+                              <span class="input-group-text" onkeyup="AddInputs()"
+                              ><i class="bx icon-calculator"></i
+                              ></span>
+                  {{ form.period_expenses }}
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-6  col-form-label" for="basic-default-company">Расходы на взносы
+                в IT-парк</label>
+              <div class="col-sm-6 ">
+                <div class="input-group input-group-merge">
+                              <span class="input-group-text" onkeyup="AddInputs()"
+                              ><i class="bx icon-calculator"></i
+                              ></span>
+                  {{ form.contributions_to_IT_park }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-6 col-form-label" for="basic-default-company">Месяц</label>
+              <div class="col-sm-6">
+                <div class="input-group input-group-merge">
+                              <span class="input-group-text"
+                              ><i class="bx icon-calender"></i
+                              ></span>
+                  {{ form.report_month }}
+                  {#                                            <input type="month" class="form-control" id="start" name="start"#}
+                  {#       min="2023-01" value="2023-12">#}
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-3">
+              <label class="col-sm-4 col-form-label" for="basic-default-company">Загрузить
+                приказ</label>
+
+              <div class="col-sm-8">
+                <div class="input-group input-group-merge">
+                              <span class="input-group-text"
+                              ><i class="bx icon-doc"></i
+                              ></span>
+                  {{ form.file_order }}
+                </div>
+              </div>
+            </div>
+            {{ form.total_cost.as_hidden }}
+
+            <div class="row justify-content-around">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Cохранить</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 
 
+  <script>
+    function findTotal() {
+      var arr = document.getElementsByClassName('amount');
+       console.log(arr)
 
+      var tot = 0;
+      for (var i = 0; i < arr.length; i++) {
+        if (parseFloat(arr[i].value))
+          tot += parseFloat(arr[i].value);
+      }
+      console.log(tot)
+
+      document.getElementById('result').innerHTML = tot;
+    }
+  </script>
 
 
 {% endblock content %}

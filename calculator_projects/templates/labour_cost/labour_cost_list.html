@@ -4,8 +4,6 @@
 
 {% block title %}
   {{ user.first_name }} {{ user.last_name }}
-
-
 {% endblock title %}
 {% block content %}
   <div class="row page-titles mx-0">
@@ -81,20 +79,24 @@
                       {% endif %}
                     </td>
                     <td>
-                                                    <span>  <a href="javascript:void()" class="mr-4"
-                                                               data-toggle="tooltip"
-                                                               data-placement="top" title="Activate"><i
-                                                      class="fa fa-check-circle color-muted"></i> </a>
-
+                      <span>
+                        <button type="button"
+                                class="border-0 mr-4 for_activate_labour_cost"
+                                data-id="{{ labour_cost.id }}"
+                                title="Activate">
+                        <i
+                          class="fa fa-check-circle color-muted"></i>
+                      </button>
                                                         <a href="{% url 'labour_cost:update' labour_cost.id %}"
                                                            class="mr-4" data-toggle="tooltip"
                                                            data-placement="top" title="Edit"><i
                                                           class="fa fa-pencil color-muted"></i> </a>
-                                                        <a href="javascript:void()" data-toggle="tooltip"
-                                                           class="for_delete_labour_cost"
-                                                           data-labourcost-id="{{ labour_cost.id }}"
-                                                           data-placement="top" title="Close"><i
-                                                          class="fa fa-close color-danger"></i></a>
+                                                        <button type="button"
+
+                                                                class="border-0 for_delete_labour_cost"
+                                                                data-id="{{ labour_cost.id }}"
+                                                                title="Close"><i
+                                                          class="fa fa-close color-danger"></i></button>
 
                                                     </span>
                     </td>
@@ -166,73 +168,76 @@
           <p>Вы уверены, что хотите удалить этот расчет ?</p>
         </div>
         <div class="modal-footer">
-           <form method="post"
-                    >
-                        {% csrf_token %}
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
-          <button type="button" class="btn btn-primary">Да</button>
-             </form>
+          <form method="post"
+          >
+            {% csrf_token %}
+            <input type="hidden" name="labour_cost_delete_name"
+                   id="labour_cost_delete_id">
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="button" class="btn btn-primary"  data-href-template="{% url 'labour_cost:delete' %}"  id="labour_cost_delete_modal" >Да</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="modal fade" id="activate_labour_cost_modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Активировать расчет</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Вы уверены, что хотите активировать этот расчет для
+            проектов?</p>
+        </div>
+        <div class="modal-footer">
+          <form method="post"
+          >
+            {% csrf_token %}
+            <input type="hidden" name="activation_labour_cost"
+                   id="activation_labour_cost_id">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="button" class="btn btn-primary" data-href-template="{% url 'labour_cost:update_status' %}"
+                    id="labour_cost_for_project_calculation">Да
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-  {#  <div class="modal" id="labour_cost_delete" tabindex="-1" aria-hidden="true">#}
-  {#    <div class="modal-dialog modal-dialog-centered" role="document">#}
-  {#      <div class="modal-content">#}
-  {#        <div class="modal-header">#}
-  {#          <h5 class="modal-title">Вы уверены, что хотите удалить этот расчет ?</h5>#}
-  {#          <button#}
-  {#            type="button"#}
-  {#            class="btn-close"#}
-  {#            data-bs-dismiss="modal"#}
-  {#            aria-label="Close"#}
-  {#          ></button>#}
-  {##}
-  {#        </div>#}
-  {#        <div class="modal-footer">#}
-  {#          <form method="post"#}
-  {#          >#}
-  {#            {% csrf_token %}#}
-  {#            <input type="hidden" name="labour_cost_delete_name"#}
-  {#                   id="labour_cost_delete_id">#}
-  {#            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">#}
-  {#              Назад#}
-  {#            </button>#}
-  {#            <button type="button" class="btn btn-primary"#}
-  {#                    data-href-template="#"#}
-  {#                    id="labour_cost_delete_id_button">Да#}
-  {#            </button>#}
-  {#          </form>#}
-  {#        </div>#}
-  {#      </div>#}
-  {#    </div>#}
-  {#  </div>#}
   {% block js %}
     <script type="application/javascript">
-    document.addEventListener("DOMContentLoaded", function (event) {
-      $('.for_project_calculation').on('click', (e) => {
-        document.getElementById('labour_cost_for_project_calculation_id').value = e.target.dataset['labourcostId'];
-        $('#labour_cost_for_project_calculation').modal('show');
-      })
-    });
+      document.addEventListener("DOMContentLoaded", function (event) {
+        $('.for_activate_labour_cost').click((e) => {
+          document.getElementById('activation_labour_cost_id').value = e.target.parentElement.getAttribute('data-id');
+          $('#activate_labour_cost_modal').modal('show');
+        })
+      });
 
-    document.addEventListener("DOMContentLoaded", function (event) {
-      $('.for_delete_labour_cost').on('click', (e) => {
-        {#document.getElementById('labour_cost_delete_id').value = e.target.dataset['labourcostId'];#}
-        $('#labour_cost_delete').modal('show');
-      })
-    });
+      document.addEventListener("DOMContentLoaded", function (event) {
+        $('.for_delete_labour_cost').on('click', (e) => {
+          document.getElementById('labour_cost_delete_id').value = e.target.parentElement.getAttribute('data-id');
+          $('#labour_cost_delete').modal('show');
+        })
+      });
 
 
-  </script>
+    </script>
+
 
   {% endblock %}
 
 
 
 
-
 {% endblock content %}
+{# {% block js %}#}
+{#  <script src="{% static 'js/labour_cost.js' %}"></script>#}
+{#{% endblock %}#}
+
+
