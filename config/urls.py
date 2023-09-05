@@ -15,9 +15,12 @@ urlpatterns = [
                   # User management
                   path("", include("calculator_projects.apps.users.urls", namespace="users")),
                   path("labour-cost/", include("calculator_projects.apps.labour_costs.urls", namespace="labour_cost")),
+                  path("project/", include("calculator_projects.apps.projects.urls", namespace="projects")),
                   path("accounts/", include("allauth.urls")),
+                  path('ckeditor/', include('ckeditor_uploader.urls')),
                   # path("", include("calculator_projects.apps.users", namespace="accounts")),
                   # Your stuff: custom urls includes go here
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

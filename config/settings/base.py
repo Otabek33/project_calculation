@@ -103,12 +103,15 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
-    "calculation",
+    "ckeditor",
+    "ckeditor_uploader",
+
 ]
 
 LOCAL_APPS = [
     "calculator_projects.apps.users",
     "calculator_projects.apps.labour_costs",
+    "calculator_projects.apps.projects",
 
     # Your stuff: custom apps go here
 ]
@@ -181,7 +184,25 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
+# CKEDITOR
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ],
+
+        'width': "100%",
+        'height': "100%",
+
+    }
+}
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root

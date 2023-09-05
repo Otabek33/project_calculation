@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+  Project Plan
+{% endblock title %}
+
+{% block content %}
+
+
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Планирование проекта</h4>
+
+      </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Панель
+        </a></li>
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Планирование проекта этап-1</a></li>
+      </ol>
+    </div>
+  </div>
+  <!-- row -->
+  {% include 'projects/_includes/steps.html' %}
+  <form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ myform.media }}
+    <div class="row">
+
+      <div class="col-xl">
+        <div class="card mb-4">
+
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Добавить данные о проекте</h5>
+            <small class="text-muted float-end">1-этап</small>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">Наименование проекта</label>
+              {{ form.name }}
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-company">Заказчик</label>
+              {% comment %} {{ form.customer }} {% endcomment %}
+              {{ form.customer }}
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-company">Ответственные организации за
+                реализацию проекта</label>
+              {{ form.responsible_subject_for_project }}
+              {% comment %} <input type="text" class="form-control" name="responsible_subject_for_project" id="basic-default-company" placeholder="Buyurtmachi korxona" /> {% endcomment %}
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_legal_basis">Основания для реализации проекта</label>
+              {{ form.legal_basis }}
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-flex" for="basic-icon-default-fullname">
+
+                  <span class="mr-3" style='margin-right: 6px'>
+                  Включен ли проект в государственную программу развития Республики
+                                                    Узбекистан
+                  </span>
+                {{ form.involved_in_development_country }}
+              </label>
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-company">Тип проекта</label>
+              {{ form.customer_status }}
+              {% comment %} <input type="text" class="form-control" name="responsible_subject_for_project" id="basic-default-company" placeholder="Buyurtmachi korxona" /> {% endcomment %}
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_purpose">Цель проекта</label>
+              <div>
+                {{ form.purpose }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xl">
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Добавить данные о проекте</h5>
+            <small class="text-muted float-end">1-этап</small>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label" for="id_objective">Задачи проекта</label>
+              <div>
+                {{ form.objective }}
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label class="form-label" for="id_start_time">Ориентировочная дата начала проекта</label>
+
+              {{ form.start_time }}
+
+              <span class="text-danger">{{ form.errors.start_time }}</span>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_finish_time">Ориентировочная дата оканчания
+                проекта</label>
+
+              {{ form.finish_time }}
+
+              <span class="text-danger">{{ form.errors.finish_time }}</span>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="id_finish_time">Источники финансирования</label>
+
+              {{ form.source_of_financing }}
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_expecting_results">Ожидаемые результаты от реализации
+                проекта</label>
+              <div >
+
+                {{ form.expecting_results }}
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_expert_conclustion">Заключение соответствующей экспертной
+                организации ( мак. 3 файл)</label>
+
+              {{ form.expert_conclusion }}
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_coefficient">
+                Коэффициенть, повышающие стоимость проектирования ИС
+                в зависимости от усложняющих факторов
+              </label>
+
+
+              {{ form.coefficient }}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+    {{ form.project_creation_stage.as_hidden }}
+
+
+    <div class="row page-titles mx-0">
+      <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+          <h4></h4>
+
+        </div>
+      </div>
+      <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <div>
+
+          <button type="submit" class="btn btn-primary">Следующий</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+{% endblock content %}
+
+
+
+
