@@ -10,22 +10,9 @@
 {% block content %}
 
 
-  <div class="row page-titles mx-0">
-    <div class="col-sm-6 p-md-0">
-      <div class="welcome-text">
-        <h4>Планирование проекта</h4>
 
-      </div>
-    </div>
-    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Панель
-        </a></li>
-        <li class="breadcrumb-item active"><a href="javascript:void(0)">Планирование проекта этап-1</a></li>
-      </ol>
-    </div>
-  </div>
   <!-- row -->
+  {% include 'projects/_includes/links.html' %}
   {% include 'projects/_includes/steps.html' %}
   <form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
@@ -143,7 +130,7 @@
               <div>
 
 
-                <select name="drop1" class="form-control">
+                <select name="coefficient" class="form-control">
                   {% for key,value in coefficient_list.items %}
                     <option value="{{ key }}">{{ key }} ({{ value }})</option>
                   {% endfor %}

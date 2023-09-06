@@ -78,7 +78,6 @@ class ProjectCreateForm(forms.ModelForm):
             "source_of_financing",
             "expecting_results",
             "expert_conclusion",
-            "coefficient_of_project",
         ]
 
     widgets = {
@@ -97,9 +96,7 @@ class ProjectCreateForm(forms.ModelForm):
     #
     # def save(self, commit=True):
     #     instance = super(ProjectCreateForm, self).save(commit=True)
-    #     if not instance.coefficient:
-    #         instance.coefficient = Coefficient.objects.filter(
-    #             deleted_status=False, default=True
-    #         ).first()
+    #     if not instance.coefficient_of_project:
+    #         instance.coefficient_of_project = 1
     #         instance.save()
     #     return instance

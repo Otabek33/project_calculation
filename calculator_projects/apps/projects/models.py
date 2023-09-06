@@ -37,9 +37,10 @@ class ProjectCustomerStatus(models.IntegerChoices):
 
 class ProjectCreationStage(models.IntegerChoices):
     STAGE_1 = 1, _("Этап 1")
-    STAGE_2 = 2, _("Этап 2")
+    STAGE_2 = 2, _("Паспорт проекта")
     STAGE_3 = 3, _("Этап 3")
-    STAGE_4 = 4, _("В подтверждении")
+    STAGE_4 = 4, _("Этап 4")
+    STAGE_5 = 5, _("В подтверждении")
 
 
 # When creating project stage 5 is sending it to director to approve it
