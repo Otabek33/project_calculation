@@ -120,7 +120,7 @@
                     <tr>
                       <th>15</th>
                       <th>Ответственный</th>
-                      <td><a href="#" data-html="true" data-toggle="popover"
+                      <td><a href="{% url 'users:detail' projectplan.created_by.id  %}" data-html="true" data-toggle="popover"
                              data-placement="right"
                              data-trigger="hover"
                       >{{ projectplan.created_by }}</a></td>
@@ -205,9 +205,8 @@
           Назад</a>
       {% endif %}
 
-      <a href="#" class=" btn btn-primary">Следующий
+      <a href="{% url 'projects:project_creation_stage_two' object.id %}" class=" btn btn-primary">Следующий
         &raquo;</a>
-      </form>
     </div>
   </div>
 

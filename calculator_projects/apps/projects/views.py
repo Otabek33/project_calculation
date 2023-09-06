@@ -74,3 +74,38 @@ class ProjectPlanPassportUpdateView(UpdateView):
 
 
 project_passport_update = ProjectPlanPassportUpdateView.as_view()
+
+
+class ProjectPlanStageTwo(DetailView):
+    model = ProjectPlan
+    tm_path = "projects/project_plan/"
+    tm_name = "project_plan_stage_2.html"
+    template_name = f"{tm_path}{tm_name}"
+
+    # def get_context_data(self, **kwargs):
+    #     pk = self.kwargs["pk"]
+    #     context = process_calculation_percentage_of_labour_info_in_creation_stage_two(
+    #         pk
+    #     )
+    #     return context
+    #
+    # def post(self, request, *args, **kwargs):
+    #     pk = kwargs.get("pk")
+    #     project = self.model.objects.get(id=pk)
+    #     stage_list = ProjectStage.objects.filter(
+    #         deleted_status=False, project=project.id
+    #     ).order_by("stage_number")
+    #
+    #     if len(stage_list) < 1:
+    #         messages.error(request, "Добавьте  этап проекта, пожалуйста!")
+    #         return redirect(request.META["HTTP_REFERER"])
+    #     else:
+    #         project_plan = process_calculation_for_stage_three_update_project(project)
+    #         project_plan.updated_at = datetime.now(tz=timezone.utc)
+    #         project_plan.updated_by = self.request.user
+    #         project_plan.save()
+    #
+    #     return redirect("project:project_creation_stage_three", pk=project.id)
+
+
+project_plan_stage_two = ProjectPlanStageTwo.as_view()
