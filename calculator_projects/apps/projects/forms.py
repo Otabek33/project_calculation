@@ -2,7 +2,7 @@ from ckeditor.widgets import CKEditorWidget
 from django import forms
 
 from calculator_projects.apps.projects.models import ProjectResponsibleSubject, ProjectCustomerStatus, \
-    ProjectSourceOfFinancing, Coefficient, ProjectPlan
+    ProjectSourceOfFinancing, ProjectPlan
 
 
 class DateInput(forms.DateInput):
@@ -54,26 +54,13 @@ class ProjectCreateForm(forms.ModelForm):
         ),
     )
 
-
     expert_conclusion = forms.FileField(
         widget=forms.FileInput(attrs={"class": "form-control"}), required=True
     )
 
-    coefficient = forms.ModelChoiceField(
-        queryset=Coefficient.objects.all(),
-        widget=forms.Select(attrs={"class": "form-control"}),
-        required=False,
-    ),
-    # purpose = forms.CharField(
-    #     widget=forms.Textarea(attrs={"class": "form-control", "row": 2}), required=True
-    # )
-
     purpose = forms.CharField(widget=CKEditorWidget()),
     objective = forms.CharField(widget=CKEditorWidget()),
     expecting_results = forms.CharField(widget=CKEditorWidget()),
-
-    # objective = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 50})),
-    # purpose = forms.CharField(widget=TinyMCE(attrs={'cols': 100, 'rows': 50})),
 
     class Meta:
         model = ProjectPlan
@@ -91,7 +78,7 @@ class ProjectCreateForm(forms.ModelForm):
             "source_of_financing",
             "expecting_results",
             "expert_conclusion",
-            "coefficient",
+            "coefficient_of_project",
         ]
 
     widgets = {
@@ -99,6 +86,7 @@ class ProjectCreateForm(forms.ModelForm):
         "customer": forms.TextInput(attrs={"class": "form-control"}),
         "legal_basis": forms.Textarea(attrs={"class": "form-control", "row": 2}),
         "expert_conclusion": forms.FileInput(attrs={"class": "form-control"}),
+        # "coefficient": forms.Select(attrs={"class": "form-control", }),
     }
 
     # def clean(self):

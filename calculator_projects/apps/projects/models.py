@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from calculator_projects.apps.users.models import Department, User
 import uuid
 from ckeditor.fields import RichTextField
+
+
 # Create your models here.
 class ProjectResponsibleSubject(models.IntegerChoices):
     UZINFOCOM = 1, _(
@@ -78,36 +80,6 @@ class TaskFactStatus(models.IntegerChoices):
     COMPLETED = 3, _("Завершенный")
     CANCELLED = 4, _("Отменено")
     ON_HOLD = 5, _("На удерживании")
-
-
-class Coefficient(models.Model):
-    factors_making_project_difficult = models.TextField(
-        max_length=300, blank=True, null=True
-    )
-    coefficient = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
-
-    created_by = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name="coefficient_creator",
-    )
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_by = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name="coefficient_updater",
-    )
-    updated_at = models.DateTimeField(blank=True, null=True)
-    deleted_status = models.BooleanField(default=False)
-    default = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = "Коэффициент, повышающие стоимость проектирования ИС"
-        verbose_name_plural = "Коэффициенты, повышающие стоимость проектирования ИС"
 
 
 class ProjectPlan(models.Model):
@@ -218,12 +190,7 @@ class ProjectPlan(models.Model):
     departament = models.ForeignKey(
         Department, on_delete=models.SET_NULL, null=True, related_name="project"
     )
-    coefficient = models.ForeignKey(
-        Coefficient,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
+    coefficient_of_project = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     def __str__(self):
         return self.name

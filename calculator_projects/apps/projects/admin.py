@@ -19,7 +19,8 @@ class ProjectAdmin(admin.ModelAdmin):
         "project_status",
     ]
     list_editable = ["project_status", "deleted_status"]
-    readonly_fields = ["coefficient"]
+    readonly_fields = ["coefficient_of_project"]
 
 
 admin.site.register(ProjectPlan, ProjectAdmin)
+
