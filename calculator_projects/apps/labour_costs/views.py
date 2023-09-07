@@ -8,6 +8,7 @@ from datetime import datetime
 from django.utils import timezone
 from calculator_projects.apps.labour_costs.forms import LabourCostAddForm, LabourCostUpdateForm
 from calculator_projects.apps.labour_costs.models import LabourCost
+from calculator_projects.apps.labour_costs.utils import labour_cost_change_status
 from calculator_projects.utils.helpers import is_ajax
 
 
@@ -70,7 +71,7 @@ class LabourCostUpdateStatus(DetailView):
 
             pk = request.POST.get("id")
             labour_cost = LabourCost.objects.get(id=pk)
-            labour_cost.calculation_for_projects = True
+            labour_cost_change_status(labour_cost)
             labour_cost.updated_at = datetime.now(tz=timezone.utc)
             labour_cost.updated_by = self.request.user
             labour_cost.save()

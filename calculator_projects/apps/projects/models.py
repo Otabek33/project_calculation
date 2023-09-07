@@ -202,3 +202,15 @@ class ProjectPlan(models.Model):
 
     def is_active(self):
         return self.project_status not in [ProjectStatus.CREATION, ProjectStatus.CONFORM]
+
+    # def update_project_creation_stage(self):
+    #     if self.project_creation_stage == ProjectCreationStage.STAGE_1:
+    #         self.project_creation_stage = ProjectCreationStage.STAGE_2
+    #     elif self.project_creation_stage == ProjectCreationStage.STAGE_2:
+    #         self.project_creation_stage = ProjectCreationStage.STAGE_3
+    #     elif self.project_creation_stage == ProjectCreationStage.STAGE_3:
+    #         self.project_creation_stage = ProjectCreationStage.STAGE_4
+    #     elif self.project_creation_stage == ProjectCreationStage.STAGE_4:
+    #         self.project_creation_stage = ProjectCreationStage.STAGE_5
+    #
+    #     self.save()

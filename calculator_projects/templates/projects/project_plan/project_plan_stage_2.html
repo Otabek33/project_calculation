@@ -4,317 +4,315 @@
 
 
 {% block content %}
-    {% include 'projects/_includes/steps.html' %}
-    <div class="row">
-        <div class="col-xxl">
-            <div class="card mb-4">
-                <div class="m-5">
-                    <h5 class="card-header">Разбивка расчет рабочего времени за час</h5>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-borderless border-bottom">
-                            <tbody>
-                            <tr>
-                                <td class="text-nowrap">Себестоимость (Расходы на опл.труда):</td>
-                                <td>
-                                    {{ salary_cost|floatformat:"2g" }} сўм
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Себестоимость реализованной услуги<br> (другие издержки без
-                                    ФОТ):
-                                </td>
-                                <td>
-                                    {{ labour_cost.cost_price|floatformat:"2g" }} сўм
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Косвенные производственные затраты :</td>
-                                <td>
-                                    {{ labour_cost.period_expenses|floatformat:"2g" }} сўм
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Расходы на налоги и сборы:</td>
-                                <td>
-                                    {{ labour_cost.contributions_to_IT_park|floatformat:"2g" }} сўм
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Общая цена:</td>
-                                <td>
-                                    <span class=" text-danger fw-bold">{{ total_cost|floatformat:"2g" }} сўм</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Создатель:</td>
-                                <td>
-                                    {{ labour_cost.created_by }}
-                                </td>
-                            </tr>
+  {% include 'projects/_includes/links.html' %}
+  {% include 'projects/_includes/steps.html' %}
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
 
-                            <tr>
-                                <td class="col-8 text-nowrap">Файл:</td>
-                                <td class="col-4">
-                                    <a href="{{ labour_cost.file_order.url }}">Приказ</a>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Разбивка расчет рабочего времени за час</h5>
 
         </div>
+        <div class="card-body">
+          <table class="table table-striped table-borderless border-bottom">
+            <tbody>
+            <tr>
+              <td class="text-nowrap">Себестоимость (Расходы на опл.труда):</td>
+              <td>
+                {{ salary_cost|floatformat:"2g" }} сўм
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Себестоимость реализованной услуги<br> (другие издержки без
+                ФОТ):
+              </td>
+              <td>
+                {{ labour_cost.cost_price|floatformat:"2g" }} сўм
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Косвенные производственные затраты :</td>
+              <td>
+                {{ labour_cost.period_expenses|floatformat:"2g" }} сўм
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Расходы на налоги и сборы:</td>
+              <td>
+                {{ labour_cost.contributions_to_IT_park|floatformat:"2g" }} сўм
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Общая цена:</td>
+              <td>
+                <span class=" text-danger font-weight-bold">{{ total_cost|floatformat:"2g" }} сўм</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Создатель:</td>
+              <td>
+                {{ labour_cost.created_by }}
+              </td>
+            </tr>
 
-        <div class="col-xxl">
-            <div class="card mb-4">
-                <div class="m-5">
-                    <h5 class="card-header">Группы затрат в процентах</h5>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-borderless border-bottom">
-                            <tbody>
-                            <tr>
-                                <td class="text-nowrap">Себестоимость (Расходы на опл.труда):</td>
-                                <td>
-                                    {{ p_salary_cost|floatformat:"2g" }} %
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Себестоимость реализованной услуги<br> (другие издержки без
-                                    ФОТ):
-                                </td>
-                                <td>
-                                    {{ p_cost_price|floatformat:"2g" }} %
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Косвенные производственные затраты :</td>
-                                <td>
-                                    {{ p_percent_period_expenses|floatformat:"2g" }}
-                                    %
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">Расходы на налоги и сборы:</td>
-                                <td>
-                                    {{ p_tax|floatformat:"2g" }}
-                                    %
-                                </td>
-                            </tr>
+            <tr>
+              <td class="col-8 text-nowrap">Файл:</td>
+              <td class="col-4">
+                <a href="{{ labour_cost.file_order.url }}">Приказ</a>
+              </td>
+            </tr>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-            </div>
+            </tbody>
+          </table>
 
         </div>
+      </div>
     </div>
-
-
-    <div class="modal fade" id="stageModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="stageModalLabel">Добавит этап</h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <form id="stage-form-modal" method="POST" action="#">
-                    {% csrf_token %}
-                    <input type="hidden" name="project" value="{{ project.id }}">
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="name" class="form-label">Наименование</label>
-                                <textarea
-                                        id="name"
-                                        name="name"
-                                        class="form-control"
-
-                                        required
-                                ></textarea>
-                            </div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col-md-2">
-                                <label for="step" class="form-label">Этап</label>
-                                <input type="number" name="stage_number" id="step" class="form-control" placeholder="1"
-                                       required/>
-                            </div>
-                            <div class="col-md-5 mb-0">
-                                <label for="start_date" class="form-label">Дата начало</label>
-                                <input type="date" id="start_time" name="start_time" class="form-control"
-                                       placeholder="DD / MM / YY" required/>
-                            </div>
-                            <div class="col-md-5 mb-0">
-                                <label for="end_date" class="form-label">Дата оканчания</label>
-                                <input type="date" id="end_time" name="finish_time" class="form-control"
-                                       placeholder="DD / MM / YY" required/>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Назад
-                        </button>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
-                    </div>
-                </form>
-            </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Группы затрат в процентах</h5>
         </div>
-    </div>
+        <div class="card-body">
+          <table class="table table-striped table-borderless border-bottom">
+            <tbody>
+            <tr>
+              <td class="text-nowrap">Себестоимость (Расходы на опл.труда):</td>
+              <td>
+                {{ p_salary_cost|floatformat:"2g" }} %
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Себестоимость реализованной услуги<br> (другие издержки без
+                ФОТ):
+              </td>
+              <td>
+                {{ p_cost_price|floatformat:"2g" }} %
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Косвенные производственные затраты :</td>
+              <td>
+                {{ p_percent_period_expenses|floatformat:"2g" }}
+                %
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Расходы на налоги и сборы:</td>
+              <td>
+                {{ p_tax|floatformat:"2g" }}
+                %
+              </td>
+            </tr>
 
-    <div class="modal fade" id="stageUpdateModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="stageUpdateModalLabel">Обновить этап</h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <form id="stage-update-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="project" value="{{ project.id }}">
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="name" class="form-label">Наименование</label>
-                                <textarea
-                                        id="name"
-                                        name="name"
-                                        class="form-control"
-
-                                        required
-                                ></textarea>
-                            </div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col-md-2">
-                                <label for="step" class="form-label">Этап</label>
-                                <input type="number" name="stage_number" id="step" class="form-control" placeholder="1"
-                                       required/>
-                            </div>
-                            <div class="col-md-5 mb-0">
-                                <label for="start_date" class="form-label">Дата начало</label>
-                                <input type="date" id="start_time" name="start_time" class="form-control"
-                                       placeholder="DD / MM / YY" required/>
-                            </div>
-                            <div class="col-md-5 mb-0">
-                                <label for="end_date" class="form-label">Дата окончание</label>
-                                <input type="date" id="end_time" name="finish_time" class="form-control"
-                                       placeholder="DD / MM / YY" required/>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Назад
-                        </button>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
-                    </div>
-                </form>
-            </div>
+            </tbody>
+          </table>
         </div>
-    </div>
 
-    <div class="card mb-4">
-        <h5 class="card-header d-flex justify-content-between align-items-center">
-            <span>Этапы</span>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="card mb-4">
+    <h5 class="card-header d-flex justify-content-between align-items-center">
+      <span>Этапы</span>
+      {% if projectplan.project_status is 1 %}
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#stageModal"
+        >
+          <span class="bx bx-add-to-queue mx-2"></span>
+          Добавить этап
+        </button>
+      {% endif %}
+    </h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+        <tr class="text-center">
+          <th>Номер этапа</th>
+          <th>Наименование</th>
+          <th>Дата<br>начало</th>
+          <th>Дата<br>окончание</th>
+          <th>Продолжительность <br>в днях</th>
+          <th>Продолжительность <br>в часах</th>
+          <th>Сумма</th>
+          {% if projectplan.project_status is 1 %}
+            <th>Задачи</th>
+            <th>Действие</th>
+          {% endif %}
+        </tr>
+        </thead>
+        <tbody class="table-border-bottom-0 text-center" id="stage-table">
+        {% for item in projectplan.projectstage_set.all %}
+          <tr id="stage-{{ item.id }}">
+            <td>{{ item.stage_number }}</td>
+            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ item.name }}</strong></td>
+            <td>{{ item.start_time|date:"Y-m-d" }}</td>
+            <td>{{ item.finish_time|date:"Y-m-d" }}</td>
+            <td>{{ item.duration_per_day }}</td>
+            <td>{{ item.duration_per_hour }}</td>
+            <td>{{ item.total_price|floatformat:"2g" }} сўм</td>
             {% if project.project_status is 1 %}
-                <button
-                        type="button"
-                        class="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#stageModal"
-                >
-                    <span class="bx bx-add-to-queue mx-2"></span>
-                    Добавить этап
-                </button>
+              <td>
+
+                <a href="#" type="button"
+                   class="btn btn-outline-primary"><strong>
+                  Добавить задачи</strong>
+                  <span class="badge">{{ item.taskofstage_set.count }}</span>
+
+                </a>
+              </td>
+              <td class="text-center">
+                <div class="d-flex">
+                  <a class="mx-2 edit-row" href="#"
+                  ><i class="bx bx-edit-alt me-1"></i></a
+                  >
+                  <a class="mx delete-row" href="#"
+                  ><i class="bx bx-trash me-1"></i></a
+                  >
+                </div>
+              </td>
             {% endif %}
-        </h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table">
-                <thead>
-                <tr class="text-center">
-                    <th>Номер этапа</th>
-                    <th>Наименование</th>
-                    <th>Дата<br>начало</th>
-                    <th>Дата<br>окончание</th>
-                    <th>Продолжительность <br>в днях</th>
-                    <th>Продолжительность <br>в часах</th>
-                    <th>Сумма</th>
-                    {% if project.project_status is 1 %}
-                        <th>Задачи</th>
-                        <th>Действие</th>
-                    {% endif %}
-                </tr>
-                </thead>
-                <tbody class="table-border-bottom-0 text-center" id="stage-table">
-                {% for item in project.projectstage_set.all %}
-                    <tr id="stage-{{ item.id }}">
-                        <td>{{ item.stage_number }}</td>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ item.name }}</strong></td>
-                        <td>{{ item.start_time|date:"Y-m-d" }}</td>
-                        <td>{{ item.finish_time|date:"Y-m-d" }}</td>
-                        <td>{{ item.duration_per_day }}</td>
-                        <td>{{ item.duration_per_hour }}</td>
-                        <td>{{ item.total_price|floatformat:"2g" }} сўм</td>
-                        {% if project.project_status is 1 %}
-                            <td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-                                <a href="#" type="button"
-                                   class="btn btn-outline-primary"><strong>
-                                    Добавить задачи</strong>
-                                    <span class="badge">{{ item.taskofstage_set.count }}</span>
+  <div class="card mb-4 p-3">
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="d-flex justify-content-between">
+        <a href="#"
+           class="btn btn-primary">&laquo;
+          Назад</a>
+        <button type="submit" href="#"
+                class=" btn btn-primary">Следующий
+          &raquo;
+        </button>
+      </div>
+    </form>
+  </div>
 
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <div class="d-flex">
-                                    <a class="mx-2 edit-row" href="#"
-                                    ><i class="bx bx-edit-alt me-1"></i></a
-                                    >
-                                    <a class="mx delete-row" href="#"
-                                    ><i class="bx bx-trash me-1"></i></a
-                                    >
-                                </div>
-                            </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+  <div class="modal fade" id="stageUpdateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="stageUpdateModalLabel">Обновить этап</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-    </div>
+        <form id="stage-update-form">
+          {% csrf_token %}
+          <input type="hidden" name="project" value="{{ project.id }}">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label">Наименование</label>
+                <textarea
+                  id="name"
+                  name="name"
+                  class="form-control"
 
-    <div class="card mb-4 p-3">
-        <form action="" method="post">
-            {% csrf_token %}
-            <div class="d-flex justify-content-between">
-                <a href="#"
-                   class="btn btn-primary">&laquo;
-                    Назад</a>
-                <button type="submit" href="#"
-                        class=" btn btn-primary">Следующий
-                    &raquo;
-                </button>
+                  required
+                ></textarea>
+              </div>
             </div>
-        </form>
-    </div>
+            <div class="row g-2">
+              <div class="col-md-2">
+                <label for="step" class="form-label">Этап</label>
+                <input type="number" name="stage_number" id="step" class="form-control" placeholder="1"
+                       required/>
+              </div>
+              <div class="col-md-5 mb-0">
+                <label for="start_date" class="form-label">Дата начало</label>
+                <input type="date" id="start_time" name="start_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+              <div class="col-md-5 mb-0">
+                <label for="end_date" class="form-label">Дата окончание</label>
+                <input type="date" id="end_time" name="finish_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+            </div>
 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Назад
+            </button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="stageModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавит этап</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <form id="stage-form-modal" method="POST" action="#">
+          {% csrf_token %}
+          <input type="hidden" name="project" value="{{ project.id }}">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label">Наименование</label>
+                <textarea
+                  id="name"
+                  name="name"
+                  class="form-control"
+
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col-md-2">
+                <label for="step" class="form-label">Этап</label>
+                <input type="number" name="stage_number" id="step" class="form-control" placeholder="1"
+                       required/>
+              </div>
+              <div class="col-md-5 mb-0">
+                <label for="start_date" class="form-label">Дата начало</label>
+                <input type="date" id="start_time" name="start_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+              <div class="col-md-5 mb-0">
+                <label for="end_date" class="form-label">Дата оканчания</label>
+                <input type="date" id="end_time" name="finish_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="button" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

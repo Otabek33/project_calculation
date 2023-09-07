@@ -1,13 +1,13 @@
 from datetime import datetime
 
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
-from calculator_projects.apps.projects.utils import get_coefficient
+from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost
 
 
 # Create your views here.
@@ -42,6 +42,12 @@ class ProjectPassportView(DetailView):
     tm_name = "project_passport.html"
     template_name = f"{tm_path}{tm_name}"
 
+    def post(self, request, *args, **kwargs):
+        project = get_object_or_404(ProjectPlan, pk=self.kwargs["pk"])
+        project.project_creation_stage = ProjectCreationStage.STAGE_3
+        project.save()
+        return redirect("projects:project_creation_stage_two", pk=project.id)
+
 
 project_plan_initial_view = ProjectPassportView.as_view()
 
@@ -63,7 +69,6 @@ class ProjectPlanPassportUpdateView(UpdateView):
         project_plan.update_by = self.request.user
         project_plan.update_at = datetime.now
         project_plan.coefficient_of_project = get_coefficient(self.request.POST.get('coefficient'))
-        project_plan.project_creation_stage = ProjectCreationStage.STAGE_2
         project_plan.total_price = 0.0
         project_plan.save()
         return redirect("projects:initial_view", pk=project_plan.id)
@@ -82,12 +87,12 @@ class ProjectPlanStageTwo(DetailView):
     tm_name = "project_plan_stage_2.html"
     template_name = f"{tm_path}{tm_name}"
 
-    # def get_context_data(self, **kwargs):
-    #     pk = self.kwargs["pk"]
-    #     context = process_calculation_percentage_of_labour_info_in_creation_stage_two(
-    #         pk
-    #     )
-    #     return context
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs["pk"]
+        context = process_context_percentage_labour_cost(
+            pk
+        )
+        return context
     #
     # def post(self, request, *args, **kwargs):
     #     pk = kwargs.get("pk")

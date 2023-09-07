@@ -7,6 +7,7 @@ from calculator_projects.apps.projects.models import ProjectPlan
 class ProjectAdmin(admin.ModelAdmin):
     model = ProjectPlan
     list_display = [
+        "id",
         "name",
         "customer",
         "created_by",

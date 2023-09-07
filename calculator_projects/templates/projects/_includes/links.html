@@ -9,9 +9,11 @@
     <ol class="breadcrumb">
       {% if projectplan.project_creation_stage == 2 or  projectplan.project_creation_stage == 3 or projectplan.project_creation_stage == 4 %}
 
-        <li class="breadcrumb-item active"><a href="{% url 'projects:project_passport_update' object.id %}">Этап-1</a>
+        <li class="breadcrumb-item active"><a href="{% url 'projects:project_passport_update' projectplan.id %}">Этап-1</a>
         </li>
-        <li class=" breadcrumb-item active"><a href="{% url 'projects:initial_view' object.id %}">Паспорт проекта</a>
+        <li class=" breadcrumb-item active"><a href="{% url 'projects:initial_view' projectplan.id %}">Паспорт проекта</a>
+        <li class=" breadcrumb-item active"><a
+          href="{% url 'projects:project_creation_stage_two' projectplan.id %}">Этап-2</a>
         </li>
       {% endif %}
     </ol>
