@@ -18,7 +18,7 @@ urlpatterns = [
                   path("project/", include("calculator_projects.apps.projects.urls", namespace="projects")),
                   path("accounts/", include("allauth.urls")),
                   path('ckeditor/', include('ckeditor_uploader.urls')),
-                  # path("", include("calculator_projects.apps.users", namespace="accounts")),
+                  path("stages/", include("calculator_projects.apps.stages.urls", namespace="projectstageplan")),
                   # Your stuff: custom urls includes go here
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -35,8 +35,8 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    path("api-stage/", include("calculator_projects.apps.stages.urls"))
 ]
-
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
