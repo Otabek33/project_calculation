@@ -80,8 +80,8 @@
             <button
               type="button"
               class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#taskAddModal"
+              data-toggle="modal"
+              data-target="#taskAddModal"
             >
               <span class="bx bx-add-to-queue mx-2"></span>
               Добавить задачи
@@ -195,23 +195,16 @@
 
 
 
-
-
-
-
-  <div class="modal fade" id="taskAddModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="taskAddModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="taskModalLabel">Добавить задачи</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h5 class="modal-title">Добавить задачи</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
         </div>
-        <form id="task-add-form" method="POST" action="#">
+        {#        method="POST" #}
+      <form id="task-add-form" method="POST" action="#">
           {% csrf_token %}
           <input type="hidden" name="stage" value="{{ object.id }}">
           <div class="modal-body">
@@ -242,16 +235,18 @@
             </div>
 
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              Назад
-            </button>
+           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
             <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+
+
+
 
 
 
