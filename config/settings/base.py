@@ -113,6 +113,7 @@ LOCAL_APPS = [
     "calculator_projects.apps.labour_costs",
     "calculator_projects.apps.projects",
     "calculator_projects.apps.stages",
+    "calculator_projects.apps.tasks",
 
     # Your stuff: custom apps go here
 ]

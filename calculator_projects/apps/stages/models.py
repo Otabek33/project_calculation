@@ -6,10 +6,12 @@ from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.models import ProjectPlan
 from calculator_projects.apps.users.models import User
 from calculator_projects.utils.constants import HOLIDAYS
+import uuid
 
 
 # Create your models here.
 class StagePlan(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     description = models.CharField(max_length=200, blank=True, null=True)
     start_time = models.DateField()
     finish_time = models.DateField()

@@ -2,12 +2,14 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
+from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost
+from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.apps.tasks.models import TaskPlan
 
 
 # Create your views here.
@@ -114,3 +116,21 @@ class ProjectPlanStageTwo(DetailView):
 
 
 project_plan_stage_two = ProjectPlanStageTwo.as_view()
+
+
+class TaskPlanListView(ListView):
+    model = TaskPlan
+    tm_path = "projects/project_plan/"
+    tm_name = "project_plan_task_add.html"
+    template_name = f"{tm_path}{tm_name}"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs["pk"]
+        stage_plan = StagePlan.objects.get(id=pk)
+        context['stage_plan'] = stage_plan
+
+        return context
+
+
+task_add = TaskPlanListView.as_view()

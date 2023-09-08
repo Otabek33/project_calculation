@@ -35,7 +35,8 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
-    path("api-stage/", include("calculator_projects.apps.stages.urls"))
+    path("api-stage/", include("calculator_projects.apps.stages.urls")),
+    path("api-task/", include("calculator_projects.apps.tasks.urls"))
 ]
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

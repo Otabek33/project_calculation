@@ -17,3 +17,6 @@ class StagePlanViewSet(viewsets.ModelViewSet):
     queryset = StagePlan.objects.all()
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)

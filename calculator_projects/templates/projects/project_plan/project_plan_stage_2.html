@@ -164,10 +164,10 @@
             {% if projectplan.project_status is 1 %}
               <td>
 
-                <a href="#" type="button"
+                <a href="{% url 'projects:task_list' item.id %}" type="button"
                    class="btn btn-outline-primary"><strong>
                   Добавить задачи</strong>
-                  <span class="badge">{{ item.taskofstage_set.count }}</span>
+                  <span class="badge">{{ item.taskplan_set.count }}</span>
 
                 </a>
               </td>

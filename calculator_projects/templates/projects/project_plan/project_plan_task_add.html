@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+  Project Plan
+{% endblock title %}
+
+{% block content %}
+
+
+  <h4 class="fw-bold py-3 mb-4">
+    <a href="{% url 'projects:project_creation_stage_two' stage_plan.projectPlan.id %}"><span
+      class="bx bx-arrow-back"></span>
+    <span class="text-muted fw-light">&laquo;
+          Назад</span></a>
+  </h4>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Этап {{ stage_plan.stage_number }}</h5>
+
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-borderless border-bottom">
+            <tbody>
+            <tr>
+              <td class="text-nowrap">Наименование</td>
+              <td id="stage-start-time-{{ stage_plan.id }}">
+                {{ stage_plan.description }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Дата начало</td>
+              <td id="stage-start-time-{{ stage_plan.id }}">
+                {{ stage_plan.start_time }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Дата окончание</td>
+              <td id="stage-finish-time-{{ stage_plan.id }}">
+                {{ stage_plan.finish_time }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Сроки (в часах)</td>
+              <td id="stage-duration-per-hour-{{ stage_plan.id }}">
+                {{ stage_plan.duration_per_hour }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Сроки (в днях)</td>
+              <td id="stage-duration-per-day-{{ stage_plan.id }}">
+                {{ stage_plan.duration_per_day }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap">Стоимость</td>
+              <td id="stage-total-price-{{ stage_plan.id }}">
+                {{ stage_plan.total_price|floatformat:"2g" }} сўм
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="d-flex justify-content-between align-items-center">
+            <span>Задачи</span>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#taskAddModal"
+            >
+              <span class="bx bx-add-to-queue mx-2"></span>
+              Добавить задачи
+            </button>
+          </h5>
+          <hr>
+          <div class="table-responsive text-nowrap">
+            <table class="table text-center">
+              <thead>
+              <tr>
+                <th>Описание</th>
+                <th>Дата<br>начала</th>
+                <th>Дата<br>окончания</th>
+                <th>Длительность<br>в днях</th>
+                <th>Длительность<br>в часах</th>
+                <th>Стоимость</th>
+                <th>Действие</th>
+
+              </tr>
+              </thead>
+              <tbody class="table-border-bottom-0" id="task-table">
+              {% for item in projectstage.taskofstage_set.all %}
+                <tr>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                    <strong>{{ item.description }}</strong></td>
+                  <td>{{ item.start_time|date:"Y-m-d" }}</td>
+                  <td>{{ item.finish_time|date:"Y-m-d" }}</td>
+                  <td>{{ item.duration_per_day }}</td>
+                  <td>{{ item.duration_per_hour }}</td>
+                  <td>{{ item.total_price|floatformat:"2g" }} сўм</td>
+
+                  <td class="text-center">
+                    <div class="d-flex">
+                      <a class="mx-2 edit-task-row" onclick="updateTask(event)"
+                         href="#"
+                      ><i class="bx bx-edit-alt me-1"></i></a
+                      >
+                      <a class="mx delete-row"
+                         href="#"
+                      ><i class="bx bx-trash me-1"></i></a
+                      >
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="taskUpdateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taskModalLabel">Добавить задачи</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="task-update-form" method="POST" action="#">
+          {% csrf_token %}
+          <input type="hidden" name="stage" value="{{ object.id }}">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="description" class="form-label">Наименование</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="row g-2">
+
+              <div class="col-md-6 mb-0">
+                <label for="start_date" class="form-label">Дата
+                  начала</label>
+                <input type="date" id="start_time" name="start_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+              <div class="col-md-6 mb-0">
+                <label for="end_date" class="form-label">Дата оканчания</label>
+                <input type="date" id="end_time" name="finish_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Назад
+            </button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="modal fade" id="taskAddModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taskModalLabel">Добавить задачи</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="task-add-form" method="POST" action="#">
+          {% csrf_token %}
+          <input type="hidden" name="stage" value="{{ object.id }}">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="description" class="form-label">Наименование</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="row g-2">
+
+              <div class="col-md-6 mb-0">
+                <label for="start_date" class="form-label">Дата
+                  начала</label>
+                <input type="date" id="start_time" name="start_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+              <div class="col-md-6 mb-0">
+                <label for="end_date" class="form-label">Дата оканчания</label>
+                <input type="date" id="end_time" name="finish_time" class="form-control"
+                       placeholder="DD / MM / YY" required/>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Назад
+            </button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+{% endblock %}
