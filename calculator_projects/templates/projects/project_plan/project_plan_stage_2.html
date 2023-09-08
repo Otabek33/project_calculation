@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% load static %}
-
+{% block title %}
+  Project Plan
+{% endblock title %}
 
 {% block content %}
   {% include 'projects/_includes/links.html' %}
@@ -132,7 +134,7 @@
         </button>
       {% endif %}
     </h5>
-    <div class="table-responsive text-nowrap">
+    <div class="table-bordered  text-nowrap">
       <table class="table">
         <thead>
         <tr class="text-center">
@@ -149,7 +151,7 @@
           {% endif %}
         </tr>
         </thead>
-        <tbody class="table-border-bottom-0 text-center" id="stage-table">
+        <tbody class="text-center" id="stage-table">
         {% for item in projectplan.stageplan_set.all %}
           <tr id="stage-{{ item.id }}">
             <td>{{ item.stage_number }}</td>
@@ -170,11 +172,13 @@
                 </a>
               </td>
               <td class="text-center">
-                <div class="d-flex">
-                  <a class="mx-2 edit-row" href="#"
-                  ><i class="icon-edit-72 text-success"></i></a
+                <div class="d-flex justify-content-around">
+                  <a class="mx-2 edit-row" style="font-size: 2em;"
+                     href="{% url 'projectstageplan:stageplan-list' %}{{ item.id }}"
+                  ><i class="fa fa-edit text-success"></i></a
                   >
-                  <a class="mx delete-row" href="#"
+                  <a class="mx delete-stagePlan-row" style="font-size: 2em;"
+                     href="{% url 'projectstageplan:stageplan-list' %}{{ item.id }}"
                   ><i class="ti-trash"></i></a
                   >
                 </div>
@@ -191,7 +195,7 @@
     <form action="" method="post">
       {% csrf_token %}
       <div class="d-flex justify-content-between">
-        <a href="#"
+        <a href="{% url 'projects:initial_view' projectplan.id %}"
            class="btn btn-primary">&laquo;
           Назад</a>
         <button type="submit" href="#"
@@ -206,24 +210,20 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="stageUpdateModalLabel">Обновить этап</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h5 class="modal-title">Обновить этап</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
         </div>
-        <form id="stage-update-form">
+        <form id="stage-update-form" method="post" action="{% url 'projectstageplan:stageplan-list' %}">
           {% csrf_token %}
-          <input type="hidden" name="project" value="{{ project.id }}">
+          <input type="hidden" name="projectPlan" value="{{ projectplan.id }}">
           <div class="modal-body">
             <div class="row mb-3">
               <div class="col">
-                <label for="name" class="form-label">Наименование</label>
+                <label for="description" class="form-label">Наименование</label>
                 <textarea
-                  id="name"
-                  name="name"
+                  id="description"
+                  name="description"
                   class="form-control"
 
                   required
@@ -250,9 +250,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              Назад
-            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
             <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </form>
@@ -269,6 +267,7 @@
           <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
           </button>
         </div>
+        {#        method="POST" #}
         <form id="stage-form-modal" method="POST" action="{% url 'projectstageplan:stageplan-list' %}">
           {% csrf_token %}
           <input type="hidden" name="projectPlan" value="{{ projectplan.id }}">

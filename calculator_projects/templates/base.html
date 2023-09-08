@@ -121,13 +121,42 @@
 
 <script src="{% static 'js/dashboard/dashboard-1.js' %}"></script>
 <script src="{% static 'js/labour_cost.js' %}"></script>
+<script src="{% static 'js/stage_plan.js' %}"></script>
 
-<!-- Summernote -->
-<script src="{% static 'vendor/summernote/js/summernote.min.js' %}"></script>
-<!-- Summernote init -->
-<script src="{% static 'js/plugins-init/summernote-init.js' %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  var toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    position: 'bottom-right',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+  {% if messages %}
+    {% for message in messages %}
+      let icon = "{{ message.tags }}" == "error" ? "warning" : "{{ message.tags }}"
+      toastMixin.fire({
+        icon: icon,
+        title: "{{ message }}"
+      })
+    {% endfor %}
+  {% endif %}
+
+  if (localStorage.getItem("msg")) {
+    toastMixin.fire({
+      title: localStorage.getItem("msg")
+    })
+    localStorage.removeItem("msg")
+  }
+</script>
 </body>
 
 </html>
