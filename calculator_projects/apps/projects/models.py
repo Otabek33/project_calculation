@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -203,14 +203,57 @@ class ProjectPlan(models.Model):
     def is_active(self):
         return self.project_status not in [ProjectStatus.CREATION, ProjectStatus.CONFORM]
 
-    # def update_project_creation_stage(self):
-    #     if self.project_creation_stage == ProjectCreationStage.STAGE_1:
-    #         self.project_creation_stage = ProjectCreationStage.STAGE_2
-    #     elif self.project_creation_stage == ProjectCreationStage.STAGE_2:
-    #         self.project_creation_stage = ProjectCreationStage.STAGE_3
-    #     elif self.project_creation_stage == ProjectCreationStage.STAGE_3:
-    #         self.project_creation_stage = ProjectCreationStage.STAGE_4
-    #     elif self.project_creation_stage == ProjectCreationStage.STAGE_4:
-    #         self.project_creation_stage = ProjectCreationStage.STAGE_5
-    #
-    #     self.save()
+    def updating_total_price_without_margin(self):
+        from django.db.models import Max, Min, Sum
+        from calculator_projects.apps.stages.models import StagePlan
+        stage_plan_list = StagePlan.objects.filter(
+            deleted_status=False, projectPlan=self.id
+        )
+
+        self.duration_per_hour = stage_plan_list.aggregate(Sum("duration_per_hour"))[
+            "duration_per_hour__sum"
+        ]
+        self.duration_per_day = stage_plan_list.aggregate(Sum("duration_per_day"))[
+            "duration_per_day__sum"
+        ]
+        self.total_price_stage_and_task = stage_plan_list.aggregate(Sum("total_price"))[
+            "total_price__sum"
+        ]
+        self.start_time = stage_plan_list.aggregate(Min("start_time"))[
+            "start_time__min"
+        ]
+        self.finish_time = stage_plan_list.aggregate(Max("finish_time"))[
+            "finish_time__max"
+        ]
+
+    def process_calculation_percentage(self):
+        from calculator_projects.apps.labour_costs.models import LabourCost
+        labour_cost = LabourCost.objects.get(calculation_for_projects=True)
+        self.salary_cost = (
+            self.total_price_stage_and_task * labour_cost.percent_salary_cost
+        )
+
+        self.cost_price = (
+            self.total_price_stage_and_task * labour_cost.percent_cost_price
+        )
+        self.period_expenses = (
+            self.total_price_stage_and_task * labour_cost.percent_period_expenses
+        )
+
+        self.contributions_to_IT_park = (
+            self.total_price_stage_and_task
+            * labour_cost.percent_contributions_to_IT_park
+        )
+        self.percent_cost_price = (
+            self.cost_price / self.total_price_stage_and_task * 100
+        )
+        self.percent_salary_cost = (
+            self.salary_cost / self.total_price_stage_and_task * 100
+        )
+        self.percent_period_expenses = (
+            self.period_expenses / self.total_price_stage_and_task * 100
+        )
+        self.percent_margin = self.margin / self.total_price_stage_and_task * 100
+
+    def stage_counter(self):
+        return self.stageplan_set.filter(deleted_status=False).count()

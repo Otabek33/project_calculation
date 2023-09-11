@@ -198,7 +198,7 @@
         <a href="{% url 'projects:initial_view' projectplan.id %}"
            class="btn btn-primary">&laquo;
           Назад</a>
-        <button type="submit" href="#"
+        <button type="submit" href="{% url 'projects:project_creation_stage_two' projectplan.id %}"
                 class=" btn btn-primary">Следующий
           &raquo;
         </button>

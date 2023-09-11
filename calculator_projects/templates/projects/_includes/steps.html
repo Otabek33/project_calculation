@@ -47,9 +47,18 @@
         </div>
         <div class="col-6">
           <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-            <div class="spinner-border  text-secondary" role="status">
+          {% if  projectplan.project_creation_stage == 4 %}
+               <div>
+              <span >
+                <i class="icon-check text-success" style="font-size: 3em;"></i>
+              </span>
+            </div>
+
+              {% else %}
+                <div class="spinner-border  text-secondary" role="status">
               <span class="visually-hidden"></span>
             </div>
+            {% endif %}
           </div>
         </div>
       </div>

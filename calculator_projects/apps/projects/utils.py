@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
+from calculator_projects.apps.stages.models import StagePlan
 
 
 def get_coefficient(post_coefficient: str):
@@ -40,3 +41,10 @@ def process_context_percentage_labour_cost(pk: str):
         "p_tax": p_tax,
     }
     return context
+
+
+def checking_stage_exist(project):
+    stage_list = StagePlan.objects.filter(
+        deleted_status=False, projectPlan=project
+    ).exists()
+    return stage_list

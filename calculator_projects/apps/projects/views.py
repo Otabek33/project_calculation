@@ -1,5 +1,5 @@
-from datetime import datetime
-
+from datetime import datetime, timezone
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
@@ -7,7 +7,8 @@ from django.views.generic import TemplateView, CreateView, DetailView, UpdateVie
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
-from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost
+from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
+    checking_stage_exist
 from calculator_projects.apps.stages.models import StagePlan
 from calculator_projects.apps.tasks.models import TaskPlan
 
@@ -95,24 +96,22 @@ class ProjectPlanStageTwo(DetailView):
             pk
         )
         return context
-    #
-    # def post(self, request, *args, **kwargs):
-    #     pk = kwargs.get("pk")
-    #     project = self.model.objects.get(id=pk)
-    #     stage_list = ProjectStage.objects.filter(
-    #         deleted_status=False, project=project.id
-    #     ).order_by("stage_number")
-    #
-    #     if len(stage_list) < 1:
-    #         messages.error(request, "Добавьте  этап проекта, пожалуйста!")
-    #         return redirect(request.META["HTTP_REFERER"])
-    #     else:
-    #         project_plan = process_calculation_for_stage_three_update_project(project)
-    #         project_plan.updated_at = datetime.now(tz=timezone.utc)
-    #         project_plan.updated_by = self.request.user
-    #         project_plan.save()
-    #
-    #     return redirect("project:project_creation_stage_three", pk=project.id)
+
+    def post(self, request, *args, **kwargs):
+        project_plan = get_object_or_404(ProjectPlan, pk=self.kwargs["pk"])
+        stage_count = checking_stage_exist(project_plan)
+        if not stage_count:
+            messages.error(request, "Добавьте  этап проекта, пожалуйста!")
+            return redirect(request.META["HTTP_REFERER"])
+        else:
+            project_plan.project_creation_stage = ProjectCreationStage.STAGE_4
+            project_plan.updating_total_price_without_margin()
+            project_plan.process_calculation_percentage()
+            project_plan.updated_at = datetime.now(tz=timezone.utc)
+            project_plan.updated_by = self.request.user
+            project_plan.save()
+
+        return redirect("projects:project_creation_stage_three", pk=project_plan.id)
 
 
 project_plan_stage_two = ProjectPlanStageTwo.as_view()
@@ -135,3 +134,20 @@ class TaskPlanListView(ListView):
 
 
 task_add = TaskPlanListView.as_view()
+
+
+class ProjectPlanStageThree(DetailView):
+    model = ProjectPlan
+    tm_path = "projects/project_plan/"
+    tm_name = "project_plan_stage_3.html"
+    template_name = f"{tm_path}{tm_name}"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs["pk"]
+        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False)
+        context['stage_plan_list'] = stage_plan
+        return context
+
+
+project_plan_stage_three = ProjectPlanStageThree.as_view()

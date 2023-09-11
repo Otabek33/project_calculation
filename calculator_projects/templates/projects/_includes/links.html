@@ -15,7 +15,11 @@
         <li class=" breadcrumb-item active"><a
           href="{% url 'projects:project_creation_stage_two' projectplan.id %}">Этап-2</a>
         </li>
-      {% endif %}
+        {% endif %}
+        <li class=" breadcrumb-item active"><a
+          href="{% url 'projects:project_creation_stage_three' projectplan.id %}">Этап-3</a>
+        </li>
+
     </ol>
   </div>
 </div>

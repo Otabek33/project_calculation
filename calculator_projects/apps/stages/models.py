@@ -4,6 +4,7 @@ from django.db import models
 
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.models import ProjectPlan
+
 from calculator_projects.apps.users.models import User
 
 import uuid
@@ -59,3 +60,7 @@ class StagePlan(models.Model):
 
     def task_counter(self):
         return self.taskplan_set.filter(deleted_status=False).count()
+
+    def task_list(self):
+        from calculator_projects.apps.tasks.models import TaskPlan
+        return TaskPlan.objects.filter(stage=self.id, deleted_status=False)
