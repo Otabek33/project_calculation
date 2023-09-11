@@ -21,6 +21,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         instance = super().save(**kwargs)
-        # instance.process_price_task()
+        instance.project = instance.stage.projectPlan
+        instance.process_price_task()
 
         return instance

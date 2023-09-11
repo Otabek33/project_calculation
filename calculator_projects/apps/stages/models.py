@@ -5,8 +5,11 @@ from django.db import models
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.models import ProjectPlan
 from calculator_projects.apps.users.models import User
-from calculator_projects.utils.constants import HOLIDAYS
+
 import uuid
+
+from calculator_projects.utils.helpers import defining_duration_per_day, defining_duration_per_hour, \
+    defining_total_price
 
 
 # Create your models here.
@@ -49,16 +52,7 @@ class StagePlan(models.Model):
         return str(self.description)
 
     def process_price(self):
-        import numpy as np
-
-        self.duration_per_day = np.busday_count(
-            self.start_time, self.finish_time, holidays=HOLIDAYS
-        )
-        self.duration_per_hour = self.duration_per_day * 8
-        labor_cost = LabourCost.objects.get(calculation_for_projects=True)
-        salary_cost = labor_cost.salary_cost
-        salary = self.projectPlan.coefficient_of_project * salary_cost
-        self.total_price = self.duration_per_hour * (
-            labor_cost.total_cost - salary_cost + salary
-        )
+        self.duration_per_day = defining_duration_per_day(self.start_time, self.finish_time)
+        self.duration_per_hour = defining_duration_per_hour(self.duration_per_day)
+        self.total_price = defining_total_price(self.projectPlan.coefficient_of_project, self.duration_per_hour)
         self.save()

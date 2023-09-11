@@ -14,12 +14,12 @@ urlpatterns = [
                   path(settings.ADMIN_URL, admin.site.urls),
                   # User management
                   path("", include("calculator_projects.apps.users.urls", namespace="users")),
+
+                  # Your stuff: custom urls includes go here
                   path("labour-cost/", include("calculator_projects.apps.labour_costs.urls", namespace="labour_cost")),
                   path("project/", include("calculator_projects.apps.projects.urls", namespace="projects")),
                   path("accounts/", include("allauth.urls")),
                   path('ckeditor/', include('ckeditor_uploader.urls')),
-                  path("stages/", include("calculator_projects.apps.stages.urls", namespace="projectstageplan")),
-                  # Your stuff: custom urls includes go here
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
@@ -35,8 +35,8 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
-    path("api-stage/", include("calculator_projects.apps.stages.urls")),
-    path("api-task/", include("calculator_projects.apps.tasks.urls"))
+    path("api-stage/", include("calculator_projects.apps.stages.urls", namespace="projectstageplan")),
+    path("api-task/", include("calculator_projects.apps.tasks.urls", namespace="tasks")),
 ]
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

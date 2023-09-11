@@ -2,10 +2,14 @@ from datetime import datetime
 
 from django.db import models
 
+from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.models import ProjectPlan
 from calculator_projects.apps.stages.models import StagePlan
 from calculator_projects.apps.users.models import User
 import uuid
+
+from calculator_projects.utils.helpers import (defining_duration_per_day, defining_duration_per_hour,
+                                               defining_total_price)
 
 
 # Create your models here.
@@ -50,41 +54,26 @@ class TaskPlan(models.Model):
         verbose_name = "План Задача"
         verbose_name_plural = "План Задачы"
 
-    # def process_price_task(self):
-    #     import numpy as np
-    #     from django.db.models import Sum
-    #
-    #     self.duration_per_day = np.busday_count(
-    #         self.start_time, self.finish_time, holidays=HOLIDAYS
-    #     )
-    #     self.duration_per_hour = self.duration_per_day * 8
-    #     labor_cost = LabourCost.objects.get(calculation_for_projects=True)
-    #     salary_cost = labor_cost.salary_cost
-    #     salary = self.stage.project.coefficient.coefficient * salary_cost
-    #     self.total_price = self.duration_per_hour * (
-    #         labor_cost.total_cost - salary_cost + salary
-    #     )
-    #
-    #     self.save()
-    #
-    #     task_list = TaskOfStage.objects.filter(stage=self.stage).filter(
-    #         deleted_status=False
-    #     )
-    #     labour_cost = LabourCost.objects.get(calculation_for_projects=True)
-    #     stage = self.stage
-    #     from django.db.models import Max, Min
-    #
-    #     stage.start_time = task_list.aggregate(Min("start_time"))["start_time__min"]
-    #     stage.finish_time = task_list.aggregate(Max("finish_time"))["finish_time__max"]
-    #     stage.duration_per_hour = task_list.aggregate(Sum("duration_per_hour"))[
-    #         "duration_per_hour__sum"
-    #     ]
-    #     stage.duration_per_day = task_list.aggregate(Sum("duration_per_day"))[
-    #         "duration_per_day__sum"
-    #     ]
-    #
-    #     stage.total_price = stage.duration_per_hour * (
-    #         labour_cost.total_cost - labour_cost.salary_cost + salary
-    #     )
-    #
-    #     stage.save()
+    def process_price_task(self):
+        self.duration_per_day = defining_duration_per_day(self.start_time, self.finish_time)
+        self.duration_per_hour = defining_duration_per_hour(self.duration_per_day)
+        self.total_price = defining_total_price(self.project.coefficient_of_project, self.duration_per_hour)
+        self.save()
+        self.update_stage_modal_date()
+
+    def update_stage_modal_date(self):
+        from django.db.models import Max, Min, Sum
+        stage = StagePlan.objects.get(id=self.stage.id)
+        task_plan_list = TaskPlan.objects.filter(stage=stage,
+                                                 deleted_status=False
+                                                 )
+        stage.start_time = task_plan_list.aggregate(Min("start_time"))["start_time__min"]
+        stage.finish_time = task_plan_list.aggregate(Max("finish_time"))["finish_time__max"]
+        stage.duration_per_hour = task_plan_list.aggregate(Sum("duration_per_hour"))[
+            "duration_per_hour__sum"
+        ]
+        stage.duration_per_day = task_plan_list.aggregate(Sum("duration_per_day"))[
+            "duration_per_day__sum"
+        ]
+        stage.total_price = defining_total_price(stage.projectPlan.coefficient_of_project, stage.duration_per_hour)
+        stage.save()

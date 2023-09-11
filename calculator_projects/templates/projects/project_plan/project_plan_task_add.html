@@ -27,7 +27,7 @@
             <tbody>
             <tr>
               <td class="text-nowrap">Наименование</td>
-              <td id="stage-start-time-{{ stage_plan.id }}">
+              <td id="stage-start-description-{{ stage_plan.id }}">
                 {{ stage_plan.description }}
               </td>
             </tr>
@@ -88,7 +88,7 @@
             </button>
           </h5>
           <hr>
-          <div class="table-responsive text-nowrap">
+          <div class="table-bordered">
             <table class="table text-center">
               <thead>
               <tr>
@@ -103,7 +103,7 @@
               </tr>
               </thead>
               <tbody class="table-border-bottom-0" id="task-table">
-              {% for item in projectstage.taskofstage_set.all %}
+              {% for item in stage_plan.taskplan_set.all %}
                 <tr>
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                     <strong>{{ item.description }}</strong></td>
@@ -114,16 +114,16 @@
                   <td>{{ item.total_price|floatformat:"2g" }} сўм</td>
 
                   <td class="text-center">
-                    <div class="d-flex">
-                      <a class="mx-2 edit-task-row" onclick="updateTask(event)"
-                         href="#"
-                      ><i class="bx bx-edit-alt me-1"></i></a
-                      >
-                      <a class="mx delete-row"
-                         href="#"
-                      ><i class="bx bx-trash me-1"></i></a
-                      >
-                    </div>
+                   <div class="d-flex justify-content-around">
+                  <a class="mx-2 edit-row" style="font-size: 2em;"
+                     href="{% url 'projectstageplan:stageplan-list' %}{{ item.id }}"
+                  ><i class="fa fa-edit text-success"></i></a
+                  >
+                  <a class="mx delete-stagePlan-row" style="font-size: 2em;"
+                     href="{% url 'projectstageplan:stageplan-list' %}{{ item.id }}"
+                  ><i class="ti-trash"></i></a
+                  >
+                </div>
                   </td>
                 </tr>
               {% endfor %}
@@ -151,7 +151,7 @@
         </div>
         <form id="task-update-form" method="POST" action="#">
           {% csrf_token %}
-          <input type="hidden" name="stage" value="{{ object.id }}">
+          <input type="hidden" name="stage" value="{{ stage_plan.id }}">
           <div class="modal-body">
             <div class="row mb-3">
               <div class="col">
@@ -204,9 +204,9 @@
           </button>
         </div>
         {#        method="POST" #}
-      <form id="task-add-form" method="POST" action="#">
+      <form id="task-add-form" method="POST" action="/api-task/project-tasks/">
           {% csrf_token %}
-          <input type="hidden" name="stage" value="{{ object.id }}">
+          <input type="hidden" name="stage" value="{{ stage_plan.id }}">
           <div class="modal-body">
             <div class="row mb-3">
               <div class="col">
