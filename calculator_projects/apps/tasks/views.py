@@ -18,24 +18,23 @@ class TaskPlanViewSet(viewsets.ModelViewSet):
     """
 
     serializer_class = TaskSerializer
-    queryset = TaskPlan.objects.all()
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-    # def retrieve(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     serializer = RetrieveTaskSerializer(instance)
-    #     return Response(serializer.data)
+    def get_queryset(self):
+        return TaskPlan.objects.filter(deleted_status=False)
 
-    # def update(self, request, *args, **kwargs):
-    #     super().update(request, *args, **kwargs)
-    #     instance = self.get_object()
-    #     instance.updated_by = request.user
-    #     instance.save()
-    #     return instance
-    #
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user, updated_at=datetime.now())
 
-    # def perform_create(self, serializer):
-    #     stage_id = int(self.request.POST.get('stage'))
-    #     stage = ProjectStage.objects.get(id=stage_id)
-    #     serializer.save(created_by=self.request.user, project=stage.project)
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        task_plan = self.get_object()
+        task_plan.deleted_status = True
+        task_plan.updated_by = self.request.user
+        task_plan.updated_at = datetime.now()
+        task_plan.save()
+        task_plan.update_stage_modal_date()
+        return Response(status=status.HTTP_204_NO_CONTENT)

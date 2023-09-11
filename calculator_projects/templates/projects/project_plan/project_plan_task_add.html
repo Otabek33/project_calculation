@@ -88,8 +88,8 @@
             </button>
           </h5>
           <hr>
-          <div class="table-bordered">
-            <table class="table text-center">
+          <div>
+            <table class="table table-bordered text-center">
               <thead>
               <tr>
                 <th>Описание</th>
@@ -103,7 +103,7 @@
               </tr>
               </thead>
               <tbody class="table-border-bottom-0" id="task-table">
-              {% for item in stage_plan.taskplan_set.all %}
+              {% for item in task_list %}
                 <tr>
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                     <strong>{{ item.description }}</strong></td>
@@ -115,12 +115,12 @@
 
                   <td class="text-center">
                    <div class="d-flex justify-content-around">
-                  <a class="mx-2 edit-row" style="font-size: 2em;"
-                     href="{% url 'projectstageplan:stageplan-list' %}{{ item.id }}"
+                  <a class="mx-2 edit-task-row" style="font-size: 2em;"
+                     href="{% url 'tasks:taskPlanList-list' %}{{ item.id }}"
                   ><i class="fa fa-edit text-success"></i></a
                   >
-                  <a class="mx delete-stagePlan-row" style="font-size: 2em;"
-                     href="{% url 'projectstageplan:stageplan-list' %}{{ item.id }}"
+                  <a class="mx delete-task-row" style="font-size: 2em;"
+                     href="{% url 'tasks:taskPlanList-list' %}{{ item.id }}"
                   ><i class="ti-trash"></i></a
                   >
                 </div>
@@ -137,19 +137,15 @@
   </div>
 
 
-  <div class="modal fade" id="taskUpdateModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="taskUpdateModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="taskModalLabel">Добавить задачи</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h5 class="modal-title">Добавить задачи</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
         </div>
-        <form id="task-update-form" method="POST" action="#">
+        <form id="task-update-form">
           {% csrf_token %}
           <input type="hidden" name="stage" value="{{ stage_plan.id }}">
           <div class="modal-body">
@@ -180,10 +176,8 @@
             </div>
 
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              Назад
-            </button>
+           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
             <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </form>

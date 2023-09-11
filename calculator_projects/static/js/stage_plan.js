@@ -49,8 +49,6 @@ $(".edit-row").on("click", function (e) {
         type: "GET",
         url: actionUrl,
         success: function (data) {
-            console.log("stage id how to get")
-            console.log(data)
             for (var key in data) {
                 $("#stage-update-form").find('[name="' + key + '"]').val(data[key]);
             }

@@ -25,3 +25,4 @@ class TaskSerializer(serializers.ModelSerializer):
         instance.process_price_task()
 
         return instance
+

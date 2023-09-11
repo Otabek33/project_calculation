@@ -14,6 +14,7 @@ class TaskPlanAdmin(admin.ModelAdmin):
         "start_time",
         "finish_time",
         "total_price",
+        "deleted_status",
     ]
 
 

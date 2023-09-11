@@ -18,7 +18,6 @@ class TaskPlan(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True)
     start_time = models.DateField()
     finish_time = models.DateField()
-    task_number = models.IntegerField(blank=True, null=True)
     duration_per_hour = models.IntegerField(default=0.0)
     duration_per_day = models.IntegerField(default=0.0)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)

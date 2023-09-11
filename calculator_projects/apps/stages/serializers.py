@@ -22,3 +22,8 @@ class StagePlanSerializer(serializers.ModelSerializer):
         instance = super().save(**kwargs)
         instance.process_price()
         return instance
+
+    def update(self, **kwargs):
+        instance = super().save(**kwargs)
+        instance.process_price()
+        return instance
