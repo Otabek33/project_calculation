@@ -129,7 +129,7 @@ class TaskPlanListView(ListView):
         pk = self.kwargs["pk"]
         stage_plan = StagePlan.objects.get(id=pk)
         context['stage_plan'] = stage_plan
-        context['task_list'] = TaskPlan.objects.filter(deleted_status=False)
+        context['task_list'] = TaskPlan.objects.filter(stage=stage_plan, deleted_status=False)
 
         return context
 

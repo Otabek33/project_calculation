@@ -167,7 +167,7 @@
                 <a href="{% url 'projects:task_list' item.id %}" type="button"
                    class="btn btn-outline-primary"><strong>
                   Добавить задачи</strong>
-                  <span class="badge">{{ item.taskplan_set.count }}</span>
+                  <span class="badge badge-circle badge-secondary">{{ item.task_counter }}</span>
 
                 </a>
               </td>
