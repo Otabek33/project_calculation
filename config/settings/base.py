@@ -114,6 +114,7 @@ LOCAL_APPS = [
     "calculator_projects.apps.projects",
     "calculator_projects.apps.stages",
     "calculator_projects.apps.tasks",
+    "calculator_projects.apps.additionalCosts",
 
     # Your stuff: custom apps go here
 ]
@@ -349,4 +350,3 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
-

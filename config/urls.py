@@ -37,6 +37,7 @@ urlpatterns += [
     ),
     path("api-stage/", include("calculator_projects.apps.stages.urls", namespace="projectstageplan")),
     path("api-task/", include("calculator_projects.apps.tasks.urls", namespace="tasks")),
+    path("api-additional-cost/", include("calculator_projects.apps.additionalCosts.urls", namespace="additional_cost")),
 ]
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

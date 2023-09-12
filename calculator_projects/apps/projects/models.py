@@ -203,7 +203,7 @@ class ProjectPlan(models.Model):
     def is_active(self):
         return self.project_status not in [ProjectStatus.CREATION, ProjectStatus.CONFORM]
 
-    def updating_total_price_without_margin(self):
+    def process_formation_fields_from_stage(self):
         from django.db.models import Max, Min, Sum
         from calculator_projects.apps.stages.models import StagePlan
         stage_plan_list = StagePlan.objects.filter(
@@ -225,8 +225,9 @@ class ProjectPlan(models.Model):
         self.finish_time = stage_plan_list.aggregate(Max("finish_time"))[
             "finish_time__max"
         ]
+        self.total_price_with_margin = self.total_price_stage_and_task
 
-    def process_calculation_percentage(self):
+    def process_formation_fields_with_percentage(self):
         from calculator_projects.apps.labour_costs.models import LabourCost
         labour_cost = LabourCost.objects.get(calculation_for_projects=True)
         self.salary_cost = (
@@ -236,14 +237,15 @@ class ProjectPlan(models.Model):
         self.cost_price = (
             self.total_price_stage_and_task * labour_cost.percent_cost_price
         )
-        self.period_expenses = (
-            self.total_price_stage_and_task * labour_cost.percent_period_expenses
-        )
-
         self.contributions_to_IT_park = (
             self.total_price_stage_and_task
             * labour_cost.percent_contributions_to_IT_park
         )
+
+        self.period_expenses = (
+            self.total_price_stage_and_task * labour_cost.percent_period_expenses
+        )
+
         self.percent_cost_price = (
             self.cost_price / self.total_price_stage_and_task * 100
         )
@@ -257,3 +259,18 @@ class ProjectPlan(models.Model):
 
     def stage_counter(self):
         return self.stageplan_set.filter(deleted_status=False).count()
+
+    def process_formation_fields_with_additional_cost(self):
+        from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
+        from django.db.models import Sum
+        add_costs = AdditionalCostPlan.objects.filter(project=self)
+        if add_costs:
+            additional_cost_of_project = add_costs.aggregate(total_amount=Sum("amount"))
+            self.additional_cost = additional_cost_of_project["total_amount"]
+            self.total_price_with_additional_cost = (
+                self.total_price_stage_and_task
+                + additional_cost_of_project["total_amount"]
+            )
+        else:
+            self.total_price_with_additional_cost = self.total_price_stage_and_task
+            self.additional_cost = 0.0

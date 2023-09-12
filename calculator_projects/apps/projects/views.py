@@ -105,8 +105,9 @@ class ProjectPlanStageTwo(DetailView):
             return redirect(request.META["HTTP_REFERER"])
         else:
             project_plan.project_creation_stage = ProjectCreationStage.STAGE_4
-            project_plan.updating_total_price_without_margin()
-            project_plan.process_calculation_percentage()
+            project_plan.process_formation_fields_from_stage()
+            project_plan.process_formation_fields_with_percentage()
+            project_plan.process_formation_fields_with_additional_cost()
             project_plan.updated_at = datetime.now(tz=timezone.utc)
             project_plan.updated_by = self.request.user
             project_plan.save()
