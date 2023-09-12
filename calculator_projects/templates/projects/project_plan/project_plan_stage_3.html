@@ -633,5 +633,57 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="additional-cost-update-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title" id="modalCenterTitle">Добавит
+                    дополнительные расходы</h5></div>
+                <div class="modal-body">
+                    <form id="additional-cost-update-form-modal" method="POST"
+                          action="{% url 'additional_cost:additionalcost-list' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="project" value="{{ projectplan.id }}">
+                        <input type="hidden" id="amount-update-hidden">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlSelect1" class="form-label">Доп. расходы</label>
+                            <select class="form-control" name="cost_type" id="cost_type"
+                                    aria-label="Default select example">
+                                <option name="cost_type" value="1">Аутсорсинг</option>
+                                <option name="cost_type" value="2">Оборудование</option>
+                                <option name="cost_type" value="3" selected>Прочие расходы</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="exampleFormControlTextarea1" class="form-label">Комментария</label>
+                            <textarea class="form-control" id="comment"
+                                      name="comment" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Сумма</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="amount"
+                                    name="amount"
+
+                            />
+                        </div>
+
+
+                        <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+              <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 {% endblock %}

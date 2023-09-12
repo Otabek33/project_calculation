@@ -28,5 +28,4 @@ class AdditionalCostSerializer(serializers.ModelSerializer):
         instance.comment = validated_data.get('comment')
         instance.amount = validated_data.get('amount')
         instance.save()
-        instance.process_update_total_price_after_update()
         return instance
