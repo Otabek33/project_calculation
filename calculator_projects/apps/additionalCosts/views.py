@@ -36,3 +36,6 @@ class AdditionalCostViewSet(viewsets.ModelViewSet):
         project.save()
         additional_cost.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)

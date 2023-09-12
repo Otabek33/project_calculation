@@ -263,7 +263,7 @@ class ProjectPlan(models.Model):
     def process_formation_fields_with_additional_cost(self):
         from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
         from django.db.models import Sum
-        add_costs = AdditionalCostPlan.objects.filter(project=self)
+        add_costs = AdditionalCostPlan.objects.filter(project=self, deleted_status=False)
         if add_costs:
             additional_cost_of_project = add_costs.aggregate(total_amount=Sum("amount"))
             self.additional_cost = additional_cost_of_project["total_amount"]
@@ -274,3 +274,9 @@ class ProjectPlan(models.Model):
         else:
             self.total_price_with_additional_cost = self.total_price_stage_and_task
             self.additional_cost = 0.0
+
+    def additional_cost_exist(self):
+        return self.additionalcostplan_set.filter(deleted_status=False).exists()
+
+    def additional_cost_list(self):
+        return self.additionalcostplan_set.filter(deleted_status=False)

@@ -310,9 +310,9 @@
 
           </div>
           <div class="col-sm ml-lg-6">
-            <div class="d-flex justify-content-between" >
+            <div class="d-flex justify-content-between">
 
-              <div class="col-sm-11 ml-lg-4 " >
+              <div class="col-sm-11 ml-lg-4 ">
                 <div class="d-flex justify-content-between">
                   <table id="example" class="table table-bordered">
                     <thead class="text-left">
@@ -436,201 +436,112 @@
 
                 </div>
                 <div id="accordion-one" class="accordion">
-                                    <div class="accordion__item">
-                                        <div class="accordion__header" data-toggle="collapse" data-target="#default_collapseOne">
-                                            <span class="accordion__header--text">Дополнительные расходы</span>
-                                            <span class="accordion__header--indicator"></span>
-                                        </div>
-                                        <div id="default_collapseOne" class="collapse accordion__body show" data-parent="#accordion-one">
-                                            <div class="accordion__body--text" style="margin-top: 10px;padding: 0">
-                                                <table id="additional-cost-table" class="table table-bordered">
-                  <thead class="text-center">
-                  <tr>
-                    <th class="text-center">Статья затрат</th>
-                    <th class="text-center">Комментария</th>
-                    <th class="text-center">Сумма</th>
-                    {% if projectplan.project_status is 1 %}
-                      <th class="text-center">Действие</th>
-                    {% else %}
-                      <th class="text-center"></th>
-                    {% endif %}
-
-
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {% for item in projectplan.additionalcostofproject_set.all %}
-                    <tr>
-                      <td id="cost_type_{{ item.id }}">
-                        <strong>{{ item.get_cost_type_display }}</strong></td>
-                      <td id="comment_{{ item.id }}">{{ item.comment }}</td>
-                      <td id="amount_{{ item.id }}">{{ item.amount|floatformat:"2g" }} сўм</td>
-                      {#                                         <td style="display:none;"#}
-                      {#                        id="project_total_price_by_stage_and_task">{{ item.amount }}</td>#}
-                      <td>
-                        {% if projectplan.project_status is 1 %}
-                          <div class="d-flex">
-                            <a class="mx-2 additional-cost-edit-row"
-                               href="{% url 'project:additionalcost-list' %}{{ item.id }}/"
-                               data-store-id="{{ item.amount }}"
-                            ><i class="bx bx-edit-alt me-1"></i></a
-                            >
-                            <a class="mx additional-cost-delete-row"
-                               data-store-id="{{ item.amount }}"
-                               href="{% url 'project:additionalcost-list' %}{{ item.id }}/"
-                            ><i class="bx bx-trash me-1"></i></a
-                            >
-                          </div>
-                        {% endif %}
-                      </td>
-                    </tr>
-
-                  {% endfor %}
-                  <tr>
-                    {% if project.additionalcostofproject_set.all %}
-                      <td colspan="2" class="text-center"><b>Общая cтоимость проекта <br>+
-                        Дополнительные
-                        расходы</b></td>
-                      <td colspan="2" class="text-danger fw-bold text-center"
-                          id="total-price-with-additional-cost-update-part"
-
-                      >
-
-                        {% if project.project_status == 1 %}
-
-                          {{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм
-                        {% else %}
-                          {{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм
-                        {% endif %}
-
-                      </td>
-
-                    {% endif %}
-
-                  </tr>
-                  <td style="display:none;" id="total-price-with-additional-cost">
-                    {{ project.total_price_with_additional_cost }}
-                  </td>
-                  <td style="display:none;" id="project-additional-cost">
-                    {{ project.additional_cost }}
-                  </td>
-
-                  </tbody>
-
-                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
+                  <div class="accordion__item">
+                    <div class="accordion__header" data-toggle="collapse" data-target="#default_collapseOne">
+                      <span class="accordion__header--text">Дополнительные расходы</span>
+                      <span class="accordion__header--indicator"></span>
+                    </div>
+                    <div id="default_collapseOne" class="collapse accordion__body show" data-parent="#accordion-one">
+                      <div class="accordion__body--text" style="margin-top: 10px;padding: 0">
+                        <table id="additional-cost-table" class="table table-bordered">
+                          <thead class="text-center">
+                          <tr>
+                            <th class="text-center">Статья затрат</th>
+                            <th class="text-center">Комментария</th>
+                            <th class="text-center">Сумма</th>
+                              <th class="text-center">Действие</th>
 
 
 
-              </div>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {% for item in projectplan.additional_cost_list %}
+                            <tr>
+                              <td id="cost_type_{{ item.id }}">
+                                <strong>{{ item.get_cost_type_display }}</strong></td>
+                              <td id="comment_{{ item.id }}" class="text-center">{{ item.comment }}</td>
+                              <td id="amount_{{ item.id }}" class="text-center">{{ item.amount|floatformat:"2g" }} сўм</td>
+                              {#                                         <td style="display:none;"#}
+                              {#                        id="project_total_price_by_stage_and_task">{{ item.amount }}</td>#}
+                              <td>
 
-                <div class="col-sm-1">
-                    <div class="btn-group">
-
-                                    <button
-                                            type="button"
-                                            class="btn btn-sm btn-primary btn-icon dropdown-toggle hide-arrow"
-                                            data-toggle="dropdown"
-                                            aria-expanded="false"
+                                  <div class="d-flex justify-content-around">
+                                    <a class="mx-2 additional-cost-edit-row"  style="font-size: 1.5em;"
+                                       href="{% url 'additional_cost:additionalcost-list' %}{{ item.id }}/"
+                                       data-store-id="{{ item.amount }}"
+                                    ><i class="fa fa-edit text-success"></i></a
                                     >
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a type="button" class="dropdown-item">➕ Комментария</a></li>
-                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal"
-                                               data-bs-target="#additional-cost-modal">➕ Доп. расходы</a></li>
+                                    <a class="mx additional-cost-delete-row"  style="font-size: 1.5em;"
+                                       data-store-id="{{ item.amount }}"
+                                       href="{% url 'additional_cost:additionalcost-list' %}{{ item.id }}/"
+                                    ><i class="ti-trash"></i></a
+                                    >
+                                  </div>
 
-                                    </ul>
+                              </td>
+                            </tr>
+
+                          {% endfor %}
+                          <tr>
+                            {% if projectplan.additional_cost_exist %}
+                              <td colspan="2" class="text-center"><b>Общая cтоимость проекта <br>+
+                                Дополнительные
+                                расходы</b></td>
+                              <td colspan="2"
+                                  id="total-price-with-additional-cost-update-part"
+
+                              ><p class="text-center text-danger fw-bold font-weight-bold">
+
+                                {{ projectplan.total_price_with_additional_cost|floatformat:"2g" }} сўм</p>
+
+                              </td>
+
+                            {% endif %}
+
+                          </tr>
+                          <td style="display:none;" id="total-price-with-additional-cost">
+                            {{ projectplan.total_price_with_additional_cost }}
+                          </td>
+                          <td style="display:none;" id="project-additional-cost">
+                            {{ projectplan.additional_cost }}
+                          </td>
+
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+                  </div>
 
 
-                                </div>
                 </div>
 
-            </div>
 
-            <div class="col  mb-2 mb-md-0">
-              <div class="collapse multi-collapse" id="multiCollapseExample1">
-                <table id="additional-cost-table" class="table table-bordered">
-                  <thead class="text-center">
-                  <tr>
-                    <th class="text-center">Статья затрат</th>
-                    <th class="text-center">Комментария</th>
-                    <th class="text-center">Сумма</th>
-                    {% if projectplan.project_status is 1 %}
-                      <th class="text-center">Действие</th>
-                    {% else %}
-                      <th class="text-center"></th>
-                    {% endif %}
-
-
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {% for item in projectplan.additionalcostofproject_set.all %}
-                    <tr>
-                      <td id="cost_type_{{ item.id }}">
-                        <strong>{{ item.get_cost_type_display }}</strong></td>
-                      <td id="comment_{{ item.id }}">{{ item.comment }}</td>
-                      <td id="amount_{{ item.id }}">{{ item.amount|floatformat:"2g" }} сўм</td>
-                      {#                                         <td style="display:none;"#}
-                      {#                        id="project_total_price_by_stage_and_task">{{ item.amount }}</td>#}
-                      <td>
-                        {% if projectplan.project_status is 1 %}
-                          <div class="d-flex">
-                            <a class="mx-2 additional-cost-edit-row"
-                               href="{% url 'project:additionalcost-list' %}{{ item.id }}/"
-                               data-store-id="{{ item.amount }}"
-                            ><i class="bx bx-edit-alt me-1"></i></a
-                            >
-                            <a class="mx additional-cost-delete-row"
-                               data-store-id="{{ item.amount }}"
-                               href="{% url 'project:additionalcost-list' %}{{ item.id }}/"
-                            ><i class="bx bx-trash me-1"></i></a
-                            >
-                          </div>
-                        {% endif %}
-                      </td>
-                    </tr>
-
-                  {% endfor %}
-                  <tr>
-                    {% if project.additionalcostofproject_set.all %}
-                      <td colspan="2" class="text-center"><b>Общая cтоимость проекта <br>+
-                        Дополнительные
-                        расходы</b></td>
-                      <td colspan="2" class="text-danger fw-bold text-center"
-                          id="total-price-with-additional-cost-update-part"
-
-                      >
-
-                        {% if project.project_status == 1 %}
-
-                          {{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм
-                        {% else %}
-                          {{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм
-                        {% endif %}
-
-                      </td>
-
-                    {% endif %}
-
-                  </tr>
-                  <td style="display:none;" id="total-price-with-additional-cost">
-                    {{ project.total_price_with_additional_cost }}
-                  </td>
-                  <td style="display:none;" id="project-additional-cost">
-                    {{ project.additional_cost }}
-                  </td>
-
-                  </tbody>
-
-                </table>
               </div>
+
+              <div class="col-sm-1">
+                <div class="btn-group">
+
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary btn-icon dropdown-toggle hide-arrow"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a type="button" class="dropdown-item">➕ Комментария</a></li>
+                    <li><a type="button" class="dropdown-item" data-toggle="modal"
+                           data-target="#additional-cost-modal">➕ Доп. расходы</a></li>
+
+                  </ul>
+
+
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -671,7 +582,56 @@
       </div>
     </form>
   </div>
+  <div class="modal fade" id="additional-cost-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCenterTitle">Добавит
+            дополнительные расходы</h5></div>
+        <div class="modal-body">
+          <form id="additional-cost-form-modal" method="POST"
+                action="{% url 'additional_cost:additionalcost-list' %}">
+            {% csrf_token %}
+            <input type="hidden" name="project" value="{{ projectplan.id }}">
 
 
+            <div class="mb-3">
+              <label for="exampleFormControlSelect1" class="form-label">Доп. расходы</label>
+              <select class="form-control" name="cost_type" id="cost_type"
+                      aria-label="Default select example">
+
+                <option name="cost_type" value="1">Аутсорсинг</option>
+                <option name="cost_type" value="2">Оборудование</option>
+                <option name="cost_type" value="3" selected>Прочие расходы</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="exampleFormControlTextarea1" class="form-label">Комментария</label>
+              <textarea class="form-control" id="comment"
+                        name="comment" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Сумма</label>
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                name="amount"
+
+              />
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+              <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

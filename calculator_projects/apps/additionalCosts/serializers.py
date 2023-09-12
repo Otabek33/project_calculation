@@ -19,10 +19,9 @@ class AdditionalCostSerializer(serializers.ModelSerializer):
         representation["cost_type_name"] = instance.get_cost_type_display()
         return representation
 
-    def save(self, *args, **kwargs):
-        instance = super().save(*args, **kwargs)
-        instance.process_update_total_price_after_add()
-        return instance
+    # def save(self, *args, **kwargs):
+    #     instance = super().save(*args, **kwargs)
+    #     return instance
 
     def update(self, instance, validated_data):
         instance.cost_type = validated_data.get('cost_type')
