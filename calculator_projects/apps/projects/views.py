@@ -171,7 +171,6 @@ class ProjectPlanStageThree(DetailView):
         project_plan.save()
         project_plan.process_formation_fields_with_additional_cost()
         project_plan.save()
-        print(total_price_with_margin, "====/n=====", tax_amount, "====/n=====", margin_amount)
         return redirect("projects:project_plan_final_view", pk=pk)
 
 
@@ -183,6 +182,12 @@ class ProjectPlanFinalView(DetailView):
     tm_path = "projects/project_plan/"
     tm_name = "project_plan_final_view.html"
     template_name = f"{tm_path}{tm_name}"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs["pk"]
+        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False)
+        context['stage_plan_list'] = stage_plan
+        return context
 
 
 project_plan_final_view = ProjectPlanFinalView.as_view()

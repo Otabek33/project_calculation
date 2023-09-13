@@ -6,22 +6,29 @@
 {% endblock title %}
 
 {% block content %}
-  {% include 'projects/_includes/links.html' %}
-  {% include 'projects/_includes/steps.html' %}
+{#  {% include 'projects/_includes/steps.html' %}#}
   {#Project Passport#}
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card mb-4">
+  <div class="row page-titles mx-0">
+  <div class="col-sm-12">
+    <div class="welcome-text text-center">
+      <h4>{{ projectplan.name }}</h4>
 
-        <div class="card-header d-flex justify-content-between align-items-center">
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-around">
+      <div class="col-6 card border-0">
+
+        <div class="card-header">
           <h5 class="mb-0">Паспорт проекта</h5>
           <small class="text-muted float-end"></small>
         </div>
-        <div class="card-body">
+        <div class="card-body border-0">
           <table id="document-passport" class="table table_left">
             <tr>
               <th>1</th>
-              <th>ID</th>
+              <th class="w-30">ID</th>
               <td>{{ projectplan.id }}</td>
             </tr>
             <tr>
@@ -53,8 +60,6 @@
               <td>{{ projectplan.get_source_of_financing_display }}
               </td>
             </tr>
-
-
             <tr>
               <th>7</th>
               <th>Включен ли проект в государственную программу развития
@@ -74,8 +79,6 @@
 
               <td>{{ projectplan.get_customer_status_display }}</td>
             </tr>
-
-
             <tr id="download-conclusion-document">
               <th>9</th>
               <th>Заключение соответствующих экспертных организаций</th>
@@ -84,8 +87,6 @@
                 <a href="{{ projectplan.expert_conclusion.url }}">&nbspСкачать</a>
               </td>
             </tr>
-
-
             <tr>
 
               <th>10</th>
@@ -93,9 +94,23 @@
               <td>{{ projectplan.purpose|safe }}
               </td>
             </tr>
+
+
+          </table>
+
+        </div>
+      </div>
+      <div class="col-6 card border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0" style="display: none">ef</h5>
+          <small class="text-muted float-end"></small>
+        </div>
+        <div class="card-body">
+          <table class="table table_left table_right">
+            <tbody>
             <tr>
               <th>11</th>
-              <th>Задачи проекта</th>
+              <th class="w-30">Задачи проекта</th>
               <td>{{ projectplan.objective|safe }}
               </td>
             </tr>
@@ -124,8 +139,6 @@
                      data-trigger="hover"
               >{{ projectplan.created_by }}</a></td>
             </tr>
-
-
             <tr>
               <th>16</th>
               <th>Создан в</th>
@@ -138,40 +151,372 @@
               </th>
               <td>{{ projectplan.coefficient_of_project }}</td>
             </tr>
-
-
-          </table>
-
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Ответственный</h5>
-          <small class="text-muted float-end"></small>
-        </div>
-        <div class="card-body">
-          <table class="table table_left table_right">
-            <tbody>
-
             <tr>
-              <td>Проект менеджер</td>
-              <td> {{ projectplan.created_by }}</td>
+              <th>18</th>
+              <th>Проект менеджер
+              </th>
+              <td>{{ projectplan.created_by }}</td>
             </tr>
             <tr>
-              <td>Департамент</td>
-              <td>{{ projectplan.created_by.deportment }}
-              </td>
+              <th>19</th>
+              <th>Департамент
+              </th>
+              <td>{{ projectplan.created_by.deportment }}</td>
             </tr>
+
             </tbody>
           </table>
         </div>
 
       </div>
+    </div>
+
+
+  </div>
+  {#Project Plan#}
+  <div class="card mb-4">
+    <h5 class="card-header align-items-center text-center">
+      <span>Детальный план-график проекта:</span>
+    </h5>
+    <div class="card-body">
+      <div>
+        <table class="table table-bordered  table-responsive-sm">
+          <thead>
+          <tr class="text-center" style="background-color:  #494a79;color: white">
+            <th>Этап</th>
+            <th>Наименование</th>
+            <th>Дата<br>начало</th>
+            <th>Дата<br>окончание</th>
+            <th>Сроки <br>в днях</th>
+            <th>Сроки <br>в часах</th>
+            <th>Стоимость
+
+            </th>
+
+          </tr>
+          </thead>
+          <tbody>
+          {% for item in stage_plan_list %}
+            <tr id="stage-{{ item.id }}" class="text-center" style="background-color: #5f6082;color: #f6f6f6">
+              <td><strong>{{ item.stage_number }}</strong></td>
+              <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ item.description }}</strong></td>
+              <td><strong>{{ item.start_time|date:"d-m-Y" }}</strong></td>
+              <td><strong>{{ item.finish_time|date:"d-m-Y" }}</strong></td>
+              <td><strong>{{ item.duration_per_day }}</strong></td>
+              <td><strong>{{ item.duration_per_hour }}</strong></td>
+              <td><strong>{{ item.total_price|floatformat:"2g" }} сўм</strong></td>
+
+            </tr>
+            {% for task in item.task_list %}
+              {% if task.stage == item %}
+
+
+                <tr class="text-center">
+
+                  <td class="col-sm-1"></td>
+                  <td class="col-sm-5 text-left">{{ task.description }}</td>
+                  <td>{{ task.start_time|date:"d-m-Y" }}</td>
+                  <td>{{ task.finish_time|date:"d-m-Y" }}</td>
+                  <td>{{ task.duration_per_day }}</td>
+                  <td>{{ task.duration_per_hour }}</td>
+                  <td>{{ task.total_price|floatformat:"2g" }} сўм</td>
+
+                </tr>
+
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          <tr class="text-center" style="background-color:  #494a79;color: white">
+
+
+            <td><strong>{{ projectplan.stage_counter }}</strong></td>
+            <td></td>
+            <td><strong>{{ projectplan.start_time|date:"d-m-Y" }}</strong></td>
+            <td><strong>{{ projectplan.finish_time|date:"d-m-Y" }}</strong></td>
+            <td><strong>{{ projectplan.duration_per_day }}</strong></td>
+            <td><strong>{{ projectplan.duration_per_hour }}</strong></td>
+            <td>
+              <strong>{{ projectplan.total_price_stage_and_task|floatformat:"2g" }}
+                сўм</strong></td>
+            <td style="display:none;"
+                id="project_total_price_by_stage_and_task">{{ projectplan.total_price_stage_and_task }}</td>
+
+
+            <td style="display:none;"
+                id="project_tax_amount">{{ projectplan.contributions_to_IT_park }}</td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
     </div>
 
+  </div>
+  <div class="card mb-4 ">
+    <h5 class="card-header align-items-center text-center">
+            <span>Смета калькуляции стоимости
+                    затрат на реализацию проекта:</span>
+    </h5>
+    <div class="card-body">
+      <div id="detail_view_labour_cost ">
+        <div class="row text-left">
+          <div class="col-5 ">
+
+
+            <table class="table table-bordered">
+              <tbody>
+
+
+              <tr>
+                <td class=" col-xs-4 col-sm-7 active"><strong>Количество этап: </strong></td>
+                <td>{{ projectplan.stage_counter }} шт
+                </td>
+              </tr>
+              <tr>
+                <td class="col-xs-4 col-sm-7 active"><strong> Ориентированные сроки начала
+                  : </strong>
+                </td>
+                <td>
+                  {{ projectplan.start_time|date:"d-m-Y" }}
+                </td>
+              </tr>
+              <tr>
+                <td class="col-xs-4 col-sm-7 active"><strong>Ориентированные сроки окончания проекта
+                  : </strong></td>
+                <td>
+                  {{ projectplan.finish_time|date:"d-m-Y" }}
+                </td>
+              </tr>
+              <tr>
+                <td class="col-xs-4 col-sm-7 active"><strong>Длителность проекта в днях: </strong>
+                </td>
+                <td>
+                  {{ projectplan.duration_per_day }} дня
+                </td>
+              </tr>
+              <tr>
+                <td class="col-xs-4 col-sm-7 active"><strong> Длителность проекта в часах: </strong>
+                </td>
+                <td>
+                  {{ projectplan.duration_per_hour }} часа
+                </td>
+              </tr>
+
+
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-sm ml-lg-6">
+            <div class="d-flex justify-content-between">
+
+              <div class="col-sm-12 ml-lg-4 ">
+                <div class="d-flex justify-content-between">
+                  <table id="example" class="table table-bordered">
+                    <thead class="text-left">
+                    <tr>
+                      <th scope="col" class="text-left">Статья затрат</th>
+                      <th scope="col" class="text-left">Норма, в %</th>
+                      <th scope="col" class="text-left">Всего по проекту</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td class="col-3 text-left"><b>Себестоимость реализованной услуги (другие
+                        издержки без ФОТ)</b>
+                      </td>
+                      <td class="col-1"
+                          id="cost_price_of_project_percent">{{ projectplan.percent_cost_price|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td style="display:none;"
+                          id="cost_price_of_project_amount">{{ projectplan.cost_price }}</td>
+                      <td class="col-2">{{ projectplan.cost_price|floatformat:"2g" }} сўм</td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left"><b>Себестоимость (Расходы на опл.труда)</b></td>
+                      <td id="salary_cost_of_project_percent">{{ projectplan.percent_salary_cost|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td style="display:none;"
+                          id="salary_cost_of_project_amount">{{ projectplan.salary_cost }}</td>
+                      <td>{{ projectplan.salary_cost|floatformat:"2g" }} сўм</td>
+
+                    </tr>
+                    <tr>
+
+                      <td class="col-3 text-left"><b>Косвенные производственные затраты</b></td>
+                      <td
+                        id="period_expenses_of_project_percent">{{ projectplan.percent_period_expenses|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td style="display:none;"
+                          id="period_expenses_of_project_amount">{{ projectplan.period_expenses }}</td>
+                      <td>{{ projectplan.period_expenses|floatformat:"2g" }} сўм</td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left"><b>Расходы на взносы IT-парк</b></td>
+                      <td> 1 %</td>
+                      <td id="project_tax_update_part">{{ projectplan.contributions_to_IT_park|floatformat:"2g" }}
+                        сўм
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left"><b>Чистый прибыль</b></td>
+                      <td class="col-1">
+                        {% if projectplan.project_status == 1 %}
+
+
+                          <div class="row">
+
+                            <div class="text-center col-sm-10"><strong><input
+                              class="form-control no-border"
+                              maxlength="2"
+                              size="2"
+                              id="margin_percentage"
+                              onkeyup="calculateTotalPriceWithMargin()"
+                              value="{{ projectplan.percent_margin|floatformat:"2g" }}"></strong>
+                            </div>
+
+
+                          </div>
+
+
+                          <td id="changed_margin">
+
+                            {{ projectplan.margin|floatformat:"2g" }} сўм
+                          </td>
+                        {% else %}
+
+                          <strong>{{ projectplan.percent_margin|floatformat:"2g" }} %</strong>
+
+                          <td>
+
+                            {{ projectplan.margin|floatformat:"2g" }} сўм
+                          </td>
+
+                        {% endif %}
+
+
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="text-center"><b>Общая cтоимость проекта</b></td>
+                      <td class="text-danger fw-bold font-weight-bold" onkeyup="selfWriteTotalPriceOfProject()"
+                      >
+                          {{ projectplan.total_price_with_margin|floatformat:"2g" }} сўм
+
+                      </td>
+
+                      <td style="display:none;"
+                          id="project-total-price-hidden">{{ projectplan.total_price }}</td>
+
+                    </tr>
+
+                    </tbody>
+
+                  </table>
+
+
+                </div>
+                <div id="accordion-one" class="accordion">
+                  <div class="accordion__item">
+                    <div class="accordion__header" data-toggle="collapse" data-target="#default_collapseOne">
+                      <span class="accordion__header--text">Дополнительные расходы</span>
+                      <span class="accordion__header--indicator"></span>
+                    </div>
+                    <div id="default_collapseOne" class="collapse accordion__body show" data-parent="#accordion-one">
+                      <div class="accordion__body--text" style="margin-top: 10px;padding: 0">
+                        <table id="additional-cost-table" class="table table-bordered">
+                          <thead class="text-center">
+                          <tr>
+                            <th class="text-center">Статья затрат</th>
+                            <th class="text-center">Комментария</th>
+                            <th class="text-center">Сумма</th>
+
+
+
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {% for item in projectplan.additional_cost_list %}
+                            <tr>
+                              <td id="cost_type_{{ item.id }}">
+                                <strong>{{ item.get_cost_type_display }}</strong></td>
+                              <td id="comment_{{ item.id }}" class="text-center">{{ item.comment }}</td>
+                              <td id="amount_{{ item.id }}" class="text-center">{{ item.amount|floatformat:"2g" }} сўм
+                              </td>
+
+                            </tr>
+
+                          {% endfor %}
+                          <tr>
+                            {% if projectplan.additional_cost_exist %}
+                              <td colspan="2" class="text-center"><b>Общая cтоимость проекта <br>+
+                                Дополнительные
+                                расходы</b></td>
+                              <td colspan="2"
+                                  id="total-price-with-additional-cost-update-part"
+
+                              ><p class="text-center text-danger fw-bold font-weight-bold">
+
+                                {{ projectplan.total_price_with_additional_cost|floatformat:"2g" }} сўм</p>
+
+                              </td>
+
+                            {% endif %}
+
+                          </tr>
+                          <td style="display:none;" id="total-price-with-additional-cost">
+                            {{ projectplan.total_price_with_additional_cost }}
+                          </td>
+                          <td style="display:none;" id="project-additional-cost">
+                            {{ projectplan.additional_cost }}
+                          </td>
+
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div id="info_how_much_project" style="font-weight: 700; font-family: var(--bs-body-font-family);">
+          <h4 class="card-footer text-center"> Стоимость работ, порядок и сроки
+            расчетов:</br>
+            Продолжительность проекта составит <span
+              class=" text-danger fw-bold">{{ projectplan.duration_per_day }}</span>
+            рабочих дня с предварительным
+            бюджетом – <span class=" text-danger fw-bold" id="total_price_of_project_in_footer_part">
+                            {{ projectplan.total_price_with_additional_cost|floatformat:"2g" }} сўм</span>
+            , Без НДС.</h4>
+
+        </div>
+
+
+      </div>
+    </div>
   </div>
 
 
