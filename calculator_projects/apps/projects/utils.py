@@ -48,3 +48,14 @@ def checking_stage_exist(project):
         deleted_status=False, projectPlan=project
     ).exists()
     return stage_list
+
+
+def project_plan_fields_regex(total_price_with_margin: str, tax_amount: str, margin_amount: str):
+    from decimal import Decimal
+    total_price_with_margin = (
+        total_price_with_margin.replace(" ", "").replace(",", ".").replace("сўм", "")
+    )
+    project_tax = tax_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
+    margin = margin_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
+
+    return [Decimal(total_price_with_margin), Decimal(project_tax), Decimal(margin)]

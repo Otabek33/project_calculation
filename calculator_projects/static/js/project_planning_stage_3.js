@@ -193,3 +193,17 @@ $(".additional-cost-delete-row").on("click", function (e) {
         }
     })
 })
+
+
+$(".sending_button").on("click", function (e) {
+    var btn = $(this);
+
+    let total_price_of_project = document.getElementById('total_price_of_project').value
+    let project_tax_update_part = document.getElementById('project_tax_update_part')
+    let changed_margin = document.getElementById('changed_margin')
+
+    document.getElementById('margin_for_backend').setAttribute('value', changed_margin.innerText)
+    document.getElementById('tax_for_backend').setAttribute('value', project_tax_update_part.innerText)
+    document.getElementById('total_price_with_margin_for_backend').setAttribute('value', total_price_of_project)
+
+});

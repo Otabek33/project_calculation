@@ -227,7 +227,7 @@ class ProjectPlan(models.Model):
         ]
         self.total_price_with_margin = self.total_price_stage_and_task
 
-    def process_formation_fields_with_percentage(self):
+    def process_formation_fields_with_labour_cost(self):
         from calculator_projects.apps.labour_costs.models import LabourCost
         labour_cost = LabourCost.objects.get(calculation_for_projects=True)
         self.salary_cost = (
@@ -245,7 +245,9 @@ class ProjectPlan(models.Model):
         self.period_expenses = (
             self.total_price_stage_and_task * labour_cost.percent_period_expenses
         )
+        self.process_formation_four_fields_percentage()
 
+    def process_formation_four_fields_percentage(self):
         self.percent_cost_price = (
             self.cost_price / self.total_price_stage_and_task * 100
         )
@@ -268,7 +270,7 @@ class ProjectPlan(models.Model):
             additional_cost_of_project = add_costs.aggregate(total_amount=Sum("amount"))
             self.additional_cost = additional_cost_of_project["total_amount"]
             self.total_price_with_additional_cost = (
-                self.total_price_stage_and_task
+                self.total_price_with_margin
                 + additional_cost_of_project["total_amount"]
             )
         else:

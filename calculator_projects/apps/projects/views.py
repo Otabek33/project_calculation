@@ -1,16 +1,18 @@
+import json
 from datetime import datetime, timezone
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
-    checking_stage_exist
+    checking_stage_exist, project_plan_fields_regex
 from calculator_projects.apps.stages.models import StagePlan
 from calculator_projects.apps.tasks.models import TaskPlan
+from calculator_projects.utils.helpers import is_ajax
 
 
 # Create your views here.
@@ -106,7 +108,7 @@ class ProjectPlanStageTwo(DetailView):
         else:
             project_plan.project_creation_stage = ProjectCreationStage.STAGE_4
             project_plan.process_formation_fields_from_stage()
-            project_plan.process_formation_fields_with_percentage()
+            project_plan.process_formation_fields_with_labour_cost()
             project_plan.process_formation_fields_with_additional_cost()
             project_plan.updated_at = datetime.now(tz=timezone.utc)
             project_plan.updated_by = self.request.user
@@ -150,5 +152,37 @@ class ProjectPlanStageThree(DetailView):
         context['stage_plan_list'] = stage_plan
         return context
 
+    def post(self, request, *args, **kwargs):
+        total_price_with_margin = request.POST.get("total_price_with_margin_for_backend")
+        tax_amount = request.POST.get("tax_for_backend")
+        margin_amount = request.POST.get("margin_for_backend")
+        three_fields = project_plan_fields_regex(total_price_with_margin, tax_amount, margin_amount)
+        pk = kwargs.get("pk")
+        project_plan = get_object_or_404(ProjectPlan, pk=pk)
+        project_plan.updated_by = self.request.user
+        project_plan.updated_at = datetime.now(tz=timezone.utc)
+        project_plan.project_creation_stage = ProjectCreationStage.STAGE_5
+        project_plan.project_status = ProjectStatus.CONFORM
+        project_plan.total_price_with_margin = three_fields[0]
+        project_plan.contributions_to_IT_park = three_fields[1]
+        project_plan.margin = three_fields[2]
+        project_plan.save()
+        project_plan.process_formation_four_fields_percentage()
+        project_plan.save()
+        project_plan.process_formation_fields_with_additional_cost()
+        project_plan.save()
+        print(total_price_with_margin, "====/n=====", tax_amount, "====/n=====", margin_amount)
+        return redirect("projects:project_plan_final_view", pk=pk)
+
 
 project_plan_stage_three = ProjectPlanStageThree.as_view()
+
+
+class ProjectPlanFinalView(DetailView):
+    model = ProjectPlan
+    tm_path = "projects/project_plan/"
+    tm_name = "project_plan_final_view.html"
+    template_name = f"{tm_path}{tm_name}"
+
+
+project_plan_final_view = ProjectPlanFinalView.as_view()

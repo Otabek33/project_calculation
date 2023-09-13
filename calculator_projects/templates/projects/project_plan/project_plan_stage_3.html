@@ -449,8 +449,7 @@
                             <th class="text-center">Статья затрат</th>
                             <th class="text-center">Комментария</th>
                             <th class="text-center">Сумма</th>
-                              <th class="text-center">Действие</th>
-
+                            <th class="text-center">Действие</th>
 
 
                           </tr>
@@ -461,23 +460,24 @@
                               <td id="cost_type_{{ item.id }}">
                                 <strong>{{ item.get_cost_type_display }}</strong></td>
                               <td id="comment_{{ item.id }}" class="text-center">{{ item.comment }}</td>
-                              <td id="amount_{{ item.id }}" class="text-center">{{ item.amount|floatformat:"2g" }} сўм</td>
+                              <td id="amount_{{ item.id }}" class="text-center">{{ item.amount|floatformat:"2g" }} сўм
+                              </td>
                               {#                                         <td style="display:none;"#}
                               {#                        id="project_total_price_by_stage_and_task">{{ item.amount }}</td>#}
                               <td>
 
-                                  <div class="d-flex justify-content-around">
-                                    <a class="mx-2 additional-cost-edit-row"  style="font-size: 1.5em;"
-                                       href="{% url 'additional_cost:additionalcost-list' %}{{ item.id }}/"
-                                       data-store-id="{{ item.amount }}"
-                                    ><i class="fa fa-edit text-success"></i></a
-                                    >
-                                    <a class="mx additional-cost-delete-row"  style="font-size: 1.5em;"
-                                       data-store-id="{{ item.amount }}"
-                                       href="{% url 'additional_cost:additionalcost-list' %}{{ item.id }}/"
-                                    ><i class="ti-trash"></i></a
-                                    >
-                                  </div>
+                                <div class="d-flex justify-content-around">
+                                  <a class="mx-2 additional-cost-edit-row" style="font-size: 1.5em;"
+                                     href="{% url 'additional_cost:additionalcost-list' %}{{ item.id }}/"
+                                     data-store-id="{{ item.amount }}"
+                                  ><i class="fa fa-edit text-success"></i></a
+                                  >
+                                  <a class="mx additional-cost-delete-row" style="font-size: 1.5em;"
+                                     data-store-id="{{ item.amount }}"
+                                     href="{% url 'additional_cost:additionalcost-list' %}{{ item.id }}/"
+                                  ><i class="ti-trash"></i></a
+                                  >
+                                </div>
 
                               </td>
                             </tr>
@@ -569,18 +569,21 @@
 
   {#Footer next previous#}
   <div class="card mb-4 p-3">
-    <form action="" method="post">
-      {% csrf_token %}
+
       <div class="d-flex justify-content-between">
-        <a href="#"
+        <a href="{% url 'projects:project_creation_stage_two' projectplan.id %}"
            class="btn btn-primary">&laquo;
           Назад</a>
-        <button type="submit" href="#"
-                class=" btn btn-primary">Отправить
+        <button id="btnSendToConfirm"
+                type="button"
+                class="sending_button btn btn-primary"
+                data-toggle="modal"
+                data-target="#sendingConformationModal"
+        >Отправить
           &raquo;
         </button>
       </div>
-    </form>
+
   </div>
   <div class="modal fade" id="additional-cost-modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -637,53 +640,109 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header"><h5 class="modal-title" id="modalCenterTitle">Добавит
-                    дополнительные расходы</h5></div>
-                <div class="modal-body">
-                    <form id="additional-cost-update-form-modal" method="POST"
-                          action="{% url 'additional_cost:additionalcost-list' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="project" value="{{ projectplan.id }}">
-                        <input type="hidden" id="amount-update-hidden">
+          дополнительные расходы</h5></div>
+        <div class="modal-body">
+          <form id="additional-cost-update-form-modal" method="POST"
+                action="{% url 'additional_cost:additionalcost-list' %}">
+            {% csrf_token %}
+            <input type="hidden" name="project" value="{{ projectplan.id }}">
+            <input type="hidden" id="amount-update-hidden">
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlSelect1" class="form-label">Доп. расходы</label>
-                            <select class="form-control" name="cost_type" id="cost_type"
-                                    aria-label="Default select example">
-                                <option name="cost_type" value="1">Аутсорсинг</option>
-                                <option name="cost_type" value="2">Оборудование</option>
-                                <option name="cost_type" value="3" selected>Прочие расходы</option>
-                            </select>
-                        </div>
+            <div class="mb-3">
+              <label for="exampleFormControlSelect1" class="form-label">Доп. расходы</label>
+              <select class="form-control" name="cost_type" id="cost_type"
+                      aria-label="Default select example">
+                <option name="cost_type" value="1">Аутсорсинг</option>
+                <option name="cost_type" value="2">Оборудование</option>
+                <option name="cost_type" value="3" selected>Прочие расходы</option>
+              </select>
+            </div>
 
-                        <div>
-                            <label for="exampleFormControlTextarea1" class="form-label">Комментария</label>
-                            <textarea class="form-control" id="comment"
-                                      name="comment" rows="3"></textarea>
-                        </div>
+            <div>
+              <label for="exampleFormControlTextarea1" class="form-label">Комментария</label>
+              <textarea class="form-control" id="comment"
+                        name="comment" rows="3"></textarea>
+            </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Сумма</label>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount"
-                                    name="amount"
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Сумма</label>
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                name="amount"
 
-                            />
-                        </div>
+              />
+            </div>
 
 
-                        <div class="modal-footer">
+            <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
               <button type="submit" class="btn btn-primary">Сохранить</button>
             </div>
-                    </form>
+          </form>
 
-                </div>
-            </div>
         </div>
+      </div>
     </div>
+  </div>
+  {#  sendingConformationModal#}
+
+  {#    <div class="modal fade" id="sendingConformationModal">#}
+  {#    <div class="modal-dialog modal-dialog-centered" role="document">#}
+  {#      <div class="modal-content">#}
+  {#        <div class="modal-header">#}
+  {#                    <h5 class="modal-title" id="modalCenterTitle">Вы действительно хотите отправить паспорт проекта<br>#}
+  {#                        на подтверждение?</h5>#}
+  {#                    <button#}
+  {#                            type="button"#}
+  {#                            class="btn-close"#}
+  {#                            data-bs-dismiss="modal"#}
+  {#                            aria-label="Close"#}
+  {#                    ></button>#}
+  {#                </div>#}
+  {##}
+  {#                <div class="modal-footer">#}
+  {#                    <form method="post">#}
+  {#                        {% csrf_token %}#}
+  {#                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Закрыть</button>#}
+  {#                        <button type="button" onclick="$('#sendingConformationModal').modal('hide')"#}
+  {#                                data-href-template="#"#}
+  {#                                class="conformation_button btn btn-primary" data-dismiss="modal">Отправить#}
+  {#                        </button>#}
+  {#                    </form>#}
+  {#                </div>#}
+  {#            </div>#}
+  {#        </div>#}
+  {#    </div>#}
 
 
+
+
+  <div class="modal fade" id="sendingConformationModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Вы действительно хотите отправить паспорт проекта<br>
+            на подтверждение?</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <form method="post" action="{% url 'projects:project_creation_stage_three' projectplan.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="margin_for_backend" id="margin_for_backend" value="">
+            <input type="hidden" name="tax_for_backend" id="tax_for_backend" value="">
+            <input type="hidden" name="total_price_with_margin_for_backend" id="total_price_with_margin_for_backend" value="">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            <button type="submit"
+                    class=" btn btn-primary">Отправить
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
