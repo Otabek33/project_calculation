@@ -116,7 +116,8 @@ $("#additional-cost-form-modal").on('submit', function (e) {
             "X-CSRFToken": csrftoken
         },
         success: function () {
-            window.location.reload()
+            localStorage.setItem("msg", "Дополнительный расход успешно добавлен")
+            window.location.reload();
         },
         error: function (err) {
             console.log(err)
@@ -151,9 +152,6 @@ $("#additional-cost-update-form-modal").on('submit', function (e) {
     e.preventDefault()
     let form = $(this);
     let actionUrl = form.attr('action');
-    let amount_update_hidden = $("#amount-update-hidden")
-    // console.log(amount_update_hidden.val())
-
 
     data = form.serialize()
     $.ajax({
@@ -164,7 +162,8 @@ $("#additional-cost-update-form-modal").on('submit', function (e) {
             "X-CSRFToken": csrftoken
         },
         success: function (data) {
-            window.location.reload()
+            localStorage.setItem("msg", "Дополнительный расход успешно обновлен")
+            window.location.reload();
         },
         error: function (err) {
             console.log(err)
@@ -183,8 +182,9 @@ $(".additional-cost-delete-row").on("click", function (e) {
         headers: {
             "X-CSRFToken": csrftoken
         },
-        success: function (data) {
-            window.location.reload()
+        success: function () {
+            localStorage.setItem("msg", "Дополнительный расход успешно удален")
+            window.location.reload();
         },
         error: function (err) {
             toastMixin.fire({
