@@ -4,12 +4,10 @@ from rest_framework import status, viewsets
 from rest_framework.authentication import (BasicAuthentication,
                                            SessionAuthentication)
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 from .models import AdditionalCostPlan
 from .serializers import (AdditionalCostSerializer,
                           )
-from ..projects.models import ProjectPlan
 
 
 # Create your views here.

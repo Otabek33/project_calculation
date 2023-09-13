@@ -93,15 +93,15 @@ function changeTotalPriceOfProjectWithAdditionalCost(changed_total_price_of_proj
     let total_price_of_project_in_footer_part = $("#total_price_of_project_in_footer_part")
 
     let total_price_with_additional_cost_update_part = $("#total-price-with-additional-cost-update-part")
-//     let project_additional_cost = $("#project-additional-cost")
-// + parseFloat(project_additional_cost.text())
-    let changed_amount_of_project_with_additional_cost = changed_total_price_of_project
+    let project_additional_cost = $("#project-additional-cost")
+    let changed_amount_of_project_with_additional_cost = changed_total_price_of_project + parseFloat(project_additional_cost.text())
 
     total_price_with_additional_cost.text(changed_amount_of_project_with_additional_cost)
     total_price_of_project_in_footer_part.text(changed_amount_of_project_with_additional_cost.formatMoney(2, ' ', ',') + " сўм")
     total_price_with_additional_cost_update_part.text(changed_amount_of_project_with_additional_cost.formatMoney(2, ' ', ',') + " сўм")
 
 }
+
 $("#additional-cost-form-modal").on('submit', function (e) {
     e.preventDefault()
 
