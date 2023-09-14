@@ -282,3 +282,7 @@ class ProjectPlan(models.Model):
 
     def additional_cost_list(self):
         return self.additionalcostplan_set.filter(deleted_status=False)
+
+    def stage_list(self):
+        from calculator_projects.apps.stages.models import StagePlan
+        return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False)

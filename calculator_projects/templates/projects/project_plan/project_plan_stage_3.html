@@ -570,19 +570,19 @@
   {#Footer next previous#}
   <div class="card mb-4 p-3">
 
-      <div class="d-flex justify-content-between">
-        <a href="{% url 'projects:project_creation_stage_two' projectplan.id %}"
-           class="btn btn-primary">&laquo;
-          Назад</a>
-        <button id="btnSendToConfirm"
-                type="button"
-                class="sending_button btn btn-primary"
-                data-toggle="modal"
-                data-target="#sendingConformationModal"
-        >Отправить
-          &raquo;
-        </button>
-      </div>
+    <div class="d-flex justify-content-between">
+      <a href="{% url 'projects:project_creation_stage_two' projectplan.id %}"
+         class="btn btn-primary">&laquo;
+        Назад</a>
+      <button id="btnSendToConfirm"
+              type="button"
+              class="sending_button btn btn-primary"
+              data-toggle="modal"
+              data-target="#sendingConformationModal"
+      >Отправить
+        &raquo;
+      </button>
+    </div>
 
   </div>
   <div class="modal fade" id="additional-cost-modal">
@@ -686,39 +686,6 @@
       </div>
     </div>
   </div>
-  {#  sendingConformationModal#}
-
-  {#    <div class="modal fade" id="sendingConformationModal">#}
-  {#    <div class="modal-dialog modal-dialog-centered" role="document">#}
-  {#      <div class="modal-content">#}
-  {#        <div class="modal-header">#}
-  {#                    <h5 class="modal-title" id="modalCenterTitle">Вы действительно хотите отправить паспорт проекта<br>#}
-  {#                        на подтверждение?</h5>#}
-  {#                    <button#}
-  {#                            type="button"#}
-  {#                            class="btn-close"#}
-  {#                            data-bs-dismiss="modal"#}
-  {#                            aria-label="Close"#}
-  {#                    ></button>#}
-  {#                </div>#}
-  {##}
-  {#                <div class="modal-footer">#}
-  {#                    <form method="post">#}
-  {#                        {% csrf_token %}#}
-  {#                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Закрыть</button>#}
-  {#                        <button type="button" onclick="$('#sendingConformationModal').modal('hide')"#}
-  {#                                data-href-template="#"#}
-  {#                                class="conformation_button btn btn-primary" data-dismiss="modal">Отправить#}
-  {#                        </button>#}
-  {#                    </form>#}
-  {#                </div>#}
-  {#            </div>#}
-  {#        </div>#}
-  {#    </div>#}
-
-
-
-
   <div class="modal fade" id="sendingConformationModal">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -734,7 +701,8 @@
             {% csrf_token %}
             <input type="hidden" name="margin_for_backend" id="margin_for_backend" value="">
             <input type="hidden" name="tax_for_backend" id="tax_for_backend" value="">
-            <input type="hidden" name="total_price_with_margin_for_backend" id="total_price_with_margin_for_backend" value="">
+            <input type="hidden" name="total_price_with_margin_for_backend" id="total_price_with_margin_for_backend"
+                   value="">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             <button type="submit"
                     class=" btn btn-primary">Отправить

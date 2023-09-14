@@ -21,9 +21,10 @@ class StagePlanSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
         instance = super().save(**kwargs)
         instance.process_price()
+        instance.process_formation_fields_with_labour_cost_stage()
         return instance
 
-    def update(self, **kwargs):
-        instance = super().save(**kwargs)
+    def update(self, instance, validated_data):
         instance.process_price()
-        return instance
+        instance.process_formation_fields_with_labour_cost_stage()
+        return super().update(instance, validated_data)

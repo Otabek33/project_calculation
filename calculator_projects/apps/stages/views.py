@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from rest_framework import status, viewsets
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -20,3 +22,6 @@ class StagePlanViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user, updated_at=datetime.now())
