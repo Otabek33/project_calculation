@@ -152,7 +152,7 @@
         </tr>
         </thead>
         <tbody class="text-center" id="stage-table">
-        {% for item in projectplan.stageplan_set.all %}
+        {% for item in projectplan.stage_list %}
           <tr id="stage-{{ item.id }}">
             <td>{{ item.stage_number }}</td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ item.description }}</strong></td>
@@ -287,7 +287,7 @@
             <div class="row g-2">
               <div class="col-md-2">
                 <label for="step" class="form-label">Этап</label>
-                <input type="number" name="stage_number" id="step" class="form-control" placeholder="1"
+                <input type="number" name="stage_number" id="step" class="form-control"
                        required/>
               </div>
               <div class="col-md-5 mb-0">
