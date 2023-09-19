@@ -21,8 +21,8 @@ class TaskPlanViewSet(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return TaskPlan.objects.filter(deleted_status=False)
+    # def get_queryset(self):
+    #     return TaskPlan.objects.filter(deleted_status=False).order_by('start_time')
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user, updated_at=datetime.now())

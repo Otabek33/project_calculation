@@ -130,7 +130,7 @@ class TaskPlanListView(ListView):
         stage_plan = StagePlan.objects.get(id=pk)
         context['stage_plan'] = stage_plan
         context['project_plan'] = ProjectPlan.objects.get(id=stage_plan.projectPlan.id)
-        context['task_list'] = TaskPlan.objects.filter(stage=stage_plan, deleted_status=False)
+        context['task_list'] = TaskPlan.objects.filter(stage=stage_plan, deleted_status=False).order_by('start_time')
 
         return context
 

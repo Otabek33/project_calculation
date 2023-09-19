@@ -23,6 +23,9 @@ class TaskSerializer(serializers.ModelSerializer):
         instance = super().save(**kwargs)
         instance.project = instance.stage.projectPlan
         instance.process_price_task()
-
         return instance
+
+    def update(self, instance, validated_data):
+        instance.process_price_task()
+        return super().update(instance, validated_data)
 
