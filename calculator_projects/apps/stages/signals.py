@@ -8,6 +8,7 @@ from calculator_projects.apps.stages.utils import project_plan_update
 @receiver(post_save, sender=StagePlan)
 def update_project(sender, instance, created, **kwargs):
     "After creation stage or after updating stage every time signal updates project plan"
+
     project_plan_update(instance)
 
 

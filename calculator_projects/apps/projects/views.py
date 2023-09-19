@@ -1,18 +1,17 @@
-import json
 from datetime import datetime, timezone
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
+
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
-    checking_stage_exist, project_plan_fields_regex
+    checking_stage_exist, project_plan_fields_regex, update_stages
 from calculator_projects.apps.stages.models import StagePlan
+
 from calculator_projects.apps.tasks.models import TaskPlan
-from calculator_projects.utils.helpers import is_ajax
 
 
 # Create your views here.
@@ -107,6 +106,7 @@ class ProjectPlanStageTwo(DetailView):
             return redirect(request.META["HTTP_REFERER"])
         else:
             project_plan.project_creation_stage = ProjectCreationStage.STAGE_4
+            project_plan.total_price_with_margin = project_plan.total_price_stage_and_task
             project_plan.process_formation_fields_with_additional_cost()
             project_plan.updated_at = datetime.now(tz=timezone.utc)
             project_plan.updated_by = self.request.user
@@ -160,8 +160,18 @@ class ProjectPlanStageThree(DetailView):
         project_plan = get_object_or_404(ProjectPlan, pk=pk)
         project_plan.updated_by = self.request.user
         project_plan.updated_at = datetime.now(tz=timezone.utc)
-        project_plan.project_creation_stage = ProjectCreationStage.STAGE_5
-        project_plan.project_status = ProjectStatus.CONFORM
+        # project_plan.project_creation_stage = ProjectCreationStage.STAGE_5
+        # project_plan.project_status = ProjectStatus.CONFORM
+        print("ishladi")
+        print("ishladi")
+        print("ishladi")
+        print("ishladi")
+        print("ishladi")
+        print(three_fields[0])
+        print(three_fields[0])
+        print(three_fields[0])
+        print("ishladi")
+        print("ishladi")
         project_plan.total_price_with_margin = three_fields[0]
         project_plan.contributions_to_IT_park = three_fields[1]
         project_plan.margin = three_fields[2]
@@ -170,7 +180,11 @@ class ProjectPlanStageThree(DetailView):
         project_plan.save()
         project_plan.process_formation_fields_with_additional_cost()
         project_plan.save()
-        return redirect("projects:project_plan_final_view", pk=pk)
+        margin_percentage = three_fields[2] / project_plan.total_price_stage_and_task
+
+        update_stages(project_plan, margin_percentage)
+        # return redirect("projects:project_plan_final_view", pk=pk)
+        return redirect("projects:project_creation_stage_three", pk=project_plan.id)
 
 
 project_plan_stage_three = ProjectPlanStageThree.as_view()
@@ -181,6 +195,7 @@ class ProjectPlanFinalView(DetailView):
     tm_path = "projects/project_plan/"
     tm_name = "project_plan_final_view.html"
     template_name = f"{tm_path}{tm_name}"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]

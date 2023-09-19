@@ -1,9 +1,12 @@
+from django.db.models.signals import post_save
 from django.shortcuts import get_object_or_404
 
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
 from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.apps.stages.signals import update_project
+from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
 
 
 def get_coefficient(post_coefficient: str):
@@ -59,3 +62,18 @@ def project_plan_fields_regex(total_price_with_margin: str, tax_amount: str, mar
     margin = margin_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
 
     return [Decimal(total_price_with_margin), Decimal(project_tax), Decimal(margin)]
+
+
+def update_stages(project_plan, margin_percentage):
+    from decimal import Decimal
+    stage_list = StagePlan.objects.filter(projectPlan=project_plan)
+    disconnect_signal(post_save, update_project, StagePlan)
+    for stage in stage_list:
+        stage.margin = stage.total_price_stage_and_task * margin_percentage
+        total_price_without_tax = stage.total_price_without_tax()
+        total_price_with_margin = stage.margin + total_price_without_tax
+        stage.total_price_with_margin = total_price_with_margin / Decimal(0.99)
+        stage.contributions_to_IT_park = stage.total_price_with_margin - total_price_with_margin
+        stage.save()
+
+    reconnect_signal(post_save, update_project, StagePlan)

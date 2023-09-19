@@ -25,6 +25,15 @@ def project_plan_update(obj):
     project_plan.finish_time = stage_plan_list.aggregate(Max("finish_time"))[
         "finish_time__max"
     ]
-    project_plan.total_price_with_margin = project_plan.total_price_stage_and_task
     project_plan.save()
     process_formation_fields_with_labour_cost(project_plan)
+
+
+def disconnect_signal(signal, receiver, sender):
+    disconnect = getattr(signal, 'disconnect')
+    disconnect(receiver, sender)
+
+
+def reconnect_signal(signal, receiver, sender):
+    connect = getattr(signal, 'connect')
+    connect(receiver, sender=sender)

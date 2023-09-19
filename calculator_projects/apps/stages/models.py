@@ -33,6 +33,7 @@ class StagePlan(models.Model):
     contributions_to_IT_park = models.DecimalField(
         max_digits=1000, decimal_places=8, default=0.0
     )
+    margin = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     total_price_with_margin = models.DecimalField(
         max_digits=1000, decimal_places=2, default=0.0
     )
@@ -68,7 +69,8 @@ class StagePlan(models.Model):
     def process_price(self):
         self.duration_per_day = defining_duration_per_day(self.start_time, self.finish_time)
         self.duration_per_hour = defining_duration_per_hour(self.duration_per_day)
-        self.total_price_stage_and_task = defining_total_price(self.projectPlan.coefficient_of_project, self.duration_per_hour)
+        self.total_price_stage_and_task = defining_total_price(self.projectPlan.coefficient_of_project,
+                                                               self.duration_per_hour)
         self.save()
 
     def task_counter(self):
@@ -78,4 +80,5 @@ class StagePlan(models.Model):
         from calculator_projects.apps.tasks.models import TaskPlan
         return TaskPlan.objects.filter(stage=self.id, deleted_status=False)
 
-
+    def total_price_without_tax(self):
+        return self.salary_cost + self.cost_price + self.period_expenses

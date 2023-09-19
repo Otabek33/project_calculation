@@ -204,7 +204,7 @@
               <td><strong>{{ item.finish_time|date:"d-m-Y" }}</strong></td>
               <td><strong>{{ item.duration_per_day }}</strong></td>
               <td><strong>{{ item.duration_per_hour }}</strong></td>
-              <td><strong>{{ item.total_price|floatformat:"2g" }} сўм</strong></td>
+              <td><strong>{{ item.total_price_stage_and_task|floatformat:"2g" }} сўм</strong></td>
 
             </tr>
             {% for task in item.task_list %}
@@ -593,7 +593,7 @@
                     </table>
 
                     {% for stage in stage_plan_list %}
-                      <table class="table table-bordered w-20">
+                      <table class="table table-bordered w-20 text-center">
 
 
                         <thead class="text-left">
