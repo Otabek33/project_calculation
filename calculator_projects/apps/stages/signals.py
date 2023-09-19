@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 from calculator_projects.apps.projects.models import ProjectPlan
 from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.utils.helpers import process_formation_fields_with_labour_cost
 
 
 @receiver(post_save, sender=StagePlan)
@@ -23,8 +24,8 @@ def update_project(sender, instance, created, **kwargs):
     project_plan.duration_per_day = stage_plan_list.aggregate(Sum("duration_per_day"))[
         "duration_per_day__sum"
     ]
-    project_plan.total_price_stage_and_task = stage_plan_list.aggregate(Sum("total_price"))[
-        "total_price__sum"
+    project_plan.total_price_stage_and_task = stage_plan_list.aggregate(Sum("total_price_stage_and_task"))[
+        "total_price_stage_and_task__sum"
     ]
     project_plan.start_time = stage_plan_list.aggregate(Min("start_time"))[
         "start_time__min"
@@ -34,3 +35,8 @@ def update_project(sender, instance, created, **kwargs):
     ]
     project_plan.total_price_with_margin = project_plan.total_price_stage_and_task
     project_plan.save()
+    process_formation_fields_with_labour_cost(project_plan)
+
+
+
+

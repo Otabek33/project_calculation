@@ -23,6 +23,7 @@ class StagePlan(models.Model):
     duration_per_hour = models.IntegerField(default=0.0)
     duration_per_day = models.IntegerField(default=0.0)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    total_price_stage_and_task = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
     salary_cost = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     cost_price = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     period_expenses = models.DecimalField(
@@ -67,7 +68,7 @@ class StagePlan(models.Model):
     def process_price(self):
         self.duration_per_day = defining_duration_per_day(self.start_time, self.finish_time)
         self.duration_per_hour = defining_duration_per_hour(self.duration_per_day)
-        self.total_price = defining_total_price(self.projectPlan.coefficient_of_project, self.duration_per_hour)
+        self.total_price_stage_and_task = defining_total_price(self.projectPlan.coefficient_of_project, self.duration_per_hour)
         self.save()
 
     def task_counter(self):
@@ -77,23 +78,4 @@ class StagePlan(models.Model):
         from calculator_projects.apps.tasks.models import TaskPlan
         return TaskPlan.objects.filter(stage=self.id, deleted_status=False)
 
-    def process_formation_fields_with_labour_cost_stage(self):
-        from calculator_projects.apps.labour_costs.models import LabourCost
-        labour_cost = LabourCost.objects.get(calculation_for_projects=True)
-        self.salary_cost = (
-            self.total_price * labour_cost.percent_salary_cost
-        )
-
-        self.cost_price = (
-            self.total_price * labour_cost.percent_cost_price
-        )
-        self.contributions_to_IT_park = (
-            self.total_price
-            * labour_cost.percent_contributions_to_IT_park
-        )
-
-        self.period_expenses = (
-            self.total_price * labour_cost.percent_period_expenses
-        )
-        self.save()
 

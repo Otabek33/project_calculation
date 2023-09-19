@@ -203,50 +203,6 @@ class ProjectPlan(models.Model):
     def is_active(self):
         return self.project_status not in [ProjectStatus.CREATION, ProjectStatus.CONFORM]
 
-    def process_formation_fields_from_stage(self):
-        from django.db.models import Max, Min, Sum
-        from calculator_projects.apps.stages.models import StagePlan
-        stage_plan_list = StagePlan.objects.filter(
-            deleted_status=False, projectPlan=self.id
-        )
-
-        self.duration_per_hour = stage_plan_list.aggregate(Sum("duration_per_hour"))[
-            "duration_per_hour__sum"
-        ]
-        self.duration_per_day = stage_plan_list.aggregate(Sum("duration_per_day"))[
-            "duration_per_day__sum"
-        ]
-        self.total_price_stage_and_task = stage_plan_list.aggregate(Sum("total_price"))[
-            "total_price__sum"
-        ]
-        self.start_time = stage_plan_list.aggregate(Min("start_time"))[
-            "start_time__min"
-        ]
-        self.finish_time = stage_plan_list.aggregate(Max("finish_time"))[
-            "finish_time__max"
-        ]
-        self.total_price_with_margin = self.total_price_stage_and_task
-
-    def process_formation_fields_with_labour_cost(self):
-        from calculator_projects.apps.labour_costs.models import LabourCost
-        labour_cost = LabourCost.objects.get(calculation_for_projects=True)
-        self.salary_cost = (
-            self.total_price_stage_and_task * labour_cost.percent_salary_cost
-        )
-
-        self.cost_price = (
-            self.total_price_stage_and_task * labour_cost.percent_cost_price
-        )
-        self.contributions_to_IT_park = (
-            self.total_price_stage_and_task
-            * labour_cost.percent_contributions_to_IT_park
-        )
-
-        self.period_expenses = (
-            self.total_price_stage_and_task * labour_cost.percent_period_expenses
-        )
-        self.process_formation_four_fields_percentage()
-
     def process_formation_four_fields_percentage(self):
         self.percent_cost_price = (
             self.cost_price / self.total_price_stage_and_task * 100

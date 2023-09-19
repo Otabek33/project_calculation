@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.utils.helpers import process_formation_fields_with_labour_cost
 
 
 class StagePlanSerializer(serializers.ModelSerializer):
@@ -21,10 +22,10 @@ class StagePlanSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
         instance = super().save(**kwargs)
         instance.process_price()
-        instance.process_formation_fields_with_labour_cost_stage()
+        process_formation_fields_with_labour_cost(instance)
         return instance
 
     def update(self, instance, validated_data):
         instance.process_price()
-        instance.process_formation_fields_with_labour_cost_stage()
+        process_formation_fields_with_labour_cost(instance)
         return super().update(instance, validated_data)
