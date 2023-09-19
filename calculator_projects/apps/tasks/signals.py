@@ -25,7 +25,7 @@ def updating_project_stage(sender, instance, created, **kwargs):
     stage.duration_per_day = task_plan_list.aggregate(Sum("duration_per_day"))[
         "duration_per_day__sum"
     ]
-    stage.total_price = defining_total_price(stage.projectPlan.coefficient_of_project, stage.duration_per_hour)
+    stage.total_price_stage_and_task = defining_total_price(stage.projectPlan.coefficient_of_project, stage.duration_per_hour)
     stage.save()
 
 
