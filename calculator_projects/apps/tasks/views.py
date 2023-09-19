@@ -29,12 +29,3 @@ class TaskPlanViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
-
-    def destroy(self, request, *args, **kwargs):
-        task_plan = self.get_object()
-        task_plan.deleted_status = True
-        task_plan.updated_by = self.request.user
-        task_plan.updated_at = datetime.now()
-        task_plan.save()
-        task_plan.update_stage_modal_date()
-        return Response(status=status.HTTP_204_NO_CONTENT)
