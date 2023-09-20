@@ -67,7 +67,9 @@ DATABASES = {
         'PASSWORD': "postgres",
         'HOST': "localhost",
         'PORT': "5432",
+
     }}
+WEASYPRINT_BASEURL = '/'
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
@@ -118,6 +120,10 @@ LOCAL_APPS = [
 
     # Your stuff: custom apps go here
 ]
+
+WKHTMLTOPDF_CMD_OPTIONS = {
+    'quiet': True,
+}
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

@@ -9,13 +9,27 @@
   {#  {% include 'projects/_includes/steps.html' %}#}
   {#Project Passport#}
   <div class="row page-titles mx-0">
-    <div class="col-sm-12">
-      <div class="welcome-text text-center">
+    <div class="col-sm-12 d-flex justify-content-between">
+      <div class="welcome-text">
         <h4>{{ projectplan.name }}</h4>
 
       </div>
+      <div class="text-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-docs"></i>
+                                            Экспорт
+                                        </button>
+          <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{% url 'projects:project_plan_pdf' projectplan.id %}">pdf</a>
+                                            <a class="dropdown-item" href="#">excel</a>
+                                            <a class="dropdown-item" href="#">print</a>
+                                        </div>
+      </div>
+
     </div>
+
+
   </div>
+
   <div class="row">
     <div class="col-md-12 d-flex justify-content-around">
       <div class="col-6 card border-0">
@@ -252,6 +266,167 @@
 
     </div>
 
+  </div>
+  {#Project Cost with Stages#}
+
+  <div class="card mb-4 ">
+    <h5 class="card-header align-items-center text-center">
+      <span>Стоимостная оценка затрат на реализацию проекта (с учетом разбивки по этапам):</span>
+    </h5>
+    <div class="card-body">
+      <div id="detail_view_labour_cost ">
+        <div class="row text-left">
+          <div class="col-sm ml-lg-12">
+            <div class="d-flex justify-content-between">
+
+              <div class="col-sm-12 ml-lg-4 ">
+                <div class="d-flex justify-content-between">
+
+
+                  <table class="table table-bordered">
+                    <thead class="text-left" style="background-color:  #494a79;color: white">
+                    <tr>
+                      <th scope="col" class="text-left">Статья затрат</th>
+                      <th scope="col" class="text-left">Норма, в %</th>
+                      <th scope="col" class="text-left">Всего по проекту</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Себестоимость
+                        реализованной услуги (другие
+                        издержки без ФОТ)</b>
+                      </td>
+                      <td class="col-1"
+                          id="cost_price_of_project_percent">{{ projectplan.percent_cost_price|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td class="col-2">{{ projectplan.cost_price|floatformat:"2g" }} сўм</td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Себестоимость
+                        (Расходы на опл.труда)</b></td>
+                      <td id="salary_cost_of_project_percent">{{ projectplan.percent_salary_cost|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td>{{ projectplan.salary_cost|floatformat:"2g" }} сўм</td>
+
+                    </tr>
+                    <tr>
+
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Косвенные
+                        производственные затраты</b></td>
+                      <td
+                        id="period_expenses_of_project_percent">{{ projectplan.percent_period_expenses|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td style="display:none;"
+                          id="period_expenses_of_project_amount">{{ projectplan.period_expenses }}</td>
+                      <td>{{ projectplan.period_expenses|floatformat:"2g" }} сўм</td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Расходы на взносы
+                        IT-парк</b></td>
+                      <td> 1 %</td>
+                      <td id="project_tax_update_part">{{ projectplan.contributions_to_IT_park|floatformat:"2g" }}
+                        сўм
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый прибыль</b>
+                      </td>
+                      <td class="col-1">
+                        <strong>{{ projectplan.percent_margin|floatformat:"2g" }} %</strong>
+                      <td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+
+
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="text-center" style="background-color:  #494a79;color: white"><b>Общая
+                        cтоимость проекта</b></td>
+                      <td class="text-danger fw-bold font-weight-bold"
+                      >
+                        {{ projectplan.total_price_with_margin|floatformat:"2g" }} сўм
+
+                      </td>
+
+
+                    </tr>
+
+
+                    </tbody>
+                  </table>
+
+                  {% for stage in stage_plan_list %}
+                    <table class="table table-bordered w-20 text-center">
+
+
+                      <thead class="text-left  text-center">
+                      <tr style="background-color:  #494a79;color: white">
+                        <th scope="col" class="text-left">{{ stage.description }}</th>
+
+                      </tr>
+                      </thead>
+                      <tbody class=" text-center">
+
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.cost_price|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.salary_cost|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.period_expenses|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.contributions_to_IT_park|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.margin|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="text-danger fw-bold font-weight-bold">{{ stage.total_price_with_margin|floatformat:"2g" }}
+                          сўм
+                        </td>
+                      </tr>
+
+
+                      </tbody>
+
+
+                    </table>
+                  {% endfor %}
+
+
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
   </div>
   {#  Project Cost Main#}
   <div class="card mb-4 ">
@@ -499,162 +674,7 @@
     </div>
   </div>
 
-  {#Project Cost with Stages#}
 
-  <div class="card mb-4 ">
-    <h5 class="card-header align-items-center text-center">
-            <span>Смета калькуляции стоимости
-                    затрат на реализацию проекта:</span>
-    </h5>
-    <div class="card-body">
-      <div id="detail_view_labour_cost ">
-        <div class="row text-left">
-          <div class="col-sm ml-lg-12">
-            <div class="d-flex justify-content-between">
-
-              <div class="col-sm-12 ml-lg-4 ">
-                <div class="d-flex justify-content-between">
-
-
-                    <table class="table table-bordered">
-                      <thead class="text-left" style="background-color:  #494a79;color: white">
-                      <tr>
-                        <th scope="col" class="text-left">Статья затрат</th>
-                        <th scope="col" class="text-left">Норма, в %</th>
-                        <th scope="col" class="text-left">Всего по проекту</th>
-
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Себестоимость реализованной услуги (другие
-                          издержки без ФОТ)</b>
-                        </td>
-                        <td class="col-1"
-                            id="cost_price_of_project_percent">{{ projectplan.percent_cost_price|floatformat:"2g" }}
-                          %
-                        </td>
-                        <td class="col-2">{{ projectplan.cost_price|floatformat:"2g" }} сўм</td>
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Себестоимость (Расходы на опл.труда)</b></td>
-                        <td id="salary_cost_of_project_percent">{{ projectplan.percent_salary_cost|floatformat:"2g" }}
-                          %
-                        </td>
-                        <td>{{ projectplan.salary_cost|floatformat:"2g" }} сўм</td>
-
-                      </tr>
-                      <tr>
-
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Косвенные производственные затраты</b></td>
-                        <td
-                          id="period_expenses_of_project_percent">{{ projectplan.percent_period_expenses|floatformat:"2g" }}
-                          %
-                        </td>
-                        <td style="display:none;"
-                            id="period_expenses_of_project_amount">{{ projectplan.period_expenses }}</td>
-                        <td>{{ projectplan.period_expenses|floatformat:"2g" }} сўм</td>
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Расходы на взносы IT-парк</b></td>
-                        <td> 1 %</td>
-                        <td id="project_tax_update_part">{{ projectplan.contributions_to_IT_park|floatformat:"2g" }}
-                          сўм
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый прибыль</b></td>
-                        <td class="col-1">
-                          <strong>{{ projectplan.percent_margin|floatformat:"2g" }} %</strong>
-                        <td>
-                          {{ projectplan.margin|floatformat:"2g" }} сўм
-                        </td>
-
-
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td colspan="2" class="text-center" style="background-color:  #494a79;color: white"><b>Общая cтоимость проекта</b></td>
-                        <td class="text-danger fw-bold font-weight-bold"
-                        >
-                          {{ projectplan.total_price_with_margin|floatformat:"2g" }} сўм
-
-                        </td>
-
-
-                      </tr>
-
-
-                      </tbody>
-                    </table>
-
-                    {% for stage in stage_plan_list %}
-                      <table class="table table-bordered w-20 text-center">
-
-
-                        <thead class="text-left">
-                        <tr style="background-color:  #494a79;color: white">
-                          <th scope="col" class="text-left">{{ stage.description }}</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <tr>
-                          <td class="col-1 text-left">{{ stage.cost_price|floatformat:"2g" }} сўм
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="col-1 text-left">{{ stage.salary_cost|floatformat:"2g" }} сўм
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="col-1 text-left">{{ stage.period_expenses|floatformat:"2g" }} сўм
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="col-1 text-left">{{ stage.contributions_to_IT_park|floatformat:"2g" }} сўм
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="col-1 text-left">{{ stage.margin|floatformat:"2g" }} сўм
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-danger fw-bold font-weight-bold">{{ stage.total_price_with_margin|floatformat:"2g" }} сўм
-                          </td>
-                        </tr>
-
-
-                        </tbody>
-
-
-                      </table>
-                    {% endfor %}
-
-
-
-
-                </div>
-
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-      </div>
-    </div>
-  </div>
 
   <div class="card mb-4 ">
     <div id="info_how_much_project" style="font-weight: 700; font-family: var(--bs-body-font-family);">
@@ -669,7 +689,6 @@
 
     </div>
   </div>
-
 
 
 {% endblock %}
