@@ -36,20 +36,24 @@ function calculateTotalPriceWithMargin() {
     let project_tax_update_part = $("#project_tax_update_part")
 
     let project_total_price_hidden = $("#project-total-price-hidden")
-    let project_total_price_hidden_after_change = $("#project-total-price-hidden-after-change")
-
-
     let margin = document.getElementById("margin_percentage").value
     let project_total_price_by_stage_and_task = document.getElementById("project_total_price_by_stage_and_task");
-    let project_tax_amount = document.getElementById("project_tax_amount");
+    let cost_price_of_project_amount = document.getElementById("cost_price_of_project_amount");
+    let salary_cost_of_project_amount = document.getElementById("salary_cost_of_project_amount");
+    let period_expenses_of_project_amount = document.getElementById("period_expenses_of_project_amount");
+
     let parsed_total_price = parseFloat(project_total_price_by_stage_and_task.innerText.replace(/,/g, '.'));
-    let parsed_tax_amount = parseFloat(project_tax_amount.innerText.replace(/,/g, '.'));
+    let parsed_cost = parseFloat(cost_price_of_project_amount.innerText.replace(/,/g, '.'));
+    let parsed_salary = parseFloat(salary_cost_of_project_amount.innerText.replace(/,/g, '.'));
+    let parsed_expenses = parseFloat(period_expenses_of_project_amount.innerText.replace(/,/g, '.'));
     let margin_after_changed_percent = Number(margin) / 100 * parsed_total_price
     changed_margin_amount.text((margin_after_changed_percent.formatMoney(2, ' ', ',')) + " сўм")
-    let changed_total_price_of_project = (parsed_total_price - parsed_tax_amount + margin_after_changed_percent) * 100 / 99
+
+    let changed_total_price_of_project = (parsed_cost + parsed_salary + parsed_expenses + margin_after_changed_percent) / 0.99
+
 
     total_price_of_project.val(changed_total_price_of_project.formatMoney(2, ' ', ',') + " сўм")
-    let changed_tax = changed_total_price_of_project - (parsed_total_price - parsed_tax_amount + margin_after_changed_percent)
+    let changed_tax = changed_total_price_of_project * 0.01
 
     project_tax_update_part.text(changed_tax.formatMoney(2, ' ', ',') + " сўм")
     project_total_price_hidden.text(changed_total_price_of_project)

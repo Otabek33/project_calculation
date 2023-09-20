@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
     checking_stage_exist, project_plan_fields_regex, update_stages
 from calculator_projects.apps.stages.models import StagePlan
@@ -160,18 +160,8 @@ class ProjectPlanStageThree(DetailView):
         project_plan = get_object_or_404(ProjectPlan, pk=pk)
         project_plan.updated_by = self.request.user
         project_plan.updated_at = datetime.now(tz=timezone.utc)
-        # project_plan.project_creation_stage = ProjectCreationStage.STAGE_5
-        # project_plan.project_status = ProjectStatus.CONFORM
-        print("ishladi")
-        print("ishladi")
-        print("ishladi")
-        print("ishladi")
-        print("ishladi")
-        print(three_fields[0])
-        print(three_fields[0])
-        print(three_fields[0])
-        print("ishladi")
-        print("ishladi")
+        project_plan.project_creation_stage = ProjectCreationStage.STAGE_5
+        project_plan.project_status = ProjectStatus.CONFORM
         project_plan.total_price_with_margin = three_fields[0]
         project_plan.contributions_to_IT_park = three_fields[1]
         project_plan.margin = three_fields[2]
@@ -181,10 +171,8 @@ class ProjectPlanStageThree(DetailView):
         project_plan.process_formation_fields_with_additional_cost()
         project_plan.save()
         margin_percentage = three_fields[2] / project_plan.total_price_stage_and_task
-
         update_stages(project_plan, margin_percentage)
-        # return redirect("projects:project_plan_final_view", pk=pk)
-        return redirect("projects:project_creation_stage_three", pk=project_plan.id)
+        return redirect("projects:project_plan_final_view", pk=pk)
 
 
 project_plan_stage_three = ProjectPlanStageThree.as_view()
