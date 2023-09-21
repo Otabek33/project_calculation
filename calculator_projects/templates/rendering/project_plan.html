@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ projectplan.name }}</title>
+    <link rel="stylesheet" href="{% static 'jobs/css/style.css' %}">
+</head>
+<body>
+    <h1>Welcome to My PDF</h1>
+    <p>This is a sample PDF generated using xhtml2pdf.</p>
+    <table>
+      <thead>
+      <tr>
+                      <th >Статья затрат</th>
+                      <th >Норма, в %</th>
+                      <th >Всего по проекту</th>
+
+                    </tr>
+      </thead>
+      <tbody>
+      {% for stage in stage_list %}
+        <tr><td>{{ stage.description }}</td></tr>
+        <tr><td>{{ stage.cost_price }}</td></tr>
+        <tr><td>{{ stage.salary_cost }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <img src="{% static 'jobs/images/sample.jpg' %}" alt="Sample Image">
+</body>
+</html>
