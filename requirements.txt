@@ -138,7 +138,7 @@ pipenv==2022.12.19
 platformdirs==3.10.0
 plotly==5.13.0
 pluggy==1.2.0
-pre-commit==3.3.3
+pre-commit==3.4.0
 prettytable==3.6.0
 prometheus-client==0.17.1
 prompt-toolkit==3.0.39
