@@ -1,11 +1,6 @@
 from datetime import datetime, timezone
 from django.contrib import messages
-from django.http import HttpResponse
-
 from django.shortcuts import redirect, get_object_or_404
-from django.template.loader import get_template
-from django.urls import reverse
-from django.views import View
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from calculator_projects.apps.projects.constants import coefficient
@@ -197,40 +192,3 @@ class ProjectPlanFinalView(DetailView):
 
 
 project_plan_final_view = ProjectPlanFinalView.as_view()
-
-
-# def resume(request, pk):
-#     import pdfkit
-#     from django.template import loader
-#     context = {}
-#     stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False)
-#     context['projectplan'] = ProjectPlan.objects.get(id=pk)
-#     context['stage_plan_list'] = stage_plan
-#     context['user'] = request.user
-#     html = loader.render_to_string('rendering/project_plan.html', context)
-#     options = {
-#         'page-size': 'Letter',
-#         'encoding': 'UTF-8',
-#     }
-#     path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-#     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-#     pdf = pdfkit.from_string(html, options, configuration=config)
-#     response = HttpResponse(pdf, content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment'
-#     return response
-
-
-def create_pdf(request,pk):
-    import pdfkit
-    from django.http import HttpResponse
-    from django.template import loader
-    context = {}
-    stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False)
-    context['projectplan'] = ProjectPlan.objects.get(id=pk)
-    context['stage_plan_list'] = stage_plan
-    context['user'] = request.user
-    html = loader.render_to_string('rendering/project_plan.html', context)
-    output = pdfkit.from_string(html, output_path=False)
-    response = HttpResponse(content_type="application/pdf")
-    response.write(output)
-    return response
