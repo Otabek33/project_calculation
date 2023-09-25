@@ -83,7 +83,7 @@
                                 <div class="widget-content-wrapper">
                                     <div class="widget-content-left flex2">
                                         <div class="widget-heading"><a class="dropdown-item"
-                               href="#"
+                               href="{% url 'projects:project_plan_final_view' project.id %}"
                             ><strong>{{ project.name }}</strong>
                             </a></div>
 
@@ -115,7 +115,7 @@
                                         </button>
                                         <button type="button" class="btn btn-primary confirm-project"
                                                 action-url="#">
-                                            <span class="tf-icons bx bx-check"></span>&nbsp; Утвердить
+                                            <span class="tf-icons bx bx-check"></span>&nbsp; Подтвердить
                                         </button>
 
                                     </div>
