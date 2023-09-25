@@ -242,3 +242,4 @@ class ProjectPlan(models.Model):
     def stage_list(self):
         from calculator_projects.apps.stages.models import StagePlan
         return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False).order_by('stage_number')
+

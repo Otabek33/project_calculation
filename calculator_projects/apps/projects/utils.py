@@ -77,3 +77,27 @@ def update_stages(project_plan, margin_percentage):
         stage.save()
 
     reconnect_signal(post_save, update_project, StagePlan)
+
+
+def stage_amount(project):
+    from django.db.models import Count, Q
+    project_stage_list = project.aggregate(
+        stage_1=Count(
+            "project_creation_stage",
+            filter=(Q(project_creation_stage=ProjectCreationStage.STAGE_1) | Q(
+                project_creation_stage=ProjectCreationStage.STAGE_2)),
+        ),
+        stage_2=Count(
+            "project_creation_stage",
+            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_3),
+        ),
+        stage_3=Count(
+            "project_creation_stage",
+            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_4),
+        ),
+        stage_4=Count(
+            "project_creation_stage",
+            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_5),
+        ),
+    )
+    return project_stage_list

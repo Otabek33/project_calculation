@@ -7,7 +7,7 @@ from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
-    checking_stage_exist, project_plan_fields_regex, update_stages
+    checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan
@@ -192,3 +192,27 @@ class ProjectPlanFinalView(DetailView):
 
 
 project_plan_final_view = ProjectPlanFinalView.as_view()
+
+
+class ProjectStatusList(ListView):
+    model = ProjectPlan
+    tm_path = "projects/"
+    tm_name = "project_status_list.html"
+    template_name = f"{tm_path}{tm_name}"
+    paginate_by = 5
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(
+            deleted_status=False, created_by=self.request.user
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_stage_list = stage_amount(self.get_queryset())
+        # context["project_list"] = project
+        context["project_stage_list"] = project_stage_list
+        return context
+
+
+project_list_status = ProjectStatusList.as_view()
