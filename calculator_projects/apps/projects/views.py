@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import CreateView, DetailView, UpdateView, ListView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
@@ -11,6 +12,7 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan
+from calculator_projects.utils.helpers import is_ajax
 
 
 # Create your views here.
@@ -199,7 +201,7 @@ class ProjectStatusList(ListView):
     tm_path = "projects/"
     tm_name = "project_status_list.html"
     template_name = f"{tm_path}{tm_name}"
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -216,3 +218,24 @@ class ProjectStatusList(ListView):
 
 
 project_list_status = ProjectStatusList.as_view()
+
+
+class ProjectPlanDelete(DeleteView):
+    model = ProjectPlan
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            pk = request.POST.get("id")
+            project = self.model.objects.get(id=pk)
+            project.deleted_status = True
+            project.updated_at = datetime.now(tz=timezone.utc)
+            project.updated_by = self.request.user
+            project.save()
+
+            return JsonResponse(
+                {"success": True, "data": None}
+            )
+        return JsonResponse({"success": False, "data": None})
+
+
+project_delete = ProjectPlanDelete.as_view()

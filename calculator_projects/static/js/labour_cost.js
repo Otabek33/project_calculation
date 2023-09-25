@@ -55,7 +55,7 @@ function execute_delete_labour_cost_post_request(url, data) {
         },
         success: function (data) {
             $(".close").click()
-            localStorage.setItem("msg", "✅ Расчет успешно удален")
+            localStorage.setItem("msg", "Расчет успешно удален")
             window.location.reload();
 
 

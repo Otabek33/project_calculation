@@ -77,7 +77,7 @@
             <table class="table table-bordered verticle-middle table-responsive-sm text-center">
               <thead>
               <tr>
-{#                <th class="text-center">#</th>#}
+                {#                <th class="text-center">#</th>#}
                 <th>Наименование</th>
                 <th class="text-center">Тип проекта</th>
 
@@ -95,7 +95,7 @@
               <tbody>
               {% for project in page_obj %}
                 <tr id="project-{{ project.id }}">
-{#                  <td class="text-center text-muted">{{ forloop.counter }}</td>#}
+                  {#                  <td class="text-center text-muted">{{ forloop.counter }}</td>#}
                   <td>
                     <div class="widget-content p-0">
                       <div class="widget-content-wrapper">
@@ -128,12 +128,25 @@
                          data-placement="top" title="See"><i
                         class="fa fa-eye color-muted"></i> </a>
                     {% else %}
-                      <a href="#" class="mr-4" data-toggle="tooltip"
-                         data-placement="top" title="Edit"><i
-                        class="fa fa-pencil color-muted"></i> </a>
-                      <a href="#" data-toggle="tooltip"
-                         data-placement="top" title="Close"><i
-                        class="fa fa-close color-danger"></i></a>
+                      {% if project.project_creation_stage == 1 %}
+                        <a href="{% url 'projects:initial_view' project.id %}" class="mr-4" data-toggle="tooltip"
+                           data-placement="top" title="Edit"><i
+                          class="fa fa-pencil color-muted"></i> </a>
+                      {% elif project.project_creation_stage == 2 %}
+                        <a href="{% url 'projects:project_creation_stage_two' project.id %}" class="mr-4"
+                           data-toggle="tooltip"
+                           data-placement="top" title="Edit"><i
+                          class="fa fa-pencil color-muted"></i> </a>
+                      {% else %}
+                        <a href="{% url 'projects:project_creation_stage_three' project.id %}" class="mr-4"
+                           data-toggle="tooltip"
+                           data-placement="top" title="Edit"><i
+                          class="fa fa-pencil color-muted"></i> </a>
+                      {% endif %}
+                      <a type="button"
+                         data-placement="top" data-id="{{ project.id }}"
+                         title="Close"><i
+                        class="fa fa-close color-danger delete-project"></i></a>
                       </span>
 
                     {% endif %}
@@ -145,31 +158,35 @@
               </tbody>
             </table>
           </div>
+          {% if is_paginated %}
 
-          <div class="d-flex justify-content-end">
-            <nav>
-              <ul class="pagination pagination-sm">
-                {% if page_obj.has_previous %}
-                  <li class="page-item page-indicator">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                      <i class="icon-arrow-left"></i></a>
+            <div class="d-flex justify-content-end">
+              <nav>
+                <ul class="pagination pagination-sm">
+                  {% if page_obj.has_previous %}
+                    <li class="page-item page-indicator">
+                      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                        <i class="icon-arrow-left"></i></a>
+                    </li>
+                  {% endif %}
+
+
+                  <li class="page-item active"><a class="page-link"
+                                                  href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.number }}</a>
                   </li>
-                {% endif %}
-
-
-                <li class="page-item active"><a class="page-link"
-                                                href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.number }}</a>
-                </li>
-                {% if page_obj.has_next %}
-                   <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.next_page_number }}</a></li>
-                  <li class="page-item page-indicator">
-                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
-                      <i class="icon-arrow-right"></i></a>
-                  </li>
-                {% endif %}
-              </ul>
-            </nav>
-          </div>
+                  {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.next_page_number }}</a>
+                    </li>
+                    <li class="page-item page-indicator">
+                      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                        <i class="icon-arrow-right"></i></a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+          {% endif %}
 
 
         </div>
@@ -181,5 +198,45 @@
 
   </div>
 
+
+
+  <div class="modal fade" id="deleteProjectPlan">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить проект</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <form method="post"
+              id="item-delete-form"
+        >
+          {% csrf_token %}
+
+          <div class="modal-body">
+            <p>Вы уверены, что хотите удалить этот проект ?</p>
+            <input type="hidden" name="delete_project" id="delete_project_id">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="submit" class="btn btn-primary" id="confirm-delete-project-button"
+                    data-href-template="{% url 'projects:project_delete' %}">Сохранить
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="application/javascript">
+
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.delete-project').click((e) => {
+        document.getElementById('delete_project_id').value = e.target.parentElement.getAttribute('data-id');
+        $('#deleteProjectPlan').modal('show');
+      })
+    });
+  </script>
 
 {% endblock %}
