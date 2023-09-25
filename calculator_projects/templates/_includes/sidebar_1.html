@@ -30,6 +30,10 @@
                         class="icon icon-wallet-90 "></i><span class="nav-text">Стоимость труда в час</span></a>
 
                 </li>
+               <li><a class="has-arrow" href="{% url 'projects:confirm_list' %}" aria-expanded="false"><i
+                        class="icon icon-layout-25"></i><span class="nav-text">Список проектов<br> для подтверждения</span></a>
+
+                </li>
 
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="icon icon-payment"></i><span class="nav-text">Список доходов от проектов<br> для подтверждения</span></a>
@@ -46,28 +50,27 @@
                         class="icon icon-check-2"></i><span class="nav-text">Факт</span></a>
 
                 </li>
-                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-form"></i><span class="nav-text">Контракт</span></a>
+              <li><a class="has-arrow" href="{% url 'projects:status_list' user.id %}" aria-expanded="false"><i
+                        class="icon icon-analytics"></i><span class="nav-text">Список проектов<br> по этапам создания</span></a>
 
                 </li>
-                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-credit-card"></i><span class="nav-text">Денежный <br> поступление</span></a>
-
-                </li>
+              </li>
                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                         class="icon icon-puzzle-10"></i><span class="nav-text">План-факт анализ</span></a>
 
                 </li>
+{#                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i#}
+{#                        class="icon icon-form"></i><span class="nav-text">Контракт</span></a>#}
+{##}
+{#                </li>#}
+{#                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i#}
+{#                        class="icon icon-credit-card"></i><span class="nav-text">Денежный <br> поступление</span></a></li>#}
+
+
 
                 <li class="nav-label font-weight-bold">Анализ</li>
-                <li><a class="has-arrow" href="{% url 'projects:status_list' user.id %}" aria-expanded="false"><i
-                        class="icon icon-analytics"></i><span class="nav-text">Список проектов<br> по этапам создания</span></a>
 
-                </li>
-                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                        class="icon icon-layout-25"></i><span class="nav-text">Список проектов<br> для подтверждения</span></a>
 
-                </li>
                  <li><a class="has-arrow" href="#" aria-expanded="false"><i
                         class="icon icon-world-2"></i><span class="nav-text">Статус проектов</span></a>
 

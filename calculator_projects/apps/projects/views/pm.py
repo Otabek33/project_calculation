@@ -198,7 +198,7 @@ project_plan_final_view = ProjectPlanFinalView.as_view()
 
 class ProjectStatusList(ListView):
     model = ProjectPlan
-    tm_path = "projects/"
+    tm_path = "projects/other/"
     tm_name = "project_status_list.html"
     template_name = f"{tm_path}{tm_name}"
     paginate_by = 10
@@ -212,7 +212,6 @@ class ProjectStatusList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project_stage_list = stage_amount(self.get_queryset())
-        # context["project_list"] = project
         context["project_stage_list"] = project_stage_list
         return context
 

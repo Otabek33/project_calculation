@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
 from calculator_projects.apps.stages.models import StagePlan
 from calculator_projects.apps.stages.signals import update_project
 from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
@@ -100,3 +100,22 @@ def stage_amount(project):
         ),
     )
     return project_stage_list
+
+
+def project_amount(project):
+    from django.db.models import Count, Q
+    project_status_list = project.aggregate(
+        cancelled=Count(
+            "project_status",
+            filter=Q(project_status=ProjectStatus.CANCELLED),
+        ),
+        conform=Count(
+            "project_status",
+            filter=Q(project_status=ProjectStatus.CONFORM),
+        ),
+        active=Count(
+            "project_status",
+            filter=Q(project_status=ProjectStatus.ACTIVE),
+        ),
+    )
+    return project_status_list
