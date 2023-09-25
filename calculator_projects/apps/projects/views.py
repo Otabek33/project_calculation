@@ -31,7 +31,7 @@ class ProjectPlanStageOne(CreateView):
         project_plan.created_by = self.request.user
         project_plan.departament = self.request.user.deportment
         project_plan.coefficient_of_project = get_coefficient(self.request.POST.get('coefficient'))
-        project_plan.project_creation_stage = ProjectCreationStage.STAGE_2
+        # project_plan.project_creation_stage = ProjectCreationStage.STAGE_2
         project_plan.save()
         return redirect("projects:initial_view", pk=project_plan.id)
 
@@ -47,7 +47,7 @@ class ProjectPassportView(DetailView):
 
     def post(self, request, *args, **kwargs):
         project = get_object_or_404(ProjectPlan, pk=self.kwargs["pk"])
-        project.project_creation_stage = ProjectCreationStage.STAGE_3
+        project.project_creation_stage = ProjectCreationStage.STAGE_2
         project.save()
         return redirect("projects:project_creation_stage_two", pk=project.id)
 
@@ -104,7 +104,7 @@ class ProjectPlanStageTwo(DetailView):
             messages.error(request, "Добавьте  этап проекта, пожалуйста!")
             return redirect(request.META["HTTP_REFERER"])
         else:
-            project_plan.project_creation_stage = ProjectCreationStage.STAGE_4
+            project_plan.project_creation_stage = ProjectCreationStage.STAGE_3
             project_plan.total_price_with_margin = project_plan.total_price_stage_and_task
             project_plan.process_formation_fields_with_additional_cost()
             project_plan.updated_at = datetime.now(tz=timezone.utc)
@@ -159,7 +159,7 @@ class ProjectPlanStageThree(DetailView):
         project_plan = get_object_or_404(ProjectPlan, pk=pk)
         project_plan.updated_by = self.request.user
         project_plan.updated_at = datetime.now(tz=timezone.utc)
-        project_plan.project_creation_stage = ProjectCreationStage.STAGE_5
+        project_plan.project_creation_stage = ProjectCreationStage.STAGE_4
         project_plan.project_status = ProjectStatus.CONFORM
         project_plan.total_price_with_margin = three_fields[0]
         project_plan.contributions_to_IT_park = three_fields[1]

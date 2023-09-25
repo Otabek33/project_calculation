@@ -84,20 +84,19 @@ def stage_amount(project):
     project_stage_list = project.aggregate(
         stage_1=Count(
             "project_creation_stage",
-            filter=(Q(project_creation_stage=ProjectCreationStage.STAGE_1) | Q(
-                project_creation_stage=ProjectCreationStage.STAGE_2)),
+            filter=(Q(project_creation_stage=ProjectCreationStage.STAGE_1)),
         ),
         stage_2=Count(
             "project_creation_stage",
-            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_3),
+            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_2),
         ),
         stage_3=Count(
             "project_creation_stage",
-            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_4),
+            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_3),
         ),
         stage_4=Count(
             "project_creation_stage",
-            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_5),
+            filter=Q(project_creation_stage=ProjectCreationStage.STAGE_4),
         ),
     )
     return project_stage_list
