@@ -3,7 +3,7 @@ from datetime import datetime
 from django.db import models
 
 from calculator_projects.apps.labour_costs.models import LabourCost
-from calculator_projects.apps.projects.models import ProjectPlan
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectFact
 
 from calculator_projects.apps.users.models import User
 
@@ -82,3 +82,44 @@ class StagePlan(models.Model):
 
     def total_price_without_tax(self):
         return self.salary_cost + self.cost_price + self.period_expenses
+
+
+class StageFact(models.Model):
+    name = models.CharField(max_length=200, blank=True, null=True)
+    start_time = models.DateField()
+    finish_time = models.DateField()
+    stage_number = models.IntegerField(blank=True, null=True)
+    duration_per_hour = models.IntegerField(default=0.0)
+    duration_per_day = models.IntegerField(default=0.0)
+    total_price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    stage_plan = models.ForeignKey(
+        ProjectPlan, on_delete=models.CASCADE, blank=True, null=True
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="fact_stage_create",
+    )
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="fact_stage_update",
+    )
+    updated_at = models.DateTimeField(blank=True, null=True)
+    deleted_status = models.BooleanField(default=False)
+    project = models.ForeignKey(
+        ProjectFact, on_delete=models.CASCADE, blank=True, null=True
+    )
+
+    class Meta:
+        verbose_name = "Факт Этап"
+        verbose_name_plural = "Факт Этапы"
+
+    def __str__(self):
+        return self.name

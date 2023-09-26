@@ -5,7 +5,8 @@ from django.shortcuts import get_object_or_404
 
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact, \
+    ProjectPhase
 from calculator_projects.apps.stages.models import StagePlan
 from calculator_projects.apps.stages.signals import update_project
 from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
@@ -129,3 +130,16 @@ def project_change_status(pk, user, status):
     project.project_status = status
     project.accepted_at = datetime.now(tz=timezone.utc)
     project.save()
+    return project
+
+
+def copy_project_plan_to_fact(project_plan):
+    data = project_plan.__dict__
+    project_fact = ProjectFact()
+    project_fact.__dict__.update(
+        **data,
+        project_plan=project_plan,
+        project_phase=ProjectPhase.BUILD_AND_IMPLEMENT
+
+    )
+    project_fact.save()

@@ -6,7 +6,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectStatus
-from calculator_projects.apps.projects.utils import project_amount, project_change_status
+from calculator_projects.apps.projects.utils import project_amount, project_change_status, copy_project_plan_to_fact
 from django.contrib import messages
 
 from calculator_projects.utils.helpers import is_ajax
@@ -81,7 +81,10 @@ class ProjectPlanConfirmView(DetailView):
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
             pk = request.POST.get("id")
-            project_change_status(pk, request.user, ProjectStatus.ACTIVE)
+            project_plan = project_change_status(pk, request.user, ProjectStatus.ACTIVE)
+            project_fact = copy_project_plan_to_fact(project_plan)
+            # copy_stage_plan_to_fact(project_plan, project_fact)
+
             return JsonResponse(
                 {"success": True, "data": None}
             )

@@ -75,12 +75,7 @@ class ProjectPhase(models.IntegerChoices):
     COMPLETED = 3, _("Завершенный")
 
 
-class TaskFactStatus(models.IntegerChoices):
-    PLAN = 1, _("План")
-    ACTIVE = 2, _("Активный")
-    COMPLETED = 3, _("Завершенный")
-    CANCELLED = 4, _("Отменено")
-    ON_HOLD = 5, _("На удерживании")
+
 
 
 class ProjectPlan(models.Model):
@@ -243,3 +238,87 @@ class ProjectPlan(models.Model):
         from calculator_projects.apps.stages.models import StagePlan
         return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False).order_by('stage_number')
 
+class ProjectFact(models.Model):
+    name = models.CharField(max_length=200, blank=True, null=True)
+    start_time = models.DateField()
+    finish_time = models.DateField()
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="fact_created_by",
+    )
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="fact_updated_by",
+    )
+    updated_at = models.DateTimeField(blank=True, null=True)
+    deleted_status = models.BooleanField(default=False)
+
+    salary_cost = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
+    cost_price = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
+    period_expenses = models.DecimalField(
+        max_digits=1000, decimal_places=8, default=0.0
+    )
+    project_plan = models.ForeignKey(
+        ProjectPlan,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="project_fact",
+    )
+
+    contributions_to_IT_park = models.DecimalField(
+        max_digits=1000, decimal_places=8, default=0.0
+    )
+    margin = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
+    total_price_stage_and_task = models.DecimalField(
+        max_digits=1000, decimal_places=2, default=0.0
+    )
+    total_price_with_margin = models.DecimalField(
+        max_digits=1000, decimal_places=2, default=0.0
+    )
+    total_price_with_additional_cost = models.DecimalField(
+        max_digits=1000, decimal_places=2, default=0.0
+    )
+    additional_cost = models.DecimalField(
+        max_digits=1000, decimal_places=2, default=0.0
+    )
+    duration_per_hour = models.IntegerField(default=0.0)
+    duration_per_day = models.IntegerField(default=0.0)
+
+    percent_salary_cost = models.DecimalField(
+        max_digits=1000, decimal_places=20, default=0.0
+    )
+    percent_cost_price = models.DecimalField(
+        max_digits=1000, decimal_places=20, default=0.0
+    )
+    percent_contributions_to_IT_park = models.DecimalField(
+        max_digits=1000, decimal_places=20, default=0.0
+    )
+    percent_margin = models.DecimalField(
+        max_digits=1000, decimal_places=20, default=0.0
+    )
+    percent_period_expenses = models.DecimalField(
+        max_digits=1000, decimal_places=20, default=0.0
+    )
+
+    project_status = models.IntegerField(
+        choices=ProjectStatus.choices, default=ProjectStatus.ACTIVE
+    )
+    project_phase = models.IntegerField(
+        choices=ProjectPhase.choices, default=ProjectPhase.BUILD_AND_IMPLEMENT
+    )
+    coefficient_of_project = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Факт Проект"
+        verbose_name_plural = "Факт Проекты"
