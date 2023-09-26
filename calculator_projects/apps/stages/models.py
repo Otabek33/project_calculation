@@ -85,6 +85,7 @@ class StagePlan(models.Model):
 
 
 class StageFact(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, blank=True, null=True)
     start_time = models.DateField()
     finish_time = models.DateField()

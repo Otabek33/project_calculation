@@ -7,7 +7,7 @@ from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact, \
     ProjectPhase
-from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.apps.stages.models import StagePlan, StageFact
 from calculator_projects.apps.stages.signals import update_project
 from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
 
@@ -143,3 +143,15 @@ def copy_project_plan_to_fact(project_plan):
 
     )
     project_fact.save()
+    return project_fact.id
+
+
+def copy_stage_plan_to_fact(project_plan, project_fact_id):
+    stage_plan_list = StagePlan.objects.filter(project=project_plan.id)
+    project_fact = ProjectFact.objects.get(pk=project_fact_id)
+    for stage_plan in stage_plan_list:
+        stage_fact = StageFact()
+        stage_fact.__dict__.update(**stage_plan.__dict__)
+        stage_fact.stage_plan = stage_plan
+        stage_fact.project = project_fact
+        stage_fact.save()

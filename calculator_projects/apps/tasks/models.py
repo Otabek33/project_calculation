@@ -69,6 +69,7 @@ class TaskPlan(models.Model):
 
 
 class TaskFact(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     description = models.CharField(max_length=200, blank=True, null=True)
     start_time = models.DateTimeField()
     finish_time = models.DateTimeField()
