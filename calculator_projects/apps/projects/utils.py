@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from django.db.models.signals import post_save
 from django.shortcuts import get_object_or_404
 
@@ -119,3 +121,11 @@ def project_amount(project):
         ),
     )
     return project_status_list
+
+
+def project_change_status(pk, user, status):
+    project = get_object_or_404(ProjectPlan, pk=pk)
+    project.accepted_by = user
+    project.project_status = status
+    project.accepted_at = datetime.now(tz=timezone.utc)
+    project.save()

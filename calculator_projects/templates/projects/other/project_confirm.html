@@ -18,33 +18,35 @@
   </div>
 
 
-    <div class="row mb-5">
-        <div class="col-md-6 col-lg-4">
-            <div class="card mb-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Отклоненные</h5>
-                    <span class="badge badge-center rounded-pill bg-danger">{{ project_status_list.cancelled|default:0 }}</span>
+  <div class="row mb-5">
+    <div class="col-md-6 col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body text-center">
+          <h5 class="card-title">Отклоненные</h5>
+          <span class="badge badge-center rounded-pill bg-danger"
+                style="color: black">{{ project_status_list.cancelled|default:0 }}</span>
 
-                </div>
-            </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card text-center mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">В подтверждении</h5>
-                    <span class="badge badge-center rounded-pill bg-primary">{{ project_status_list.conform|default:0 }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card text-center mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Подтвержденный</h5>
-                    <span class="badge badge-center rounded-pill bg-success">{{ project_status_list.active|default:0 }}</span>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card text-center mb-3">
+        <div class="card-body">
+          <h5 class="card-title">В подтверждении</h5>
+          <span class="badge badge-center rounded-pill bg-primary">{{ project_status_list.conform|default:0 }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card text-center mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Подтвержденный</h5>
+          <span class="badge badge-center rounded-pill bg-success"
+                style="color: black">{{ project_status_list.active|default:0 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
 
     <div class="col-lg-12">
@@ -58,16 +60,16 @@
             <table class="table table-bordered verticle-middle table-responsive-sm text-center">
               <thead>
               <tr>
-                 <th class="text-center">#</th>
-                    <th>Наименование</th>
-                    <th class="text-center">Тип <br>проекта</th>
-                    <th class="text-center">Общий<br> бюджет</th>
-                    <th class="text-center">Дата <br>начало</th>
-                    <th class="text-center">Дата<br>окончания</th>
-                    <th class="text-center">Ответственный</th>
-                    <th class="text-center">ДЕПОРТАМЕНТ</th>
-                    <th class="text-center">Статус</th>
-                    <th class="text-center">Действие</th>
+                <th class="text-center">#</th>
+                <th>Наименование</th>
+                <th class="text-center">Тип <br>проекта</th>
+                <th class="text-center">Общий<br> бюджет</th>
+                <th class="text-center">Дата <br>начало</th>
+                <th class="text-center">Дата<br>окончания</th>
+                <th class="text-center">Ответственный</th>
+                <th class="text-center">ДЕПОРТАМЕНТ</th>
+                <th class="text-center">Статус</th>
+                <th class="text-center">Действие</th>
 
               </tr>
 
@@ -77,68 +79,79 @@
               {% for project in page_obj %}
                 <tr id="project-{{ project.id }}">
 
-                        <td class="text-center text-muted">{{ forloop.counter }}</td>
-                        <td>
-                            <div class="widget-content p-0">
-                                <div class="widget-content-wrapper">
-                                    <div class="widget-content-left flex2">
-                                        <div class="widget-heading"><a class="dropdown-item"
-                               href="{% url 'projects:project_plan_final_view' project.id %}"
-                            ><strong>{{ project.name }}</strong>
-                            </a></div>
+                  <td class="text-center text-muted">{{ forloop.counter }}</td>
+                  <td>
+                    <div class="widget-content p-0">
+                      <div class="widget-content-wrapper">
+                        <div class="widget-content-left flex2">
+                          <div class="widget-heading"><a class="dropdown-item"
+                                                         href="{% url 'projects:project_plan_final_view' project.id %}"
+                          ><strong>{{ project.name }}</strong>
+                          </a></div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center">{{ project.get_customer_status_display }}</td>
-                        <td class="text-center">{{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм</td>
-                        <td class="text-center">{{ project.start_time }}</td>
-                        <td class="text-center">{{ project.finish_time }}</td>
-                        <td class="text-center">{{ project.created_by }}</td>
-                        <td class="text-center">{{ project.created_by.deportment }}</td>
-                        <td class="text-center" id="project-status-{{ project.id }}">
-                            {{ project.get_project_status_display }}
-                        </td>
-
-
-                        <td id="project-confirm-reject-buttons-{{ project.id }}">
-                            <div class="d-flex   justify-content-around" style="font-size: 14px">
-
-                                {% if project.project_status is 2 %}
-
-
-                                    <div>
-                                        <button type="button" class="btn btn-secondary
-                                     reject-project" action-url="#">
-                                            <span class="tf-icons bx bx-trash"></span>&nbsp; Отклонять
-                                        </button>
-                                        <button type="button" class="btn btn-primary confirm-project"
-                                                action-url="#">
-                                            <span class="tf-icons bx bx-check"></span>&nbsp; Подтвердить
-                                        </button>
-
-                                    </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{ project.get_customer_status_display }}</td>
+                  <td class="text-center">{{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм</td>
+                  <td class="text-center">{{ project.start_time|date:"d-m-Y" }}</td>
+                  <td class="text-center">{{ project.finish_time|date:"d-m-Y" }}</td>
+                  <td class="text-center">{{ project.created_by }}</td>
+                  <td class="text-center">{{ project.created_by.deportment }}</td>
+                  <td class="text-center" id="project-status-{{ project.id }}">
+                    {% if project.project_status == 2 %}
+                      <span class="badge badge-dark">{{ project.get_project_status_display }}</span>
+                      {% elif project.project_status == 3 %}
+                       <span class="badge badge-success">{{ project.get_project_status_display }}</span>
+                      {% elif project.project_status == 4 %}
+                       <span class="badge badge-success">{{ project.get_project_status_display }}</span>
+                       {% elif project.project_status == 5 %}
+                       <span class="badge badge-danger">{{ project.get_project_status_display }}</span>
+                       {% elif project.project_status == 6 %}
+                       <span class="badge badge-warning">{{ project.get_project_status_display }}</span>
+                    {% endif %}
+{#                    {{ project.get_project_status_display }}#}
+                  </td>
 
 
-                                {% elif project.project_status is 5 %}
-                                    <button type="button" class="btn btn-secondary
-                                     reject-project disabled" data-reject-id="{{ project.id }}">
-                                        <span class="tf-icons bx bx-trash"></span>&nbsp; Отклоненный
-                                    </button>
-                                {% else %}
-                                    <button type="button" class="btn btn-primary confirm-project disabled"
-                                            data-confirm-id="{{ project.id }}">
-                                        <span class="tf-icons bx bx-check"></span>&nbsp; Подтвержденный
-                                    </button>
+                  <td id="project-confirm-reject-buttons-{{ project.id }}">
+                    <div class="d-flex   justify-content-around" style="font-size: 14px">
 
-                                {% endif %}
-
-                            </div>
-                        </td>
+                      {% if project.project_status is 2 %}
 
 
-                    </tr>
+                        <div>
+                          <button type="button" class="btn btn-secondary
+                                     reject-project" data-id="{{ project.id }}">
+                            Отклонять
+                          </button>
+                          <button type="button" class="btn btn-primary confirm-project"
+                                  data-id="{{ project.id }}">
+                            &nbsp; Подтвердить
+                          </button>
+
+                        </div>
+
+
+                      {% elif project.project_status is 5 %}
+                        <button type="button" class="btn btn-secondary
+                                     " disabled data-id="{{ project.id }}">
+                          Отклоненный
+                        </button>
+                      {% else %}
+                        <button type="button" class="btn btn-primary"
+                                data-id="{{ project.id }}" disabled>
+                          Подтвержденный
+                        </button>
+
+                      {% endif %}
+
+                    </div>
+                  </td>
+
+
+                </tr>
               {% endfor %}
 
               </tbody>
@@ -184,8 +197,82 @@
 
   </div>
 
+  <script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.reject-project').on('click', (e) => {
+        document.getElementById('reject_project_id').value = e.target.getAttribute('data-id');
+        $('#rejectProjectModal').modal('show');
+      })
+    });
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.confirm-project').on('click', (e) => {
+        document.getElementById('confirm_project_id').value = e.target.getAttribute('data-id');
+        $('#confirmProjectModal').modal('show');
+      })
+    });
+  </script>
+
+  <div class="modal fade" id="rejectProjectModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Отклонять проект</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <p>Вы уверены, что хотите отклонять этот проект ?</p>
+
+
+        </div>
+        <div class="modal-footer">
+          <form method="post"
+                id="project-reject-form"
+          >
+            <input type="hidden" name="reject_project_plan" id="reject_project_id">
+            {% csrf_token %}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+            <button type="submit" class="btn btn-primary" id='reject-project'
+                    data-href-template="{% url 'projects:project_reject' %}">Да
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 
 
+  <div class="modal fade" id="confirmProjectModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтвердить проект</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <form method="post"
+              id="project-confirm-form"
+        >
+          {% csrf_token %}
+
+          <div class="modal-body">
+            <p>Вы уверены, что хотите подтвердить этот проект ?</p>
+            <input type="hidden" name="confirm_project" id="confirm_project_id">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+            <button type="submit" class="btn btn-primary" id='confirm-project'
+                    data-href-template="{% url 'projects:project_confirm' %}">Да
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

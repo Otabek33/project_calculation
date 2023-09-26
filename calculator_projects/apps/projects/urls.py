@@ -1,6 +1,6 @@
 from django.urls import path
 
-from calculator_projects.apps.projects.views.finance import confirm_list
+from calculator_projects.apps.projects.views.finance import confirm_list, project_reject,project_confirm
 from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, project_plan_initial_view,
                                                         project_passport_update, project_plan_stage_two,
                                                         task_add, project_plan_stage_three, project_plan_final_view,
@@ -19,5 +19,7 @@ urlpatterns = [
     path("status/<uuid:pk>", project_list_status, name="status_list"),
     path("delete/", project_delete, name="project_delete"),
     path("confirm-list/", confirm_list, name="confirm_list"),
+    path("project-reject/", project_reject, name="project_reject"),
+    path("project-confrim/", project_confirm, name="project_confirm"),
 
 ]
