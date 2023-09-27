@@ -75,9 +75,6 @@ class ProjectPhase(models.IntegerChoices):
     COMPLETED = 3, _("Завершенный")
 
 
-
-
-
 class ProjectPlan(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, blank=True, null=True)
@@ -237,6 +234,7 @@ class ProjectPlan(models.Model):
     def stage_list(self):
         from calculator_projects.apps.stages.models import StagePlan
         return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False).order_by('stage_number')
+
 
 class ProjectFact(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

@@ -4,7 +4,7 @@
     Name                 : Efron
     Author               : Quixkit
     Author Portfolio     : https://themeforest.net/user/quixkit/portfolio
-    
+
 
 
     Table of Sass Contents
@@ -16,7 +16,7 @@
         _mixin
         _variable
 
-    2. bootstrap 
+    2. bootstrap
         -Here goes all official bootstrap scss files
 
     3. Global/Base
@@ -17230,7 +17230,14 @@ span#counter {
     font-size: 24px;
     position: relative;
     padding: 0 10px; }
+ .social-graph-wrapper.widget-project {
+    background-color: #7a2121; }
 
+  .social-graph-wrapper.widget-duration {
+    background-color: #2a4b6b; }
+
+    .social-graph-wrapper.widget-total-price {
+    background-color: #19591c; }
 .ct-bar-chart {
   height: 250px; }
 

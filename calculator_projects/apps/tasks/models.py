@@ -12,6 +12,7 @@ from calculator_projects.utils.helpers import (defining_duration_per_day, defini
                                                defining_total_price)
 from django.utils.translation import gettext_lazy as _
 
+
 class TaskFactStatus(models.IntegerChoices):
     PLAN = 1, _("План")
     ACTIVE = 2, _("Активный")
@@ -30,7 +31,7 @@ class TaskPlan(models.Model):
     duration_per_day = models.IntegerField(default=0.0)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
     project = models.ForeignKey(
-        ProjectPlan, on_delete=models.CASCADE, blank=True, null=True
+        ProjectPlan, on_delete=models.CASCADE, blank=True, null=True, related_name="project_plan_task",
     )
 
     created_by = models.ForeignKey(
@@ -105,15 +106,15 @@ class TaskFact(models.Model):
     )
     updated_at = models.DateTimeField(blank=True, null=True, default=datetime.now)
     deleted_status = models.BooleanField(default=False)
-    stage = models.ForeignKey(
+    stage_fact = models.ForeignKey(
         StageFact, on_delete=models.CASCADE, blank=True, null=True
     )
-    project = models.ForeignKey(
+    project_fact = models.ForeignKey(
         ProjectFact,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name="project",
+        related_name="project_fact",
     )
 
     def __str__(self):

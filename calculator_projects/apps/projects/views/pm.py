@@ -6,9 +6,10 @@ from django.views.generic import CreateView, DetailView, UpdateView, ListView, D
 
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus
+from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
-    checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount
+    checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
+    project_fact_task_amount, project_plan_header_info, project_plan_task_amount
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan
@@ -205,9 +206,10 @@ class ProjectStatusList(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
+        exclude_list = [ProjectStatus.CANCELLED, ProjectStatus.ACTIVE]
         return qs.filter(
             deleted_status=False, created_by=self.request.user
-        )
+        ).exclude(project_status__in=exclude_list)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -238,3 +240,35 @@ class ProjectPlanDelete(DeleteView):
 
 
 project_delete = ProjectPlanDelete.as_view()
+
+
+class ProjectFactListView(ListView):
+    model = ProjectFact
+    tm_path = "projects/project_fact/"
+    tm_name = "project_fact_list.html"
+    template_name = f"{tm_path}{tm_name}"
+    paginate_by = 10
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(
+            deleted_status=False, created_by=self.request.user
+        ).order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_plan_list = ProjectPlan.objects.filter(
+            created_by=self.request.user,
+            project_status=ProjectStatus.ACTIVE,
+            deleted_status=False,
+        )
+        context["project_fact_list_header"] = project_fact_header_info(self.get_queryset())
+        context["project_plan_list_header"] = project_plan_header_info(project_plan_list)
+        context["task_fact_header"] = project_fact_task_amount(self.get_queryset())
+        context["task_plan_header"] = project_plan_task_amount(project_plan_list)
+        context["project_fact_list"] = self.get_queryset()
+
+        return context
+
+
+project_fact = ProjectFactListView.as_view()

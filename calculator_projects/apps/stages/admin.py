@@ -22,11 +22,10 @@ admin.site.register(StagePlan, StagePlanAdmin)
 class StageFactAdmin(admin.ModelAdmin):
     model = StageFact
     list_display = [
-        "name",
-        "project",
+        "description",
+        "project_fact",
         "start_time",
         "finish_time",
-        "total_price",
     ]
 
 

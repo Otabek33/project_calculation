@@ -1,4 +1,3 @@
-
 <div class="row">
   <div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
     <div class="card">
@@ -14,17 +13,17 @@
         </div>
         <div class="col-6">
           <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-            {% if projectplan.project_creation_stage == 2 or  projectplan.project_creation_stage == 3 or projectplan.project_creation_stage == 4 %}
-               <div>
-              <span >
+            {% if projectplan.project_creation_stage == 1 or  projectplan.project_creation_stage == 2 or projectplan.project_creation_stage == 3 or projectplan.project_creation_stage == 4 %}
+              <div>
+              <span>
                 <i class="icon-check text-success" style="font-size: 3em;"></i>
               </span>
-            </div>
+              </div>
 
-              {% else %}
-                <div class="spinner-border  text-secondary" role="status">
-              <span class="visually-hidden"></span>
-            </div>
+            {% else %}
+              <div class="spinner-border  text-secondary" role="status">
+                <span class="visually-hidden"></span>
+              </div>
             {% endif %}
 
           </div>
@@ -32,7 +31,7 @@
       </div>
     </div>
   </div>
-<div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
+  <div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
     <div class="card">
       <div class="social-graph-wrapper widget-facebook" style="background-color: #343957">
         <span class="s-icon" style="color: #bdbdc7">Добавит этапы и задачи
@@ -47,24 +46,24 @@
         </div>
         <div class="col-6">
           <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-          {% if  projectplan.project_creation_stage == 4 %}
-               <div>
-              <span >
+            {% if  projectplan.project_creation_stage == 2 or projectplan.project_creation_stage == 3 or projectplan.project_creation_stage == 4  %}
+              <div>
+              <span>
                 <i class="icon-check text-success" style="font-size: 3em;"></i>
               </span>
-            </div>
+              </div>
 
-              {% else %}
-                <div class="spinner-border  text-secondary" role="status">
-              <span class="visually-hidden"></span>
-            </div>
+            {% else %}
+              <div class="spinner-border  text-secondary" role="status">
+                <span class="visually-hidden"></span>
+              </div>
             {% endif %}
           </div>
         </div>
       </div>
     </div>
   </div>
-<div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
+  <div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
     <div class="card">
       <div class="social-graph-wrapper widget-facebook" style="background-color: #343957">
         <span class="s-icon" style="color: #bdbdc7">Обзор паспорт проекта
@@ -79,9 +78,18 @@
         </div>
         <div class="col-6">
           <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-            <div class="spinner-border  text-secondary" role="status">
-              <span class="visually-hidden"></span>
-            </div>
+               {% if  projectplan.project_creation_stage == 4  %}
+              <div>
+              <span>
+                <i class="icon-check text-success" style="font-size: 3em;"></i>
+              </span>
+              </div>
+
+            {% else %}
+              <div class="spinner-border  text-secondary" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+            {% endif %}
           </div>
         </div>
       </div>

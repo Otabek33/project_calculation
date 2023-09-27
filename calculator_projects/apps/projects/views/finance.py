@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView
 
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectStatus
 from calculator_projects.apps.projects.utils import project_amount, project_change_status, copy_project_plan_to_fact, \
-    copy_stage_plan_to_fact
+    copy_stage_plan_to_fact, copy_plan_to_fact_additional_cost
 from django.contrib import messages
 
 from calculator_projects.utils.helpers import is_ajax
@@ -35,31 +35,6 @@ class ProjectConfirmView(ListView):
 confirm_list = ProjectConfirmView.as_view()
 
 
-# @login_required
-# def accept_project(request, id):
-#     project_plan = ProjectPlan.objects.get(id=id)
-#     project_plan.accepted_by = request.user
-#     project_plan.project_status = ProjectStatus.ACTIVE
-#     project_plan.accepted_at = datetime.now(tz=timezone.utc)
-#     project_plan.save()
-#     # project_fact_id = copy_plan_to_fact_project(project_plan)
-#     # copy_plan_to_fact_stage(project_plan, project_fact_id)
-#     messages.success(request, message="Проект успешно одобрен")
-#     return redirect(request.META["HTTP_REFERER"])
-
-
-# @login_required
-# # @director_required
-# def project_reject(request, id):
-#     project = ProjectPlan.objects.get(id=id)
-#     project.accepted_by = request.user
-#     project.project_status = ProjectStatus.CANCELLED
-#     project.accepted_at = datetime.now(tz=timezone.utc)
-#     project.save()
-#     messages.error(request, message="Проект успешно отменен")
-#     return redirect(request.META["HTTP_REFERER"])
-
-
 class ProjectPlanRejectView(DetailView):
     model = ProjectPlan
 
@@ -83,8 +58,9 @@ class ProjectPlanConfirmView(DetailView):
         if is_ajax(request):
             pk = request.POST.get("id")
             project_plan = project_change_status(pk, request.user, ProjectStatus.ACTIVE)
-            project_fact_id = copy_project_plan_to_fact(project_plan)
-            copy_stage_plan_to_fact(project_plan,project_fact_id)
+            project_fact = copy_project_plan_to_fact(project_plan)
+            copy_stage_plan_to_fact(project_plan, project_fact.id)
+            copy_plan_to_fact_additional_cost(project_plan, project_fact)
 
             return JsonResponse(
                 {"success": True, "data": None}

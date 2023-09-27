@@ -86,15 +86,29 @@ class StagePlan(models.Model):
 
 class StageFact(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
     start_time = models.DateField()
     finish_time = models.DateField()
     stage_number = models.IntegerField(blank=True, null=True)
     duration_per_hour = models.IntegerField(default=0.0)
     duration_per_day = models.IntegerField(default=0.0)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    total_price_stage_and_task = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    salary_cost = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
+    cost_price = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
+    period_expenses = models.DecimalField(
+        max_digits=1000, decimal_places=8, default=0.0
+    )
+
+    contributions_to_IT_park = models.DecimalField(
+        max_digits=1000, decimal_places=8, default=0.0
+    )
+    margin = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
+    total_price_with_margin = models.DecimalField(
+        max_digits=1000, decimal_places=2, default=0.0
+    )
     stage_plan = models.ForeignKey(
-        ProjectPlan, on_delete=models.CASCADE, blank=True, null=True
+        StagePlan, on_delete=models.CASCADE, blank=True, null=True
     )
 
     created_by = models.ForeignKey(
@@ -114,7 +128,7 @@ class StageFact(models.Model):
     )
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_status = models.BooleanField(default=False)
-    project = models.ForeignKey(
+    project_fact = models.ForeignKey(
         ProjectFact, on_delete=models.CASCADE, blank=True, null=True
     )
 
@@ -123,4 +137,4 @@ class StageFact(models.Model):
         verbose_name_plural = "Факт Этапы"
 
     def __str__(self):
-        return self.name
+        return self.description

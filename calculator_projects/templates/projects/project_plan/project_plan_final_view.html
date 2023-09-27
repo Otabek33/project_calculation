@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block content %}
-  {#  {% include 'projects/_includes/steps.html' %}#}
+
   {#Project Passport#}
   <div class="row page-titles mx-0">
     <div class="col-sm-12 d-flex justify-content-between">
@@ -29,7 +29,7 @@
 
 
   </div>
-
+{% include 'projects/_includes/steps.html' %}
   <div class="row">
     <div class="col-md-12 d-flex justify-content-around">
       <div class="col-6 card border-0">
@@ -489,7 +489,7 @@
 
               <div class="col-sm-12 ml-lg-4 ">
                 <div class="d-flex justify-content-between">
-                  <table id="example" class="table table-bordered">
+                  <table  class="table table-bordered">
                     <thead class="text-left">
                     <tr>
                       <th scope="col" class="text-left">Статья затрат</th>

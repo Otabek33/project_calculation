@@ -25,8 +25,8 @@ class TaskFactAdmin(admin.ModelAdmin):
     model = TaskFact
     list_display = [
         "description",
-        "stage",
-        "project",
+        "stage_fact",
+        "project_fact",
         "start_time",
         "finish_time",
         "total_price",
