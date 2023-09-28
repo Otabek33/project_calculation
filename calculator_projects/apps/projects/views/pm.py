@@ -12,7 +12,7 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
     project_fact_task_amount, project_plan_header_info, project_plan_task_amount
 from calculator_projects.apps.stages.models import StagePlan
 
-from calculator_projects.apps.tasks.models import TaskPlan
+from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
 from calculator_projects.utils.helpers import is_ajax
 
 
@@ -267,8 +267,25 @@ class ProjectFactListView(ListView):
         context["task_fact_header"] = project_fact_task_amount(self.get_queryset())
         context["task_plan_header"] = project_plan_task_amount(project_plan_list)
         context["project_fact_list"] = self.get_queryset()
-
         return context
 
 
 project_fact = ProjectFactListView.as_view()
+
+
+class ProjectFactDetailView(DetailView):
+    model = ProjectFact
+    tm_path = "projects/project_fact/"
+    tm_name = "project_fact_detail.html"
+    template_name = f"{tm_path}{tm_name}"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
+        task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact)
+        context["project_fact"] = project_fact
+        context["task_fact_list"] = task_list
+        return context
+
+
+project_fact_detail = ProjectFactDetailView.as_view()

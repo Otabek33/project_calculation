@@ -210,6 +210,9 @@ class ProjectPlan(models.Model):
     def stage_counter(self):
         return self.stageplan_set.filter(deleted_status=False).count()
 
+    def task_counter(self):
+        return self.project_plan_task.filter(deleted_status=False).count()
+
     def process_formation_fields_with_additional_cost(self):
         from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
         from django.db.models import Sum
@@ -321,3 +324,15 @@ class ProjectFact(models.Model):
     class Meta:
         verbose_name = "Факт Проект"
         verbose_name_plural = "Факт Проекты"
+
+    def task_fact_amount(self):
+        return self.project_fact.filter(deleted_status=False).count()
+
+    def task_plan_amount(self):
+        return self.project_plan.project_plan_task.filter(deleted_status=False).count()
+
+    def project_plan_additional_cost(self):
+        return self.project_plan.additional_cost
+
+    def project_plan_total_price(self):
+        return self.project_plan.total_price_with_additional_cost

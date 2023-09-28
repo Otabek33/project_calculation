@@ -152,6 +152,7 @@ def project_plan_task_amount(project_plan_list):
     return project_plan_list.aggregate(project_plan_task_amount=Count("project_plan_task"))
 
 
+
 def project_change_status(pk, user, status):
     project = get_object_or_404(ProjectPlan, pk=pk)
     project.accepted_by = user

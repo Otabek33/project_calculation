@@ -4,7 +4,7 @@ from calculator_projects.apps.projects.views.finance import confirm_list, projec
 from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, project_plan_initial_view,
                                                         project_passport_update, project_plan_stage_two,
                                                         task_add, project_plan_stage_three, project_plan_final_view,
-                                                        project_list_status, project_delete, project_fact)
+                                                        project_list_status, project_delete, project_fact,project_fact_detail)
 
 app_name = "projects"
 
@@ -22,5 +22,6 @@ urlpatterns = [
     path("project-reject/", project_reject, name="project_reject"),
     path("project-confrim/", project_confirm, name="project_confirm"),
     path("fact/<uuid:pk>", project_fact, name="project_fact"),
+    path("fact/<uuid:pk>/detail/", project_fact_detail, name="project_fact_detail"),
 
 ]

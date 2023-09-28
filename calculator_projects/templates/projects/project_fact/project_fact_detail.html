@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+  Project Fact
+{% endblock title %}
+{% block content %}
+
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>{{ projectfact.name }}</h4>
+
+      </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+
+
+        <li class="breadcrumb-item active"><a href="{% url 'projects:project_fact' user.id %}">Подтвержденние
+          проекты</a>
+        </li>
+        <li class=" breadcrumb-item active">Информация о проекте
+
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="d-flex justify-content-between social-graph-wrapper widget-linkedin">
+          <div class="col-10 border-right">
+            <span class="s-icon">Общее количество задач</span>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-lg  btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#taskFactAddModel"><i class="icon-plus"></i>
+            </button>
+          </div>
+
+
+        </div>
+
+        <div class="row ">
+          <div class="col-6 border-right">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact.task_plan_amount }}</span> шт</h4>
+              <p class="m-0">План</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact.task_fact_amount }}</span> шт</h4>
+              <p class="m-0">Факт</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+
+        <div class="d-flex justify-content-between social-graph-wrapper widget-duration">
+          <div class="col-10 border-right">
+            <span class="s-icon">Дополнительные расходы</span>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-lg   btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#taskFactAddModel"><i class="icon-plus"></i>
+            </button>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-6 border-right">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact.project_plan_additional_cost|floatformat:"2g" }}</span>
+                сўм</h4>
+              <p class="m-0">План</p>
+
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact.additional_cost|floatformat:"2g" }}</span>
+                сўм</h4>
+              <p class="m-0">Факт</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="social-graph-wrapper widget-total-price">
+          <span class="s-icon">Общая стоимость проекта</span>
+        </div>
+        <div class="row">
+          <div class="col-6 border-right">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact.project_plan_total_price|floatformat:"2g" }}</span>
+                сўм</h4>
+              <p class="m-0">План</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ projectFact.total_price_with_additional_cost|floatformat:"2g" }}</span>
+                сўм</h4>
+              <p class="m-0">Факт</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-responsive-sm">
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Ф.И.О.</th>
+            <th>Этап</th>
+            <th>Наименование</th>
+            <th>Дата<br>начало</th>
+            <th>Дата<br>окончание</th>
+            <th>СТАТУС</th>
+            <th>ОБНОВЛЕНО В</th>
+            <th>Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for task_fact in task_fact_list %}
+            <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>palonchi</td>
+              <td>{{ task_fact.stage_fact.name }}</td>
+              <td>{{ task_fact.description }}</td>
+              <td>
+                <input class="form-control datetimepicker" name="start_datetime_{{ task_fact.id }}"
+                       type="text"
+                       style="width: 200px" value="{{ task_fact.start_time|date:"Y-m-d H:m" }}">
+              <td>
+                <input class="form-control datetimepicker" name="finish_datetime_{{ task_fact.id }}"
+                       type="text"
+                       style="width: 200px" value="{{ task_fact.finish_time|date:"Y-m-d H:m" }}">
+              </td>
+              <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
+
+
+                <option value="1" {% if task_fact.action_status == 1 %}selected{% endif %}>План</option>
+                <option value="2" {% if task_fact.action_status == 2 %}selected{% endif %}>Активный</option>
+                <option value="3" {% if task_fact.action_status == 3 %}selected{% endif %}>Завершенный
+                </option>
+                <option value="4" {% if task_fact.action_status == 4 %}selected{% endif %}>Отменено</option>
+                <option value="5" {% if task_fact.action_status == 5 %}selected{% endif %}>На удерживании
+                </option>
+
+              </select></td>
+            <td>{{ task_fact.updated_at }}</td>
+             <td>
+                <div class="d-flex justify-content-around w-75 text-center">
+                  <a type="button" class="dropdown-item task_fact_button"
+                     data-store-id="{{ task_fact.id }}"
+                     data-href-template="#"
+                  ><i class="bx bx-save me-1"></i> Сохранить</a
+                  >
+
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="table-responsive text-nowrap m-4 border">
+      <table class="table table-bordered verticle-middle table-responsive-sm text-center">
+        <thead>
+        <tr class="text-center">
+
+          <th>№</th>
+          <th>Ф.И.О.</th>
+          <th>Этап</th>
+          <th>Наименование</th>
+          <th>Дата<br>начало</th>
+          <th>Дата<br>окончание</th>
+          <th>СТАТУС</th>
+          <th>ОБНОВЛЕНО В</th>
+          <th>Действие</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr>
+
+          {% for task in task_list %}
+            {% if not task.delete_status %}
+
+              <td>{{ forloop.counter }}</td>
+              <input hidden="hidden" name="task_fact_id" value="{{ task.id }}">
+              <td id="td-{{ forloop.counter }}">
+                <select class=" js-example-basic-single" name="states" style="width: 200px"
+                        id="id_assignee_{{ task.id }}">
+                  <option value="0">Cотрудник</option>
+                  {% for staff in staff_list %}
+                    <option value="{{ staff.id }}"
+                            {% if task.assignee == staff %}selected{% endif %}>{{ staff.first_name }} {{ staff.last_name }}</option>
+                  {% endfor %}
+                </select>
+
+              </td>
+              <td>{{ task.stage.name }}</td>
+              <td>{{ task.description }}</td>
+
+              <td>
+                <input class="form-control datetimepicker" name="start_datetime_{{ task.id }}"
+                       type="text"
+                       style="width: 200px" value="{{ task.start_time|date:"Y-m-d H:m" }}">
+              <td>
+                <input class="form-control datetimepicker" name="finish_datetime_{{ task.id }}"
+                       type="text"
+                       style="width: 200px" value="{{ task.finish_time|date:"Y-m-d H:m" }}">
+              </td>
+
+              <td><select name="task_fact_status_{{ task.id }}" class="form-select " style="width: 150px">
+
+
+                <option value="1" {% if task.action_status == 1 %}selected{% endif %}>План</option>
+                <option value="2" {% if task.action_status == 2 %}selected{% endif %}>Активный</option>
+                <option value="3" {% if task.action_status == 3 %}selected{% endif %}>Завершенный
+                </option>
+                <option value="4" {% if task.action_status == 4 %}selected{% endif %}>Отменено</option>
+                <option value="5" {% if task.action_status == 5 %}selected{% endif %}>На удерживании
+                </option>
+
+              </select></td>
+              <td>{{ task.updated_at }}</td>
+              <td>
+                <div class="d-flex justify-content-around w-75 text-center">
+                  <a type="button" class="dropdown-item task_fact_button"
+                     data-store-id="{{ task.id }}"
+                     data-href-template="#"
+                  ><i class="bx bx-save me-1"></i> Сохранить</a
+                  >
+
+                </div>
+              </td>
+
+              </tr>
+            {% endif %}
+          {% endfor %}
+        <tr style="height: 200px">
+          <td colspan="12"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <h5 class="card-header align-items-center text-center">
+          <span>Дополнительные расходы:  </span>
+        </h5>
+        <div class="table-responsive text-nowrap m-4">
+          <table id="additional-cost-table" class="table table-bordered">
+            <thead class="text-center">
+            <tr>
+              <th class="text-center">Статья затрат</th>
+              <th class="text-center">Комментария</th>
+              <th class="text-center">Сумма</th>
+              <th class="text-center">Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in projectfact.additionalcostfact_set.all %}
+              {% if not item.deleted_status %}
+                <tr>
+                  <td class="text-center" id="cost_type_{{ item.id }}">
+
+                    <select name="additional_cost_fact_type_edited" class="form-select "
+                            style="width: 150px">
+
+
+                      <option value="1" {% if item.cost_type == 1 %}selected{% endif %}>
+                        Аутсорсинг
+                      </option>
+                      <option value="2" {% if item.cost_type == 2 %}selected{% endif %}>
+                        Оборудование
+                      </option>
+                      <option value="3" {% if item.cost_type == 3 %}selected{% endif %}>Прочие
+                        расходы
+                      </option>
+
+                    </select>
+
+
+                  </td>
+                  <td class="text-center" id="comment_{{ item.id }}">
+                                        <textarea name="additional_cost_fact_comment_edited"
+                                                  class="form-control">{{ item.comment }}</textarea>
+                  </td>
+                  <td class="text-center" id="amount_{{ item.id }}">
+                    <input class="form-control text-center"
+                           name="additional_cost_fact_amount_edited"
+                           value="{{ item.amount|floatformat:"2g" }}">
+
+                  </td>
+                  <td class="text-center">
+
+                    <div class="d-flex justify-content-around w-75">
+                      <a class="mx-2 additional_cost_fact_edit_row"
+                         href="{% url 'project:additional_cost_fact_edit' item.id %}"
+                      ><i class="bx bx-save me-1"></i></a
+                      >
+
+                      <a class="mx additional_cost_fact_delete_row"
+                         data-store-id="{{ item.amount }}"
+                         href="{% url 'project:additional_cost_fact_delete'  item.id %}"
+                      ><i class="bx bx-trash me-1"></i></a
+                      >
+                    </div>
+
+                  </td>
+                </tr>
+              {% endif %}
+
+            {% endfor %}
+
+            </tbody>
+
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+{% endblock %}
+
