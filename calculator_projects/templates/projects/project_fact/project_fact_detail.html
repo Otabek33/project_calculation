@@ -178,11 +178,6 @@
               <td>{{ task_fact.updated_at|date:"d-m-Y H:m" }}</td>
               <td>
                 <div>
-                  {#                  <a type="button" class="btn-primary task_fact_button"#}
-                  {#                     data-store-id="{{ task_fact.id }}"#}
-                  {#                     data-href-template="#"#}
-                  {#                  > Сохранить</a#}
-                  {#                  >#}
                   <a class="btn btn-primary pl-5 pr-5 " href="#">Сохранить</a>
 
                 </div>
@@ -195,20 +190,22 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-4">
 
     </div>
-    <div class="col-md-8">
-      <div class="card mb-4">
-        <h5 class="card-header align-items-center text-center">
+  <div class="col-md-8">
+    <div class=" card">
+    <h5 class="card-header align-items-center text-center">
           <span>Дополнительные расходы:  </span>
         </h5>
-        <div class="table-responsive text-nowrap m-4">
-          <table id="additional-cost-table" class="table table-bordered">
-            <thead class="text-center">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-responsive-sm text-center">
+            <thead>
             <tr>
-              <th class="text-center">Статья затрат</th>
+               <th class="text-center">Статья затрат</th>
               <th class="text-center">Комментария</th>
               <th class="text-center">Сумма</th>
               <th class="text-center">Действие</th>
@@ -270,14 +267,13 @@
             {% endfor %}
 
             </tbody>
-
           </table>
         </div>
-
-
       </div>
     </div>
   </div>
+  </div>
+
 
 
 
