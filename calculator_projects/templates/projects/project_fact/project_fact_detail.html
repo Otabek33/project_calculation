@@ -4,6 +4,7 @@
 {% block title %}
   Project Fact
 {% endblock title %}
+
 {% block content %}
 
   <div class="row page-titles mx-0">
@@ -128,15 +129,14 @@
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered table-responsive-sm">
+        <table class="table table-bordered table-responsive-sm text-center">
           <thead>
           <tr>
             <th>№</th>
             <th>Ф.И.О.</th>
             <th>Этап</th>
             <th>Наименование</th>
-            <th>Дата<br>начало</th>
-            <th>Дата<br>окончание</th>
+            <th>Диапазон дат со временем</th>
             <th>СТАТУС</th>
             <th>ОБНОВЛЕНО В</th>
             <th>Действие</th>
@@ -145,19 +145,23 @@
           <tbody>
           {% for task_fact in task_fact_list %}
             <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>palonchi</td>
-              <td>{{ task_fact.stage_fact.name }}</td>
+              <td>{{ forloop.counter }}</td>
+              <td><select class="single-select-placeholder js-states form-control ">
+                {% if forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 6 or forloop.counter == 8%}
+                    <option value="California" selected>Samatov Abduvali Akbar o'g'li</option>
+                  {% else %}
+                  <option value="empty" selected>Выберите работника</option>
+                {% endif %}
+                <option value="Hawaii">Hawaii</option>
+                <option value="California">Samatov Abduvali Akbar o'g'li</option>
+                <option value="California">California</option>
+                <option value="California">California</option>
+                <option value="California">California</option>
+              </select></td>
+              <td>{{ task_fact.stage_fact.stage_number }}</td>
               <td>{{ task_fact.description }}</td>
-              <td>
-                <input class="form-control datetimepicker" name="start_datetime_{{ task_fact.id }}"
-                       type="text"
-                       style="width: 200px" value="{{ task_fact.start_time|date:"Y-m-d H:m" }}">
-              <td>
-                <input class="form-control datetimepicker" name="finish_datetime_{{ task_fact.id }}"
-                       type="text"
-                       style="width: 200px" value="{{ task_fact.finish_time|date:"Y-m-d H:m" }}">
-              </td>
+{#             <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">#}
+              <td><div  class="example"><input type="text" class="form-control input-daterange-timepicker" name="daterange_{{ task_fact.id }}" value="{{ task_fact.start_time|date:"m/d/Y H:m" }} - {{ task_fact.finish_time|date:"m/d/Y H:m" }}"></div></td>
               <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
 
 
@@ -170,14 +174,15 @@
                 </option>
 
               </select></td>
-            <td>{{ task_fact.updated_at }}</td>
-             <td>
-                <div class="d-flex justify-content-around w-75 text-center">
-                  <a type="button" class="dropdown-item task_fact_button"
-                     data-store-id="{{ task_fact.id }}"
-                     data-href-template="#"
-                  ><i class="bx bx-save me-1"></i> Сохранить</a
-                  >
+              <td>{{ task_fact.updated_at }}</td>
+              <td>
+                <div>
+{#                  <a type="button" class="btn-primary task_fact_button"#}
+{#                     data-store-id="{{ task_fact.id }}"#}
+{#                     data-href-template="#"#}
+{#                  > Сохранить</a#}
+{#                  >#}
+                  <a class="btn btn-primary pl-5 pr-5 " href="#">Сохранить</a>
 
                 </div>
               </td>
@@ -187,93 +192,6 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
-
-  <div class="card mb-4">
-    <div class="table-responsive text-nowrap m-4 border">
-      <table class="table table-bordered verticle-middle table-responsive-sm text-center">
-        <thead>
-        <tr class="text-center">
-
-          <th>№</th>
-          <th>Ф.И.О.</th>
-          <th>Этап</th>
-          <th>Наименование</th>
-          <th>Дата<br>начало</th>
-          <th>Дата<br>окончание</th>
-          <th>СТАТУС</th>
-          <th>ОБНОВЛЕНО В</th>
-          <th>Действие</th>
-
-        </tr>
-        </thead>
-        <tbody>
-
-
-        <tr>
-
-          {% for task in task_list %}
-            {% if not task.delete_status %}
-
-              <td>{{ forloop.counter }}</td>
-              <input hidden="hidden" name="task_fact_id" value="{{ task.id }}">
-              <td id="td-{{ forloop.counter }}">
-                <select class=" js-example-basic-single" name="states" style="width: 200px"
-                        id="id_assignee_{{ task.id }}">
-                  <option value="0">Cотрудник</option>
-                  {% for staff in staff_list %}
-                    <option value="{{ staff.id }}"
-                            {% if task.assignee == staff %}selected{% endif %}>{{ staff.first_name }} {{ staff.last_name }}</option>
-                  {% endfor %}
-                </select>
-
-              </td>
-              <td>{{ task.stage.name }}</td>
-              <td>{{ task.description }}</td>
-
-              <td>
-                <input class="form-control datetimepicker" name="start_datetime_{{ task.id }}"
-                       type="text"
-                       style="width: 200px" value="{{ task.start_time|date:"Y-m-d H:m" }}">
-              <td>
-                <input class="form-control datetimepicker" name="finish_datetime_{{ task.id }}"
-                       type="text"
-                       style="width: 200px" value="{{ task.finish_time|date:"Y-m-d H:m" }}">
-              </td>
-
-              <td><select name="task_fact_status_{{ task.id }}" class="form-select " style="width: 150px">
-
-
-                <option value="1" {% if task.action_status == 1 %}selected{% endif %}>План</option>
-                <option value="2" {% if task.action_status == 2 %}selected{% endif %}>Активный</option>
-                <option value="3" {% if task.action_status == 3 %}selected{% endif %}>Завершенный
-                </option>
-                <option value="4" {% if task.action_status == 4 %}selected{% endif %}>Отменено</option>
-                <option value="5" {% if task.action_status == 5 %}selected{% endif %}>На удерживании
-                </option>
-
-              </select></td>
-              <td>{{ task.updated_at }}</td>
-              <td>
-                <div class="d-flex justify-content-around w-75 text-center">
-                  <a type="button" class="dropdown-item task_fact_button"
-                     data-store-id="{{ task.id }}"
-                     data-href-template="#"
-                  ><i class="bx bx-save me-1"></i> Сохранить</a
-                  >
-
-                </div>
-              </td>
-
-              </tr>
-            {% endif %}
-          {% endfor %}
-        <tr style="height: 200px">
-          <td colspan="12"></td>
-        </tr>
-        </tbody>
-      </table>
     </div>
   </div>
   <div class="row">
@@ -363,7 +281,7 @@
 
 
 
-
-
 {% endblock %}
+
+
 
