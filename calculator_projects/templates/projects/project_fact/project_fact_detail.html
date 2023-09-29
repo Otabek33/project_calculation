@@ -147,21 +147,22 @@
             <tr>
               <td>{{ forloop.counter }}</td>
               <td><select class="single-select-placeholder js-states form-control ">
-                {% if forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 6 or forloop.counter == 8%}
-                    <option value="California" selected>Samatov Abduvali Akbar o'g'li</option>
-                  {% else %}
-                  <option value="empty" selected>Выберите работника</option>
-                {% endif %}
-                <option value="Hawaii">Hawaii</option>
-                <option value="California">Samatov Abduvali Akbar o'g'li</option>
-                <option value="California">California</option>
-                <option value="California">California</option>
-                <option value="California">California</option>
+
+                {% for worker in user_list %}
+                  <option value="{{ worker.id }}"
+                          {% if task_fact.worker == worker %}selected{% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
+
+                {% endfor %}
               </select></td>
               <td>{{ task_fact.stage_fact.stage_number }}</td>
               <td>{{ task_fact.description }}</td>
-{#             <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">#}
-              <td><div  class="example"><input type="text" class="form-control input-daterange-timepicker" name="daterange_{{ task_fact.id }}" value="{{ task_fact.start_time|date:"m/d/Y H:m" }} - {{ task_fact.finish_time|date:"m/d/Y H:m" }}"></div></td>
+              {#             <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">#}
+              <td>
+                <div class="example"><input type="text" class="form-control input-daterange-timepicker"
+                                            name="daterange_{{ task_fact.id }}"
+                                            value="{{ task_fact.start_time|date:"m/d/Y H:m" }} - {{ task_fact.finish_time|date:"m/d/Y H:m" }}">
+                </div>
+              </td>
               <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
 
 
@@ -177,11 +178,11 @@
               <td>{{ task_fact.updated_at|date:"d-m-Y H:m" }}</td>
               <td>
                 <div>
-{#                  <a type="button" class="btn-primary task_fact_button"#}
-{#                     data-store-id="{{ task_fact.id }}"#}
-{#                     data-href-template="#"#}
-{#                  > Сохранить</a#}
-{#                  >#}
+                  {#                  <a type="button" class="btn-primary task_fact_button"#}
+                  {#                     data-store-id="{{ task_fact.id }}"#}
+                  {#                     data-href-template="#"#}
+                  {#                  > Сохранить</a#}
+                  {#                  >#}
                   <a class="btn btn-primary pl-5 pr-5 " href="#">Сохранить</a>
 
                 </div>

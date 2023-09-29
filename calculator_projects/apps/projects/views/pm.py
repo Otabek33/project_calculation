@@ -13,6 +13,7 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
+from calculator_projects.apps.users.models import User
 from calculator_projects.utils.helpers import is_ajax
 
 
@@ -283,8 +284,10 @@ class ProjectFactDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
         task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact)
+        user_list = User.objects.all()
         context["project_fact"] = project_fact
         context["task_fact_list"] = task_list
+        context["user_list"] = user_list
         return context
 
 
