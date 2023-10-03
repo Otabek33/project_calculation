@@ -123,3 +123,6 @@ class TaskFact(models.Model):
     class Meta:
         verbose_name = "Факт Задача"
         verbose_name_plural = "Факт Задачы"
+
+    def update_fields(self):
+        pass

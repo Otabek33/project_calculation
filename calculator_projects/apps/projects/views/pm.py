@@ -299,7 +299,9 @@ class ProjectFactTaskUpdateView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
-            print("ishladi")
+            pk = request.POST.get("id")
+            task_fact = get_object_or_404(TaskFact, pk)
+            task_fact.update_fields()
 
             return JsonResponse(
                 {"success": True, "data": None}
