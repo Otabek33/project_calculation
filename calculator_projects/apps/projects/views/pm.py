@@ -280,11 +280,11 @@ class ProjectFactDetailView(DetailView):
     tm_name = "project_fact_detail.html"
     template_name = f"{tm_path}{tm_name}"
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
-        task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact)
+        task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact).order_by(
+            "stage_fact__stage_number")
         user_list = User.objects.all()
         context["project_fact"] = project_fact
         context["task_fact_list"] = task_list
