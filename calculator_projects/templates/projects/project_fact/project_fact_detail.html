@@ -106,7 +106,7 @@
           <div class="col-6 border-right">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
               <h4 class="m-1"><span
-                class="counter">{{ project_fact.project_plan_total_price|floatformat:"2g" }}</span>
+                class="counter">{{ project_fact.project_plan_total_price_with_additional_cost|floatformat:"2g" }}</span>
                 сўм</h4>
               <p class="m-0">План</p>
             </div>
@@ -114,7 +114,7 @@
           <div class="col-6">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
               <h4 class="m-1"><span
-                class="counter">{{ projectFact.total_price_with_additional_cost|floatformat:"2g" }}</span>
+                class="counter">{{ project_fact.total_price_with_additional_cost|floatformat:"2g" }}</span>
                 сўм</h4>
               <p class="m-0">Факт</p>
             </div>
@@ -217,7 +217,7 @@
                 <tr>
                   <td class="text-center" id="cost_type_{{ item.id }}">
 
-                    <select name="additional_cost_fact_type_edited" class="form-select "
+                    <select name="additional_cost_fact_type_edited" class="form-control "
                             style="width: 150px">
 
 
@@ -249,13 +249,13 @@
 
                     <div class="d-flex justify-content-around w-75">
                       <a class="mx-2 additional_cost_fact_edit_row"
-                         href="{% url 'project:additional_cost_fact_edit' item.id %}"
+                         href="#"
                       ><i class="bx bx-save me-1"></i></a
                       >
 
                       <a class="mx additional_cost_fact_delete_row"
                          data-store-id="{{ item.amount }}"
-                         href="{% url 'project:additional_cost_fact_delete'  item.id %}"
+                         href="#"
                       ><i class="bx bx-trash me-1"></i></a
                       >
                     </div>

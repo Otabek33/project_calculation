@@ -334,5 +334,5 @@ class ProjectFact(models.Model):
     def project_plan_additional_cost(self):
         return self.project_plan.additional_cost
 
-    def project_plan_total_price(self):
+    def project_plan_total_price_with_additional_cost(self):
         return self.project_plan.total_price_with_additional_cost
