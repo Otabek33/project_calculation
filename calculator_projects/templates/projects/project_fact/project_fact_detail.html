@@ -143,49 +143,52 @@
           </tr>
           </thead>
           <tbody>
-          {% for task_fact in task_fact_list %}
-            <tr>
-              <td>{{ forloop.counter }}</td>
-              <td><select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
+          <form method="POST">
+            {% for task_fact in task_fact_list %}
+              {% csrf_token %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
 
-                {% for worker in user_list %}
-                  <option value="{{ worker.id }}"
-                          {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
+                  {% for worker in user_list %}
+                    <option value="{{ worker.id }}"
+                            {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
 
-                {% endfor %}
-              </select></td>
-              <td>{{ task_fact.stage_fact.stage_number }}</td>
-              <td>{{ task_fact.description }}</td>
-              {#             <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">#}
-              <td>
-                <div class="example"><input type="text" class="form-control input-daterange-timepicker"
-                                            name="daterange_{{ task_fact.id }}"
-                                            value="{{ task_fact.start_time|date:"d-m-Y HH:mm" }} - {{ task_fact.finish_time|date:"d-m-Y HH:mm" }}">
-                </div>
-              </td>
-              <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
+                  {% endfor %}
+                </select></td>
+                <td>{{ task_fact.stage_fact.stage_number }}</td>
+                <td>{{ task_fact.description }}</td>
+                {#             <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">#}
+                <td>
+                  <div class="example"><input type="text" class="form-control input-daterange-timepicker"
+                                              name="daterange_{{ task_fact.id }}"
+                                              value="{{ task_fact.start_time|date:"d-m-Y HH:mm" }} - {{ task_fact.finish_time|date:"d-m-Y HH:mm" }}">
+                  </div>
+                </td>
+                <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
 
 
-                <option value="1" {% if task_fact.action_status == 1 %}selected{% endif %}>План</option>
-                <option value="2" {% if task_fact.action_status == 2 %}selected{% endif %}>Активный</option>
-                <option value="3" {% if task_fact.action_status == 3 %}selected{% endif %}>Завершенный
-                </option>
-                <option value="4" {% if task_fact.action_status == 4 %}selected{% endif %}>Отменено</option>
-                <option value="5" {% if task_fact.action_status == 5 %}selected{% endif %}>На удерживании
-                </option>
+                  <option value="1" {% if task_fact.action_status == 1 %}selected{% endif %}>План</option>
+                  <option value="2" {% if task_fact.action_status == 2 %}selected{% endif %}>Активный</option>
+                  <option value="3" {% if task_fact.action_status == 3 %}selected{% endif %}>Завершенный
+                  </option>
+                  <option value="4" {% if task_fact.action_status == 4 %}selected{% endif %}>Отменено</option>
+                  <option value="5" {% if task_fact.action_status == 5 %}selected{% endif %}>На удерживании
+                  </option>
 
-              </select></td>
-              <td>{{ task_fact.updated_at|date:"d-m-Y H:m" }}</td>
-              <td>
-                <div>
-                  <a class="btn btn-primary pl-5 pr-5 project_fact_task_update" type="button"
-                     data-store-id="{{ task_fact.id }}"
-                     data-href-template="{% url 'projects:project_fact_task_update' %}">Сохранить</a>
+                </select></td>
+                <td>{{ task_fact.updated_at|date:"d-m-Y H:m" }}</td>
+                <td>
+                  <div>
+                    <button class="btn btn-primary pl-5 pr-5 project_fact_task_update" type="button"
+                       data-store-id="{{ task_fact.id }}"
+                       data-href-template="{% url 'projects:project_fact_task_update' %}">Сохранить</button>
 
-                </div>
-              </td>
-            </tr>
-          {% endfor %}
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </form>
 
           </tbody>
         </table>

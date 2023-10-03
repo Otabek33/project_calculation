@@ -121,12 +121,13 @@ $(".project_fact_task_update").on("click", function (e) {
 
     }
     console.log(btn.attr("data-href-template"))
-    execute_plan_fact_task_update(url = btn.attr("data-href-template"), data = form_data)
+    execute_plan_fact_task_fact_update(url = btn.attr("data-href-template"), data = form_data)
 
 })
 
 
-function execute_plan_fact_task_update(url, data) {
+function execute_plan_fact_task_fact_update(url, data) {
+    console.log(url, data)
 
     $.ajax({
         type: "POST",
