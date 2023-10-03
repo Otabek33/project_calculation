@@ -1,4 +1,3 @@
-
 $("#confirm-delete-project-button").on("click", function (e) {
     e.preventDefault();
 
@@ -143,8 +142,20 @@ function execute_plan_fact_task_fact_update(url, data) {
             window.location.reload();
 
 
+        },
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
         }
 
 
     })
 }
+
+function toast_show(alert_type, message) {
+    if (alert_type === "error") {
+        toastr_danger_top_right(message)
+    }
+
+}
+

@@ -9,7 +9,7 @@ from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
     checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
-    project_fact_task_amount, project_plan_header_info, project_plan_task_amount
+    project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
@@ -280,6 +280,7 @@ class ProjectFactDetailView(DetailView):
     tm_name = "project_fact_detail.html"
     template_name = f"{tm_path}{tm_name}"
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
@@ -299,14 +300,28 @@ class ProjectFactTaskUpdateView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
-            pk = request.POST.get("id")
-            task_fact = get_object_or_404(TaskFact, pk)
-            task_fact.update_fields()
+            task_pk = request.POST["id"]
+            worker_pk = request.POST["worker"]
+            if len(worker_pk) == 0:
+                message = "Добавьте работника, пожалуйста"
+                return JsonResponse(
+                    {"error": message}, status=400)
+            else:
+                status, fields = regex_choose_date_range(request.POST["daterange"])
+                if status:
+                    task_fact = get_object_or_404(TaskFact, pk=task_pk)
+                    worker = get_object_or_404(User, pk=worker_pk)
+                    task_fact.update_fields(self.request.user, int(request.POST["task_status"]), worker,
+                                            fields)
+                    task_fact.save()
 
-            return JsonResponse(
-                {"success": True, "data": None}
-            )
-        return JsonResponse({"success": False, "data": None})
+                    return JsonResponse(
+                        {"success": True, "data": None}
+                    )
+                else:
+                    message = "Неправильно выбрана дата"
+                    return JsonResponse(
+                        {"error": message}, status=400)
 
 
 project_fact_task_update = ProjectFactTaskUpdateView.as_view()

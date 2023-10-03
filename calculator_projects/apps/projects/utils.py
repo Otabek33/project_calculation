@@ -11,6 +11,7 @@ from calculator_projects.apps.stages.models import StagePlan, StageFact
 from calculator_projects.apps.stages.signals import update_project
 from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
 from calculator_projects.apps.tasks.models import TaskFact, TaskPlan
+from calculator_projects.utils.constants import HOLIDAYS
 
 
 def get_coefficient(post_coefficient: str):
@@ -152,7 +153,6 @@ def project_plan_task_amount(project_plan_list):
     return project_plan_list.aggregate(project_plan_task_amount=Count("project_plan_task"))
 
 
-
 def project_change_status(pk, user, status):
     project = get_object_or_404(ProjectPlan, pk=pk)
     project.accepted_by = user
@@ -204,3 +204,41 @@ def copy_plan_to_fact_additional_cost(project_plan, project_fact):
         additional_cost_fact.__dict__.update(additional_cost_plan.__dict__)
         additional_cost_fact.project = project_fact
         additional_cost_fact.save()
+
+
+def separate_date(date):
+    date_list = date.split("-")
+    date_list[0] = date_list[0].strip()
+    date_list[1] = date_list[1].strip()
+    return date_list
+
+
+def get_task_fact_datetime_from_string(date_string):
+    from datetime import datetime
+    date = datetime.strptime(date_string, "%d/%m/%Y %H:%M")
+    return date
+
+
+def get_time_dif_from_string(start, finish):
+    from datetime import datetime
+    start_time = datetime.strptime(start, "%H:%M:%S")
+    end_time = datetime.strptime(finish, "%H:%M:%S")
+    delta = end_time - start_time
+    hours = delta.total_seconds() / (60 * 60)
+    return hours
+
+
+def regex_choose_date_range(daterange):
+    import numpy as np
+    date_list = separate_date(daterange)
+    start_time = get_task_fact_datetime_from_string(date_list[0])
+    finish_time = get_task_fact_datetime_from_string(date_list[1])
+    duration_per_day_new = np.busday_count(
+        start_time.date(), finish_time.date(), holidays=HOLIDAYS
+    )
+    hours = get_time_dif_from_string(
+        str(start_time.time()), str(finish_time.time())
+    )
+    duration_per_hour = duration_per_day_new * 8 + hours
+    return True, {"start_time": start_time, "finish_time": finish_time, "duration_per_day": duration_per_day_new,
+                  "duration_per_hour": duration_per_hour}
