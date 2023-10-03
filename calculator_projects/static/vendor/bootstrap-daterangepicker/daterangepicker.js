@@ -57,6 +57,7 @@
         this.ranges = {};
         this.language = 'ru';
 
+
         this.opens = 'right';
         if (this.element.hasClass('pull-right'))
             this.opens = 'left';

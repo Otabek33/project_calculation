@@ -146,11 +146,11 @@
           {% for task_fact in task_fact_list %}
             <tr>
               <td>{{ forloop.counter }}</td>
-              <td><select class="single-select-placeholder js-states form-control ">
+              <td><select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
 
                 {% for worker in user_list %}
                   <option value="{{ worker.id }}"
-                          {% if task_fact.worker == worker %}selected{% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
+                          {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
 
                 {% endfor %}
               </select></td>
@@ -160,7 +160,7 @@
               <td>
                 <div class="example"><input type="text" class="form-control input-daterange-timepicker"
                                             name="daterange_{{ task_fact.id }}"
-                                            value="{{ task_fact.start_time|date:"m/d/Y H:m" }} - {{ task_fact.finish_time|date:"m/d/Y H:m" }}">
+                                            value="{{ task_fact.start_time|date:"d-m-Y HH:mm" }} - {{ task_fact.finish_time|date:"d-m-Y HH:mm" }}">
                 </div>
               </td>
               <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
@@ -178,7 +178,9 @@
               <td>{{ task_fact.updated_at|date:"d-m-Y H:m" }}</td>
               <td>
                 <div>
-                  <a class="btn btn-primary pl-5 pr-5 " href="#">Сохранить</a>
+                  <a class="btn btn-primary pl-5 pr-5 project_fact_task_update" type="button"
+                     data-store-id="{{ task_fact.id }}"
+                     data-href-template="{% url 'projects:project_fact_task_update' %}">Сохранить</a>
 
                 </div>
               </td>
@@ -195,91 +197,86 @@
     <div class="col-md-4">
 
     </div>
-  <div class="col-md-8">
-    <div class=" card">
-    <h5 class="card-header align-items-center text-center">
+    <div class="col-md-8">
+      <div class=" card">
+        <h5 class="card-header align-items-center text-center">
           <span>Дополнительные расходы:  </span>
         </h5>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered table-responsive-sm text-center">
-            <thead>
-            <tr>
-               <th class="text-center">Статья затрат</th>
-              <th class="text-center">Комментария</th>
-              <th class="text-center">Сумма</th>
-              <th class="text-center">Действие</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for item in projectfact.additionalcostfact_set.all %}
-              {% if not item.deleted_status %}
-                <tr>
-                  <td class="text-center" id="cost_type_{{ item.id }}">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-responsive-sm text-center">
+              <thead>
+              <tr>
+                <th class="text-center">Статья затрат</th>
+                <th class="text-center">Комментария</th>
+                <th class="text-center">Сумма</th>
+                <th class="text-center">Действие</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for item in projectfact.additionalcostfact_set.all %}
+                {% if not item.deleted_status %}
+                  <tr>
+                    <td class="text-center" id="cost_type_{{ item.id }}">
 
-                    <select name="additional_cost_fact_type_edited" class="form-control "
-                            style="width: 150px">
-
-
-                      <option value="1" {% if item.cost_type == 1 %}selected{% endif %}>
-                        Аутсорсинг
-                      </option>
-                      <option value="2" {% if item.cost_type == 2 %}selected{% endif %}>
-                        Оборудование
-                      </option>
-                      <option value="3" {% if item.cost_type == 3 %}selected{% endif %}>Прочие
-                        расходы
-                      </option>
-
-                    </select>
+                      <select name="additional_cost_fact_type_edited" class="form-control "
+                              style="width: 150px">
 
 
-                  </td>
-                  <td class="text-center" id="comment_{{ item.id }}">
+                        <option value="1" {% if item.cost_type == 1 %}selected{% endif %}>
+                          Аутсорсинг
+                        </option>
+                        <option value="2" {% if item.cost_type == 2 %}selected{% endif %}>
+                          Оборудование
+                        </option>
+                        <option value="3" {% if item.cost_type == 3 %}selected{% endif %}>Прочие
+                          расходы
+                        </option>
+
+                      </select>
+
+
+                    </td>
+                    <td class="text-center" id="comment_{{ item.id }}">
                                         <textarea name="additional_cost_fact_comment_edited"
                                                   class="form-control">{{ item.comment }}</textarea>
-                  </td>
-                  <td class="text-center" id="amount_{{ item.id }}">
-                    <input class="form-control text-center"
-                           name="additional_cost_fact_amount_edited"
-                           value="{{ item.amount|floatformat:"2g" }}">
+                    </td>
+                    <td class="text-center" id="amount_{{ item.id }}">
+                      <input class="form-control text-center"
+                             name="additional_cost_fact_amount_edited"
+                             value="{{ item.amount|floatformat:"2g" }}">
 
-                  </td>
-                  <td class="text-center">
+                    </td>
+                    <td class="text-center">
 
-                    <div class="d-flex justify-content-around w-75">
+                      <div class="d-flex justify-content-around w-75">
 
-                      <a class="mx-2 additional_cost_fact_edit_row" style="font-size: 2em;"
-                         href="#"
-                      ><i class="fa fa-edit text-success"></i></a
-                      >
+                        <a class="mx-2 additional_cost_fact_edit_row" style="font-size: 2em;"
+                           href="#"
+                        ><i class="fa fa-edit text-success"></i></a
+                        >
 
 
+                        <a class="mx additional_cost_fact_delete_row" style="font-size: 2em;"
+                           data-store-id="{{ item.amount }}"
+                           href="#"
+                        ><i class="fa fa-trash-o text-danger"></i></a
+                        >
+                      </div>
 
-                      <a class="mx additional_cost_fact_delete_row"  style="font-size: 2em;"
-                         data-store-id="{{ item.amount }}"
-                         href="#"
-                      ><i class="fa fa-trash-o text-danger"></i></a
-                      >
-                    </div>
+                    </td>
+                  </tr>
+                {% endif %}
 
-                  </td>
-                </tr>
-              {% endif %}
+              {% endfor %}
 
-            {% endfor %}
-
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
-
-
-
-
 
 {% endblock %}
 

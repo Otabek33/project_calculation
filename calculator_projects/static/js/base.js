@@ -1,3 +1,4 @@
+
 $("#confirm-delete-project-button").on("click", function (e) {
     e.preventDefault();
 
@@ -71,7 +72,6 @@ function execute_project_reject_post_request(url, data) {
 }
 
 
-
 $("#confirm-project").on("click", function (e) {
     e.preventDefault();
 
@@ -98,6 +98,47 @@ function execute_project_confirm_post_request(url, data) {
         success: function (data) {
             $(".close").click()
             localStorage.setItem("msg", "Проект успешно подтвержден")
+            window.location.reload();
+
+
+        }
+
+
+    })
+}
+
+$(".project_fact_task_update").on("click", function (e) {
+    e.preventDefault();
+
+
+    var btn = $(this);
+    id = btn.attr("data-store-id")
+    let form_data = {
+        "worker": $('select[id="worker_' + id + '"]').val(),
+        "task_status": $('select[name="task_fact_status_' + id + '"]').val(),
+        "daterange": $('input[name="daterange_' + id + '"]').val(),
+        "id": id,
+
+    }
+    console.log(btn.attr("data-href-template"))
+    execute_plan_fact_task_update(url = btn.attr("data-href-template"), data = form_data)
+
+})
+
+
+function execute_plan_fact_task_update(url, data) {
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        headers: {
+            "X-CSRFToken": csrf_token
+
+        },
+        success: function (data) {
+            $(".close").click()
+            localStorage.setItem("msg", "Задача успешно обновлен")
             window.location.reload();
 
 

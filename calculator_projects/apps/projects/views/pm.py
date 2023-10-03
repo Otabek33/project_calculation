@@ -292,3 +292,19 @@ class ProjectFactDetailView(DetailView):
 
 
 project_fact_detail = ProjectFactDetailView.as_view()
+
+
+class ProjectFactTaskUpdateView(UpdateView):
+    model = TaskFact
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            print("ishladi")
+
+            return JsonResponse(
+                {"success": True, "data": None}
+            )
+        return JsonResponse({"success": False, "data": None})
+
+
+project_fact_task_update = ProjectFactTaskUpdateView.as_view()
