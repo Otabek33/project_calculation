@@ -243,15 +243,18 @@ def regex_choose_date_range(daterange):
     date_list = separate_date(daterange)
     start_time = get_task_fact_datetime_from_string(date_list[0])
     finish_time = get_task_fact_datetime_from_string(date_list[1])
-    duration_per_day_new = np.busday_count(
-        start_time.date(), finish_time.date(), holidays=HOLIDAYS
-    )
-    hours = get_time_dif_from_string(
-        str(start_time.time()), str(finish_time.time())
-    )
-    duration_per_hour = duration_per_day_new * 8 + hours
-    return True, {"start_time": start_time, "finish_time": finish_time, "duration_per_day": duration_per_day_new,
-                  "duration_per_hour": duration_per_hour}
+    if start_time.time() > finish_time.time():
+        return False, {}
+    else:
+        duration_per_day_new = np.busday_count(
+            start_time.date(), finish_time.date(), holidays=HOLIDAYS
+        )
+        hours = get_time_dif_from_string(
+            str(start_time.time()), str(finish_time.time())
+        )
+        duration_per_hour = duration_per_day_new * 8 + hours
+        return True, {"start_time": start_time, "finish_time": finish_time, "duration_per_day": duration_per_day_new,
+                      "duration_per_hour": duration_per_hour}
 
 
 def process_formation_four_fields_percentage(project):
