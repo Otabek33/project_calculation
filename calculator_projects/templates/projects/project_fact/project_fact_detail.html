@@ -137,9 +137,10 @@
             <th class="w-5">Этап</th>
             <th class="w-25">Наименование</th>
             <th class="w-20">Диапазон дат со временем</th>
+            <th class="w-5">Продолжительность в часах</th>
             <th class="w-10">СТАТУС</th>
             <th class="w-10">ОБНОВЛЕНО В</th>
-            <th class="w-10">Действие</th>
+            <th class="w-5">Действие</th>
           </tr>
           </thead>
           <tbody>
@@ -165,6 +166,9 @@
                                               value="{{ task_fact.start_time|date:"d-m-Y HH:mm" }} - {{ task_fact.finish_time|date:"d-m-Y HH:mm" }}">
                   </div>
                 </td>
+              <td>
+                {{ task_fact.duration_per_hour }}
+              </td>
                 <td><select name="task_fact_status_{{ task_fact.id }}" class="form-control " style="width: 150px">
 
 
@@ -177,7 +181,6 @@
                   </option>
 
                 </select></td>
-{#                <td>{{ task_fact.updated_at|date:"d-m-Y h:m" }}</td>#}
                <td>{{ task_fact.updated_at|date:'d-m-Y H:i'}}</td>
                 <td>
                   <div>

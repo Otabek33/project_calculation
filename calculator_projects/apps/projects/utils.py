@@ -174,6 +174,7 @@ def copy_project_plan_to_fact(project_plan):
 def copy_stage_plan_to_fact(project_plan, project_fact_id):
     stage_plan_list = StagePlan.objects.filter(projectPlan=project_plan.id)
     project_fact = ProjectFact.objects.get(pk=project_fact_id)
+
     for stage_plan in stage_plan_list:
         stage_fact = StageFact()
         stage_fact.__dict__.update(stage_plan.__dict__)
@@ -184,8 +185,11 @@ def copy_stage_plan_to_fact(project_plan, project_fact_id):
 
 
 def copy_plan_to_fact_task(stage_plan, stage_fact_id, project_fact):
+    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
+    from calculator_projects.apps.tasks.signals import update_project_fact_stage_and_project_fact_change
     task_list = TaskPlan.objects.filter(stage=stage_plan.id)
     stage_fact = StageFact.objects.get(pk=stage_fact_id)
+    disconnect_signal(post_save, update_project_fact_stage_and_project_fact_change, TaskFact)
     for task_plan in task_list:
         task_fact = TaskFact()
         task_fact.__dict__.update(task_plan.__dict__)
@@ -194,9 +198,13 @@ def copy_plan_to_fact_task(stage_plan, stage_fact_id, project_fact):
         task_fact.stage_fact = stage_fact
         task_fact.project_fact = project_fact
         task_fact.save()
+    reconnect_signal(post_save, update_project_fact_stage_and_project_fact_change, TaskFact)
 
 
 def copy_plan_to_fact_additional_cost(project_plan, project_fact):
+    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
+    from calculator_projects.apps.additionalCosts.signals import updating_project_plan
+    disconnect_signal(post_save, updating_project_plan, AdditionalCostFact)
     additional_cost_plan_list = AdditionalCostPlan.objects.filter(
         project=project_plan, deleted_status=False
     )
@@ -205,6 +213,7 @@ def copy_plan_to_fact_additional_cost(project_plan, project_fact):
         additional_cost_fact.__dict__.update(additional_cost_plan.__dict__)
         additional_cost_fact.project = project_fact
         additional_cost_fact.save()
+    reconnect_signal(post_save, updating_project_plan, AdditionalCostFact)
 
 
 def separate_date(date):

@@ -48,6 +48,7 @@ def project_fact_update(obj):
     project_fact.save()
     process_formation_fields_with_labour_cost(project_fact)
     process_formation_four_fields_percentage(project_fact)
+    project_fact.total_price_with_margin = project_fact.total_price_stage_and_task + project_fact.margin
     process_formation_fields_with_additional_cost(project_fact, AdditionalCostFact)
 
 
