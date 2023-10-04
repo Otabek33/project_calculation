@@ -8,8 +8,7 @@ from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
 from calculator_projects.apps.stages.models import StagePlan, StageFact
-from calculator_projects.apps.stages.signals import update_project
-from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
+
 from calculator_projects.apps.tasks.models import TaskFact, TaskPlan
 from calculator_projects.utils.constants import HOLIDAYS
 
@@ -70,9 +69,11 @@ def project_plan_fields_regex(total_price_with_margin: str, tax_amount: str, mar
 
 
 def update_stages(project_plan, margin_percentage):
+    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
+    from calculator_projects.apps.stages.signals import update_project_plan_after_stage_change
     from decimal import Decimal
     stage_list = StagePlan.objects.filter(projectPlan=project_plan)
-    disconnect_signal(post_save, update_project, StagePlan)
+    disconnect_signal(post_save, update_project_plan_after_stage_change, StagePlan)
     for stage in stage_list:
         stage.margin = stage.total_price_stage_and_task * margin_percentage
         total_price_without_tax = stage.total_price_without_tax()
@@ -81,7 +82,7 @@ def update_stages(project_plan, margin_percentage):
         stage.contributions_to_IT_park = stage.total_price_with_margin - total_price_with_margin
         stage.save()
 
-    reconnect_signal(post_save, update_project, StagePlan)
+    reconnect_signal(post_save, update_project_plan_after_stage_change, StagePlan)
 
 
 def stage_amount(project):
@@ -242,3 +243,33 @@ def regex_choose_date_range(daterange):
     duration_per_hour = duration_per_day_new * 8 + hours
     return True, {"start_time": start_time, "finish_time": finish_time, "duration_per_day": duration_per_day_new,
                   "duration_per_hour": duration_per_hour}
+
+
+def process_formation_four_fields_percentage(project):
+    project.percent_cost_price = (
+        project.cost_price / project.total_price_stage_and_task * 100
+    )
+    project.percent_salary_cost = (
+        project.salary_cost / project.total_price_stage_and_task * 100
+    )
+    project.percent_period_expenses = (
+        project.period_expenses / project.total_price_stage_and_task * 100
+    )
+    project.percent_margin = project.margin / project.total_price_stage_and_task * 100
+    project.save()
+
+
+def process_formation_fields_with_additional_cost(project, additional_cost):
+    from django.db.models import Sum
+    add_costs = additional_cost.objects.filter(project=project, deleted_status=False)
+    if add_costs:
+        additional_cost_of_project = add_costs.aggregate(total_amount=Sum("amount"))
+        project.additional_cost = additional_cost_of_project["total_amount"]
+        project.total_price_with_additional_cost = (
+            project.total_price_with_margin
+            + additional_cost_of_project["total_amount"]
+        )
+    else:
+        project.total_price_with_additional_cost = project.total_price_stage_and_task
+        project.additional_cost = 0.0
+    project.save()

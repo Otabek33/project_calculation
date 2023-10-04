@@ -132,14 +132,14 @@
         <table class="table table-bordered table-responsive-sm text-center">
           <thead>
           <tr>
-            <th>№</th>
-            <th>Ф.И.О.</th>
-            <th>Этап</th>
-            <th>Наименование</th>
-            <th>Диапазон дат со временем</th>
-            <th>СТАТУС</th>
-            <th>ОБНОВЛЕНО В</th>
-            <th>Действие</th>
+            <th class="w-5">№</th>
+            <th class="w-15">Ф.И.О.</th>
+            <th class="w-5">Этап</th>
+            <th class="w-25">Наименование</th>
+            <th class="w-20">Диапазон дат со временем</th>
+            <th class="w-10">СТАТУС</th>
+            <th class="w-10">ОБНОВЛЕНО В</th>
+            <th class="w-10">Действие</th>
           </tr>
           </thead>
           <tbody>
@@ -177,7 +177,7 @@
                   </option>
 
                 </select></td>
-                <td>{{ task_fact.updated_at|date:"d-m-Y H:m" }}</td>
+                <td>{{ task_fact.updated_at|date:"d-m-Y h:m" }}</td>
                 <td>
                   <div>
                     <button class="btn btn-primary pl-5 pr-5 project_fact_task_update" type="button"

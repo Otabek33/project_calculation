@@ -4,17 +4,19 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
 
+from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
     checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
-    project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range
+    project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
+    process_formation_four_fields_percentage, process_formation_fields_with_additional_cost
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
 from calculator_projects.apps.users.models import User
-from calculator_projects.utils.helpers import is_ajax
+from calculator_projects.utils.helpers import is_ajax, defining_total_price
 
 
 # Create your views here.
@@ -110,7 +112,7 @@ class ProjectPlanStageTwo(DetailView):
         else:
             project_plan.project_creation_stage = ProjectCreationStage.STAGE_3
             project_plan.total_price_with_margin = project_plan.total_price_stage_and_task
-            project_plan.process_formation_fields_with_additional_cost()
+            process_formation_fields_with_additional_cost(project_plan, AdditionalCostPlan)
             project_plan.updated_at = datetime.now(tz=timezone.utc)
             project_plan.updated_by = self.request.user
             project_plan.save()
@@ -169,9 +171,9 @@ class ProjectPlanStageThree(DetailView):
         project_plan.contributions_to_IT_park = three_fields[1]
         project_plan.margin = three_fields[2]
         project_plan.save()
-        project_plan.process_formation_four_fields_percentage()
+        process_formation_four_fields_percentage(project_plan)
         project_plan.save()
-        project_plan.process_formation_fields_with_additional_cost()
+        process_formation_fields_with_additional_cost(project_plan, AdditionalCostPlan)
         project_plan.save()
         margin_percentage = three_fields[2] / project_plan.total_price_stage_and_task
         update_stages(project_plan, margin_percentage)
@@ -284,7 +286,7 @@ class ProjectFactDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
         task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact).order_by(
-            "stage_fact__stage_number")
+            "stage_fact__stage_number","created_at")
         user_list = User.objects.all()
         context["project_fact"] = project_fact
         context["task_fact_list"] = task_list
@@ -300,6 +302,7 @@ class ProjectFactTaskUpdateView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
+            from decimal import Decimal
             task_pk = request.POST["id"]
             worker_pk = request.POST["worker"]
             if len(worker_pk) == 0:
@@ -310,11 +313,15 @@ class ProjectFactTaskUpdateView(UpdateView):
                 status, fields = regex_choose_date_range(request.POST["daterange"])
                 if status:
                     task_fact = get_object_or_404(TaskFact, pk=task_pk)
+                    task_fact.updated_at = datetime.now()
+                    task_fact.updated_by = self.request.user
                     worker = get_object_or_404(User, pk=worker_pk)
-                    task_fact.update_fields(self.request.user, int(request.POST["task_status"]), worker,
+                    task_fact.update_fields(int(request.POST["task_status"]), worker,
                                             fields)
-                    task_fact.save()
+                    task_fact.total_price = defining_total_price(task_fact.project_fact.coefficient_of_project,
+                                                                 Decimal(task_fact.duration_per_hour))
 
+                    task_fact.save()
                     return JsonResponse(
                         {"success": True, "data": None}
                     )

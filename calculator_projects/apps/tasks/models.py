@@ -124,15 +124,11 @@ class TaskFact(models.Model):
         verbose_name = "Факт Задача"
         verbose_name_plural = "Факт Задачы"
 
-    def update_fields(self, user, task_status, worker, fields):
+    def update_fields(self, task_status, worker, fields):
         self.duration_per_hour = fields['duration_per_hour']
         self.duration_per_day = fields['duration_per_day']
         self.start_time = fields['start_time']
         self.finish_time = fields['finish_time']
         self.action_status = task_status
         self.worker = worker
-        self.updated_at = datetime.now()
-        self.updated_by = user
         self.save()
-        # self.process_total_price_of_task_fact()
-        pass
