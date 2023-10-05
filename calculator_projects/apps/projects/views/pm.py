@@ -13,9 +13,9 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
     project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
     process_formation_four_fields_percentage, process_formation_fields_with_additional_cost, middle_function, \
     checking_date_time
-from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.apps.stages.models import StagePlan, StageFact
 
-from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
+from calculator_projects.apps.tasks.models import TaskPlan, TaskFact, TaskFactStatus
 from calculator_projects.apps.users.models import User
 from calculator_projects.utils.helpers import is_ajax, defining_total_price
 
@@ -347,15 +347,30 @@ class TaskFactAddView(CreateView):
                 return JsonResponse(
                     {"error": message}, status=400)
             else:
-                start_time, finish_time = middle_function(request.POST["date"])
+                date_range = request.POST["date"]
+                start_time, finish_time = middle_function(date_range)
                 if checking_date_time(start_time, finish_time):
                     message = "Неправильно выбрана дата"
                     return JsonResponse(
                         {"error": message}, status=400)
-
-            return JsonResponse(
-                {"success": True, "data": None}
-            )
+                else:
+                    task_fact = TaskFact()
+                    project_fact = get_object_or_404(ProjectFact, pk=request.POST["project"])
+                    stage_fact = get_object_or_404(StageFact, pk=request.POST["stage"])
+                    task_fact.description = name
+                    task_fact.start_time = start_time
+                    task_fact.finish_time = finish_time
+                    task_fact.created_at = datetime.now(tz=timezone.utc)
+                    task_fact.created_by = self.request.user
+                    task_fact.project_fact = project_fact
+                    task_fact.stage_fact = stage_fact
+                    task_fact.action_status = int(request.POST["status"])
+                    task_fact.save()
+                    task_fact.process_price_task()
+                    message = "Задача успешно добавлен"
+                    return JsonResponse(
+                        {"success": True, "data": None, "message": message}
+                    )
 
 
 task_fact_add = TaskFactAddView.as_view()

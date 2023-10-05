@@ -132,3 +132,9 @@ class TaskFact(models.Model):
         self.action_status = task_status
         self.worker = worker
         self.save()
+
+    def process_price_task(self):
+        self.duration_per_day = defining_duration_per_day(self.start_time.date(), self.finish_time.date())
+        self.duration_per_hour = defining_duration_per_hour(self.duration_per_day)
+        self.total_price = defining_total_price(self.project_fact.coefficient_of_project, self.duration_per_hour)
+        self.save()

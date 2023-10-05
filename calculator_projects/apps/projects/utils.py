@@ -248,7 +248,7 @@ def generation_two_date(date_list):
 
 def regex_choose_date_range(daterange):
     import numpy as np
-    finish_time, start_time = middle_function(daterange)
+    start_time, finish_time = middle_function(daterange)
     if checking_date_time(start_time, finish_time):
         return False, {}
     else:

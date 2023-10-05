@@ -147,7 +147,7 @@ $("#task_fact_add_modal").on('submit', function (e) {
         },
         success: function (data) {
             window.location.reload()
-            var success_message = data["responseJSON"]["success"];
+            var success_message = data["responseJSON"]["message"];
             toast_show("success", success_message)
         },
         error: function (response) {
