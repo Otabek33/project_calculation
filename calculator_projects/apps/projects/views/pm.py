@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
 
-from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
+from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan, AdditionalCostFact
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
@@ -369,8 +369,43 @@ class TaskFactAddView(CreateView):
                     task_fact.process_price_task()
                     message = "Задача успешно добавлен"
                     return JsonResponse(
-                        {"success": True, "data": None, "message": message}
+                        {"success": True, "data": None, "msg": message}, status=200
                     )
 
 
 task_fact_add = TaskFactAddView.as_view()
+
+
+class AdditionalCostAddFact(CreateView):
+    model = AdditionalCostFact
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            comment = request.POST["comment"]
+            if len(comment) == 0:
+                message = "Добавьте наименование, пожалуйста"
+                return JsonResponse(
+                    {"error": message}, status=400)
+            else:
+                amount = int(request.POST["amount"])
+                if amount < 0:
+                    message = "Неправильная сумма"
+                    return JsonResponse(
+                        {"error": message}, status=400)
+                else:
+                    project_fact = get_object_or_404(ProjectFact, pk=request.POST["project"])
+                    additional_cost_fact = AdditionalCostFact()
+                    additional_cost_fact.amount = amount
+                    additional_cost_fact.comment = comment
+                    additional_cost_fact.project = project_fact
+                    additional_cost_fact.cost_type = int(request.POST["type"])
+                    additional_cost_fact.created_at = datetime.now(tz=timezone.utc)
+                    additional_cost_fact.created_by = self.request.user
+                    additional_cost_fact.save()
+                    message = "Доп. расход успешно добавлен"
+                    return JsonResponse(
+                        {"success": True, "data": None, "msg": message}, status=200
+                    )
+
+
+additional_cost_fact_add = AdditionalCostAddFact.as_view()

@@ -211,11 +211,11 @@
     }
   });
 
-
+  {#toastMixin.fire({#}
+  {#      title: localStorage.getItem("msg")#}
+  {#    })#}
   if (localStorage.getItem("msg")) {
-    toastMixin.fire({
-      title: localStorage.getItem("msg")
-    })
+    toastr_success_top_right(localStorage.getItem("msg"))
     localStorage.removeItem("msg")
   }
 </script>

@@ -69,7 +69,7 @@
           </div>
           <div class="col-2">
             <button type="button" class="btn btn-lg   btn-primary" data-toggle="modal"
-                    data-target="#taskFactAddModel"><i class="icon-plus"></i>
+                    data-target="#additionalCostFactAddModel"><i class="icon-plus"></i>
             </button>
           </div>
 
@@ -134,7 +134,7 @@
             <th class="w-5">Этап</th>
             <th class="w-25">Наименование</th>
             <th class="w-20">Диапазон дат со временем</th>
-            <th class="w-5">Продолжительность в часах</th>
+            <th class="w-5">Про-сть в часах</th>
             <th class="w-10">СТАТУС</th>
             <th class="w-10">ОБНОВЛЕНО В</th>
             <th class="w-5">Действие</th>
@@ -295,7 +295,7 @@
           {% csrf_token %}
           <input type="hidden" name="project_fact" value="{{ project_fact.id }}">
           <div class="modal-body">
-             <div class="row mb-3">
+            <div class="row mb-3">
               <div class="col">
                 <label for="name" class="form-label">Наименование</label>
                 <textarea
@@ -310,15 +310,15 @@
 
               <div class="col-md-12 mb-0">
                 <label for="start_date" class="form-label">Диапазон дата</label>
-               <input type="text" class="form-control input-daterange-timepicker w-100"
-                                              name="daterange_task_fact"
-                                              value="{%  now "d-m-Y" %} - {%  now "d-m-Y" %}">
+                <input type="text" class="form-control input-daterange-timepicker w-100"
+                       name="daterange_task_fact"
+                       value="{% now "d-m-Y" %} - {% now "d-m-Y" %}">
               </div>
             </div>
             <div class="row d-flex justify-content-between">
 
               <div class="col-4 mt-2">
-                <label  class="form-label">Статус</label>
+                <label class="form-label">Статус</label>
                 <select name="task_fact_add_status" class="form-control " style="width: 150px">
 
 
@@ -354,9 +354,72 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
             <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
+        </form>
       </div>
     </div>
   </div>
+  <div class="modal fade" id="additionalCostFactAddModel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="stageModalLabel">Добавит дополнительные расходы</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <form id="additional_cost_fact_add_modal"
+              action="{% url 'projects:additional_cost_fact_add' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="hidden" name="project_fact" value="{{ project_fact.id }}">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="form-label">Комментария</label>
+                <textarea
+                  name="additional_cost_fact_comment"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-6 mb-0">
+                <label class="form-label">Сумма</label>
+                <input
+                  type="number"
+                  id="currency-field"
+                  name="additional_cost_fact_amount"
+                  class="form-control"
+                  required
+                >
+
+              </div>
+              <div class="col-md-6 mb-0">
+                <label class="form-label">Статья затрат</label>
+                <select name="additional_cost_fact_type" class="form-control " style="width: 150px">
+
+
+                  <option value="1">Аутсорсинг</option>
+                  <option value="2">Оборудование
+                  </option>
+                  <option value="3">Прочие расходы
+                  </option>
+
+                </select>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 {% endblock %}
 

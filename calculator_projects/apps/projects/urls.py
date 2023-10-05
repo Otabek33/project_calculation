@@ -5,7 +5,8 @@ from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, 
                                                         project_passport_update, project_plan_stage_two,
                                                         task_add, project_plan_stage_three, project_plan_final_view,
                                                         project_list_status, project_delete, project_fact,
-                                                        project_fact_detail, project_fact_task_update,task_fact_add)
+                                                        project_fact_detail, project_fact_task_update, task_fact_add,
+                                                        additional_cost_fact_add)
 
 app_name = "projects"
 
@@ -26,5 +27,6 @@ urlpatterns = [
     path("fact/<uuid:pk>/detail/", project_fact_detail, name="project_fact_detail"),
     path("fact/task-update/", project_fact_task_update, name="project_fact_task_update"),
     path("fact/task-add/", task_fact_add, name="task_fact_add"),
+    path("fact/additional-fact-cost-add/", additional_cost_fact_add, name="additional_cost_fact_add"),
 
 ]

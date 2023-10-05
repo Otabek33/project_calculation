@@ -703,7 +703,7 @@ function toastr_danger_top_right(message) {
 
 function toastr_success_top_right(message) {
     toastr.success("", message, {
-        timeOut: 500000000,
+        timeOut: 5e3,
         closeButton: !0,
         debug: !1,
         newestOnTop: !0,
@@ -711,7 +711,7 @@ function toastr_success_top_right(message) {
         positionClass: "toast-top-right",
         preventDuplicates: !0,
         onclick: null,
-        showDuration: "300",
+        showDuration: "200",
         hideDuration: "1000",
         extendedTimeOut: "1000",
         showEasing: "swing",

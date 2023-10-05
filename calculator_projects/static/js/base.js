@@ -146,9 +146,44 @@ $("#task_fact_add_modal").on('submit', function (e) {
             "X-CSRFToken": csrftoken
         },
         success: function (data) {
+            localStorage.setItem("msg", data.msg)
             window.location.reload()
-            var success_message = data["responseJSON"]["message"];
-            toast_show("success", success_message)
+
+
+        },
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
+        }
+    })
+
+})
+
+
+$("#additional_cost_fact_add_modal").on('submit', function (e) {
+    e.preventDefault()
+    let form = $(this);
+    let actionUrl = form.attr('action');
+    let form_data = {
+        "comment": $('textarea[name="additional_cost_fact_comment"]').val(),
+        "amount": $('input[name="additional_cost_fact_amount"]').val(),
+        "type": $('select[name="additional_cost_fact_type"]').val(),
+        "project": $('input[name="project_fact"]').val(),
+    }
+
+
+    $.ajax({
+        method: "POST",
+        url: actionUrl,
+        data: form_data,
+        dataType: 'json',
+        headers: {
+            "X-CSRFToken": csrftoken
+        },
+        success: function (data) {
+            localStorage.setItem("msg", data.msg)
+            window.location.reload()
+
         },
         error: function (response) {
             var error_message = response["responseJSON"]["error"];
@@ -184,6 +219,7 @@ function execute_plan_fact_task_fact_update(url, data) {
 
     })
 }
+
 
 function toast_show(alert_type, message) {
     if (alert_type === "error") {
