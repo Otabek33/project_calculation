@@ -11,7 +11,8 @@ from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreatio
 from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
     checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
     project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
-    process_formation_four_fields_percentage, process_formation_fields_with_additional_cost
+    process_formation_four_fields_percentage, process_formation_fields_with_additional_cost, middle_function, \
+    checking_date_time
 from calculator_projects.apps.stages.models import StagePlan
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
@@ -286,7 +287,7 @@ class ProjectFactDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
         task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact).order_by(
-            "stage_fact__stage_number","created_at")
+            "stage_fact__stage_number", "created_at")
         user_list = User.objects.all()
         context["project_fact"] = project_fact
         context["task_fact_list"] = task_list
@@ -332,3 +333,29 @@ class ProjectFactTaskUpdateView(UpdateView):
 
 
 project_fact_task_update = ProjectFactTaskUpdateView.as_view()
+
+
+class TaskFactAddView(CreateView):
+    model = TaskFact
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            name = request.POST["name"]
+
+            if len(name) == 0:
+                message = "Добавьте наименование, пожалуйста"
+                return JsonResponse(
+                    {"error": message}, status=400)
+            else:
+                start_time, finish_time = middle_function(request.POST["date"])
+                if checking_date_time(start_time, finish_time):
+                    message = "Неправильно выбрана дата"
+                    return JsonResponse(
+                        {"error": message}, status=400)
+
+            return JsonResponse(
+                {"success": True, "data": None}
+            )
+
+
+task_fact_add = TaskFactAddView.as_view()

@@ -238,12 +238,18 @@ def get_time_dif_from_string(start, finish):
     return hours
 
 
+def checking_date_time(start_time, finish_time):
+    return start_time.time() > finish_time.time()
+
+
+def generation_two_date(date_list):
+    return get_task_fact_datetime_from_string(date_list[0]), get_task_fact_datetime_from_string(date_list[1])
+
+
 def regex_choose_date_range(daterange):
     import numpy as np
-    date_list = separate_date(daterange)
-    start_time = get_task_fact_datetime_from_string(date_list[0])
-    finish_time = get_task_fact_datetime_from_string(date_list[1])
-    if start_time.time() > finish_time.time():
+    finish_time, start_time = middle_function(daterange)
+    if checking_date_time(start_time, finish_time):
         return False, {}
     else:
         duration_per_day_new = np.busday_count(
@@ -255,6 +261,12 @@ def regex_choose_date_range(daterange):
         duration_per_hour = duration_per_day_new * 8 + hours
         return True, {"start_time": start_time, "finish_time": finish_time, "duration_per_day": duration_per_day_new,
                       "duration_per_hour": duration_per_hour}
+
+
+def middle_function(daterange):
+    date_list = separate_date(daterange)
+    start_time, finish_time = generation_two_date(date_list)
+    return start_time, finish_time
 
 
 def process_formation_four_fields_percentage(project):

@@ -700,3 +700,24 @@ function toastr_danger_top_right(message) {
         tapToDismiss: !1
     })
 }
+
+function toastr_success_top_right(message) {
+    toastr.success("", message, {
+        timeOut: 500000000,
+        closeButton: !0,
+        debug: !1,
+        newestOnTop: !0,
+        progressBar: !0,
+        positionClass: "toast-top-right",
+        preventDuplicates: !0,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut",
+        tapToDismiss: !1
+    })
+}

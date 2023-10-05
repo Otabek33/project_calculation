@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 from calculator_projects.apps.users.models import Department, User
 import uuid
 from ckeditor.fields import RichTextField
@@ -336,3 +337,7 @@ class ProjectFact(models.Model):
 
     def project_plan_total_price_with_additional_cost(self):
         return self.project_plan.total_price_with_additional_cost
+
+    def stage_list(self):
+        from calculator_projects.apps.stages.models import StageFact
+        return StageFact.objects.filter(project_fact=self.id, deleted_status=False).order_by('stage_number')
