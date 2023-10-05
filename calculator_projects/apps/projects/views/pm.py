@@ -409,3 +409,19 @@ class AdditionalCostAddFact(CreateView):
 
 
 additional_cost_fact_add = AdditionalCostAddFact.as_view()
+
+
+class AdditionalCostDelete(DeleteView):
+    model = AdditionalCostFact
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            additional_cost_fact = get_object_or_404(AdditionalCostFact, pk=request.POST["additional_cost"])
+            additional_cost_fact.delete()
+            message = "Доп. расход успешно удален"
+            return JsonResponse(
+                {"success": True, "data": None, "msg": message}, status=200
+            )
+
+
+additional_cost_fact_delete = AdditionalCostDelete.as_view()

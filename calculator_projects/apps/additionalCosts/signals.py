@@ -29,3 +29,10 @@ def updating_project_fact_after_creation_additional_cost(sender, instance, creat
     project_fact = ProjectFact.objects.get(id=instance.project.id)
     process_formation_fields_with_additional_cost(project_fact, AdditionalCostFact)
     project_fact.save()
+
+
+@receiver(post_delete, sender=AdditionalCostFact)
+def updating_project_fact_after_delete(sender, instance, **kwargs):
+    project_fact = ProjectFact.objects.get(id=instance.project.id)
+    process_formation_fields_with_additional_cost(project_fact, AdditionalCostFact)
+    project_fact.save()

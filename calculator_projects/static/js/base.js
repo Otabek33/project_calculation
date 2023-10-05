@@ -193,6 +193,38 @@ $("#additional_cost_fact_add_modal").on('submit', function (e) {
 
 })
 
+
+
+$("#item-delete-additional-cost-fact").on('submit', function (e) {
+    e.preventDefault()
+    let form = $(this);
+    let actionUrl = form.attr('action');
+    let form_data = {
+        "additional_cost": $('input[name="delete_additional_cost_fact"]').val(),
+    }
+
+
+    $.ajax({
+        method: "POST",
+        url: actionUrl,
+        data: form_data,
+        dataType: 'json',
+        headers: {
+            "X-CSRFToken": csrftoken
+        },
+        success: function (data) {
+            localStorage.setItem("msg", data.msg)
+            window.location.reload()
+
+        },
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
+        }
+    })
+
+})
+
 function execute_plan_fact_task_fact_update(url, data) {
     console.log(url, data)
 

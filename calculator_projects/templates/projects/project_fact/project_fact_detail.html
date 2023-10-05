@@ -147,8 +147,10 @@
               <tr>
                 <td>{{ forloop.counter }}</td>
                 <td><select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
+                <option value=""></option>
 
                   {% for worker in user_list %}
+
                     <option value="{{ worker.id }}"
                             {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
 
@@ -262,7 +264,7 @@
 
 
                         <a class="mx additional_cost_fact_delete_row" style="font-size: 2em;"
-                           data-store-id="{{ item.amount }}"
+                           data-id="{{ item.id }}"
                            href="#"
                         ><i class="fa fa-trash-o text-danger"></i></a
                         >
@@ -419,8 +421,42 @@
       </div>
     </div>
   </div>
+<div class="modal fade" id="deleteAdditionalCostFact">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить Дополнительные расходы</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <form method="post"
+              id="item-delete-additional-cost-fact" action="{% url 'projects:additional_cost_fact_delete' %}"
+        >
+          {% csrf_token %}
 
+          <div class="modal-body">
+            <p>Вы уверены, что хотите удалить дополнительные расходы ?</p>
+            <input type="hidden" name="delete_additional_cost_fact" id="delete_project_id">
 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+            <button type="submit" class="btn btn-primary"
+                   >Да
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      $('.additional_cost_fact_delete_row').click((e) => {
+        document.getElementById('delete_project_id').value = e.target.parentElement.getAttribute('data-id');
+        $('#deleteAdditionalCostFact').modal('show');
+      })
+    });
+  </script>
 {% endblock %}
 
 

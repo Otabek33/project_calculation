@@ -6,7 +6,7 @@ from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, 
                                                         task_add, project_plan_stage_three, project_plan_final_view,
                                                         project_list_status, project_delete, project_fact,
                                                         project_fact_detail, project_fact_task_update, task_fact_add,
-                                                        additional_cost_fact_add)
+                                                        additional_cost_fact_add,additional_cost_fact_delete)
 
 app_name = "projects"
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path("fact/task-update/", project_fact_task_update, name="project_fact_task_update"),
     path("fact/task-add/", task_fact_add, name="task_fact_add"),
     path("fact/additional-fact-cost-add/", additional_cost_fact_add, name="additional_cost_fact_add"),
+    path("fact/additional-fact-cost-delete/", additional_cost_fact_delete, name="additional_cost_fact_delete"),
 
 ]
