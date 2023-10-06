@@ -488,3 +488,13 @@ class ProjectFactStatusUpdateView(TemplateView):
 
 
 project_fact_status_update = ProjectFactStatusUpdateView.as_view()
+
+
+class ComparePlanFactView(TemplateView):
+    model = ProjectFact
+    tm_path = "projects/project_fact/"
+    tm_name = "project_fact_compare.html"
+    template_name = f"{tm_path}{tm_name}"
+
+
+compare_plan_vs_fact = ComparePlanFactView.as_view()
