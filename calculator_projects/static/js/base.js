@@ -194,7 +194,6 @@ $("#additional_cost_fact_add_modal").on('submit', function (e) {
 })
 
 
-
 $("#item-delete-additional-cost-fact").on('submit', function (e) {
     e.preventDefault()
     let form = $(this);
@@ -252,6 +251,62 @@ function execute_plan_fact_task_fact_update(url, data) {
     })
 }
 
+$(".additional_cost_fact_edit_row").on("click", function (e) {
+    e.preventDefault();
+    let actionUrl = $(this).attr("href")
+
+    let id = $(this).attr("data-id")
+
+
+    $.ajax({
+        type: "GET",
+        url: actionUrl,
+        data: {"id": id},
+        success: function (data) {
+            for (var key in data.data) {
+                $("#additional_cost_fact_edit_modal").find('[name="' + key + '"]').val(data.data[key]);
+            }
+        }
+    })
+    $("#additional_cost_fact_edit_modal").attr("action", actionUrl)
+    $("#editAdditionalCostFact").modal('show')
+})
+
+
+$("#additional_cost_fact_edit_modal").on('submit', function (e) {
+    e.preventDefault()
+    let form = $(this);
+    let actionUrl = form.attr('action');
+    let form_data = {
+        "comment": $('textarea[name="comment"]').val(),
+        "amount": $('input[name="amount"]').val(),
+        "type": $('select[name="cost_type"]').val(),
+        "project": $('input[name="project_fact"]').val(),
+        "id": $('input[name="id"]').val(),
+    }
+    console.log(actionUrl, form_data)
+
+
+    $.ajax({
+        method: "POST",
+        url: actionUrl,
+        data: form_data,
+        dataType: 'json',
+        headers: {
+            "X-CSRFToken": csrftoken
+        },
+        success: function (data) {
+            localStorage.setItem("msg", data.msg)
+            window.location.reload()
+
+        },
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
+        }
+    })
+
+})
 
 function toast_show(alert_type, message) {
     if (alert_type === "error") {

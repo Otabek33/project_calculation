@@ -3,7 +3,6 @@ from datetime import datetime, timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-
 from calculator_projects.apps.users.models import Department, User
 import uuid
 from ckeditor.fields import RichTextField
@@ -331,6 +330,10 @@ class ProjectFact(models.Model):
 
     def task_plan_amount(self):
         return self.project_plan.project_plan_task.filter(deleted_status=False).count()
+
+    def additional_cost_list(self):
+        from calculator_projects.apps.additionalCosts.models import AdditionalCostFact
+        return AdditionalCostFact.objects.filter(project=self.id, deleted_status=False).order_by('created_at')
 
     def project_plan_additional_cost(self):
         return self.project_plan.additional_cost

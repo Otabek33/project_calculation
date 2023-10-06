@@ -147,7 +147,7 @@
               <tr>
                 <td>{{ forloop.counter }}</td>
                 <td><select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
-                <option value=""></option>
+                  <option value=""></option>
 
                   {% for worker in user_list %}
 
@@ -213,66 +213,70 @@
             <table class="table table-bordered table-responsive-sm text-center">
               <thead>
               <tr>
-                <th class="text-center">Статья затрат</th>
-                <th class="text-center">Комментария</th>
+                <th class="text-center w-15">Статья затрат</th>
+                <th class="text-center w-40">Комментария</th>
                 <th class="text-center">Сумма</th>
                 <th class="text-center">Действие</th>
               </tr>
               </thead>
               <tbody>
-              {% for item in projectfact.additionalcostfact_set.all %}
-                {% if not item.deleted_status %}
-                  <tr>
-                    <td class="text-center" id="cost_type_{{ item.id }}">
+              {% for item in projectfact.additional_cost_list %}
 
-                      <select name="additional_cost_fact_type_edited" class="form-control "
-                              style="width: 150px">
+                <tr>
+                  <td class="text-center" id="cost_type_{{ item.id }}">
+                    {{ item.get_cost_type_display }}
 
-
-                        <option value="1" {% if item.cost_type == 1 %}selected{% endif %}>
-                          Аутсорсинг
-                        </option>
-                        <option value="2" {% if item.cost_type == 2 %}selected{% endif %}>
-                          Оборудование
-                        </option>
-                        <option value="3" {% if item.cost_type == 3 %}selected{% endif %}>Прочие
-                          расходы
-                        </option>
-
-                      </select>
-
-
-                    </td>
-                    <td class="text-center" id="comment_{{ item.id }}">
-                                        <textarea name="additional_cost_fact_comment_edited"
-                                                  class="form-control">{{ item.comment }}</textarea>
-                    </td>
-                    <td class="text-center" id="amount_{{ item.id }}">
-                      <input class="form-control text-center"
-                             name="additional_cost_fact_amount_edited"
-                             value="{{ item.amount|floatformat:"2g" }}">
-
-                    </td>
-                    <td class="text-center">
-
-                      <div class="d-flex justify-content-around w-75">
-
-                        <a class="mx-2 additional_cost_fact_edit_row" style="font-size: 2em;"
-                           href="#"
-                        ><i class="fa fa-edit text-success"></i></a
-                        >
+                    {#                      <select name="additional_cost_fact_type_edited" class="form-control "#}
+                    {#                              style="width: 150px">#}
+                    {##}
+                    {##}
+                    {#                        <option value="1" {% if item.cost_type == 1 %}selected{% endif %}>#}
+                    {#                          Аутсорсинг#}
+                    {#                        </option>#}
+                    {#                        <option value="2" {% if item.cost_type == 2 %}selected{% endif %}>#}
+                    {#                          Оборудование#}
+                    {#                        </option>#}
+                    {#                        <option value="3" {% if item.cost_type == 3 %}selected{% endif %}>Прочие#}
+                    {#                          расходы#}
+                    {#                        </option>#}
+                    {##}
+                    {#                      </select>#}
 
 
-                        <a class="mx additional_cost_fact_delete_row" style="font-size: 2em;"
-                           data-id="{{ item.id }}"
-                           href="#"
-                        ><i class="fa fa-trash-o text-danger"></i></a
-                        >
-                      </div>
+                  </td>
+                  <td class="text-center" id="comment_{{ item.id }}">
+                    {{ item.comment }}
+                    {#                                        <textarea name="additional_cost_fact_comment_edited"#}
+                    {#                                                  class="form-control">{{ item.comment }}</textarea>#}
+                  </td>
+                  <td class="text-center" id="amount_{{ item.id }}">
+                    {{ item.amount|floatformat:"2g" }} сўм
+                    {#                    <input class="form-control text-center"#}
+                    {#                           name="additional_cost_fact_amount_edited"#}
+                    {#                           value="{{ item.amount|floatformat:"2g" }}">#}
 
-                    </td>
-                  </tr>
-                {% endif %}
+                  </td>
+                  <td class="text-center">
+
+                    <div class="d-flex justify-content-around w-75">
+
+                      <a class="mx-2 additional_cost_fact_edit_row" style="font-size: 2em;" data-id="{{ item.id }}"
+                         href="{%  url 'projects:additional_cost_fact_edit' %}"
+
+                      ><i class="fa fa-edit text-success"></i></a
+                      >
+
+
+                      <a class="mx additional_cost_fact_delete_row" style="font-size: 2em;"
+                         data-id="{{ item.id }}"
+                         href="#"
+                      ><i class="fa fa-trash-o text-danger"></i></a
+                      >
+                    </div>
+
+                  </td>
+                </tr>
+
 
               {% endfor %}
 
@@ -421,7 +425,7 @@
       </div>
     </div>
   </div>
-<div class="modal fade" id="deleteAdditionalCostFact">
+  <div class="modal fade" id="deleteAdditionalCostFact">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -436,14 +440,79 @@
 
           <div class="modal-body">
             <p>Вы уверены, что хотите удалить дополнительные расходы ?</p>
-            <input type="hidden" name="delete_additional_cost_fact" id="delete_project_id">
+            <input type="hidden" name="delete_additional_cost_fact" id="additional_cost_fact_delete">
 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
             <button type="submit" class="btn btn-primary"
-                   >Да
+            >Да
             </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editAdditionalCostFact">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Изменить Дополнительные расходы</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+          </button>
+        </div>
+        <form id="additional_cost_fact_edit_modal"
+              action="#">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="hidden" name="project_fact" value="{{ project_fact.id }}">
+             <input type="hidden" name="id">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="form-label">Комментария</label>
+                <textarea
+                  id="add_cost_fact_comment_edit"
+                  name="comment"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-6 mb-0">
+                <label class="form-label">Сумма</label>
+                <input
+                  type="number"
+                  id="add_cost_fact_amount_edit"
+                  name="amount"
+                  class="form-control"
+                  required
+
+                >
+
+              </div>
+              <div class="col-md-6 mb-0">
+                <label class="form-label">Статья затрат</label>
+                <select name="cost_type" class="form-control " style="width: 150px">
+
+
+                  <option value="1">Аутсорсинг</option>
+                  <option value="2">Оборудование
+                  </option>
+                  <option value="3">Прочие расходы
+                  </option>
+
+                </select>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </form>
       </div>
@@ -452,10 +521,11 @@
   <script>
     document.addEventListener("DOMContentLoaded", function (event) {
       $('.additional_cost_fact_delete_row').click((e) => {
-        document.getElementById('delete_project_id').value = e.target.parentElement.getAttribute('data-id');
+        document.getElementById('additional_cost_fact_delete').value = e.target.parentElement.getAttribute('data-id');
         $('#deleteAdditionalCostFact').modal('show');
       })
     });
+
   </script>
 {% endblock %}
 
