@@ -308,6 +308,32 @@ $("#additional_cost_fact_edit_modal").on('submit', function (e) {
 
 })
 
+function select_status_of_project_fact(id, token) {
+    let select = document.getElementById("project_fact_status_update");
+    let status_number = select.value;
+    let actionUrl = select.getAttribute("href");
+    let form_data = {
+        "status": status_number,
+        "project": id,
+        "csrfmiddlewaretoken": token,
+    }
+    $.ajax({
+        method: "POST",
+        url: actionUrl,
+        data: form_data,
+        dataType: 'json',
+        headers: {
+            "X-CSRFToken": csrftoken
+        },
+        success: function (data) {
+
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+}
+
 function toast_show(alert_type, message) {
     if (alert_type === "error") {
         toastr_danger_top_right(message)

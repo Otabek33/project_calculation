@@ -155,8 +155,8 @@
                       <td>{{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм</td>
                       <td>
                         <select id="project_fact_status_update"
-                                onclick="select_status_of_project_fact({{ project.id }})"
-                                data-href-template="#"
+                                onclick="select_status_of_project_fact('{{ project.id }}','{{ csrf_token }}')"
+                                href="{% url 'projects:status_update' %}"
                                 class="form-control " style="width: 150px">
                           <option value="3" {% if project.project_status == 3 %}selected{% endif %}>Активный
                           </option>

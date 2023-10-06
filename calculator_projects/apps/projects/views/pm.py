@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView, TemplateView
 
 from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan, AdditionalCostFact
 from calculator_projects.apps.additionalCosts.serializers import AdditionalCostFactSerializer
@@ -469,3 +469,22 @@ class AdditionalCostFactEditView(UpdateView):
 
 
 additional_cost_fact_edit = AdditionalCostFactEditView.as_view()
+
+
+class ProjectFactStatusUpdateView(TemplateView):
+    model = ProjectFact
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            project_fact = get_object_or_404(ProjectFact, pk=request.POST["project"])
+            project_fact.project_status = int(request.POST["status"])
+            project_fact.updated_at = datetime.now(tz=timezone.utc)
+            project_fact.updated_by = self.request.user
+            project_fact.save()
+            message = "Статус изменен"
+            return JsonResponse(
+                {"success": True, "data": None, "msg": message}, status=200
+            )
+
+
+project_fact_status_update = ProjectFactStatusUpdateView.as_view()
