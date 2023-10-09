@@ -13,7 +13,7 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
     checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
     project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
     process_formation_four_fields_percentage, process_formation_fields_with_additional_cost, middle_function, \
-    checking_date_time
+    checking_date_time, generation_total_amount_fields, generation_task_status_fields
 from calculator_projects.apps.stages.models import StagePlan, StageFact
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact, TaskFactStatus
@@ -490,11 +490,33 @@ class ProjectFactStatusUpdateView(TemplateView):
 project_fact_status_update = ProjectFactStatusUpdateView.as_view()
 
 
-class ComparePlanFactView(TemplateView):
+class ComparePlanFactView(ListView):
     model = ProjectFact
     tm_path = "projects/project_fact/"
     tm_name = "project_fact_compare.html"
     template_name = f"{tm_path}{tm_name}"
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(
+            deleted_status=False, created_by=self.request.user
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_plan_list = ProjectPlan.objects.filter(
+            created_by=self.request.user,
+            project_status=ProjectStatus.ACTIVE,
+            deleted_status=False,
+        )
+        context["project_fact_list_header"] = project_fact_header_info(self.get_queryset())
+        context["project_plan_list_header"] = project_plan_header_info(project_plan_list)
+        context["task_fact_header"] = project_fact_task_amount(self.get_queryset())
+        context["task_plan_header"] = project_plan_task_amount(project_plan_list)
+        context["project_fact_total_detail"] = generation_total_amount_fields(self.get_queryset())
+        context["project_plan_total_detail"] = generation_total_amount_fields(project_plan_list)
+        context["task_status_list"] = generation_task_status_fields(self.request.user)
+        return context
 
 
 compare_plan_vs_fact = ComparePlanFactView.as_view()

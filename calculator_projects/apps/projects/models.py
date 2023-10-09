@@ -162,6 +162,7 @@ class ProjectPlan(models.Model):
     percent_period_expenses = models.DecimalField(
         max_digits=1000, decimal_places=20, default=0.0
     )
+    profitability_percentage = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
 
     project_creation_stage = models.IntegerField(
         choices=ProjectCreationStage.choices, default=ProjectCreationStage.STAGE_1
@@ -309,6 +310,7 @@ class ProjectFact(models.Model):
     percent_period_expenses = models.DecimalField(
         max_digits=1000, decimal_places=20, default=0.0
     )
+    profitability_percentage = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
 
     project_status = models.IntegerField(
         choices=ProjectStatus.choices, default=ProjectStatus.ACTIVE

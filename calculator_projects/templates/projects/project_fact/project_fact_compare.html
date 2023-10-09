@@ -6,7 +6,6 @@
 {% endblock title %}
 
 {% block content %}
-
   <div class="row">
     <div class="col-4">
       <div class="card">
@@ -128,180 +127,250 @@
   </div>
 
 
-  <div class="card mb-4 ">
-    <h5 class="card-header align-items-center text-center">
-      <span>Сравнительная таблица плана и фактического проекта:</span>
-    </h5>
-    <div class="card-body">
-      <div id="detail_view_labour_cost ">
-        <div class="row text-left">
-          <div class="col">
-            <div class="d-flex justify-content-between">
 
-              <div class="col ml-lg-4 ">
-                <div>
+  <div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h4>Сравнительная таблица плана и фактического проекта:</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-12 col-lg-8">
+              <div class="d-flex justify-content-between">
 
-
-                  <table class="table table-bordered">
-                    <thead class="text-left" style="background-color:  #494a79;color: white">
-                    <tr>
-                      <th class="col-1" rowspan="2"></th cla>
-                      <th class="col-2" colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
-                    </tr>
-                    <tr>
-                      <th scope="col" class="col-1 text-center">План</th>
-                      <th scope="col" class="col-1 text-center">Факт</th>
-                      <th scope="col" class="col-1 text-center">Сравнение</th>
-                    </tr>
-
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Ориентировочная
-                        стоимость проекта</b>
-                      </td>
-                      <td class="col-1"
-                          id="cost_price_of_project_percent">{{ projectplan.percent_cost_price|floatformat:"2g" }}
-                        %
-                      </td>
-                      <td class="col-2">{{ projectplan.cost_price|floatformat:"2g" }} сўм</td>
-                      <td>
-                        {{ projectplan.margin|floatformat:"2g" }} сўм
-                      </td>
-
-                    </tr>
-                    <tr>
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Общие
-                        расходы </b> <br/><b> (Без учета дополнительных затрат)</b></td>
-                      <td id="salary_cost_of_project_percent">{{ projectplan.percent_salary_cost|floatformat:"2g" }}
-                        %
-                      </td>
-                      <td>{{ projectplan.salary_cost|floatformat:"2g" }} сўм</td>
-                      <td>
-                        {{ projectplan.margin|floatformat:"2g" }} сўм
-                      </td>
-
-                    </tr>
-                    <tr>
-
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные
-                        расходы</b></td>
-                      <td
-                        id="period_expenses_of_project_percent">{{ projectplan.percent_period_expenses|floatformat:"2g" }}
-                        %
-                      </td>
-                      <td style="display:none;"
-                          id="period_expenses_of_project_amount">{{ projectplan.period_expenses }}</td>
-                      <td>{{ projectplan.period_expenses|floatformat:"2g" }} сўм</td>
-                      <td>
-                        {{ projectplan.margin|floatformat:"2g" }} сўм
-                      </td>
-
-                    </tr>
-                    <tr>
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый прибыль</b>
-                      </td>
-                      <td> 1 %</td>
-                      <td id="project_tax_update_part">{{ projectplan.contributions_to_IT_park|floatformat:"2g" }}
-                        сўм
-                      </td>
-                      <td>
-                        {{ projectplan.margin|floatformat:"2g" }} сўм
-                      </td>
-
-                    </tr>
-                    <tr>
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Рентабельность по
-                        чистой прибыли</b>
-                      </td>
-                      <td class="col-1">
-                        <strong>{{ projectplan.percent_margin|floatformat:"2g" }} %</strong>
-                      </td>
-                      <td>
-                        {{ projectplan.margin|floatformat:"2g" }} сўм
-                      </td>
-                      <td>
-                        {{ projectplan.margin|floatformat:"2g" }} сўм
-                      </td>
-
-                      </td>
-
-                    </tr>
+                <div class="col ml-lg-4 ">
+                  <div>
 
 
-                    </tbody>
-                  </table>
-
-                  {% for stage in stage_plan_list %}
-                    <table class="table table-bordered w-20 text-center">
-
-
-                      <thead class="text-left  text-center">
-                      <tr style="background-color:  #494a79;color: white">
-                        <th scope="col" class="text-left">{{ stage.description }}</th>
+                    <table class="table table-bordered">
+                      <thead class="text-left" style="background-color:  #494a79;color: white">
+                      <tr>
+                        <th class="col-1" rowspan="2"></th>
+                      </tr>
+                      <tr>
+                        <th scope="col" class="col-2 text-center">Сумма</th>
+                        <th scope="col" class="col-1 text-center">%</th>
 
                       </tr>
+
                       </thead>
-                      <tbody class=" text-center">
-
+                      <tbody>
                       <tr>
-                        <td class="col-1 text-left">{{ stage.cost_price|floatformat:"2g" }} сўм
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>План</b>
                         </td>
-                      </tr>
-                      <tr>
-                        <td class="col-1 text-left">{{ stage.salary_cost|floatformat:"2g" }} сўм
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="col-1 text-left">{{ stage.period_expenses|floatformat:"2g" }} сўм
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="col-1 text-left">{{ stage.contributions_to_IT_park|floatformat:"2g" }} сўм
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="col-1 text-left">{{ stage.margin|floatformat:"2g" }} сўм
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          class="text-danger fw-bold font-weight-bold">{{ stage.total_price_with_margin|floatformat:"2g" }}
+                        <td class="col-1"
+                            id="cost_price_of_project_percent">{{ task_status_list.plan|floatformat:"2g" }}
                           сўм
                         </td>
+                        <td class="col-1">{{ task_status_list.total_price|floatformat:"2g" }} %</td>
+
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Активный</b></td>
+                        <td
+                          id="salary_cost_of_project_percent">{{ task_status_list.active|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td>{{ task_status_list.total_expenses|floatformat:"2g" }} %</td>
+
+
+                      </tr>
+                      <tr>
+
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Завершенный</b>
+                        </td>
+                        <td
+                          id="period_expenses_of_project_percent">{{ task_status_list.finish|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td>{{ task_status_list.additional_cost|floatformat:"2g" }} %</td>
+
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Отменено</b>
+                        </td>
+                        <td>{{ task_status_list.cancel|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td id="project_tax_update_part">{{ project_fact_total_detail.margin|floatformat:"2g" }}
+                          %
+                        </td>
+
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>На
+                          удерживании</b>
+                        </td>
+                        <td class="col-1">
+                          {{ task_status_list.on_hold|floatformat:"2g" }} сўм
+                        </td>
+
+                        <td>
+
+                        </td>
+
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Итого</b>
+                        </td>
+                        <td class="col-1">
+                          {{ project_plan_total_detail.profitability_percentage|floatformat:"2g" }} сўм
+                        </td>
+
+                        <td>
+
+                        </td>
+
+
                       </tr>
 
 
                       </tbody>
-
-
                     </table>
-                  {% endfor %}
+
+
+                  </div>
 
 
                 </div>
 
 
               </div>
-
-
             </div>
-
           </div>
-
-
         </div>
-
       </div>
     </div>
-  </div>
 
 
+    <div class="col-xl-8 col-lg-8 col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4>Сравнительная таблица плана и фактического проекта:</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-12 col-lg-8">
+              <div class="d-flex justify-content-between">
+
+                <div class="col ml-lg-4 ">
+                  <div>
 
 
+                    <table class="table table-bordered">
+                      <thead class="text-left" style="background-color:  #494a79;color: white">
+                      <tr>
+                        <th class="col-1" rowspan="2"></th>
+                        <th class="col-2 text-center" colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
+                      </tr>
+                      <tr>
+                        <th scope="col" class="col-1 text-center">План</th>
+                        <th scope="col" class="col-1 text-center">Факт</th>
+                        <th scope="col" class="col-1 text-center">Сравнение</th>
+                      </tr>
+
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Ориентировочная
+                          стоимость проекта</b>
+                        </td>
+                        <td class="col-1 text-center"
+                            id="cost_price_of_project_percent">{{ project_plan_total_detail.total_price|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td class="col-2 text-center">{{ project_fact_total_detail.total_price|floatformat:"2g" }} сўм
+                        </td>
+                        <td class="text-center">
+                          {{ project_fact_total_detail_total.margin|floatformat:"2g" }} сўм
+                        </td>
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Общие
+                          расходы </b> <br/><b> (Без учета дополнительных затрат)</b></td>
+                        <td class="text-center"
+                            id="salary_cost_of_project_percent">{{ project_plan_total_detail.total_expenses|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td class="text-center"> {{ project_fact_total_detail.total_expenses|floatformat:"2g" }} сўм
+                        </td>
+                        <td class="text-center">
+                          {{ project_fact_total_detail_list.margin|floatformat:"2g" }} сўм
+                        </td>
+
+                      </tr>
+                      <tr>
+
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные
+                          расходы</b></td>
+                        <td class="text-center"
+                            id="period_expenses_of_project_percent">{{ project_plan_total_detail.additional_cost|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td class="text-center">{{ project_fact_total_detail.additional_cost|floatformat:"2g" }} сўм
+                        </td>
+                        <td class="text-center">
+                          {{ project_fact_total_detail_list.margin|floatformat:"2g" }} сўм
+                        </td>
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый
+                          прибыль</b>
+                        </td>
+                        <td class="text-center">{{ project_plan_total_detail.margin|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td class="text-center"
+                            id="project_tax_update_part">{{ project_fact_total_detail.margin|floatformat:"2g" }}
+                          сўм
+                        </td>
+                        <td class="text-center">
+                          {{ project_fact_total_detail_list.margin|floatformat:"2g" }} сўм
+                        </td>
+
+                      </tr>
+                      <tr>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Рентабельность по
+                          чистой прибыли</b>
+                        </td>
+                        <td class="col-1 text-center">
+                          {{ project_plan_total_detail.profitability_percentage|floatformat:"2g" }} %
+                        </td>
+                        <td class="text-center">
+                          {{ project_fact_total_detail.profitability_percentage|floatformat:"2g" }} %
+                        </td>
+                        <td>
+
+                        </td>
+
+                        </td>
+
+                      </tr>
 
 
-  </div>
+                      </tbody>
+                    </table>
+
+
+                  </div>
+
+
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 

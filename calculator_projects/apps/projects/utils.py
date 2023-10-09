@@ -9,7 +9,7 @@ from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
 from calculator_projects.apps.stages.models import StagePlan, StageFact
 
-from calculator_projects.apps.tasks.models import TaskFact, TaskPlan
+from calculator_projects.apps.tasks.models import TaskFact, TaskPlan, TaskFactStatus
 from calculator_projects.utils.constants import HOLIDAYS
 
 
@@ -152,6 +152,30 @@ def project_fact_task_amount(project_fact):
 def project_plan_task_amount(project_plan_list):
     from django.db.models import Count
     return project_plan_list.aggregate(project_plan_task_amount=Count("project_plan_task"))
+
+
+def generation_total_amount_fields(qs):
+    from django.db.models import Sum
+
+    return qs.aggregate(
+        total_price=Sum("total_price_with_additional_cost"),
+        total_expenses=Sum("total_price_stage_and_task"),
+        additional_cost=Sum("additional_cost"),
+        margin=Sum("margin"),
+        profitability_percentage=Sum("profitability_percentage"),
+    )
+
+
+def generation_task_status_fields(user):
+    from django.db.models import Sum
+    task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
+    return task_fact_list.aggregate(
+        plan=Sum(TaskFactStatus.PLAN),
+        active=Sum(TaskFactStatus.ACTIVE),
+        finish=Sum(TaskFactStatus.COMPLETED),
+        cancel=Sum(TaskFactStatus.CANCELLED),
+        on_hold=Sum(TaskFactStatus.ON_HOLD),
+    )
 
 
 def project_change_status(pk, user, status):
