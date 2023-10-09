@@ -180,7 +180,7 @@
 
   // single-select-placeholder
   $(".single-select-placeholder").select2({
-      placeholder: "Выберите работника",
+      placeholder: "Пожалуйста, выберите",
       allowClear: true
   });
 

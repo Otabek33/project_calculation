@@ -7,14 +7,297 @@
 
 {% block content %}
 
+  <div class="row">
+    <div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
+      <div class="card">
+        <div class="stat-widget-two card-body">
+          <div class="stat-content">
+            <div class="stat-digit">Проекты</div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="col-10">
+              <select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
+                <option value=""></option>
+
+                {% for worker in user_list %}
+
+                  <option value="{{ worker.id }}"
+                          {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
+
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-2">
+              <button class="btn btn-primary">Искать</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="social-graph-wrapper widget-duration">
+          <span class="s-icon">Продолжительность в часах</span>
+        </div>
+        <div class="row">
+          <div class="col-6 border-right">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_plan_list_header.project_plan_duration_per_hour|floatformat:"0g" }}</span>
+                часов</h4>
+              <p class="m-0">План</p>
+
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact_list_header.project_fact_duration_per_hour|floatformat:"0g" }}</span>
+                часов</h4>
+              <p class="m-0">Факт</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="social-graph-wrapper widget-total-price">
+          <span class="s-icon">Общее сумма проектов</span>
+        </div>
+        <div class="row">
+          <div class="col-6 border-right">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_plan_list_header.project_plan_total_price_with_additional_cost|floatformat:"2g" }}</span>
+                сўм</h4>
+              <p class="m-0">План</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+              <h4 class="m-1"><span
+                class="counter">{{ project_fact_list_header.project_fact_total_price_with_additional_cost|floatformat:"2g" }}</span>
+                сўм</h4>
+              <p class="m-0">Факт</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-xl-8 col-lg-8 col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4>Запланированная и выполненная задача в разбивке по проекту</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-12 col-lg-8">
+              <div id="morris-bar-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-xxl-6 col-xl-4 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>Задачи по статусу</h4>
+
+        </div>
+        <div class="card-body">
+          <div class="chart py-4">
+            <canvas id="sold-product"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card mb-4 ">
+    <h5 class="card-header align-items-center text-center">
+      <span>Сравнительная таблица плана и фактического проекта:</span>
+    </h5>
+    <div class="card-body">
+      <div id="detail_view_labour_cost ">
+        <div class="row text-left">
+          <div class="col">
+            <div class="d-flex justify-content-between">
+
+              <div class="col ml-lg-4 ">
+                <div>
+
+
+                  <table class="table table-bordered">
+                    <thead class="text-left" style="background-color:  #494a79;color: white">
+                    <tr>
+                      <th rowspan="2"></th>
+                      <th colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="text-center">План</th>
+                      <th scope="col" class="text-center">Факт</th>
+                      <th scope="col" class="text-center">Сравнение</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Ориентировочная
+                        стоимость проекта</b>
+                      </td>
+                      <td class="col-1"
+                          id="cost_price_of_project_percent">{{ projectplan.percent_cost_price|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td class="col-2">{{ projectplan.cost_price|floatformat:"2g" }} сўм</td>
+                      <td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Общие
+                        расходы </b> <br /><b> (Без учета дополнительных затрат)</b></td>
+                      <td id="salary_cost_of_project_percent">{{ projectplan.percent_salary_cost|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td>{{ projectplan.salary_cost|floatformat:"2g" }} сўм</td>
+                      <td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+
+                    </tr>
+                    <tr>
+
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные расходы</b></td>
+                      <td
+                        id="period_expenses_of_project_percent">{{ projectplan.percent_period_expenses|floatformat:"2g" }}
+                        %
+                      </td>
+                      <td style="display:none;"
+                          id="period_expenses_of_project_amount">{{ projectplan.period_expenses }}</td>
+                      <td>{{ projectplan.period_expenses|floatformat:"2g" }} сўм</td>
+                      <td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый прибыль</b></td>
+                      <td> 1 %</td>
+                      <td id="project_tax_update_part">{{ projectplan.contributions_to_IT_park|floatformat:"2g" }}
+                        сўм
+                      </td>
+                      <td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Рентабельность по чистой прибыли</b>
+                      </td>
+                      <td class="col-1">
+                        <strong>{{ projectplan.percent_margin|floatformat:"2g" }} %</strong>
+                      </td>
+                      <td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+<td>
+                        {{ projectplan.margin|floatformat:"2g" }} сўм
+                      </td>
+
+                      </td>
+
+                    </tr>
+
+
+
+                    </tbody>
+                  </table>
+
+                  {% for stage in stage_plan_list %}
+                    <table class="table table-bordered w-20 text-center">
+
+
+                      <thead class="text-left  text-center">
+                      <tr style="background-color:  #494a79;color: white">
+                        <th scope="col" class="text-left">{{ stage.description }}</th>
+
+                      </tr>
+                      </thead>
+                      <tbody class=" text-center">
+
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.cost_price|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.salary_cost|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.period_expenses|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.contributions_to_IT_park|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-1 text-left">{{ stage.margin|floatformat:"2g" }} сўм
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="text-danger fw-bold font-weight-bold">{{ stage.total_price_with_margin|floatformat:"2g" }}
+                          сўм
+                        </td>
+                      </tr>
+
+
+                      </tbody>
+
+
+                    </table>
+                  {% endfor %}
+
+
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 
 
 
 
 
+  </div>
 
-
+  </div>
 
 
 
