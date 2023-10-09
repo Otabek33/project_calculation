@@ -167,15 +167,17 @@ def generation_total_amount_fields(qs):
 
 
 def generation_task_status_fields(user):
-    from django.db.models import Sum
+    from django.db.models import Sum, Q
     task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
     return task_fact_list.aggregate(
-        plan=Sum(TaskFactStatus.PLAN),
-        active=Sum(TaskFactStatus.ACTIVE),
-        finish=Sum(TaskFactStatus.COMPLETED),
-        cancel=Sum(TaskFactStatus.CANCELLED),
-        on_hold=Sum(TaskFactStatus.ON_HOLD),
+        plan=Sum("total_price", filter=Q(action_status=TaskFactStatus.PLAN)),
+        active=Sum("total_price", filter=Q(action_status=TaskFactStatus.ACTIVE)),
+        finish=Sum("total_price", filter=Q(action_status=TaskFactStatus.COMPLETED)),
+        cancel=Sum("total_price", filter=Q(action_status=TaskFactStatus.CANCELLED)),
+        on_hold=Sum("total_price", filter=Q(action_status=TaskFactStatus.ON_HOLD)),
     )
+def generation_task_status_percentage_fields(task_status_list):
+    pass
 
 
 def project_change_status(pk, user, status):
