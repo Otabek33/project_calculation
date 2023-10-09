@@ -8,30 +8,34 @@
 {% block content %}
 
   <div class="row">
-    <div class="col-xl-4 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
+    <div class="col-4">
       <div class="card">
-        <div class="stat-widget-two card-body">
-          <div class="stat-content">
-            <div class="stat-digit">Проекты</div>
-          </div>
-          <div class="d-flex justify-content-between">
-            <div class="col-10">
-              <select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
-                <option value=""></option>
+        <div class="social-graph-wrapper widget-project">
+          <span class="s-icon">Проекты</span>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="pt-4 pb-4 pl-0 pr-0 text-center">
+              <div class="d-flex justify-content-between">
+                <div class="col-10">
+                  <select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
+                    <option value=""></option>
 
-                {% for worker in user_list %}
+                    {% for worker in user_list %}
 
-                  <option value="{{ worker.id }}"
-                          {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
+                      <option value="{{ worker.id }}"
+                              {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
 
-                {% endfor %}
-              </select>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-2">
+                  <button class="btn btn-primary">Поиск</button>
+                </div>
+              </div>
+
             </div>
-            <div class="col-2">
-              <button class="btn btn-primary">Искать</button>
-            </div>
           </div>
-
 
         </div>
       </div>
@@ -141,13 +145,13 @@
                   <table class="table table-bordered">
                     <thead class="text-left" style="background-color:  #494a79;color: white">
                     <tr>
-                      <th rowspan="2"></th>
-                      <th colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
+                      <th class="col-1" rowspan="2"></th cla>
+                      <th class="col-2" colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
                     </tr>
                     <tr>
-                      <th scope="col" class="text-center">План</th>
-                      <th scope="col" class="text-center">Факт</th>
-                      <th scope="col" class="text-center">Сравнение</th>
+                      <th scope="col" class="col-1 text-center">План</th>
+                      <th scope="col" class="col-1 text-center">Факт</th>
+                      <th scope="col" class="col-1 text-center">Сравнение</th>
                     </tr>
 
                     </thead>
@@ -168,7 +172,7 @@
                     </tr>
                     <tr>
                       <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Общие
-                        расходы </b> <br /><b> (Без учета дополнительных затрат)</b></td>
+                        расходы </b> <br/><b> (Без учета дополнительных затрат)</b></td>
                       <td id="salary_cost_of_project_percent">{{ projectplan.percent_salary_cost|floatformat:"2g" }}
                         %
                       </td>
@@ -180,7 +184,8 @@
                     </tr>
                     <tr>
 
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные расходы</b></td>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные
+                        расходы</b></td>
                       <td
                         id="period_expenses_of_project_percent">{{ projectplan.percent_period_expenses|floatformat:"2g" }}
                         %
@@ -194,7 +199,8 @@
 
                     </tr>
                     <tr>
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый прибыль</b></td>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый прибыль</b>
+                      </td>
                       <td> 1 %</td>
                       <td id="project_tax_update_part">{{ projectplan.contributions_to_IT_park|floatformat:"2g" }}
                         сўм
@@ -205,7 +211,8 @@
 
                     </tr>
                     <tr>
-                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Рентабельность по чистой прибыли</b>
+                      <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Рентабельность по
+                        чистой прибыли</b>
                       </td>
                       <td class="col-1">
                         <strong>{{ projectplan.percent_margin|floatformat:"2g" }} %</strong>
@@ -213,14 +220,13 @@
                       <td>
                         {{ projectplan.margin|floatformat:"2g" }} сўм
                       </td>
-<td>
+                      <td>
                         {{ projectplan.margin|floatformat:"2g" }} сўм
                       </td>
 
                       </td>
 
                     </tr>
-
 
 
                     </tbody>
