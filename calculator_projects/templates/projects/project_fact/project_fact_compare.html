@@ -213,13 +213,12 @@
                         </td>
 
 
-
                       </tr>
                       <tr>
                         <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Итого</b>
                         </td>
                         <td class="col-1">
-                         {{ project.total_expenses_fact|floatformat:"2g" }} сўм
+                          {{ project.total_expenses_fact|floatformat:"2g" }} сўм
                         </td>
 
                         <td>
@@ -286,9 +285,16 @@
                         </td>
                         <td class="col-2 text-center">{{ project.total_price_fact|floatformat:"2g" }} сўм
                         </td>
-                        <td class="text-center">
-                          {{ project.total_price_compare|floatformat:"2g" }} сўм
-                        </td>
+
+                        {% if project.total_price_compare > 0 %}
+                          <td class="text-center text-success">
+                            {{ project.total_price_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% elif project.total_price_compare < 0 %}
+                          <td class="text-center text-danger">
+                            {{ project.total_price_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% endif %}
 
                       </tr>
                       <tr>
@@ -300,9 +306,17 @@
                         </td>
                         <td class="text-center"> {{ project.total_expenses_fact|floatformat:"2g" }} сўм
                         </td>
-                        <td class="text-center">
-                          {{ project.total_expenses_compare|floatformat:"2g" }} сўм
-                        </td>
+
+
+                         {% if project.total_expenses_compare > 0 %}
+                          <td class="text-center text-success">
+                            {{ project.total_expenses_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% elif project.total_expenses_compare < 0 %}
+                          <td class="text-center text-danger">
+                            {{ project.total_expenses_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% endif %}
 
                       </tr>
                       <tr>
@@ -315,9 +329,17 @@
                         </td>
                         <td class="text-center">{{ project.additional_cost_fact|floatformat:"2g" }} сўм
                         </td>
-                        <td class="text-center">
-                          {{ project.additional_cost_compare|floatformat:"2g" }} сўм
-                        </td>
+
+                         {% if project.additional_cost_compare > 0 %}
+                          <td class="text-center text-success">
+                            {{ project.additional_cost_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% elif project.additional_cost_compare < 0 %}
+                          <td class="text-center text-danger">
+                            {{ project.additional_cost_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% endif %}
+
 
                       </tr>
                       <tr>
@@ -331,9 +353,15 @@
                             id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
                           сўм
                         </td>
-                        <td class="text-center">
-                          {{ project.margin_compare|floatformat:"2g" }} сўм
-                        </td>
+                        {% if project.margin_compare > 0 %}
+                          <td class="text-center text-success">
+                            {{ project.margin_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% elif project.margin_compare < 0 %}
+                          <td class="text-center text-danger">
+                            {{ project.margin_compare|floatformat:"2g" }} сўм
+                          </td>
+                        {% endif %}
 
                       </tr>
                       <tr>
