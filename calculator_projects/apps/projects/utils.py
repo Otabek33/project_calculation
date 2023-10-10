@@ -154,9 +154,38 @@ def project_plan_task_amount(project_plan_list):
     return project_plan_list.aggregate(project_plan_task_amount=Count("project_plan_task"))
 
 
-def generation_total_amount_fields(qs):
-    from django.db.models import Sum
+def project_fields_generation(prefix, project, project_initial):
+    project_initial['total_price_' + prefix] = project['total_price']
+    project_initial['total_expenses_' + prefix] = project['total_expenses']
+    project_initial['additional_cost_' + prefix] = project['additional_cost']
+    project_initial['margin_' + prefix] = project['margin']
+    project_initial['profitability_percentage_' + prefix] = project['profitability_percentage']
+    return project_initial
 
+
+def compare_fields(project_initial):
+    project_initial['total_price_compare'] = project_initial['total_price_plan'] - project_initial['total_price_fact']
+    project_initial['total_expenses_compare'] = project_initial['total_expenses_plan'] - project_initial[
+        'total_expenses_fact']
+    project_initial['additional_cost_compare'] = project_initial['additional_cost_plan'] - project_initial[
+        'additional_cost_fact']
+    project_initial['margin_compare'] = (project_initial['margin_plan'] - project_initial['margin_fact'])
+    return project_initial
+
+
+def generation_total_amount_fields(project_fact, project_plan):
+    project_fact = generation_project(project_fact)
+    project_plan = generation_project(project_plan)
+    project_initial = {}
+    project_initial = project_fields_generation("fact", project_fact, project_initial)
+    project_initial = project_fields_generation("plan", project_plan, project_initial)
+    project_initial = compare_fields(project_initial)
+
+    return project_initial
+
+
+def generation_project(qs):
+    from django.db.models import Sum
     return qs.aggregate(
         total_price=Sum("total_price_with_additional_cost"),
         total_expenses=Sum("total_price_stage_and_task"),
@@ -166,18 +195,31 @@ def generation_total_amount_fields(qs):
     )
 
 
-def generation_task_status_fields(user):
+def dictionary_check(status_amount, project_fact_total_price):
+    if status_amount is not None:
+        return (status_amount / project_fact_total_price) * 100
+    else:
+        return 0
+
+
+def generation_task_status_fields(user, project_fact_total_price):
     from django.db.models import Sum, Q
     task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
-    return task_fact_list.aggregate(
-        plan=Sum("total_price", filter=Q(action_status=TaskFactStatus.PLAN)),
-        active=Sum("total_price", filter=Q(action_status=TaskFactStatus.ACTIVE)),
-        finish=Sum("total_price", filter=Q(action_status=TaskFactStatus.COMPLETED)),
-        cancel=Sum("total_price", filter=Q(action_status=TaskFactStatus.CANCELLED)),
-        on_hold=Sum("total_price", filter=Q(action_status=TaskFactStatus.ON_HOLD)),
-    )
-def generation_task_status_percentage_fields(task_status_list):
-    pass
+    task_fact_list = task_fact_list.aggregate(plan=Sum("total_price", filter=Q(action_status=TaskFactStatus.PLAN)),
+                                              active=Sum("total_price", filter=Q(action_status=TaskFactStatus.ACTIVE)),
+                                              finish=Sum("total_price",
+                                                         filter=Q(action_status=TaskFactStatus.COMPLETED)),
+                                              cancel=Sum("total_price",
+                                                         filter=Q(action_status=TaskFactStatus.CANCELLED)),
+                                              on_hold=Sum("total_price",
+                                                          filter=Q(action_status=TaskFactStatus.ON_HOLD)), )
+
+    task_fact_list['plan_p'] = dictionary_check(task_fact_list['plan'], project_fact_total_price)
+    task_fact_list['active_p'] = dictionary_check(task_fact_list['active'], project_fact_total_price)
+    task_fact_list['finish_p'] = dictionary_check(task_fact_list['finish'], project_fact_total_price)
+    task_fact_list['cancel_p'] = dictionary_check(task_fact_list['cancel'], project_fact_total_price)
+    task_fact_list['on_hold_p'] = dictionary_check(task_fact_list['on_hold'], project_fact_total_price)
+    return task_fact_list
 
 
 def project_change_status(pk, user, status):

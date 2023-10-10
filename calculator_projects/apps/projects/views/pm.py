@@ -13,11 +13,10 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
     checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
     project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
     process_formation_four_fields_percentage, process_formation_fields_with_additional_cost, middle_function, \
-    checking_date_time, generation_total_amount_fields, generation_task_status_fields, \
-    generation_task_status_percentage_fields
+    checking_date_time, generation_total_amount_fields, generation_task_status_fields
 from calculator_projects.apps.stages.models import StagePlan, StageFact
 
-from calculator_projects.apps.tasks.models import TaskPlan, TaskFact, TaskFactStatus
+from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
 from calculator_projects.apps.users.models import User
 from calculator_projects.utils.helpers import is_ajax, defining_total_price
 
@@ -510,15 +509,15 @@ class ComparePlanFactView(ListView):
             project_status=ProjectStatus.ACTIVE,
             deleted_status=False,
         )
+
         context["project_fact_list_header"] = project_fact_header_info(self.get_queryset())
         context["project_plan_list_header"] = project_plan_header_info(project_plan_list)
         context["task_fact_header"] = project_fact_task_amount(self.get_queryset())
         context["task_plan_header"] = project_plan_task_amount(project_plan_list)
-        context["project_fact_total_detail"] = generation_total_amount_fields(self.get_queryset())
-        context["project_plan_total_detail"] = generation_total_amount_fields(project_plan_list)
-        task_status_list = generation_task_status_fields(self.request.user)
-        context["task_status_list"] = task_status_list
-        context["task_status_percentage"] = generation_task_status_percentage_fields(task_status_list)
+        project = generation_total_amount_fields(self.get_queryset(), project_plan_list)
+        context["project"] = project
+        context["task_status_list"] = generation_task_status_fields(self.request.user, project[
+            'total_expenses_fact'])
         return context
 
 

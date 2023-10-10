@@ -163,7 +163,7 @@
                             id="cost_price_of_project_percent">{{ task_status_list.plan|floatformat:"2g"|default:0 }}
                           сўм
                         </td>
-                        <td class="col-1">{{ task_status_list.plan_percentage|floatformat:"2g"|default:0 }} %</td>
+                        <td class="col-1">{{ task_status_list.plan_p|floatformat:"2g"|default:0 }} %</td>
 
 
                       </tr>
@@ -173,7 +173,7 @@
                           id="salary_cost_of_project_percent">{{ task_status_list.active|floatformat:"2g"|default:0 }}
                           сўм
                         </td>
-                        <td>{{ task_status_list.total_expenses|floatformat:"2g"|default:0 }} %</td>
+                        <td>{{ task_status_list.active_p|floatformat:"2g"|default:0 }} %</td>
 
 
                       </tr>
@@ -185,7 +185,7 @@
                           id="period_expenses_of_project_percent">{{ task_status_list.finish|floatformat:"2g"|default:0 }}
                           сўм
                         </td>
-                        <td>{{ task_status_list.additional_cost|floatformat:"2g"|default:0 }} %</td>
+                        <td>{{ task_status_list.finish_p|floatformat:"2g"|default:0 }} %</td>
 
 
                       </tr>
@@ -195,7 +195,7 @@
                         <td>{{ task_status_list.cancel|floatformat:"2g"|default:0 }}
                           сўм
                         </td>
-                        <td id="project_tax_update_part">{{ task_status_list.margin|floatformat:"2g"|default:0 }}
+                        <td id="project_tax_update_part">{{ task_status_list.cancel_p|floatformat:"2g"|default:0 }}
                           %
                         </td>
 
@@ -208,7 +208,7 @@
                         <td class="col-1">
                           {{ task_status_list.on_hold|floatformat:"2g"|default:0 }} сўм
                         </td>
-                        <td id="project_tax_update_part">{{ task_status_list.margin|floatformat:"2g"|default:0 }}
+                        <td id="project_tax_update_part">{{ task_status_list.on_hold_p|floatformat:"2g"|default:0 }}
                           %
                         </td>
 
@@ -219,7 +219,7 @@
                         <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Итого</b>
                         </td>
                         <td class="col-1">
-                         {{ project_fact_total_detail.total_expenses|floatformat:"2g" }} сўм
+                         {{ project.total_expenses_fact|floatformat:"2g" }} сўм
                         </td>
 
                         <td>
@@ -281,13 +281,13 @@
                           стоимость проекта</b>
                         </td>
                         <td class="col-1 text-center"
-                            id="cost_price_of_project_percent">{{ project_plan_total_detail.total_price|floatformat:"2g" }}
+                            id="cost_price_of_project_percent">{{ project.total_price_plan|floatformat:"2g" }}
                           сўм
                         </td>
-                        <td class="col-2 text-center">{{ project_fact_total_detail.total_price|floatformat:"2g" }} сўм
+                        <td class="col-2 text-center">{{ project.total_price_fact|floatformat:"2g" }} сўм
                         </td>
                         <td class="text-center">
-                          {{ project_fact_total_detail_total.margin|floatformat:"2g" }} сўм
+                          {{ project.total_price_compare|floatformat:"2g" }} сўм
                         </td>
 
                       </tr>
@@ -295,13 +295,13 @@
                         <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Общие
                           расходы </b> <br/><b> (Без учета дополнительных затрат)</b></td>
                         <td class="text-center"
-                            id="salary_cost_of_project_percent">{{ project_plan_total_detail.total_expenses|floatformat:"2g" }}
+                            id="salary_cost_of_project_percent">{{ project.total_expenses_plan|floatformat:"2g" }}
                           сўм
                         </td>
-                        <td class="text-center"> {{ project_fact_total_detail.total_expenses|floatformat:"2g" }} сўм
+                        <td class="text-center"> {{ project.total_expenses_fact|floatformat:"2g" }} сўм
                         </td>
                         <td class="text-center">
-                          {{ project_fact_total_detail_list.margin|floatformat:"2g" }} сўм
+                          {{ project.total_expenses_compare|floatformat:"2g" }} сўм
                         </td>
 
                       </tr>
@@ -310,13 +310,13 @@
                         <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные
                           расходы</b></td>
                         <td class="text-center"
-                            id="period_expenses_of_project_percent">{{ project_plan_total_detail.additional_cost|floatformat:"2g" }}
+                            id="period_expenses_of_project_percent">{{ project.additional_cost_plan|floatformat:"2g" }}
                           сўм
                         </td>
-                        <td class="text-center">{{ project_fact_total_detail.additional_cost|floatformat:"2g" }} сўм
+                        <td class="text-center">{{ project.additional_cost_fact|floatformat:"2g" }} сўм
                         </td>
                         <td class="text-center">
-                          {{ project_fact_total_detail_list.margin|floatformat:"2g" }} сўм
+                          {{ project.additional_cost_compare|floatformat:"2g" }} сўм
                         </td>
 
                       </tr>
@@ -324,15 +324,15 @@
                         <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый
                           прибыль</b>
                         </td>
-                        <td class="text-center">{{ project_plan_total_detail.margin|floatformat:"2g" }}
+                        <td class="text-center">{{ project.margin_plan|floatformat:"2g" }}
                           сўм
                         </td>
                         <td class="text-center"
-                            id="project_tax_update_part">{{ project_fact_total_detail.margin|floatformat:"2g" }}
+                            id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
                           сўм
                         </td>
                         <td class="text-center">
-                          {{ project_fact_total_detail_list.margin|floatformat:"2g" }} сўм
+                          {{ project.margin_compare|floatformat:"2g" }} сўм
                         </td>
 
                       </tr>
@@ -341,10 +341,10 @@
                           чистой прибыли</b>
                         </td>
                         <td class="col-1 text-center">
-                          {{ project_plan_total_detail.profitability_percentage|floatformat:"2g" }} %
+                          {{ project.profitability_percentage_plan|floatformat:"2g" }} %
                         </td>
                         <td class="text-center">
-                          {{ project_fact_total_detail.profitability_percentage|floatformat:"2g" }} %
+                          {{ project.profitability_percentage_fact|floatformat:"2g" }} %
                         </td>
                         <td>
 
