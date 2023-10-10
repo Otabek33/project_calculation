@@ -509,11 +509,6 @@ class ComparePlanFactView(ListView):
             project_status=ProjectStatus.ACTIVE,
             deleted_status=False,
         )
-
-        context["project_fact_list_header"] = project_fact_header_info(self.get_queryset())
-        context["project_plan_list_header"] = project_plan_header_info(project_plan_list)
-        context["task_fact_header"] = project_fact_task_amount(self.get_queryset())
-        context["task_plan_header"] = project_plan_task_amount(project_plan_list)
         project = generation_total_amount_fields(self.get_queryset(), project_plan_list)
         context["project"] = project
         context["task_status_list"] = generation_task_status_fields(self.request.user, project[

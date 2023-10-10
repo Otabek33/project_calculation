@@ -48,7 +48,7 @@
           <div class="col-6 border-right">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
               <h4 class="m-1"><span
-                class="counter">{{ project_plan_list_header.project_plan_duration_per_hour|floatformat:"0g" }}</span>
+                class="counter">{{ project.duration_per_hour_plan|floatformat:"g" }}</span>
                 часов</h4>
               <p class="m-0">План</p>
 
@@ -57,7 +57,7 @@
           <div class="col-6">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
               <h4 class="m-1"><span
-                class="counter">{{ project_fact_list_header.project_fact_duration_per_hour|floatformat:"0g" }}</span>
+                class="counter">{{ project.duration_per_hour_fact|floatformat:"g" }}</span>
                 часов</h4>
               <p class="m-0">Факт</p>
 
@@ -75,7 +75,7 @@
           <div class="col-6 border-right">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
               <h4 class="m-1"><span
-                class="counter">{{ project_plan_list_header.project_plan_total_price_with_additional_cost|floatformat:"2g" }}</span>
+                class="counter">{{ project.total_price_plan|floatformat:"2g" }}</span>
                 сўм</h4>
               <p class="m-0">План</p>
             </div>
@@ -83,7 +83,7 @@
           <div class="col-6">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
               <h4 class="m-1"><span
-                class="counter">{{ project_fact_list_header.project_fact_total_price_with_additional_cost|floatformat:"2g" }}</span>
+                class="counter">{{ project.total_price_fact|floatformat:"2g" }}</span>
                 сўм</h4>
               <p class="m-0">Факт</p>
             </div>
@@ -132,7 +132,7 @@
     <div class="col-xl-4 col-lg-4 col-md-4">
       <div class="card">
         <div class="card-header">
-          <h4>Сравнительная таблица плана и фактического проекта:</h4>
+          <h4>Оценка затрат по статусу задачи:</h4>
         </div>
         <div class="card-body">
           <div class="row">
@@ -308,7 +308,7 @@
                         </td>
 
 
-                         {% if project.total_expenses_compare > 0 %}
+                        {% if project.total_expenses_compare > 0 %}
                           <td class="text-center text-success">
                             {{ project.total_expenses_compare|floatformat:"2g" }} сўм
                           </td>
@@ -330,7 +330,7 @@
                         <td class="text-center">{{ project.additional_cost_fact|floatformat:"2g" }} сўм
                         </td>
 
-                         {% if project.additional_cost_compare > 0 %}
+                        {% if project.additional_cost_compare > 0 %}
                           <td class="text-center text-success">
                             {{ project.additional_cost_compare|floatformat:"2g" }} сўм
                           </td>
@@ -346,13 +346,32 @@
                         <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый
                           прибыль</b>
                         </td>
-                        <td class="text-center">{{ project.margin_plan|floatformat:"2g" }}
-                          сўм
-                        </td>
-                        <td class="text-center"
-                            id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
-                          сўм
-                        </td>
+
+                        {% if project.margin_plan > 0 %}
+                          <td class="text-center text-success font-weight-bold"
+                              id="project_tax_update_part">{{ project.margin_plan|floatformat:"2g" }}
+                            сўм
+                          </td>
+                        {% elif project.margin_plan < 0 %}
+                          <td class="text-center  text-danger font-weight-bold"
+                              id="project_tax_update_part">{{ project.margin_plan|floatformat:"2g" }}
+                            сўм
+                          </td>
+                        {% endif %}
+
+                        {% if project.margin_fact > 0 %}
+                          <td class="text-center text-success font-weight-bold"
+                              id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
+                            сўм
+                          </td>
+                        {% elif project.margin_fact < 0 %}
+                          <td class="text-center  text-danger font-weight-bold"
+                              id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
+                            сўм
+                          </td>
+                        {% endif %}
+
+
                         {% if project.margin_compare > 0 %}
                           <td class="text-center text-success">
                             {{ project.margin_compare|floatformat:"2g" }} сўм
@@ -365,8 +384,8 @@
 
                       </tr>
                       <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Рентабельность по
-                          чистой прибыли</b>
+                        <td class="col-3 text-left" style="background-color:  #494a79;color: white">
+                          <b>Рентабельность</b>
                         </td>
                         <td class="col-1 text-center">
                           {{ project.profitability_percentage_plan|floatformat:"2g" }} %

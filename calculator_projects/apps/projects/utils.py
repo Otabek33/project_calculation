@@ -160,6 +160,7 @@ def project_fields_generation(prefix, project, project_initial):
     project_initial['additional_cost_' + prefix] = project['additional_cost']
     project_initial['margin_' + prefix] = project['margin']
     project_initial['profitability_percentage_' + prefix] = project['profitability_percentage']
+    project_initial['duration_per_hour_' + prefix] = project['duration_per_hour']
     return project_initial
 
 
@@ -193,6 +194,7 @@ def generation_project(qs):
         additional_cost=Sum("additional_cost"),
         margin=Sum("margin"),
         profitability_percentage=Sum("profitability_percentage"),
+        duration_per_hour=Sum("duration_per_hour"),
     )
 
 
