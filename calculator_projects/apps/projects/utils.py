@@ -225,6 +225,13 @@ def generation_task_status_fields(user, project_fact_total_price):
     return task_fact_list
 
 
+def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_list):
+    projects = {}
+    for project in project_fact_list:
+        projects[project.name] = {"task_fact": project.task_fact_amount(), "task_plan": project.task_plan_amount()}
+    return projects
+
+
 def project_change_status(pk, user, status):
     project = get_object_or_404(ProjectPlan, pk=pk)
     project.accepted_by = user

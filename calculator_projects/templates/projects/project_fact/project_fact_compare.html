@@ -423,7 +423,48 @@
 
 
 
+  <script>
+    let url = new URL(window.location.href);
+    let url_path = url.pathname
+    fetch(url_path, {
+      headers: {
+        'Content-Type': 'application/json',
+        "X-Requested-With": "XMLHttpRequest",
+        "HTTP_X_REQUESTED_WITH": "XMLHttpRequest"
+      },
+    }).then(response => {
+      var project_list = JSON.parse('{{ project_list|escapejs }}');
 
+      task_fact_and_plan(project_list)
+      // response.json() //Convert response to JSON
+    })
+
+    function task_fact_and_plan(project_list) {
+      let data;
+      Object.entries(project_list).forEach(([key, value]) => {
+        data=[{
+          y:`${key}`,
+          a:`${value.task_fact}`,
+          b:`${value.task_plan}`
+        }]
+        {#`${key} ${value.task_fact} ${value.task_plan}`#}
+      })
+
+
+      Morris.Bar({
+        element: 'morris-bar-chart',
+        data: data,
+        xkey: 'y',
+        ykeys: ['a', 'b'],
+        labels: ['A', 'B'],
+        barColors: ['#343957', '#5873FE'],
+        hideHover: 'auto',
+        gridLineColor: '#eef0f2',
+        resize: true
+      });
+
+    }
+  </script>
 
 
 
