@@ -169,7 +169,7 @@ def compare_fields(project_initial):
         'total_expenses_fact']
     project_initial['additional_cost_compare'] = project_initial['additional_cost_plan'] - project_initial[
         'additional_cost_fact']
-    project_initial['margin_compare'] = (project_initial['margin_plan'] - project_initial['margin_fact'])
+    project_initial['margin_compare'] = (project_initial['margin_fact'] - project_initial['margin_plan'])
     return project_initial
 
 
@@ -179,6 +179,7 @@ def generation_total_amount_fields(project_fact, project_plan):
     project_initial = {}
     project_initial = project_fields_generation("fact", project_fact, project_initial)
     project_initial = project_fields_generation("plan", project_plan, project_initial)
+    project_initial['margin_fact'] = project_initial['total_price_plan'] - project_initial['total_price_fact']
     project_initial = compare_fields(project_initial)
 
     return project_initial
