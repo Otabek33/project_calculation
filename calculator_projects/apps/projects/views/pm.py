@@ -18,7 +18,7 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
 from calculator_projects.apps.stages.models import StagePlan, StageFact
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
-from calculator_projects.apps.users.models import User
+from calculator_projects.apps.users.models import User, UserRoleTypes
 from calculator_projects.utils.helpers import is_ajax, defining_total_price
 
 
@@ -40,7 +40,6 @@ class ProjectPlanStageOne(CreateView):
         project_plan.created_by = self.request.user
         project_plan.departament = self.request.user.deportment
         project_plan.coefficient_of_project = get_coefficient(self.request.POST.get('coefficient'))
-        # project_plan.project_creation_stage = ProjectCreationStage.STAGE_2
         project_plan.save()
         return redirect("projects:initial_view", pk=project_plan.id)
 
@@ -524,3 +523,23 @@ class ComparePlanFactView(ListView):
 
 
 compare_plan_vs_fact = ComparePlanFactView.as_view()
+
+
+class ProjectAnalyzeView(ListView):
+    model = ProjectFact
+    tm_path = "projects/other/"
+    tm_name = "project_analyze.html"
+    template_name = f"{tm_path}{tm_name}"
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user_role = self.request.user.user_role
+        if user_role == UserRoleTypes.SUPER_USER or user_role == UserRoleTypes.FINANCE:
+            return qs.filter(
+                deleted_status=False
+            )
+        else:
+            return qs.filter(deleted_status=False, created_by=self.request.user)
+
+
+analyze_list = ProjectAnalyzeView.as_view()

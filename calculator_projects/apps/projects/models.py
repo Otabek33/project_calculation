@@ -346,3 +346,20 @@ class ProjectFact(models.Model):
     def stage_list(self):
         from calculator_projects.apps.stages.models import StageFact
         return StageFact.objects.filter(project_fact=self.id, deleted_status=False).order_by('stage_number')
+
+    def plan_fact_difference(self):
+        return self.project_plan.total_price_with_additional_cost - self.total_price_with_additional_cost
+
+    def task_fact_finish_status(self):
+        from django.db.models import Sum, Q
+        from calculator_projects.apps.tasks.models import TaskFact
+        from calculator_projects.apps.tasks.models import TaskFactStatus
+        task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=self.created_by, project_fact=self)
+        task_fact_list = task_fact_list.aggregate(finish=Sum("total_price",
+                                                             filter=Q(action_status=TaskFactStatus.COMPLETED)),
+                                                  )
+        return task_fact_list
+
+    def completed_status(self):
+        task_fact = self.task_fact_finish_status()
+        return round((task_fact['finish'] / self.total_price_stage_and_task * 100), 1)
