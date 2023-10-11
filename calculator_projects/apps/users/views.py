@@ -7,7 +7,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView, TemplateView, ListView
 from django.contrib import auth, messages
 
+from calculator_projects.apps.tasks.models import TaskFact
 from calculator_projects.apps.users.forms import UserUpdateForm
+from calculator_projects.apps.users.models import UserRoleTypes
 
 User = get_user_model()
 
@@ -76,10 +78,20 @@ def logout(request):
 
 
 class WorkloadView(ListView):
-    model = User
+    model = TaskFact
     tm_path = "users/"
     tm_name = "workload.html"
     template_name = f"{tm_path}{tm_name}"
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user_role = self.request.user.user_role
+        if user_role == UserRoleTypes.SUPER_USER or user_role == UserRoleTypes.FINANCE:
+            return qs.filter(
+                deleted_status=False
+            ).order_by('worker')
+        else:
+            return qs.filter(deleted_status=False, created_by=self.request.user).order_by('worker')
 
 
 workload = WorkloadView.as_view()
