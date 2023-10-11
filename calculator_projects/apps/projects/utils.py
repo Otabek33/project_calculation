@@ -181,6 +181,10 @@ def generation_total_amount_fields(project_fact, project_plan):
     project_initial = project_fields_generation("fact", project_fact, project_initial)
     project_initial = project_fields_generation("plan", project_plan, project_initial)
     project_initial['margin_fact'] = project_initial['total_price_plan'] - project_initial['total_price_fact']
+    project_initial['profitability_percentage_fact'] = (project_initial['margin_fact'] / project_initial[
+        'total_price_fact'])*100
+    project_initial['profitability_percentage_plan'] = (project_initial['margin_plan'] / project_initial[
+        'total_price_plan']) * 100
     project_initial = compare_fields(project_initial)
 
     return project_initial
