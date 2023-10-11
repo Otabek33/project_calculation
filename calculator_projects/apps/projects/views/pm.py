@@ -516,10 +516,10 @@ class ComparePlanFactView(ListView):
         context["project"] = project
         context["task_status_list"] = generation_task_status_fields(self.request.user, project[
             'total_expenses_fact'])
-
         context["task_status"] = json.dumps(generation_task_status_amount(self.request.user))
         context["project_list"] = json.dumps(
             project_list)
+        context["project_list_name"] = self.get_queryset()
         return context
 
 

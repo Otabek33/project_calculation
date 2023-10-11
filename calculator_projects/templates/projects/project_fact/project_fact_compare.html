@@ -17,13 +17,12 @@
             <div class="pt-4 pb-4 pl-0 pr-0 text-center">
               <div class="d-flex justify-content-between">
                 <div class="col-10">
-                  <select class="single-select-placeholder js-states form-control " id="worker_{{ task_fact.id }}">
+                  <select class="single-select-placeholder js-states form-control " id="project_select">
                     <option value=""></option>
 
-                    {% for worker in user_list %}
+                    {% for project in project_list_name %}
 
-                      <option value="{{ worker.id }}"
-                              {% if task_fact.worker == worker %}selected {% endif %}>{{ worker.first_name }} {{ worker.last_name }}</option>
+                      <option value="{{ project.id }}">{{ project.name }}</option>
 
                     {% endfor %}
                   </select>
@@ -437,78 +436,7 @@
       var task_status = JSON.parse('{{ task_status|escapejs }}');
 
       task_fact_and_plan(project_list, task_status)
-      // response.json() //Convert response to JSON
     })
-
-    function task_fact_and_plan(project_list, task_status) {
-      let data;
-      Object.entries(project_list).forEach(([key, value]) => {
-        data = [{
-          y: `${key}`,
-          a: `${value.task_fact}`,
-          b: `${value.task_plan}`
-        }]
-        {#`${key} ${value.task_fact} ${value.task_plan}`#}
-      })
-
-
-      Morris.Bar({
-        element: 'morris-bar-chart',
-        data: data,
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['Факт', 'План'],
-        barColors: ['#343957', '#5873FE'],
-        hideHover: 'auto',
-        gridLineColor: '#eef0f2',
-        resize: true
-      });
-
-
-      var nk = document.getElementById("sold-product");
-      console.log(task_status)
-
-      let amount = [];
-      let task_status_name = [];
-
-      Object.entries(task_status).forEach(([key, value]) => {
-        amount.push(`${value}`)
-        task_status_name.push(`${key}`)
-      })
-      console.log(amount)
-      new Chart(nk, {
-        type: 'pie',
-        data: {
-          defaultFontFamily: 'Poppins',
-          datasets: [{
-            data: amount,
-            borderWidth: 0,
-            backgroundColor: [
-              "rgba(89, 59, 219, .9)",
-              "rgba(89, 59, 219, .7)",
-              "rgba(89, 59, 219, .5)",
-              "rgba(89, 59, 219, .07)",
-              "rgba(189,130,130,0.07)",
-            ],
-            hoverBackgroundColor: [
-              "rgba(89, 59, 219, .9)",
-              "rgba(89, 59, 219, .7)",
-              "rgba(89, 59, 219, .5)",
-              "rgba(89, 59, 219, .07)",
-              "rgba(189,130,130,0.07)",
-            ]
-
-          }],
-          labels: task_status_name
-        },
-        options: {
-          responsive: true,
-          legend: false,
-          maintainAspectRatio: false
-        }
-      });
-
-    }
 
 
   </script>

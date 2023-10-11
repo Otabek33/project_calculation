@@ -229,7 +229,7 @@ def generation_task_status_amount(user):
     from django.db.models import Count, Q
     task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
     task_fact_status_amount = task_fact_list.aggregate(
-        план=Count("action_status", filter=Q(action_status=TaskFactStatus.PLAN)),
+        plan=Count("action_status", filter=Q(action_status=TaskFactStatus.PLAN)),
         active=Count("action_status", filter=Q(action_status=TaskFactStatus.ACTIVE)),
         finish=Count("action_status",
                      filter=Q(action_status=TaskFactStatus.COMPLETED)),

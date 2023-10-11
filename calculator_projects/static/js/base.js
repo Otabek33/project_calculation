@@ -308,48 +308,72 @@ $("#additional_cost_fact_edit_modal").on('submit', function (e) {
 
 })
 
-function dsdsd(y,a,b) {
+function task_fact_and_plan(project_list, task_status) {
+      let data;
+      Object.entries(project_list).forEach(([key, value]) => {
+        data = [{
+          y: `${key}`,
+          a: `${value.task_fact}`,
+          b: `${value.task_plan}`
+        }]
 
-    Morris.Bar({
+      })
+
+
+      Morris.Bar({
         element: 'morris-bar-chart',
-        data: [{
-            y: '2006',
-            a: 100,
-            b: 90
-        }, {
-            y: '2007',
-            a: 75,
-            b: 65
-        }, {
-            y: '2008',
-            a: 50,
-            b: 40
-        }, {
-            y: '2009',
-            a: 75,
-            b: 65
-        }, {
-            y: '2010',
-            a: 50,
-            b: 40
-        }, {
-            y: '2011',
-            a: 75,
-            b: 65
-        }, {
-            y: '2012',
-            a: 100,
-            b: 90
-        }],
+        data: data,
         xkey: 'y',
         ykeys: ['a', 'b'],
-        labels: ['A', 'B'],
+        labels: ['Факт', 'План'],
         barColors: ['#343957', '#5873FE'],
         hideHover: 'auto',
         gridLineColor: '#eef0f2',
         resize: true
-    });
-}
+      });
+
+
+      var nk = document.getElementById("sold-product");
+      let amount = [];
+      let task_status_name = [];
+
+      Object.entries(task_status).forEach(([key, value]) => {
+        amount.push(`${value}`)
+        task_status_name.push(`${key}`)
+      })
+      new Chart(nk, {
+        type: 'pie',
+        data: {
+          defaultFontFamily: 'Poppins',
+          datasets: [{
+            data: amount,
+            borderWidth: 1,
+            backgroundColor: [
+              "rgba(89, 59, 219, .9)",
+              "rgba(89, 59, 219, .7)",
+              "rgba(89, 59, 219, .5)",
+              "rgba(89, 59, 219, .07)",
+              "rgba(189,130,130,0.07)",
+            ],
+            hoverBackgroundColor: [
+              "rgba(89, 59, 219, .9)",
+              "rgba(89, 59, 219, .7)",
+              "rgba(89, 59, 219, .5)",
+              "rgba(89, 59, 219, .07)",
+              "rgba(189,130,130,0.07)",
+            ]
+
+          }],
+          labels: task_status_name
+        },
+        options: {
+          responsive: true,
+          legend: false,
+          maintainAspectRatio: false
+        }
+      });
+
+    }
 
 function select_status_of_project_fact(id, token) {
     let select = document.getElementById("project_fact_status_update");
