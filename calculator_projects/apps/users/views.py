@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView, TemplateView
+from django.views.generic import DetailView, RedirectView, UpdateView, TemplateView, ListView
 from django.contrib import auth, messages
 
 from calculator_projects.apps.users.forms import UserUpdateForm
@@ -73,3 +73,13 @@ entrance = EntranceView.as_view()
 def logout(request):
     auth.logout(request)
     return redirect("users:login")
+
+
+class WorkloadView(ListView):
+    model = User
+    tm_path = "users/"
+    tm_name = "workload.html"
+    template_name = f"{tm_path}{tm_name}"
+
+
+workload = WorkloadView.as_view()

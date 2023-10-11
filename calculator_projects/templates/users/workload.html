@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+  Work load
+{% endblock title %}
+
+{% block content %}
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Загруженность сотрудников</h4>
+
+      </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">Панель </a></li>
+        <li class="breadcrumb-item active"><a href="#">Загруженность сотрудников </a></li>
+      </ol>
+    </div>
+  </div>
+  <!-- row -->
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Cотрудники</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table id="example2" class="display" style="width:100%">
+          <thead>
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">Сотрудник</th>
+            <th scope="col">Фото</th>
+            <th scope="col">Роль</th>
+            <th scope="col">Наименование проекта</th>
+            <th scope="col">Департамент</th>
+            <th scope="col">Наименование задачи</th>
+            <th scope="col">Дедлайн</th>
+            <th scope="col">Статус задачи</th>
+            <th scope="col">Рабочая нагрузка в часах</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for user in object_list %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+            </tr>
+          {% endfor %}
+
+          {#            {% for project in object_list %}#}
+          {#              <tr>#}
+          {#                <td>{{ forloop.counter }}</td>#}
+          {#                <td><a#}
+          {#                  href="{% url 'projects:project_plan_final_view' project.project_plan.id %}"#}
+          {#                ><strong>{{ project.name }}</strong></a></td>#}
+          {#                <td><a#}
+          {#                  href="{% url 'users:detail' user.id %}"#}
+          {#                >{{ project.created_by }}</a></td>#}
+          {#                <td>{{ project.created_by.deportment }}</td>#}
+          {#                <td>#}
+          {#                  <div class="progress" style="background: rgba(127, 99, 244, .1);height: 25px">#}
+          {#                    <div class="progress-bar bg-primary" role="progressbar"#}
+          {#                         style="width: {{ project.completed_status }} %;" aria-valuenow="{{ project.completed_status }}"#}
+          {#                         aria-valuemin="0" aria-valuemax="100">{{ project.completed_status }}%#}
+          {#                    </div>#}
+          {#                  </div>#}
+          {#                </td>#}
+          {#                <td>{{ project.project_plan.finish_time|date:"d-m-Y" }}</td>#}
+          {#                {% if project.project_status == 3 %}#}
+          {#                  <td><span class="badge badge-primary">{{ project.get_project_status_display }}</span></td>#}
+          {#                {% elif project.project_status == 4 %}#}
+          {#                  <td><span class="badge badge-success">{{ project.get_project_status_display }}</span></td>#}
+          {#                {% elif project.project_status == 5 %}#}
+          {#                  <td><span class="badge badge-danger">{{ project.get_project_status_display }}</span></td>#}
+          {#                {% elif project.project_status == 6 %}#}
+          {#                  <td><span class="badge badge-dark">{{ project.get_project_status_display }}</span></td>#}
+          {#                {% endif %}#}
+          {##}
+          {#                <td><strong>{{ project.project_plan.total_price_with_additional_cost|floatformat:"2g" }} сўм</strong>#}
+          {#                </td>#}
+          {#                <td><strong>{{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм</strong></td>#}
+          {#                {% if project.plan_fact_difference > 0 %}#}
+          {#                  <td class="text-success"><strong>{{ project.plan_fact_difference|floatformat:"2g" }} сўм</strong></td>#}
+          {#                {% else %}#}
+          {#                  <td class="text-danger"><strong>{{ project.plan_fact_difference|floatformat:"2g" }} сўм</strong></td>#}
+          {#                {% endif %}#}
+          {##}
+          {#              </tr>#}
+          {#            {% endfor %}#}
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}

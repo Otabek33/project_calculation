@@ -4,7 +4,7 @@ from calculator_projects.apps.users.views import (
     user_detail_view,
     user_redirect_view,
     user_update_view,
-    login_request, entrance, logout
+    login_request, entrance, logout, workload
 
 )
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path("~redirect/", view=user_redirect_view, name="redirect"),
     path("~update/<uuid:pk>", view=user_update_view, name="update"),
     path("<uuid:pk>/", view=user_detail_view, name="detail"),
+    path("~workload/", workload, name="workload"),
 ]
