@@ -18,7 +18,7 @@
             <thead>
             <tr>
               <th scope="col">№</th>
-              <th scope="col">Наименование</th>
+              <th scope="col" class="col-2">Наименование</th>
               <th scope="col">Ответственный</th>
               <th scope="col">Департамент</th>
               <th scope="col">Выполнимость проекта</th>
@@ -33,12 +33,17 @@
             {% for project in object_list %}
               <tr>
                 <td>{{ forloop.counter }}</td>
-                <td><strong>{{ project.name }}</strong></td>
-                <td>{{ project.created_by }}</td>
+                <td><a
+                  href="{% url 'projects:project_plan_final_view' project.project_plan.id %}"
+                ><strong>{{ project.name }}</strong></a></td>
+                <td><a
+                  href="{% url 'users:detail' user.id %}"
+                >{{ project.created_by }}</a></td>
                 <td>{{ project.created_by.deportment }}</td>
                 <td>
                   <div class="progress" style="background: rgba(127, 99, 244, .1);height: 25px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ project.completed_status }} %;" aria-valuenow="{{ project.completed_status }}"
+                    <div class="progress-bar bg-primary" role="progressbar"
+                         style="width: {{ project.completed_status }} %;" aria-valuenow="{{ project.completed_status }}"
                          aria-valuemin="0" aria-valuemax="100">{{ project.completed_status }}%
                     </div>
                   </div>
@@ -54,7 +59,8 @@
                   <td><span class="badge badge-dark">{{ project.get_project_status_display }}</span></td>
                 {% endif %}
 
-                <td><strong>{{ project.project_plan.total_price_with_additional_cost|floatformat:"2g" }} сўм</strong></td>
+                <td><strong>{{ project.project_plan.total_price_with_additional_cost|floatformat:"2g" }} сўм</strong>
+                </td>
                 <td><strong>{{ project.total_price_with_additional_cost|floatformat:"2g" }} сўм</strong></td>
                 {% if project.plan_fact_difference > 0 %}
                   <td class="text-success"><strong>{{ project.plan_fact_difference|floatformat:"2g" }} сўм</strong></td>
