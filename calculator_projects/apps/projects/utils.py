@@ -225,6 +225,21 @@ def generation_task_status_fields(user, project_fact_total_price):
     return task_fact_list
 
 
+def generation_task_status_amount(user):
+    from django.db.models import Count, Q
+    task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
+    task_fact_status_amount = task_fact_list.aggregate(
+        план=Count("action_status", filter=Q(action_status=TaskFactStatus.PLAN)),
+        active=Count("action_status", filter=Q(action_status=TaskFactStatus.ACTIVE)),
+        finish=Count("action_status",
+                     filter=Q(action_status=TaskFactStatus.COMPLETED)),
+        cancel=Count("action_status",
+                     filter=Q(action_status=TaskFactStatus.CANCELLED)),
+        on_hold=Count("action_status",
+                      filter=Q(action_status=TaskFactStatus.ON_HOLD)), )
+    return task_fact_status_amount
+
+
 def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_list):
     projects = {}
     for project in project_fact_list:

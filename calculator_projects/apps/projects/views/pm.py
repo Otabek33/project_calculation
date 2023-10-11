@@ -14,7 +14,7 @@ from calculator_projects.apps.projects.utils import get_coefficient, process_con
     project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
     process_formation_four_fields_percentage, process_formation_fields_with_additional_cost, middle_function, \
     checking_date_time, generation_total_amount_fields, generation_task_status_fields, \
-    generation_project_task_fact_and_plan_amount_by_project_fact
+    generation_project_task_fact_and_plan_amount_by_project_fact, generation_task_status_amount
 from calculator_projects.apps.stages.models import StagePlan, StageFact
 
 from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
@@ -516,6 +516,8 @@ class ComparePlanFactView(ListView):
         context["project"] = project
         context["task_status_list"] = generation_task_status_fields(self.request.user, project[
             'total_expenses_fact'])
+
+        context["task_status"] = json.dumps(generation_task_status_amount(self.request.user))
         context["project_list"] = json.dumps(
             project_list)
         return context
