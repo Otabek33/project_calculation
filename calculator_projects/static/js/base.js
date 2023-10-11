@@ -313,8 +313,8 @@ function task_fact_and_plan(project_list, task_status) {
       Object.entries(project_list).forEach(([key, value]) => {
         data = [{
           y: `${key}`,
-          a: `${value.task_fact}`,
-          b: `${value.task_plan}`
+          a: `${value.task_plan}`,
+          b: `${value.task_fact}`
         }]
 
       })
@@ -325,7 +325,7 @@ function task_fact_and_plan(project_list, task_status) {
         data: data,
         xkey: 'y',
         ykeys: ['a', 'b'],
-        labels: ['Факт', 'План'],
+        labels: ['План', 'Факт'],
         barColors: ['#343957', '#5873FE'],
         hideHover: 'auto',
         gridLineColor: '#eef0f2',
