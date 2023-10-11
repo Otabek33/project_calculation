@@ -6,19 +6,33 @@
 {% endblock title %}
 
 {% block content %}
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+      <div class="welcome-text">
+        <h4>Статус проектов</h4>
 
-  <div class="col-lg-12">
+      </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">Панель </a></li>
+        <li class="breadcrumb-item active"><a href="#">Статус проектов </a></li>
+      </ol>
+    </div>
+  </div>
+  <!-- row -->
+
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Проекты</h4>
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered verticle-middle table-responsive-sm">
+          <table id="example2" class="display" style="width:100%">
             <thead>
             <tr>
               <th scope="col">№</th>
-              <th scope="col" class="col-2">Наименование</th>
+              <th scope="col" >Наименование</th>
               <th scope="col">Ответственный</th>
               <th scope="col">Департамент</th>
               <th scope="col">Выполнимость проекта</th>
@@ -70,13 +84,13 @@
 
               </tr>
             {% endfor %}
-
             </tbody>
+
           </table>
         </div>
       </div>
     </div>
-  </div>
+
 
 
 
