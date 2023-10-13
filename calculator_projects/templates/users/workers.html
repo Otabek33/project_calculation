@@ -68,7 +68,7 @@
                 <td>{{ task.project_fact.name }}</td>
                 <td>{{ task.description }}</td>
                 <td>{{ task.finish_time|date:"d-m-Y" }}</td>
-                 {% if task.action_status == 1 %}
+                {% if task.action_status == 1 %}
                   <td><span class="badge badge-primary">{{ task.get_action_status_display }}</span></td>
                 {% elif task.action_status == 2 %}
                   <td><span class="badge badge-warning">{{ task.get_action_status_display }}</span></td>

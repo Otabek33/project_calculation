@@ -11,7 +11,6 @@ class StagePlanAdmin(admin.ModelAdmin):
         "projectPlan",
         "start_time",
         "finish_time",
-        "total_price",
         "total_price_stage_and_task",
     ]
 

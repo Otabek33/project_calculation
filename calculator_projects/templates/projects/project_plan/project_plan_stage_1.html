@@ -63,10 +63,24 @@
               {% comment %} <input type="text" class="form-control" name="responsible_subject_for_project" id="basic-default-company" placeholder="Buyurtmachi korxona" /> {% endcomment %}
             </div>
             <div class="mb-3">
-              <label class="form-label" for="id_purpose">Цель проекта</label>
-              <div>
+              <label class="form-label" for="id_purpose" >Цель проекта</label>
+              <div >
                 {{ form.purpose }}
               </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_expert_conclustion">Заключение соответствующей экспертной
+                организации ( мак. 3 файл)</label>
+              <div>
+                {{ form.expert_conclusion }}
+
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="id_finish_time">Источники финансирования</label>
+
+              {{ form.source_of_financing }}
+
             </div>
 
           </div>
@@ -100,12 +114,7 @@
 
               <span class="text-danger">{{ form.errors.finish_time }}</span>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="id_finish_time">Источники финансирования</label>
 
-              {{ form.source_of_financing }}
-
-            </div>
             <div class="mb-3">
               <label class="form-label" for="id_expecting_results">Ожидаемые результаты от реализации
                 проекта</label>
@@ -114,14 +123,7 @@
                 {{ form.expecting_results }}
               </div>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="id_expert_conclustion">Заключение соответствующей экспертной
-                организации ( мак. 3 файл)</label>
-              <div>
-                {{ form.expert_conclusion }}
 
-              </div>
-            </div>
             <div class="mb-3">
               <label class="form-label" for="id_coefficient">
                 Коэффициенть, повышающие стоимость проектирования ИС

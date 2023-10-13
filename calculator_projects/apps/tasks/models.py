@@ -138,3 +138,4 @@ class TaskFact(models.Model):
         self.duration_per_hour = defining_duration_per_hour(self.duration_per_day)
         self.total_price = defining_total_price(self.project_fact.coefficient_of_project, self.duration_per_hour)
         self.save()
+

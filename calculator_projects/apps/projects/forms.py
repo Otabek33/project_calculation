@@ -33,7 +33,7 @@ class ProjectCreateForm(forms.ModelForm):
     )
 
     legal_basis = forms.CharField(
-        widget=forms.Textarea(attrs={"class": "form-control", "row": 2}), required=True
+        widget=forms.Textarea(attrs={"class": "form-control", "row": 1}), required=True
     )
 
     responsible_subject_for_project = forms.Field(
@@ -83,7 +83,7 @@ class ProjectCreateForm(forms.ModelForm):
     widgets = {
         "name": forms.TextInput(attrs={"class": "form-control"}),
         "customer": forms.TextInput(attrs={"class": "form-control"}),
-        "legal_basis": forms.Textarea(attrs={"class": "form-control", "row": 2}),
+        "legal_basis": forms.Textarea(attrs={"class": "form-control", "row": 1}),
         "expert_conclusion": forms.FileInput(attrs={"class": "form-control"}),
         # "coefficient": forms.Select(attrs={"class": "form-control", }),
     }
