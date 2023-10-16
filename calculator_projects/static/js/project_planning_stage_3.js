@@ -16,16 +16,16 @@ function selfWriteTotalPriceOfProject() {
     let project_tax_update_part = $("#project_tax_update_part")
     let project_total_price_by_stage_and_task = $("#project_total_price_by_stage_and_task")
 
-    if (self_total_price) {
-        changed_margin_amount = parseFloat(self_total_price) - parseFloat(project_total_price_by_stage_and_task.text())
+    const regex_number = self_total_price.replace(/,/g, '.').replaceAll(/\s/g, '');
+    if (regex_number) {
+        changed_margin_amount = parseFloat(regex_number) - parseFloat(project_total_price_by_stage_and_task.text())
         td_changed_margin_amount.text(changed_margin_amount.formatMoney(2, ' ', ',') + " сўм")
-        changed_tax_amount = parseFloat(self_total_price) * 0.01
+        changed_tax_amount = parseFloat(regex_number) * 0.01
         project_tax_update_part.text(changed_tax_amount.formatMoney(2, ' ', ',') + " сўм")
-
-        changeTotalPriceOfProjectWithAdditionalCost(parseFloat(self_total_price))
-        updatingPercentageAfterChangingSelfTotalPrice(changed_margin_amount, parseFloat(self_total_price))
+        changeTotalPriceOfProjectWithAdditionalCost(parseFloat(regex_number))
+        updatingPercentageAfterChangingSelfTotalPrice(changed_margin_amount, parseFloat(regex_number))
     }
-    project_total_price_hidden.text(parseFloat(self_total_price))
+    project_total_price_hidden.text(parseFloat(regex_number))
 
 }
 
@@ -52,7 +52,7 @@ function calculateTotalPriceWithMargin() {
     let changed_total_price_of_project = (parsed_cost + parsed_salary + parsed_expenses + margin_after_changed_percent) / 0.99
 
 
-    total_price_of_project.val(changed_total_price_of_project.formatMoney(2, ' ', ',') + " сўм")
+    total_price_of_project.val(changed_total_price_of_project.formatMoney(2, ' ', ','))
     let changed_tax = changed_total_price_of_project * 0.01
 
     project_tax_update_part.text(changed_tax.formatMoney(2, ' ', ',') + " сўм")

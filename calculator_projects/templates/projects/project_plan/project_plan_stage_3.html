@@ -197,7 +197,7 @@
           </thead>
           <tbody>
           {% for item in stage_plan_list %}
-            <tr id="stage-{{ item.id }}" class="text-center" style="background-color: #494964;color: #f6f6f6">
+            <tr id="stage-{{ item.id }}" class="text-center" style="background-color: #494a79;color: #f6f6f6">
               <td><strong>{{ item.stage_number }}</strong></td>
               <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ item.description }}</strong></td>
               <td><strong>{{ item.start_time|date:"d-m-Y" }}</strong></td>
@@ -211,7 +211,7 @@
               {% if task.stage == item %}
 
 
-                <tr class="text-center"  style="color: black">
+                <tr class="text-center" style="color: black">
 
                   <td class="col-sm-1"></td>
                   <td class="col-sm-5 text-left">{{ task.description }}</td>
@@ -413,10 +413,19 @@
                       >
 
 
-                        <input class="form-control " id="total_price_of_project" type="text"
-                               style="font-weight: bold; color: red"
-                               pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency"
-                               value="{{ projectplan.total_price_with_margin|floatformat:"2g" }} сўм">
+                        {#                        <input class="form-control " id="total_price_of_project" type="text"#}
+                        {#                               style="font-weight: bold; color: red"#}
+                        {#                               pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency"#}
+                        {#                               value="{{ projectplan.total_price_with_margin|floatformat:"2g" }} сўм">#}
+                        <div class="d-flex justify-content-around" >
+                           <div class="col-10"><input type="text"  class="form-control" style="font-weight: bold; color: red"
+                               id="total_price_of_project" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"
+                               onkeyup="onlyNumberAmount(this)"
+                               value="{{ projectplan.total_price_with_margin|floatformat:"2g" }}"></div>
+                        <div  class="col-4 text-left ml-0 pl-0"><input class="form-control border-0" style="font-weight: bold; color: red" readonly value="сўм"></div>
+                        </div>
+
+
 
 
                       </td>
@@ -712,4 +721,14 @@
   </div>
 
 
+  <script>
+    function onlyNumberAmount(input) {
+      let v = input.value.replace(/\D+/g, '');
+      if (v.length > 14) v = v.slice(0, 14);
+      input.value =
+        v.replace(/(\d)(\d\d)$/, "$1,$2")
+          .replace(/(^\d{1,3}|\d{3})(?=(?:\d{3})+(?:,|$))/g, '$1 ');
+    }
+
+  </script>
 {% endblock %}
