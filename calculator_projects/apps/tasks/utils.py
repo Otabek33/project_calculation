@@ -4,8 +4,14 @@ from calculator_projects.utils.helpers import defining_total_price, process_form
 
 
 def generation_fields(stage, task_list, task_amount):
+    """ If task list amount is more then 0 we can aggregate
+      objects but if only one object is deleted by user and after
+      then signal works it make send call back error.
+      That is why we check list amount """
+
     from django.db.models import Max, Min, Sum
     from datetime import datetime
+
     if task_amount > 0:
         stage.start_time = task_list.aggregate(Min("start_time"))["start_time__min"]
         stage.finish_time = task_list.aggregate(Max("finish_time"))["finish_time__max"]

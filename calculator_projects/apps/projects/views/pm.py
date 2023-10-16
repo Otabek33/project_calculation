@@ -154,7 +154,7 @@ class ProjectPlanStageThree(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]
-        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False)
+        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
         context['stage_plan_list'] = stage_plan
         return context
 

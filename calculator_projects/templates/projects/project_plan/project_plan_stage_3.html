@@ -18,7 +18,7 @@
           <small class="text-muted float-end"></small>
         </div>
         <div class="card-body">
-          <table id="document-passport" class="table table_left">
+          <table id="document-passport" class="table table_left" style="color: black">
             <tr>
               <th>1</th>
               <th>ID</th>
@@ -152,15 +152,15 @@
           <small class="text-muted float-end"></small>
         </div>
         <div class="card-body">
-          <table class="table table_left table_right">
+          <table class="table table_left table_right" style="color: black">
             <tbody>
 
             <tr>
-              <td>Проект менеджер</td>
+              <td><strong>Проект менеджер</strong></td>
               <td> {{ projectplan.created_by }}</td>
             </tr>
             <tr>
-              <td>Департамент</td>
+              <td><strong>Департамент</strong></td>
               <td>{{ projectplan.created_by.deportment }}
               </td>
             </tr>
@@ -197,7 +197,7 @@
           </thead>
           <tbody>
           {% for item in stage_plan_list %}
-            <tr id="stage-{{ item.id }}" class="text-center" style="background-color: #5f6082;color: #f6f6f6">
+            <tr id="stage-{{ item.id }}" class="text-center" style="background-color: #494964;color: #f6f6f6">
               <td><strong>{{ item.stage_number }}</strong></td>
               <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ item.description }}</strong></td>
               <td><strong>{{ item.start_time|date:"d-m-Y" }}</strong></td>
@@ -211,7 +211,7 @@
               {% if task.stage == item %}
 
 
-                <tr class="text-center">
+                <tr class="text-center"  style="color: black">
 
                   <td class="col-sm-1"></td>
                   <td class="col-sm-5 text-left">{{ task.description }}</td>

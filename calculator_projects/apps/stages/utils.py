@@ -7,6 +7,10 @@ from calculator_projects.utils.helpers import process_formation_fields_with_labo
 
 
 def generation_fields(project, stage_list, stage_amount):
+    """ If stage list amount is more then 0 we can aggregate
+      objects but if only one object is deleted by user and after
+      then signal works it make send call back error.
+      That is why we check list amount """
     from django.db.models import Max, Min, Sum
     from datetime import datetime
     if stage_amount > 0:
