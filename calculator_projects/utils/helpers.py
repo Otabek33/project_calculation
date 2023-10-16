@@ -47,4 +47,5 @@ def process_formation_fields_with_labour_cost(obj):
     obj.period_expenses = (
         obj.total_price_stage_and_task * labour_cost.percent_period_expenses
     )
+
     obj.save()

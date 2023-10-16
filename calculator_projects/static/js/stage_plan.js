@@ -13,8 +13,9 @@ $("#stage-form-modal").on('submit', function (e) {
             localStorage.setItem("msg", "Этап успешно добавлен")
             window.location.reload();
         },
-        error: function (err) {
-            console.log(err)
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
         }
     })
 })
@@ -62,7 +63,7 @@ $(".edit-row").on("click", function (e) {
 $("#stage-update-form").on('submit', function (e) {
     e.preventDefault()
     let form = $(this);
-    let actionUrl = form.attr('action')+"/";
+    let actionUrl = form.attr('action') + "/";
     data = form.serialize()
     $.ajax({
         type: "PUT",
@@ -72,11 +73,12 @@ $("#stage-update-form").on('submit', function (e) {
             "X-CSRFToken": csrftoken
         },
         success: function (data) {
-               localStorage.setItem("msg", "Этап успешно обновлен")
+            localStorage.setItem("msg", "Этап успешно обновлен")
             window.location.reload();
         },
-        error: function (err) {
-            console.log(err)
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
         }
     })
 })

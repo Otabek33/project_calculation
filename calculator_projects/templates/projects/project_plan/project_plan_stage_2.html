@@ -117,12 +117,12 @@
     </div>
   </div>
 
-<div class="card mb-4">
-<h5 class="card-header d-flex justify-content-between align-items-center">
+  <div class="card mb-4">
+    <h5 class="card-header d-flex justify-content-between align-items-center">
       <span>Проект</span>
-   </h5>
-  <div class="card-body">
-     <table class="table table-bordered table-striped verticle-middle table-responsive-sm">
+    </h5>
+    <div class="card-body">
+      <table class="table table-bordered table-striped verticle-middle table-responsive-sm">
         <thead>
         <tr class="text-center">
           <th class="w30">Наименование</th>
@@ -134,38 +134,38 @@
         </tr>
         </thead>
         <tbody class="text-center border" id="stage-table">
-          <tr>
-             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ projectplan.name }}</strong></td>
-            <td>{{ projectplan.start_time|date:"d-m-Y" }}</td>
-            <td>{{ projectplan.finish_time|date:"d-m-Y" }}</td>
-            <td>{{ projectplan.duration_per_day }}</td>
-            <td>{{ projectplan.duration_per_hour }}</td>
-            <td>{{ projectplan.total_price_stage_and_task|floatformat:"2g" }} сўм</td>
+        <tr>
+          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ projectplan.name }}</strong></td>
+          <td>{{ projectplan.start_time|date:"d-m-Y" }}</td>
+          <td>{{ projectplan.finish_time|date:"d-m-Y" }}</td>
+          <td>{{ projectplan.duration_per_day }}</td>
+          <td>{{ projectplan.duration_per_hour }}</td>
+          <td>{{ projectplan.total_price_stage_and_task|floatformat:"2g" }} сўм</td>
 
-          </tr>
+        </tr>
 
         </tbody>
       </table>
-  </div>
+    </div>
 
-</div>
+  </div>
 
   <div class="card mb-4">
     <h5 class="card-header mb-2 d-flex justify-content-between align-items-center">
       <span>Этапы</span>
 
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#stageModal"
-        >
-          <span class="bx bx-add-to-queue mx-2"></span>
-          Добавить этап
-        </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#stageModal"
+      >
+        <span class="bx bx-add-to-queue mx-2"></span>
+        Добавить этап
+      </button>
 
     </h5>
-   <div class="card-body">
+    <div class="card-body">
 
       <table class="table table-bordered table-responsive-sm">
         <thead>
@@ -264,17 +264,17 @@
               </div>
             </div>
             <div class="row g-2">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <label for="step" class="form-label">Этап</label>
                 <input type="number" name="stage_number" id="step" class="form-control"
                        required/>
               </div>
-              <div class="col-md-5 mb-0">
+              <div class="col-md-4 mb-0">
                 <label for="start_date" class="form-label">Дата начало</label>
                 <input type="date" id="start_time" name="start_time" class="form-control"
                        placeholder="DD / MM / YY" required/>
               </div>
-              <div class="col-md-5 mb-0">
+              <div class="col-md-4 mb-0">
                 <label for="end_date" class="form-label">Дата окончание</label>
                 <input type="date" id="end_time" name="finish_time" class="form-control"
                        placeholder="DD / MM / YY" required/>
@@ -318,19 +318,19 @@
               </div>
             </div>
             <div class="row g-2">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <label for="step" class="form-label">Этап</label>
                 <input type="number" name="stage_number" id="step" class="form-control"
                        required/>
               </div>
-              <div class="col-md-5 mb-0">
+              <div class="col-md-4 mb-0">
                 <label for="start_date" class="form-label">Дата начало</label>
-                <input type="date" id="start_time" name="start_time" class="form-control"
+                <input type="date" id="start_time" name="start_time" data-date="" data-date-format="DD MMMM YYYY" class="form-control"
                        placeholder="DD / MM / YY" required/>
               </div>
-              <div class="col-md-5 mb-0">
+              <div class="col-md-4 mb-0">
                 <label for="end_date" class="form-label">Дата оканчания</label>
-                <input type="date" id="end_time" name="finish_time" class="form-control"
+                <input type="date" id="end_time" name="finish_time" data-date="" data-date-format="DD MMMM YYYY" class="form-control"
                        placeholder="DD / MM / YY" required/>
               </div>
             </div>
@@ -346,5 +346,7 @@
       </div>
     </div>
   </div>
+  <script>
 
+  </script>
 {% endblock %}

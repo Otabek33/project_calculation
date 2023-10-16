@@ -182,7 +182,7 @@ def generation_total_amount_fields(project_fact, project_plan):
     project_initial = project_fields_generation("plan", project_plan, project_initial)
     project_initial['margin_fact'] = project_initial['total_price_plan'] - project_initial['total_price_fact']
     project_initial['profitability_percentage_fact'] = (project_initial['margin_fact'] / project_initial[
-        'total_price_fact'])*100
+        'total_price_fact']) * 100
     project_initial['profitability_percentage_plan'] = (project_initial['margin_plan'] / project_initial[
         'total_price_plan']) * 100
     project_initial = compare_fields(project_initial)
@@ -393,4 +393,5 @@ def process_formation_fields_with_additional_cost(project, additional_cost):
     else:
         project.total_price_with_additional_cost = project.total_price_stage_and_task
         project.additional_cost = 0.0
+    project.profitability_percentage = project.margin / project.total_price_with_additional_cost
     project.save()
