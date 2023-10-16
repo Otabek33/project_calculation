@@ -29,3 +29,11 @@ class TaskPlanViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print("ishladi")
+        print("ishladi")
+        print(instance)
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)

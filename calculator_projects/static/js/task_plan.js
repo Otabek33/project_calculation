@@ -31,12 +31,13 @@ $("#task-update-form").on('submit', function (e) {
             localStorage.setItem("msg", "Задача успешно обновлен")
             window.location.reload()
         },
-        error: function (err) {
-            console.log(err)
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
         }
     })
 })
-$(".delete-task-row").on("click", function (e) {
+$(".delete-task-plan-row").on("click", function (e) {
     e.preventDefault();
     let actionUrl = $(this).attr("href")
     $.ajax({
@@ -49,10 +50,9 @@ $(".delete-task-row").on("click", function (e) {
             localStorage.setItem("msg", "Успешно удален")
             window.location.reload();
         },
-        error: function (err) {
-            toastMixin.fire({
-                title: err
-            })
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
         }
     })
 })
@@ -73,8 +73,9 @@ $("#task-add-form").on('submit', function (e) {
             $("#stageModal").modal('hide')
             window.location.reload();
         },
-        error: function (err) {
-            console.log(err)
+        error: function (response) {
+            var error_message = response["responseJSON"]["error"];
+            toast_show("error", error_message)
         }
     })
 

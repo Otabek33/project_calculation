@@ -19,6 +19,14 @@ class TaskSerializer(serializers.ModelSerializer):
             "total_price",
         ]
 
+    def validate(self, data):
+        if data['start_time'] > data['finish_time']:
+            message = "Неправильно выбранная дата"
+            raise serializers.ValidationError(
+                {"error": message})
+
+        return data
+
     def save(self, **kwargs):
         instance = super().save(**kwargs)
         instance.project = instance.stage.projectPlan
@@ -28,4 +36,3 @@ class TaskSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.process_price_task()
         return super().update(instance, validated_data)
-

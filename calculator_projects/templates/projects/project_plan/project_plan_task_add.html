@@ -34,13 +34,13 @@
             <tr>
               <td class="text-nowrap">Дата начало</td>
               <td>
-                {{ project_plan.start_time }}
+                {{ project_plan.start_time|date:"d-m-Y" }}
               </td>
             </tr>
             <tr>
               <td class="text-nowrap">Дата окончание</td>
               <td>
-                {{ project_plan.finish_time }}
+                {{ project_plan.finish_time|date:"d-m-Y" }}
               </td>
             </tr>
             <tr>
@@ -87,13 +87,13 @@
             <tr>
               <td class="text-nowrap">Дата начало</td>
               <td id="stage-start-time-{{ stage_plan.id }}">
-                {{ stage_plan.start_time }}
+                {{ stage_plan.start_time|date:"d-m-Y" }}
               </td>
             </tr>
             <tr>
               <td class="text-nowrap">Дата окончание</td>
               <td id="stage-finish-time-{{ stage_plan.id }}">
-                {{ stage_plan.finish_time }}
+                {{ stage_plan.finish_time|date:"d-m-Y" }}
               </td>
             </tr>
             <tr>
@@ -172,7 +172,7 @@
                      href="{% url 'tasks:taskPlanList-list' %}{{ item.id }}"
                   ><i class="fa fa-edit text-success"></i></a
                   >
-                  <a class="mx delete-task-row" style="font-size: 2em;"
+                  <a class="mx delete-task-plan-row" style="font-size: 2em;"
                      href="{% url 'tasks:taskPlanList-list' %}{{ item.id }}"
                   ><i class="ti-trash"></i></a
                   >
