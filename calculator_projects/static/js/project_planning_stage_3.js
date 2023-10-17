@@ -106,12 +106,16 @@ function changeTotalPriceOfProjectWithAdditionalCost(changed_total_price_of_proj
 
 }
 
+let amount = document.getElementById('additional_cost_amount');
+
+
 $("#additional-cost-form-modal").on('submit', function (e) {
     e.preventDefault()
-
     let form = $(this);
+    let amount = document.getElementById('additional_cost_amount').value;
     let actionUrl = form.attr('action');
-    data = form.serialize()
+    const regex_number = amount.replace(/,/g, '.').replaceAll(/\s/g, '');
+    document.getElementById("additional_cost_amount").value = parseFloat(regex_number);
     $.ajax({
         type: "POST",
         url: actionUrl,
@@ -156,8 +160,10 @@ $("#additional-cost-update-form-modal").on('submit', function (e) {
     e.preventDefault()
     let form = $(this);
     let actionUrl = form.attr('action');
-
-    data = form.serialize()
+    let amount = document.getElementById('additional_cost_amount_update').value;
+    const regex_number = amount.replace(/,/g, '.').replaceAll(/\s/g, '');
+    document.getElementById("additional_cost_amount_update").value = parseFloat(regex_number);
+    console.log(form.serialize())
     $.ajax({
         type: "PUT",
         url: actionUrl,
