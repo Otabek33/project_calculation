@@ -163,7 +163,6 @@ $("#additional-cost-update-form-modal").on('submit', function (e) {
     let amount = document.getElementById('additional_cost_amount_update').value;
     const regex_number = amount.replace(/,/g, '.').replaceAll(/\s/g, '');
     document.getElementById("additional_cost_amount_update").value = parseFloat(regex_number);
-    console.log(form.serialize())
     $.ajax({
         type: "PUT",
         url: actionUrl,
