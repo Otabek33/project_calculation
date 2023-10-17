@@ -1,5 +1,6 @@
 from django.urls import path
 
+from calculator_projects.apps.projects.pdf_generation import pdf_generation, render_to_pdf, render_pdf_view
 from calculator_projects.apps.projects.views.finance import confirm_list, project_reject, project_confirm
 from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, project_plan_initial_view,
                                                         project_passport_update, project_plan_stage_two,
@@ -8,7 +9,7 @@ from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, 
                                                         project_fact_detail, project_fact_task_update, task_fact_add,
                                                         additional_cost_fact_add, additional_cost_fact_delete,
                                                         additional_cost_fact_edit, project_fact_status_update,
-                                                        compare_plan_vs_fact,analyze_list)
+                                                        compare_plan_vs_fact, analyze_list)
 
 app_name = "projects"
 
@@ -35,5 +36,6 @@ urlpatterns = [
     path("fact/project-fact-status-update/", project_fact_status_update, name="status_update"),
     path("<uuid:pk>/compare", compare_plan_vs_fact, name="compare"),
     path("<uuid:pk>/analyze", analyze_list, name="analyze_list"),
+    path("<uuid:pk>/pdf_generation", render_pdf_view, name="pdf_generation"),
 
 ]

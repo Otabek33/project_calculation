@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+{% load static %}
+<html>
+<head>
+  <title>{% if pdf_title %}{{ pdf_title }}{% else %}PDF{% endif %}</title>
+
+
+</head>
+<body>
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-around">
+      <div class="col-12 card border-0">
+
+        <div class="card-header">
+          <h5 class="mb-0">Паспорт проекта</h5>
+          <small class="text-muted float-end"></small>
+        </div>
+        <div class="card-body border-0">
+          <table class="table table_left" style="color: black">
+            <tr>
+              <th>1</th>
+              <th class="w-30">ID</th>
+              <td>{{ projectplan.id }}</td>
+            </tr>
+            <tr>
+              <th>2</th>
+              <th>Наименование проекта</th>
+              <td>{{ projectplan.name }}</td>
+            </tr>
+            <tr>
+              <th>3</th>
+              <th>Заказчик</th>
+              <td>{{ projectplan.customer }}
+              </td>
+            </tr>
+            <tr>
+              <th>4</th>
+              <th>Ответственные организации за реализацию проекта</th>
+              <td>{{ projectplan.get_responsible_subject_for_project_display }}
+              </td>
+            </tr>
+            <tr>
+              <th>5</th>
+              <th>Основания для реализации проекта</th>
+              <td>{{ projectplan.legal_basis }}
+              </td>
+            </tr>
+            <tr>
+              <th>6</th>
+              <th>Источники финансирования</th>
+              <td>{{ projectplan.get_source_of_financing_display }}
+              </td>
+            </tr>
+            <tr>
+              <th>7</th>
+              <th>Включен ли проект в государственную программу развития
+                Республики
+                Узбекистан
+              </th>
+              {% if  projectplan.involved_in_development_country is True %}
+                <td>Да</td>
+              {% else %}
+                <td>Нет</td>
+              {% endif %}
+
+            </tr>
+            <tr>
+              <th>8</th>
+              <th>Тип проекта</th>
+
+              <td>{{ projectplan.get_customer_status_display }}</td>
+            </tr>
+            <tr id="download-conclusion-document">
+              <th>9</th>
+              <th>Заключение соответствующих экспертных организаций</th>
+
+              <td>
+                <a href="{{ projectplan.expert_conclusion.url }}">&nbspСкачать</a>
+              </td>
+            </tr>
+            <tr>
+
+              <th>10</th>
+              <th>Цель проекта</th>
+              <td>{{ projectplan.purpose|safe }}
+              </td>
+            </tr>
+            <tr>
+              <th>11</th>
+              <th class="w-30">Задачи проекта</th>
+              <td>{{ projectplan.objective|safe }}
+              </td>
+            </tr>
+            <tr>
+              <th>12</th>
+              <th>Ориентировочная дата начала проекта</th>
+              <td>{{ projectplan.start_time }}</td>
+            </tr>
+            <tr>
+              <th>13</th>
+              <th>Ориентировочная дата оканчания проекта</th>
+              <td>{{ projectplan.finish_time }}</td>
+            </tr>
+            <tr>
+              <th>14</th>
+              <th>Ожидаемые результаты от реализации проекта</th>
+              <td>{{ projectplan.expecting_results|safe }}
+              </td>
+            </tr>
+            <tr>
+              <th>15</th>
+              <th>Ответственный</th>
+              <td><a href="{% url 'users:detail' projectplan.created_by.id %}" data-html="true"
+                     data-toggle="popover"
+                     data-placement="right"
+                     data-trigger="hover"
+              >{{ projectplan.created_by }}</a></td>
+            </tr>
+            <tr>
+              <th>16</th>
+              <th>Создан в</th>
+              <td>{{ projectplan.created_at }}</td>
+            </tr>
+            <tr>
+              <th>17</th>
+              <th>Коэффициенть, повышающие стоимость проектирования ИС
+                в зависимости от усложняющих факторов
+              </th>
+              <td>{{ projectplan.coefficient_of_project }}</td>
+            </tr>
+            <tr>
+              <th>18</th>
+              <th>Проект менеджер
+              </th>
+              <td>{{ projectplan.created_by }}</td>
+            </tr>
+            <tr>
+              <th>19</th>
+              <th>Департамент
+              </th>
+              <td>{{ projectplan.created_by.deportment }}</td>
+            </tr>
+
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</body>
+</html>
