@@ -107,6 +107,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "ckeditor",
     "ckeditor_uploader",
+    "easy_pdf",
 
 ]
 

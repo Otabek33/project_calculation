@@ -1,26 +1,19 @@
 import io
 from django.http import FileResponse
-from django.views.generic import TemplateView
 from reportlab.pdfgen import canvas
-from io import BytesIO
-from django.http import HttpResponse
-from django.template.loader import get_template
-
-from xhtml2pdf import pisa
 
 from calculator_projects.apps.projects.models import ProjectPlan
 from calculator_projects.apps.stages.models import StagePlan
 
-import os
-from django.conf import settings
-from django.http import HttpResponse
-from django.template.loader import get_template
-from xhtml2pdf import pisa
-from django.contrib.staticfiles import finders
-
 
 def pdf_generation(request, pk):
     # Create a file-like buffer to receive PDF data.
+    context_dict = {}
+    stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
+    projectplan = ProjectPlan.objects.get(id=pk)
+    context_dict['stage_plan_list'] = stage_plan
+    context_dict['user'] = request.user
+    context_dict['projectplan'] = projectplan
     buffer = io.BytesIO()
 
     # Create the PDF object, using the buffer as its "file."
@@ -40,73 +33,57 @@ def pdf_generation(request, pk):
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
 
 
-def render_to_pdf(request, pk):
-    context_dict = {}
+from easy_pdf.views import PDFTemplateView
+
+
+class HelloPDFView(PDFTemplateView):
+    template_name = 'projects/pdf/project_pdf.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs["pk"]
+        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
+        projectplan = ProjectPlan.objects.get(id=pk)
+        context['stage_plan_list'] = stage_plan
+        context['user'] = self.request.user
+        context['projectplan'] = projectplan
+        return context
+
+
+pdf_generation_class = HelloPDFView.as_view()
+
+
+def generate_pdf(request, pk):
     stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
     projectplan = ProjectPlan.objects.get(id=pk)
-    context_dict['stage_plan_list'] = stage_plan
-    context_dict['user'] = request.user
-    context_dict['projectplan'] = projectplan
-    template = get_template("projects/pdf/project_plan_final.html")
-    html = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("utf-8")), result)
-    if pdf.err:
-        return HttpResponse("Invalid PDF", status_code=400, content_type='text/plain')
-    return HttpResponse(result.getvalue(), content_type='application/pdf')
 
-
-def link_callback(uri, rel):
-    """
-    Convert HTML URIs to absolute system paths so xhtml2pdf can access those
-    resources
-    """
-    result = finders.find(uri)
-    if result:
-        if not isinstance(result, (list, tuple)):
-            result = [result]
-        result = list(os.path.realpath(path) for path in result)
-        path = result[0]
-    else:
-        sUrl = settings.STATIC_URL  # Typically /static/
-        sRoot = settings.STATIC_ROOT  # Typically /home/userX/project_static/
-        mUrl = settings.MEDIA_URL  # Typically /media/
-        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
-
-        if uri.startswith(mUrl):
-            path = os.path.join(mRoot, uri.replace(mUrl, ""))
-        elif uri.startswith(sUrl):
-            path = os.path.join(sRoot, uri.replace(sUrl, ""))
-        else:
-            return uri
-
-    # make sure that file exists
-    if not os.path.isfile(path):
-        raise RuntimeError(
-            'media URI must start with %s or %s' % (sUrl, mUrl)
-        )
-    return path
-
-
-def render_pdf_view(request, pk):
-    template_path = 'projects/pdf/project_plan_final.html'
-    context_dict = {}
-    stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
-    projectplan = ProjectPlan.objects.get(id=pk)
-    context_dict['stage_plan_list'] = stage_plan
-    context_dict['user'] = request.user
-    context_dict['projectplan'] = projectplan
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-    # find the template and render it.
-    template = get_template(template_path)
-    html = template.render(context_dict)
-
-    # create a pdf
-    pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback)
-    # if error then show some funny view
-    if pisa_status.err:
-        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    response = FileResponse(generate_pdf_file(stage_plan, projectplan),
+                            as_attachment=True,
+                            filename='book_catalog.pdf')
     return response
+
+
+def generate_pdf_file(stage_list, project):
+    from io import BytesIO
+
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer)
+
+    # Create a PDF document
+
+
+    p.drawString(100, 750, "Book Catalog")
+
+    y = 700
+    for stage in stage_list:
+        p.drawString(100, y, f"Title: {stage.description}")
+        p.drawString(100, y - 20, f"Author: {stage.start_time}")
+        p.drawString(100, y - 40, f"Year: {stage.finish_time}")
+        y -= 60
+
+    p.showPage()
+    p.save()
+
+    buffer.seek(0)
+
+    return buffer
