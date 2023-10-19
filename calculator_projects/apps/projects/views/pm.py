@@ -1,25 +1,40 @@
 from datetime import datetime, timezone
+
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView, TemplateView
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
-from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan, AdditionalCostFact
+from calculator_projects.apps.additionalCosts.models import AdditionalCostFact, AdditionalCostPlan
 from calculator_projects.apps.additionalCosts.serializers import AdditionalCostFactSerializer
 from calculator_projects.apps.projects.constants import coefficient
 from calculator_projects.apps.projects.forms import ProjectCreateForm
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
-from calculator_projects.apps.projects.utils import get_coefficient, process_context_percentage_labour_cost, \
-    checking_stage_exist, project_plan_fields_regex, update_stages, stage_amount, project_fact_header_info, \
-    project_fact_task_amount, project_plan_header_info, project_plan_task_amount, regex_choose_date_range, \
-    process_formation_four_fields_percentage, process_formation_fields_with_additional_cost, middle_function, \
-    checking_date_time, generation_total_amount_fields, generation_task_status_fields, \
-    generation_project_task_fact_and_plan_amount_by_project_fact, generation_task_status_amount
-from calculator_projects.apps.stages.models import StagePlan, StageFact
-
-from calculator_projects.apps.tasks.models import TaskPlan, TaskFact
+from calculator_projects.apps.projects.models import ProjectCreationStage, ProjectFact, ProjectPlan, ProjectStatus
+from calculator_projects.apps.projects.utils import (
+    checking_date_time,
+    checking_stage_exist,
+    generation_project_task_fact_and_plan_amount_by_project_fact,
+    generation_task_status_amount,
+    generation_task_status_fields,
+    generation_total_amount_fields,
+    get_coefficient,
+    middle_function,
+    process_context_percentage_labour_cost,
+    process_formation_fields_with_additional_cost,
+    process_formation_four_fields_percentage,
+    project_fact_header_info,
+    project_fact_task_amount,
+    project_plan_fields_regex,
+    project_plan_header_info,
+    project_plan_task_amount,
+    regex_choose_date_range,
+    stage_amount,
+    update_stages,
+)
+from calculator_projects.apps.stages.models import StageFact, StagePlan
+from calculator_projects.apps.tasks.models import TaskFact, TaskPlan
 from calculator_projects.apps.users.models import User, UserRoleTypes
-from calculator_projects.utils.helpers import is_ajax, defining_total_price
+from calculator_projects.utils.helpers import defining_total_price, is_ajax
 
 
 # Create your views here.
@@ -31,15 +46,15 @@ class ProjectPlanStageOne(CreateView):
     template_name = f"{tm_path}{tm_name}"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ProjectPlanStageOne, self).get_context_data(*args, **kwargs)
-        context['coefficient_list'] = coefficient
+        context = super().get_context_data(*args, **kwargs)
+        context["coefficient_list"] = coefficient
         return context
 
     def form_valid(self, form):
         project_plan = form.save(commit=False)
         project_plan.created_by = self.request.user
         project_plan.departament = self.request.user.deportment
-        project_plan.coefficient_of_project = get_coefficient(self.request.POST.get('coefficient'))
+        project_plan.coefficient_of_project = get_coefficient(self.request.POST.get("coefficient"))
         project_plan.save()
         return redirect("projects:initial_view", pk=project_plan.id)
 
@@ -71,15 +86,15 @@ class ProjectPlanPassportUpdateView(UpdateView):
     template_name = f"{tm_path}{tm_name}"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ProjectPlanPassportUpdateView, self).get_context_data(*args, **kwargs)
-        context['coefficient_list'] = coefficient
+        context = super().get_context_data(*args, **kwargs)
+        context["coefficient_list"] = coefficient
         return context
 
     def form_valid(self, form):
         project_plan = form.save(commit=False)
         project_plan.update_by = self.request.user
         project_plan.update_at = datetime.now
-        project_plan.coefficient_of_project = get_coefficient(self.request.POST.get('coefficient'))
+        project_plan.coefficient_of_project = get_coefficient(self.request.POST.get("coefficient"))
         project_plan.total_price = 0.0
         project_plan.save()
         return redirect("projects:initial_view", pk=project_plan.id)
@@ -100,9 +115,7 @@ class ProjectPlanStageTwo(DetailView):
 
     def get_context_data(self, **kwargs):
         pk = self.kwargs["pk"]
-        context = process_context_percentage_labour_cost(
-            pk
-        )
+        context = process_context_percentage_labour_cost(pk)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -110,7 +123,7 @@ class ProjectPlanStageTwo(DetailView):
         stage_count = checking_stage_exist(project_plan)
         if not stage_count:
             messages.error(request, "Добавьте  этап проекта, пожалуйста!")
-            return redirect(request.META["HTTP_REFERER"])
+            return redirect(request.headers["referer"])
         else:
             project_plan.project_creation_stage = ProjectCreationStage.STAGE_3
             project_plan.total_price_with_margin = project_plan.total_price_stage_and_task
@@ -135,10 +148,9 @@ class TaskPlanListView(ListView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]
         stage_plan = StagePlan.objects.get(id=pk)
-        context['stage_plan'] = stage_plan
-        context['project_plan'] = ProjectPlan.objects.get(id=stage_plan.projectPlan.id)
-        context['task_list'] = TaskPlan.objects.filter(stage=stage_plan, deleted_status=False).order_by('start_time')
-
+        context["stage_plan"] = stage_plan
+        context["project_plan"] = ProjectPlan.objects.get(id=stage_plan.projectPlan.id)
+        context["task_list"] = TaskPlan.objects.filter(stage=stage_plan, deleted_status=False).order_by("start_time")
         return context
 
 
@@ -154,8 +166,8 @@ class ProjectPlanStageThree(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]
-        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
-        context['stage_plan_list'] = stage_plan
+        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by("stage_number")
+        context["stage_plan_list"] = stage_plan
         return context
 
     def post(self, request, *args, **kwargs):
@@ -194,8 +206,8 @@ class ProjectPlanFinalView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]
-        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by('stage_number')
-        context['stage_plan_list'] = stage_plan
+        stage_plan = StagePlan.objects.filter(projectPlan=pk, deleted_status=False).order_by("stage_number")
+        context["stage_plan_list"] = stage_plan
         return context
 
 
@@ -212,9 +224,7 @@ class ProjectStatusList(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         exclude_list = [ProjectStatus.CANCELLED, ProjectStatus.ACTIVE]
-        return qs.filter(
-            deleted_status=False, created_by=self.request.user
-        ).exclude(project_status__in=exclude_list)
+        return qs.filter(deleted_status=False, created_by=self.request.user).exclude(project_status__in=exclude_list)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -238,9 +248,7 @@ class ProjectPlanDelete(DeleteView):
             project.updated_by = self.request.user
             project.save()
 
-            return JsonResponse(
-                {"success": True, "data": None}
-            )
+            return JsonResponse({"success": True, "data": None})
         return JsonResponse({"success": False, "data": None})
 
 
@@ -256,9 +264,7 @@ class ProjectFactListView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(
-            deleted_status=False, created_by=self.request.user
-        ).order_by("-created_at")
+        return qs.filter(deleted_status=False, created_by=self.request.user).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -288,7 +294,8 @@ class ProjectFactDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         project_fact = get_object_or_404(ProjectFact, pk=self.kwargs["pk"])
         task_list = TaskFact.objects.filter(deleted_status=False, project_fact=project_fact).order_by(
-            "stage_fact__stage_number", "created_at")
+            "stage_fact__stage_number", "created_at"
+        )
         user_list = User.objects.all()
         context["project_fact"] = project_fact
         context["task_fact_list"] = task_list
@@ -305,12 +312,12 @@ class ProjectFactTaskUpdateView(UpdateView):
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
             from decimal import Decimal
+
             task_pk = request.POST["id"]
             worker_pk = request.POST["worker"]
             if len(worker_pk) == 0:
                 message = "Добавьте работника, пожалуйста"
-                return JsonResponse(
-                    {"error": message}, status=400)
+                return JsonResponse({"error": message}, status=400)
             else:
                 status, fields = regex_choose_date_range(request.POST["daterange"])
                 if status:
@@ -318,19 +325,16 @@ class ProjectFactTaskUpdateView(UpdateView):
                     task_fact.updated_at = datetime.now()
                     task_fact.updated_by = self.request.user
                     worker = get_object_or_404(User, pk=worker_pk)
-                    task_fact.update_fields(int(request.POST["task_status"]), worker,
-                                            fields)
-                    task_fact.total_price = defining_total_price(task_fact.project_fact.coefficient_of_project,
-                                                                 Decimal(task_fact.duration_per_hour))
+                    task_fact.update_fields(int(request.POST["task_status"]), worker, fields)
+                    task_fact.total_price = defining_total_price(
+                        task_fact.project_fact.coefficient_of_project, Decimal(task_fact.duration_per_hour)
+                    )
 
                     task_fact.save()
-                    return JsonResponse(
-                        {"success": True, "data": None}
-                    )
+                    return JsonResponse({"success": True, "data": None})
                 else:
                     message = "Неправильно выбрана дата"
-                    return JsonResponse(
-                        {"error": message}, status=400)
+                    return JsonResponse({"error": message}, status=400)
 
 
 project_fact_task_update = ProjectFactTaskUpdateView.as_view()
@@ -345,15 +349,13 @@ class TaskFactAddView(CreateView):
 
             if len(name) == 0:
                 message = "Добавьте наименование, пожалуйста"
-                return JsonResponse(
-                    {"error": message}, status=400)
+                return JsonResponse({"error": message}, status=400)
             else:
                 date_range = request.POST["date"]
                 start_time, finish_time = middle_function(date_range)
                 if checking_date_time(start_time, finish_time):
                     message = "Неправильно выбрана дата"
-                    return JsonResponse(
-                        {"error": message}, status=400)
+                    return JsonResponse({"error": message}, status=400)
                 else:
                     task_fact = TaskFact()
                     project_fact = get_object_or_404(ProjectFact, pk=request.POST["project"])
@@ -369,9 +371,7 @@ class TaskFactAddView(CreateView):
                     task_fact.save()
                     task_fact.process_price_task()
                     message = "Задача успешно добавлен"
-                    return JsonResponse(
-                        {"success": True, "data": None, "msg": message}, status=200
-                    )
+                    return JsonResponse({"success": True, "data": None, "msg": message}, status=200)
 
 
 task_fact_add = TaskFactAddView.as_view()
@@ -385,14 +385,12 @@ class AdditionalCostAddFact(CreateView):
             comment = request.POST["comment"]
             if len(comment) == 0:
                 message = "Добавьте наименование, пожалуйста"
-                return JsonResponse(
-                    {"error": message}, status=400)
+                return JsonResponse({"error": message}, status=400)
             else:
                 amount = int(request.POST["amount"])
                 if amount < 0:
                     message = "Неправильная сумма"
-                    return JsonResponse(
-                        {"error": message}, status=400)
+                    return JsonResponse({"error": message}, status=400)
                 else:
                     project_fact = get_object_or_404(ProjectFact, pk=request.POST["project"])
                     additional_cost_fact = AdditionalCostFact()
@@ -404,9 +402,7 @@ class AdditionalCostAddFact(CreateView):
                     additional_cost_fact.created_by = self.request.user
                     additional_cost_fact.save()
                     message = "Доп. расход успешно добавлен"
-                    return JsonResponse(
-                        {"success": True, "data": None, "msg": message}, status=200
-                    )
+                    return JsonResponse({"success": True, "data": None, "msg": message}, status=200)
 
 
 additional_cost_fact_add = AdditionalCostAddFact.as_view()
@@ -420,9 +416,7 @@ class AdditionalCostDelete(DeleteView):
             additional_cost_fact = get_object_or_404(AdditionalCostFact, pk=request.POST["additional_cost"])
             additional_cost_fact.delete()
             message = "Доп. расход успешно удален"
-            return JsonResponse(
-                {"success": True, "data": None, "msg": message}, status=200
-            )
+            return JsonResponse({"success": True, "data": None, "msg": message}, status=200)
 
 
 additional_cost_fact_delete = AdditionalCostDelete.as_view()
@@ -435,23 +429,19 @@ class AdditionalCostFactEditView(UpdateView):
         if is_ajax(request):
             pk = int(request.GET["id"])
             additional_cost_fact = AdditionalCostFact.objects.get(pk=pk, created_by=self.request.user)
-            return JsonResponse(
-                {"data": AdditionalCostFactSerializer(additional_cost_fact, many=False).data}
-            )
+            return JsonResponse({"data": AdditionalCostFactSerializer(additional_cost_fact, many=False).data})
 
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
             comment = request.POST["comment"]
             if len(comment) == 0:
                 message = "Добавьте наименование, пожалуйста"
-                return JsonResponse(
-                    {"error": message}, status=400)
+                return JsonResponse({"error": message}, status=400)
             else:
                 amount = int(request.POST["amount"])
                 if amount < 0:
                     message = "Неправильная сумма"
-                    return JsonResponse(
-                        {"error": message}, status=400)
+                    return JsonResponse({"error": message}, status=400)
                 else:
                     project_fact = get_object_or_404(ProjectFact, pk=request.POST["project"])
                     additional_cost_fact = get_object_or_404(AdditionalCostFact, pk=int(request.POST["id"]))
@@ -463,9 +453,7 @@ class AdditionalCostFactEditView(UpdateView):
                     additional_cost_fact.updated_by = self.request.user
                     additional_cost_fact.save()
                     message = "Доп. расход успешно изменен"
-                    return JsonResponse(
-                        {"success": True, "data": None, "msg": message}, status=200
-                    )
+                    return JsonResponse({"success": True, "data": None, "msg": message}, status=200)
 
 
 additional_cost_fact_edit = AdditionalCostFactEditView.as_view()
@@ -482,9 +470,7 @@ class ProjectFactStatusUpdateView(TemplateView):
             project_fact.updated_by = self.request.user
             project_fact.save()
             message = "Статус изменен"
-            return JsonResponse(
-                {"success": True, "data": None, "msg": message}, status=200
-            )
+            return JsonResponse({"success": True, "data": None, "msg": message}, status=200)
 
 
 project_fact_status_update = ProjectFactStatusUpdateView.as_view()
@@ -498,12 +484,11 @@ class ComparePlanFactView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(
-            deleted_status=False, created_by=self.request.user
-        )
+        return qs.filter(deleted_status=False, created_by=self.request.user)
 
     def get_context_data(self, **kwargs):
         import json
+
         context = super().get_context_data(**kwargs)
         project_plan_list = ProjectPlan.objects.filter(
             created_by=self.request.user,
@@ -513,11 +498,9 @@ class ComparePlanFactView(ListView):
         project = generation_total_amount_fields(self.get_queryset(), project_plan_list)
         project_list = generation_project_task_fact_and_plan_amount_by_project_fact(self.get_queryset())
         context["project"] = project
-        context["task_status_list"] = generation_task_status_fields(self.request.user, project[
-            'total_expenses_fact'])
+        context["task_status_list"] = generation_task_status_fields(self.request.user, project["total_expenses_fact"])
         context["task_status"] = json.dumps(generation_task_status_amount(self.request.user))
-        context["project_list"] = json.dumps(
-            project_list)
+        context["project_list"] = json.dumps(project_list)
         context["project_list_name"] = self.get_queryset()
         return context
 
@@ -535,9 +518,7 @@ class ProjectAnalyzeView(ListView):
         qs = super().get_queryset()
         user_role = self.request.user.user_role
         if user_role == UserRoleTypes.SUPER_USER or user_role == UserRoleTypes.FINANCE:
-            return qs.filter(
-                deleted_status=False
-            )
+            return qs.filter(deleted_status=False)
         else:
             return qs.filter(deleted_status=False, created_by=self.request.user)
 

@@ -1,18 +1,16 @@
-from datetime import datetime, timezone
+import uuid
+from datetime import datetime
 
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from calculator_projects.apps.users.models import Department, User
-import uuid
-from ckeditor.fields import RichTextField
 
 
 # Create your models here.
 class ProjectResponsibleSubject(models.IntegerChoices):
-    UZINFOCOM = 1, _(
-        "«Единый интегратор по созданию государственных информационных систем UZINFOCOM»"
-    )
+    UZINFOCOM = 1, _("«Единый интегратор по созданию государственных информационных систем UZINFOCOM»")
     OTHER = 2, _("Другой")
 
 
@@ -123,56 +121,30 @@ class ProjectPlan(models.Model):
 
     salary_cost = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     cost_price = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
-    period_expenses = models.DecimalField(
-        max_digits=1000, decimal_places=8, default=0.0
-    )
+    period_expenses = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
 
-    contributions_to_IT_park = models.DecimalField(
-        max_digits=1000, decimal_places=8, default=0.0
-    )
+    contributions_to_IT_park = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     margin = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     total_price = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
-    total_price_stage_and_task = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
-    total_price_with_margin = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
-    total_price_with_additional_cost = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
-    additional_cost = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
+    total_price_stage_and_task = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    total_price_with_margin = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    total_price_with_additional_cost = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    additional_cost = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
     duration_per_hour = models.IntegerField(default=0.0)
     duration_per_day = models.IntegerField(default=0.0)
 
-    percent_salary_cost = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_cost_price = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_contributions_to_IT_park = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_margin = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_period_expenses = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
+    percent_salary_cost = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_cost_price = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_contributions_to_IT_park = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_margin = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_period_expenses = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
     profitability_percentage = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
 
     project_creation_stage = models.IntegerField(
         choices=ProjectCreationStage.choices, default=ProjectCreationStage.STAGE_1
     )
-    project_status = models.IntegerField(
-        choices=ProjectStatus.choices, default=ProjectStatus.CREATION
-    )
-    project_phase = models.IntegerField(
-        choices=ProjectPhase.choices, default=ProjectPhase.PLAN
-    )
+    project_status = models.IntegerField(choices=ProjectStatus.choices, default=ProjectStatus.CREATION)
+    project_phase = models.IntegerField(choices=ProjectPhase.choices, default=ProjectPhase.PLAN)
     accepted_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -181,9 +153,7 @@ class ProjectPlan(models.Model):
         related_name="accepted_by",
     )
     accepted_at = models.DateTimeField(blank=True, null=True)
-    departament = models.ForeignKey(
-        Department, on_delete=models.SET_NULL, null=True, related_name="project"
-    )
+    departament = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, related_name="project")
     coefficient_of_project = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     def __str__(self):
@@ -237,7 +207,8 @@ class ProjectPlan(models.Model):
 
     def stage_list(self):
         from calculator_projects.apps.stages.models import StagePlan
-        return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False).order_by('stage_number')
+
+        return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False).order_by("stage_number")
 
 
 class ProjectFact(models.Model):
@@ -265,9 +236,7 @@ class ProjectFact(models.Model):
 
     salary_cost = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     cost_price = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
-    period_expenses = models.DecimalField(
-        max_digits=1000, decimal_places=8, default=0.0
-    )
+    period_expenses = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     project_plan = models.ForeignKey(
         ProjectPlan,
         on_delete=models.CASCADE,
@@ -276,48 +245,24 @@ class ProjectFact(models.Model):
         related_name="project_fact",
     )
 
-    contributions_to_IT_park = models.DecimalField(
-        max_digits=1000, decimal_places=8, default=0.0
-    )
+    contributions_to_IT_park = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
     margin = models.DecimalField(max_digits=1000, decimal_places=8, default=0.0)
-    total_price_stage_and_task = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
-    total_price_with_margin = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
-    total_price_with_additional_cost = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
-    additional_cost = models.DecimalField(
-        max_digits=1000, decimal_places=2, default=0.0
-    )
+    total_price_stage_and_task = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    total_price_with_margin = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    total_price_with_additional_cost = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
+    additional_cost = models.DecimalField(max_digits=1000, decimal_places=2, default=0.0)
     duration_per_hour = models.IntegerField(default=0.0)
     duration_per_day = models.IntegerField(default=0.0)
 
-    percent_salary_cost = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_cost_price = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_contributions_to_IT_park = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_margin = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
-    percent_period_expenses = models.DecimalField(
-        max_digits=1000, decimal_places=20, default=0.0
-    )
+    percent_salary_cost = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_cost_price = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_contributions_to_IT_park = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_margin = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
+    percent_period_expenses = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
     profitability_percentage = models.DecimalField(max_digits=1000, decimal_places=20, default=0.0)
 
-    project_status = models.IntegerField(
-        choices=ProjectStatus.choices, default=ProjectStatus.ACTIVE
-    )
-    project_phase = models.IntegerField(
-        choices=ProjectPhase.choices, default=ProjectPhase.BUILD_AND_IMPLEMENT
-    )
+    project_status = models.IntegerField(choices=ProjectStatus.choices, default=ProjectStatus.ACTIVE)
+    project_phase = models.IntegerField(choices=ProjectPhase.choices, default=ProjectPhase.BUILD_AND_IMPLEMENT)
     coefficient_of_project = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     def __str__(self):
@@ -335,7 +280,8 @@ class ProjectFact(models.Model):
 
     def additional_cost_list(self):
         from calculator_projects.apps.additionalCosts.models import AdditionalCostFact
-        return AdditionalCostFact.objects.filter(project=self.id, deleted_status=False).order_by('created_at')
+
+        return AdditionalCostFact.objects.filter(project=self.id, deleted_status=False).order_by("created_at")
 
     def project_plan_additional_cost(self):
         return self.project_plan.additional_cost
@@ -345,21 +291,32 @@ class ProjectFact(models.Model):
 
     def stage_list(self):
         from calculator_projects.apps.stages.models import StageFact
-        return StageFact.objects.filter(project_fact=self.id, deleted_status=False).order_by('stage_number')
+
+        return StageFact.objects.filter(project_fact=self.id, deleted_status=False).order_by("stage_number")
 
     def plan_fact_difference(self):
         return self.project_plan.total_price_with_additional_cost - self.total_price_with_additional_cost
 
     def task_fact_finish_status(self):
-        from django.db.models import Sum, Q
-        from calculator_projects.apps.tasks.models import TaskFact
-        from calculator_projects.apps.tasks.models import TaskFactStatus
-        task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=self.created_by, project_fact=self)
-        task_fact_list = task_fact_list.aggregate(finish=Sum("total_price",
-                                                             filter=Q(action_status=TaskFactStatus.COMPLETED)),
-                                                  )
-        return task_fact_list
+        from django.db.models import Q, Sum
+
+        from calculator_projects.apps.tasks.models import TaskFact, TaskFactStatus
+
+        task_fact_list = TaskFact.objects.filter(
+            deleted_status=False, created_by=self.created_by, project_fact=self.id
+        )
+        task_fact_list = task_fact_list.aggregate(
+            finish=Sum("total_price", filter=Q(action_status=TaskFactStatus.COMPLETED)),
+        )
+        if task_fact_list["finish"] is None:
+            return task_fact_list, False
+        else:
+            return task_fact_list, True
 
     def completed_status(self):
-        task_fact = self.task_fact_finish_status()
-        return round((task_fact['finish'] / self.total_price_stage_and_task * 100), 1)
+        task_fact, status = self.task_fact_finish_status()
+
+        if status:
+            return round((task_fact["finish"] / self.total_price_stage_and_task * 100), 1)
+        else:
+            return 0
