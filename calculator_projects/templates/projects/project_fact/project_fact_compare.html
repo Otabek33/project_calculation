@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% load static %}
+
 {% block title %}
   Project Fact
 {% endblock title %}
-
 {% block content %}
   <div class="row">
     <div class="col-4">
@@ -17,24 +17,18 @@
             <div class="pt-4 pb-4 pl-0 pr-0 text-center">
               <div class="d-flex justify-content-between">
                 <div class="col-10">
-                  <select class="single-select-placeholder js-states form-control " id="project_select">
+                  <select class="single-select-placeholder js-states form-control "
+                          id="project_select">
                     <option value=""></option>
-
-                    {% for project in project_list_name %}
-
-                      <option value="{{ project.id }}">{{ project.name }}</option>
-
-                    {% endfor %}
+                    {% for project in project_list_name %}<option value="{{ project.id }}">{{ project.name }}</option>{% endfor %}
                   </select>
                 </div>
                 <div class="col-2">
                   <button class="btn btn-primary">Поиск</button>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -46,20 +40,20 @@
         <div class="row">
           <div class="col-6 border-right">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-              <h4 class="m-1"><span
-                class="counter">{{ project.duration_per_hour_plan|floatformat:"g" }}</span>
-                часов</h4>
+              <h4 class="m-1">
+                <span class="counter">{{ project.duration_per_hour_plan|floatformat:"g" }}</span>
+                часов
+              </h4>
               <p class="m-0">План</p>
-
             </div>
           </div>
           <div class="col-6">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-              <h4 class="m-1"><span
-                class="counter">{{ project.duration_per_hour_fact|floatformat:"g" }}</span>
-                часов</h4>
+              <h4 class="m-1">
+                <span class="counter">{{ project.duration_per_hour_fact|floatformat:"g" }}</span>
+                часов
+              </h4>
               <p class="m-0">Факт</p>
-
             </div>
           </div>
         </div>
@@ -73,28 +67,26 @@
         <div class="row">
           <div class="col-6 border-right">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-              <h4 class="m-1"><span
-                class="counter">{{ project.total_price_plan|floatformat:"2g" }}</span>
-                сўм</h4>
+              <h4 class="m-1">
+                <span class="counter">{{ project.total_price_plan|floatformat:"2g" }}</span>
+                сўм
+              </h4>
               <p class="m-0">План</p>
             </div>
           </div>
           <div class="col-6">
             <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-              <h4 class="m-1"><span
-                class="counter">{{ project.total_price_fact|floatformat:"2g" }}</span>
-                сўм</h4>
+              <h4 class="m-1">
+                <span class="counter">{{ project.total_price_fact|floatformat:"2g" }}</span>
+                сўм
+              </h4>
               <p class="m-0">Факт</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-
-
-
   <div class="row">
     <div class="col-xl-8 col-lg-8 col-md-8">
       <div class="card">
@@ -114,7 +106,6 @@
       <div class="card">
         <div class="card-header">
           <h4>Задачи по статусу</h4>
-
         </div>
         <div class="card-body">
           <div class="chart py-4">
@@ -124,9 +115,6 @@
       </div>
     </div>
   </div>
-
-
-
   <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-4">
       <div class="card">
@@ -137,115 +125,102 @@
           <div class="row">
             <div class="col-xl-12 col-lg-8">
               <div class="d-flex justify-content-between">
-
                 <div class="col ml-lg-4 ">
                   <div>
-
-
                     <table class="table table-bordered">
                       <thead class="text-left" style="background-color:  #494a79;color: white">
-                      <tr>
-                        <th class="col-1" rowspan="2"></th>
-                      </tr>
-                      <tr>
-                        <th scope="col" class="col-2 text-center">Сумма</th>
-                        <th scope="col" class="col-1 text-center">%</th>
-
-                      </tr>
-
+                        <tr>
+                          <th class="col-1" rowspan="2"></th>
+                        </tr>
+                        <tr>
+                          <th scope="col" class="col-2 text-center">Сумма</th>
+                          <th scope="col" class="col-1 text-center">%</th>
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>План</b>
-                        </td>
-                        <td class="col-1"
-                            id="cost_price_of_project_percent">{{ task_status_list.plan|floatformat:"2g"|default:0 }}
-                          сўм
-                        </td>
-                        <td class="col-1">{{ task_status_list.plan_p|floatformat:"2g"|default:0 }} %</td>
-
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Активный</b></td>
-                        <td
-                          id="salary_cost_of_project_percent">{{ task_status_list.active|floatformat:"2g"|default:0 }}
-                          сўм
-                        </td>
-                        <td>{{ task_status_list.active_p|floatformat:"2g"|default:0 }} %</td>
-
-
-                      </tr>
-                      <tr>
-
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Завершенный</b>
-                        </td>
-                        <td
-                          id="period_expenses_of_project_percent">{{ task_status_list.finish|floatformat:"2g"|default:0 }}
-                          сўм
-                        </td>
-                        <td>{{ task_status_list.finish_p|floatformat:"2g"|default:0 }} %</td>
-
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Отменено</b>
-                        </td>
-                        <td>{{ task_status_list.cancel|floatformat:"2g"|default:0 }}
-                          сўм
-                        </td>
-                        <td id="project_tax_update_part">{{ task_status_list.cancel_p|floatformat:"2g"|default:0 }}
-                          %
-                        </td>
-
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>На
-                          удерживании</b>
-                        </td>
-                        <td class="col-1">
-                          {{ task_status_list.on_hold|floatformat:"2g"|default:0 }} сўм
-                        </td>
-                        <td id="project_tax_update_part">{{ task_status_list.on_hold_p|floatformat:"2g"|default:0 }}
-                          %
-                        </td>
-
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Итого</b>
-                        </td>
-                        <td class="col-1">
-                          {{ project.total_expenses_fact|floatformat:"2g" }} сўм
-                        </td>
-
-                        <td>
-
-                        </td>
-
-
-                      </tr>
-
-
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>План</b>
+                          </td>
+                          <td class="col-1" id="cost_price_of_project_percent">
+                            {{ task_status_list.plan|floatformat:"2g"|default:0 }}
+                            сўм
+                          </td>
+                          <td class="col-1">{{ task_status_list.plan_p|floatformat:"2g"|default:0 }} %</td>
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Активный</b>
+                          </td>
+                          <td id="salary_cost_of_project_percent">
+                            {{ task_status_list.active|floatformat:"2g"|default:0 }}
+                            сўм
+                          </td>
+                          <td>{{ task_status_list.active_p|floatformat:"2g"|default:0 }} %</td>
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Завершенный</b>
+                          </td>
+                          <td id="period_expenses_of_project_percent">
+                            {{ task_status_list.finish|floatformat:"2g"|default:0 }}
+                            сўм
+                          </td>
+                          <td>{{ task_status_list.finish_p|floatformat:"2g"|default:0 }} %</td>
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Отменено</b>
+                          </td>
+                          <td>
+                            {{ task_status_list.cancel|floatformat:"2g"|default:0 }}
+                            сўм
+                          </td>
+                          <td id="project_tax_update_part">
+                            {{ task_status_list.cancel_p|floatformat:"2g"|default:0 }}
+                            %
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>На
+                            удерживании</b>
+                          </td>
+                          <td class="col-1">{{ task_status_list.on_hold|floatformat:"2g"|default:0 }} сўм</td>
+                          <td id="project_tax_update_part">
+                            {{ task_status_list.on_hold_p|floatformat:"2g"|default:0 }}
+                            %
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Итого</b>
+                          </td>
+                          <td class="col-1">{{ project.total_expenses_fact|floatformat:"2g" }} сўм</td>
+                          <td></td>
+                        </tr>
                       </tbody>
                     </table>
-
-
                   </div>
-
-
                 </div>
-
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
     <div class="col-xl-8 col-lg-8 col-md-8">
       <div class="card">
         <div class="card-header">
@@ -255,192 +230,152 @@
           <div class="row">
             <div class="col-xl-12 col-lg-8">
               <div class="d-flex justify-content-between">
-
                 <div class="col ml-lg-4 ">
                   <div>
-
-
                     <table class="table table-bordered">
                       <thead class="text-left" style="background-color:  #494a79;color: white">
-                      <tr>
-                        <th class="col-1" rowspan="2"></th>
-                        <th class="col-2 text-center" colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
-                      </tr>
-                      <tr>
-                        <th scope="col" class="col-1 text-center">План</th>
-                        <th scope="col" class="col-1 text-center">Факт</th>
-                        <th scope="col" class="col-1 text-center">Сравнение</th>
-                      </tr>
-
+                        <tr>
+                          <th class="col-1" rowspan="2"></th>
+                          <th class="col-2 text-center" colspan="3">ВСЕГО ПО ПРОЕКТУ</th>
+                        </tr>
+                        <tr>
+                          <th scope="col" class="col-1 text-center">План</th>
+                          <th scope="col" class="col-1 text-center">Факт</th>
+                          <th scope="col" class="col-1 text-center">Сравнение</th>
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Ориентировочная
-                          стоимость проекта</b>
-                        </td>
-                        <td class="col-1 text-center"
-                            id="cost_price_of_project_percent">{{ project.total_price_plan|floatformat:"2g" }}
-                          сўм
-                        </td>
-                        <td class="col-2 text-center">{{ project.total_price_fact|floatformat:"2g" }} сўм
-                        </td>
-
-                        {% if project.total_price_compare > 0 %}
-                          <td class="text-center text-success">
-                            {{ project.total_price_compare|floatformat:"2g" }} сўм
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Ориентировочная
+                            стоимость проекта</b>
                           </td>
-                        {% elif project.total_price_compare < 0 %}
-                          <td class="text-center text-danger">
-                            {{ project.total_price_compare|floatformat:"2g" }} сўм
-                          </td>
-                        {% endif %}
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Общие
-                          расходы </b> <br/><b> (Без учета дополнительных затрат)</b></td>
-                        <td class="text-center"
-                            id="salary_cost_of_project_percent">{{ project.total_expenses_plan|floatformat:"2g" }}
-                          сўм
-                        </td>
-                        <td class="text-center"> {{ project.total_expenses_fact|floatformat:"2g" }} сўм
-                        </td>
-
-
-                        {% if project.total_expenses_compare > 0 %}
-                          <td class="text-center text-success">
-                            {{ project.total_expenses_compare|floatformat:"2g" }} сўм
-                          </td>
-                        {% elif project.total_expenses_compare < 0 %}
-                          <td class="text-center text-danger">
-                            {{ project.total_expenses_compare|floatformat:"2g" }} сўм
-                          </td>
-                        {% endif %}
-
-                      </tr>
-                      <tr>
-
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Дополнительные
-                          расходы</b></td>
-                        <td class="text-center"
-                            id="period_expenses_of_project_percent">{{ project.additional_cost_plan|floatformat:"2g" }}
-                          сўм
-                        </td>
-                        <td class="text-center">{{ project.additional_cost_fact|floatformat:"2g" }} сўм
-                        </td>
-
-                        {% if project.additional_cost_compare > 0 %}
-                          <td class="text-center text-success">
-                            {{ project.additional_cost_compare|floatformat:"2g" }} сўм
-                          </td>
-                        {% elif project.additional_cost_compare < 0 %}
-                          <td class="text-center text-danger">
-                            {{ project.additional_cost_compare|floatformat:"2g" }} сўм
-                          </td>
-                        {% endif %}
-
-
-                      </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white"><b>Чистый
-                          прибыль</b>
-                        </td>
-
-                        {% if project.margin_plan > 0 %}
-                          <td class="text-center text-success font-weight-bold"
-                              id="project_tax_update_part">{{ project.margin_plan|floatformat:"2g" }}
+                          <td class="col-1 text-center" id="cost_price_of_project_percent">
+                            {{ project.total_price_plan|floatformat:"2g" }}
                             сўм
                           </td>
-                        {% elif project.margin_plan < 0 %}
-                          <td class="text-center  text-danger font-weight-bold"
-                              id="project_tax_update_part">{{ project.margin_plan|floatformat:"2g" }}
+                          <td class="col-2 text-center">{{ project.total_price_fact|floatformat:"2g" }} сўм</td>
+                          {% if project.total_price_compare > 0 %}
+                            <td class="text-center text-success font-weight-bold">{{ project.total_price_compare|floatformat:"2g" }} сўм</td>
+                          {% elif project.total_price_compare < 0 %}
+                            <td class="text-center text-danger font-weight-bold">{{ project.total_price_compare|floatformat:"2g" }} сўм</td>
+                          {% endif %}
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Общие
+                            расходы </b>
+                            <br />
+                            <b> (Без учета дополнительных затрат)</b>
+                          </td>
+                          <td class="text-center" id="salary_cost_of_project_percent">
+                            {{ project.total_expenses_plan|floatformat:"2g" }}
                             сўм
                           </td>
-                        {% endif %}
-
-                        {% if project.margin_fact > 0 %}
-                          <td class="text-center text-success font-weight-bold"
-                              id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
+                          <td class="text-center">{{ project.total_expenses_fact|floatformat:"2g" }} сўм</td>
+                          {% if project.total_expenses_compare > 0 %}
+                            <td class="text-center text-success font-weight-bold">{{ project.total_expenses_compare|floatformat:"2g" }} сўм</td>
+                          {% elif project.total_expenses_compare < 0 %}
+                            <td class="text-center text-danger font-weight-bold">{{ project.total_expenses_compare|floatformat:"2g" }} сўм</td>
+                          {% endif %}
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Дополнительные
+                            расходы</b>
+                          </td>
+                          <td class="text-center" id="period_expenses_of_project_percent">
+                            {{ project.additional_cost_plan|floatformat:"2g" }}
                             сўм
                           </td>
-                        {% elif project.margin_fact < 0 %}
-                          <td class="text-center  text-danger font-weight-bold"
-                              id="project_tax_update_part">{{ project.margin_fact|floatformat:"2g" }}
-                            сўм
+                          <td class="text-center">{{ project.additional_cost_fact|floatformat:"2g" }} сўм</td>
+                          {% if project.additional_cost_compare > 0 %}
+                            <td class="text-center text-success font-weight-bold">{{ project.additional_cost_compare|floatformat:"2g" }} сўм</td>
+                          {% elif project.additional_cost_compare < 0 %}
+                            <td class="text-center text-danger font-weight-bold">{{ project.additional_cost_compare|floatformat:"2g" }} сўм</td>
+                          {% endif %}
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Чистый
+                            прибыль</b>
                           </td>
-                        {% endif %}
-
-
-                        {% if project.margin_compare > 0 %}
-                          <td class="text-center text-success">
-                            {{ project.margin_compare|floatformat:"2g" }} сўм
+                          {% if project.margin_plan > 0 %}
+                            <td class="text-center text-success font-weight-bold"
+                                id="project_tax_update_part">
+                              {{ project.margin_plan|floatformat:"2g" }}
+                              сўм
+                            </td>
+                          {% elif project.margin_plan < 0 %}
+                            <td class="text-center  text-danger font-weight-bold"
+                                id="project_tax_update_part">
+                              {{ project.margin_plan|floatformat:"2g" }}
+                              сўм
+                            </td>
+                          {% endif %}
+                          {% if project.margin_fact > 0 %}
+                            <td class="text-center text-success font-weight-bold"
+                                id="project_tax_update_part">
+                              {{ project.margin_fact|floatformat:"2g" }}
+                              сўм
+                            </td>
+                          {% elif project.margin_fact < 0 %}
+                            <td class="text-center  text-danger font-weight-bold"
+                                id="project_tax_update_part">
+                              {{ project.margin_fact|floatformat:"2g" }}
+                              сўм
+                            </td>
+                          {% endif %}
+                          {% if project.margin_compare > 0 %}
+                            <td class="text-center text-success font-weight-bold">{{ project.margin_compare|floatformat:"2g" }} сўм</td>
+                          {% elif project.margin_compare < 0 %}
+                            <td class="text-center text-danger font-weight-bold">{{ project.margin_compare|floatformat:"2g" }} сўм</td>
+                          {% endif %}
+                        </tr>
+                        <tr>
+                          <td class="col-3 text-left"
+                              style="background-color:  #494a79;
+                                     color: white">
+                            <b>Рентабельность</b>
                           </td>
-                        {% elif project.margin_compare < 0 %}
-                          <td class="text-center text-danger">
-                            {{ project.margin_compare|floatformat:"2g" }} сўм
-                          </td>
-                        {% endif %}
-
+                          <td class="col-1 text-center font-weight-bold">{{ project.profitability_percentage_plan|floatformat:"2g" }} %</td>
+                          <td class="text-center font-weight-bold">{{ project.profitability_percentage_fact|floatformat:"2g" }} %</td>
+                          <td></td>
+                        </td>
                       </tr>
-                      <tr>
-                        <td class="col-3 text-left" style="background-color:  #494a79;color: white">
-                          <b>Рентабельность</b>
-                        </td>
-                        <td class="col-1 text-center">
-                          {{ project.profitability_percentage_plan|floatformat:"2g" }} %
-                        </td>
-                        <td class="text-center">
-                          {{ project.profitability_percentage_fact|floatformat:"2g" }} %
-                        </td>
-                        <td>
-
-                        </td>
-
-                        </td>
-
-                      </tr>
-
-
-                      </tbody>
-                    </table>
-
-
-                  </div>
-
-
+                    </tbody>
+                  </table>
                 </div>
-
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
+</div>
+<script>
+  let url = new URL(window.location.href);
+  let url_path = url.pathname
+  fetch(url_path, {
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Requested-With": "XMLHttpRequest",
+      "HTTP_X_REQUESTED_WITH": "XMLHttpRequest"
+    },
+  }).then(response => {
+    var project_list = JSON.parse('{{ project_list|escapejs }}');
+    var task_status = JSON.parse('{{ task_status|escapejs }}');
 
-
-
-  <script>
-    let url = new URL(window.location.href);
-    let url_path = url.pathname
-    fetch(url_path, {
-      headers: {
-        'Content-Type': 'application/json',
-        "X-Requested-With": "XMLHttpRequest",
-        "HTTP_X_REQUESTED_WITH": "XMLHttpRequest"
-      },
-    }).then(response => {
-      var project_list = JSON.parse('{{ project_list|escapejs }}');
-      var task_status = JSON.parse('{{ task_status|escapejs }}');
-
-      task_fact_and_plan(project_list, task_status)
-    })
-
-
-  </script>
-
-
-
+    task_fact_and_plan(project_list, task_status)
+  })
+</script>
 {% endblock %}
