@@ -8,7 +8,7 @@
 {% block content %}
 
   {#Project Passport#}
-  <div class="row page-titles mx-0">
+  <div class="row page-titles mx-0" id="link">
     <div class="col-sm-12 d-flex justify-content-between">
       <div class="welcome-text">
         <h4>{{ projectplan.name }}</h4>
@@ -29,7 +29,7 @@
 
   </div>
   {% include 'projects/_includes/steps.html' %}
-  <div class="row">
+  <div class="row" id="password_project">
     <div class="col-md-12 d-flex justify-content-around">
       <div class="col-12 card border-0">
 
@@ -41,7 +41,7 @@
 
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">pdf</a>
+         <a type="button" class="dropdown-item" href="#"  onclick="print_password_project()">pdf</a>
           <a class="dropdown-item" href="#">excel</a>
         </div>
       </div>
@@ -182,7 +182,7 @@
 
   </div>
   {#Project Plan#}
-  <div class="card mb-4">
+  <div class="card mb-4" id="duration_stage_detail">
   <div class="card-header">
           <h5 class="mb-0">Детальный план-график проекта:</h5>
           <small class="text-muted float-end"></small>
@@ -191,7 +191,7 @@
 
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">pdf</a>
+         <a type="button" class="dropdown-item" href="#"  onclick="print_stage_duration_graph()">pdf</a>
           <a class="dropdown-item" href="#">excel</a>
         </div>
       </div>
@@ -275,7 +275,7 @@
   </div>
   {#Project Cost with Stages#}
 
-  <div class="card mb-4 ">
+  <div class="card mb-4 " id="calculation_stage_detail">
   <div class="card-header">
           <h5 class="mb-0">Стоимостная оценка затрат на реализацию проекта (с учетом разбивки по этапам):</h5>
           <small class="text-muted float-end"></small>
@@ -445,7 +445,7 @@
     </div>
   </div>
   {#  Project Cost Main#}
-  <div class="card mb-4 ">
+  <div class="card mb-4 " id="total_calculation_project_detail">
   <div class="card-header">
           <h5 class="mb-0">Смета калькуляции стоимости
                     затрат на реализацию проекта:</h5>
@@ -455,7 +455,7 @@
 
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">pdf</a>
+          <a type="button" class="dropdown-item" href="#"  onclick="total_detail_info_project()">pdf</a>
           <a class="dropdown-item" href="#">excel</a>
         </div>
       </div>
@@ -703,7 +703,7 @@
 
 
 
-  <div class="card mb-4 ">
+  <div class="card mb-4 " id="foot_sentence">
     <div id="info_how_much_project" style="font-weight: 700; font-family: var(--bs-body-font-family);">
       <h4 class="card-footer text-center"> Стоимость работ, порядок и сроки
         расчетов:</br>
