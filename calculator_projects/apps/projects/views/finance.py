@@ -11,9 +11,13 @@ from calculator_projects.apps.projects.utils import project_amount, project_chan
 from django.contrib import messages
 
 from calculator_projects.utils.helpers import is_ajax
+import logging
+
+logger = logging.getLogger('main')
 
 
 class ProjectConfirmView(ListView):
+    logger.info("ishladi")
     model = ProjectPlan
     tm_path = "projects/other/"
     tm_name = "project_confirm.html"

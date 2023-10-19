@@ -300,7 +300,7 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "verbose": {
+        "main_format": {
             "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
         },
     },
@@ -308,7 +308,27 @@ LOGGING = {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
-            "formatter": "verbose",
+            "formatter": "main_format",
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': "main_format",
+            'filename': 'django.log',
+
+        },
+        'rotating_file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'django.log',
+            'maxBytes': 1024 * 1024 * 100,  # 100 MB
+            'backupCount': 10,
+        },
+    },
+    "loggers": {
+        'main': {
+            "level": "INFO",
+            "handlers": ['console', 'file'],
+            "propagate": True,
+
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
@@ -371,4 +391,3 @@ CKEDITOR_CONFIGS = {
         'width': 800,
     },
 }
-
