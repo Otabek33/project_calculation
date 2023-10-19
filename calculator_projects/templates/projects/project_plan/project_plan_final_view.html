@@ -21,7 +21,6 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" href="{% url 'projects:pdf_generation' projectplan.id %}">pdf</a>
           <a class="dropdown-item" href="#">excel</a>
-          <a class="dropdown-item" href="#">print</a>
         </div>
       </div>
 
@@ -37,6 +36,15 @@
         <div class="card-header">
           <h5 class="mb-0">Паспорт проекта</h5>
           <small class="text-muted float-end"></small>
+          <div class="text-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-docs"></i>
+
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">pdf</a>
+          <a class="dropdown-item" href="#">excel</a>
+        </div>
+      </div>
         </div>
         <div class="card-body border-0">
           <table id="document-passport" class="table table_left" style="color: black">
@@ -175,9 +183,21 @@
   </div>
   {#Project Plan#}
   <div class="card mb-4">
-    <h5 class="card-header align-items-center text-center">
-      <span>Детальный план-график проекта:</span>
-    </h5>
+  <div class="card-header">
+          <h5 class="mb-0">Детальный план-график проекта:</h5>
+          <small class="text-muted float-end"></small>
+          <div class="text-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-docs"></i>
+
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">pdf</a>
+          <a class="dropdown-item" href="#">excel</a>
+        </div>
+      </div>
+        </div>
+
+
     <div class="card-body">
       <div>
         <table class="table table-bordered  table-responsive-sm">
@@ -256,9 +276,20 @@
   {#Project Cost with Stages#}
 
   <div class="card mb-4 ">
-    <h5 class="card-header align-items-center text-center">
-      <span>Стоимостная оценка затрат на реализацию проекта (с учетом разбивки по этапам):</span>
-    </h5>
+  <div class="card-header">
+          <h5 class="mb-0">Стоимостная оценка затрат на реализацию проекта (с учетом разбивки по этапам):</h5>
+          <small class="text-muted float-end"></small>
+          <div class="text-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-docs"></i>
+
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">pdf</a>
+          <a class="dropdown-item" href="#">excel</a>
+        </div>
+      </div>
+        </div>
+
     <div class="card-body">
       <div>
         <div class="row text-left">
@@ -415,10 +446,21 @@
   </div>
   {#  Project Cost Main#}
   <div class="card mb-4 ">
-    <h5 class="card-header align-items-center text-center">
-            <span>Смета калькуляции стоимости
-                    затрат на реализацию проекта:</span>
-    </h5>
+  <div class="card-header">
+          <h5 class="mb-0">Смета калькуляции стоимости
+                    затрат на реализацию проекта:</h5>
+          <small class="text-muted float-end"></small>
+          <div class="text-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-docs"></i>
+
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">pdf</a>
+          <a class="dropdown-item" href="#">excel</a>
+        </div>
+      </div>
+        </div>
+
     <div class="card-body">
       <div id="detail_view_labour_cost ">
         <div class="row text-left">
