@@ -4,7 +4,6 @@ Base settings to build other settings files upon.
 from pathlib import Path
 
 import environ
-import os
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # calculator_projects/
@@ -54,22 +53,23 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': os.getenv('POSTGRES_DB',"calculator_projects"),
 #         'USER':  os.getenv('POSTGRES_USER',"NgCHJDnWjAZetBIMnLviiIIEKOfBTGvp"),
-#         'PASSWORD':  os.getenv('POSTGRES_PASSWORD',"ydt38l5ctRbIpoOYCcOd8nKcxOQaoRbnxFdO3eIDy2X8Mkwods4q0kWesqgDW1bx"),
+#         'PASSWORD':  os.getenv('POSTGRES_PASSWORD',
+#         "ydt38l5ctRbIpoOYCcOd8nKcxOQaoRbnxFdO3eIDy2X8Mkwods4q0kWesqgDW1bx"),
 #         'HOST':  os.getenv('POSTGRES_HOST',"postgres"),
 #         'PORT': os.getenv("POSTGRES_PORT", "5432"),
 #     }}
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "postgres",
-        'USER': "postgres",
-        'PASSWORD': "postgres",
-        'HOST': "localhost",
-        'PORT': "5432",
-
-    }}
-WEASYPRINT_BASEURL = '/'
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
+WEASYPRINT_BASEURL = "/"
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
@@ -108,7 +108,6 @@ THIRD_PARTY_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "easy_pdf",
-
 ]
 
 LOCAL_APPS = [
@@ -118,12 +117,11 @@ LOCAL_APPS = [
     "calculator_projects.apps.stages",
     "calculator_projects.apps.tasks",
     "calculator_projects.apps.additionalCosts",
-
     # Your stuff: custom apps go here
 ]
 
 WKHTMLTOPDF_CMD_OPTIONS = {
-    'quiet': True,
+    "quiet": True,
 }
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -198,19 +196,27 @@ STATICFILES_FINDERS = [
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
-             'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
+    "default": {
+        "toolbar": "Custom",
+        "toolbar_Custom": [
+            ["Bold", "Italic", "Underline"],
+            [
+                "NumberedList",
+                "BulletedList",
+                "-",
+                "Outdent",
+                "Indent",
+                "-",
+                "JustifyLeft",
+                "JustifyCenter",
+                "JustifyRight",
+                "JustifyBlock",
+            ],
+            ["Link", "Unlink"],
+            ["RemoveFormat", "Source"],
         ],
-
-        'width': "100%",
-        'height': "100%",
-
+        "width": "100%",
+        "height": "100%",
     }
 }
 # MEDIA
@@ -296,46 +302,37 @@ DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=Fals
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+# django-allauth
+# ------------------------------------------------------------------------------
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
         "main_format": {
-            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
+            "format": "%(levelname)s %(asctime)s %(module)s %(message)s",
         },
     },
     "handlers": {
         "console": {
-            "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "main_format",
         },
-        'file': {
-            'class': 'logging.FileHandler',
-            'formatter': "main_format",
-            'filename': 'django.log',
-
-        },
-        'rotating_file': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'django.log',
-            'maxBytes': 1024 * 1024 * 100,  # 100 MB
-            'backupCount': 10,
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "django.log",
+            "formatter": "main_format",
         },
     },
     "loggers": {
-        'main': {
+        "main": {
+            "handlers": ["console", "file"],
             "level": "INFO",
-            "handlers": ['console', 'file'],
             "propagate": True,
-
         }
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
+    # "root": {"level": "INFO", "handlers": ["console"]},
 }
-
-# django-allauth
-# ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "username"
@@ -378,16 +375,26 @@ SPECTACULAR_SETTINGS = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
-             'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
+    "default": {
+        "toolbar": "Custom",
+        "toolbar_Custom": [
+            ["Bold", "Italic", "Underline"],
+            [
+                "NumberedList",
+                "BulletedList",
+                "-",
+                "Outdent",
+                "Indent",
+                "-",
+                "JustifyLeft",
+                "JustifyCenter",
+                "JustifyRight",
+                "JustifyBlock",
+            ],
+            ["Link", "Unlink"],
+            ["RemoveFormat", "Source"],
         ],
-        'height': 400,
-        'width': 800,
+        "height": 400,
+        "width": 800,
     },
 }
