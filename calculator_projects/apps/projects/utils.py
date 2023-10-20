@@ -3,13 +3,12 @@ from datetime import datetime, timezone
 from django.db.models.signals import post_save
 from django.shortcuts import get_object_or_404
 
-from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan, AdditionalCostFact
+from calculator_projects.apps.additionalCosts.models import AdditionalCostFact, AdditionalCostPlan
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.projects.constants import coefficient
-from calculator_projects.apps.projects.models import ProjectPlan, ProjectCreationStage, ProjectStatus, ProjectFact
-from calculator_projects.apps.stages.models import StagePlan, StageFact
-
-from calculator_projects.apps.tasks.models import TaskFact, TaskPlan, TaskFactStatus
+from calculator_projects.apps.projects.models import ProjectCreationStage, ProjectFact, ProjectPlan, ProjectStatus
+from calculator_projects.apps.stages.models import StageFact, StagePlan
+from calculator_projects.apps.tasks.models import TaskFact, TaskFactStatus, TaskPlan
 from calculator_projects.utils.constants import HOLIDAYS
 
 
@@ -26,14 +25,7 @@ def process_context_percentage_labour_cost(pk: str):
     p_salary_cost = salary_cost / total_cost * 100
     p_cost_price = labour_cost.cost_price / total_cost * 100
     p_percent_period_expenses = (
-        (
-            total_cost
-            - salary_cost
-            - labour_cost.cost_price
-            - labour_cost.contributions_to_IT_park
-        )
-        / total_cost
-        * 100
+        (total_cost - salary_cost - labour_cost.cost_price - labour_cost.contributions_to_IT_park) / total_cost * 100
     )
     p_tax = labour_cost.contributions_to_IT_park / total_cost * 100
 
@@ -51,17 +43,14 @@ def process_context_percentage_labour_cost(pk: str):
 
 
 def checking_stage_exist(project):
-    stage_list = StagePlan.objects.filter(
-        deleted_status=False, projectPlan=project
-    ).exists()
+    stage_list = StagePlan.objects.filter(deleted_status=False, projectPlan=project).exists()
     return stage_list
 
 
 def project_plan_fields_regex(total_price_with_margin: str, tax_amount: str, margin_amount: str):
     from decimal import Decimal
-    total_price_with_margin = (
-        total_price_with_margin.replace(" ", "").replace(",", ".").replace("сўм", "")
-    )
+
+    total_price_with_margin = total_price_with_margin.replace(" ", "").replace(",", ".").replace("сўм", "")
     project_tax = tax_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
     margin = margin_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
 
@@ -69,9 +58,11 @@ def project_plan_fields_regex(total_price_with_margin: str, tax_amount: str, mar
 
 
 def update_stages(project_plan, margin_percentage):
-    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
-    from calculator_projects.apps.stages.signals import update_project_plan_after_stage_change
     from decimal import Decimal
+
+    from calculator_projects.apps.stages.signals import update_project_plan_after_stage_change
+    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
+
     stage_list = StagePlan.objects.filter(projectPlan=project_plan)
     disconnect_signal(post_save, update_project_plan_after_stage_change, StagePlan)
     for stage in stage_list:
@@ -87,6 +78,7 @@ def update_stages(project_plan, margin_percentage):
 
 def stage_amount(project):
     from django.db.models import Count, Q
+
     project_stage_list = project.aggregate(
         stage_1=Count(
             "project_creation_stage",
@@ -110,6 +102,7 @@ def stage_amount(project):
 
 def project_amount(project):
     from django.db.models import Count, Q
+
     project_status_list = project.aggregate(
         cancelled=Count(
             "project_status",
@@ -141,36 +134,41 @@ def project_plan_header_info(project_plan_list):
 
     return project_plan_list.aggregate(
         project_plan_total_price_with_additional_cost=Sum("total_price_with_additional_cost"),
-        project_plan_duration_per_hour=Sum("duration_per_hour"))
+        project_plan_duration_per_hour=Sum("duration_per_hour"),
+    )
 
 
 def project_fact_task_amount(project_fact):
     from django.db.models import Count
+
     return project_fact.aggregate(project_fact_task_amount=Count("project_fact"))
 
 
 def project_plan_task_amount(project_plan_list):
     from django.db.models import Count
+
     return project_plan_list.aggregate(project_plan_task_amount=Count("project_plan_task"))
 
 
 def project_fields_generation(prefix, project, project_initial):
-    project_initial['total_price_' + prefix] = project['total_price']
-    project_initial['total_expenses_' + prefix] = project['total_expenses']
-    project_initial['additional_cost_' + prefix] = project['additional_cost']
-    project_initial['margin_' + prefix] = project['margin']
-    project_initial['profitability_percentage_' + prefix] = project['profitability_percentage']
-    project_initial['duration_per_hour_' + prefix] = project['duration_per_hour']
+    project_initial["total_price_" + prefix] = project["total_price"]
+    project_initial["total_expenses_" + prefix] = project["total_expenses"]
+    project_initial["additional_cost_" + prefix] = project["additional_cost"]
+    project_initial["margin_" + prefix] = project["margin"]
+    project_initial["profitability_percentage_" + prefix] = project["profitability_percentage"]
+    project_initial["duration_per_hour_" + prefix] = project["duration_per_hour"]
     return project_initial
 
 
 def compare_fields(project_initial):
-    project_initial['total_price_compare'] = project_initial['total_price_plan'] - project_initial['total_price_fact']
-    project_initial['total_expenses_compare'] = project_initial['total_expenses_plan'] - project_initial[
-        'total_expenses_fact']
-    project_initial['additional_cost_compare'] = project_initial['additional_cost_plan'] - project_initial[
-        'additional_cost_fact']
-    project_initial['margin_compare'] = (project_initial['margin_fact'] - project_initial['margin_plan'])
+    project_initial["total_price_compare"] = project_initial["total_price_plan"] - project_initial["total_price_fact"]
+    project_initial["total_expenses_compare"] = (
+        project_initial["total_expenses_plan"] - project_initial["total_expenses_fact"]
+    )
+    project_initial["additional_cost_compare"] = (
+        project_initial["additional_cost_plan"] - project_initial["additional_cost_fact"]
+    )
+    project_initial["margin_compare"] = project_initial["margin_fact"] - project_initial["margin_plan"]
     return project_initial
 
 
@@ -180,11 +178,13 @@ def generation_total_amount_fields(project_fact, project_plan):
     project_initial = {}
     project_initial = project_fields_generation("fact", project_fact, project_initial)
     project_initial = project_fields_generation("plan", project_plan, project_initial)
-    project_initial['margin_fact'] = project_initial['total_price_plan'] - project_initial['total_price_fact']
-    project_initial['profitability_percentage_fact'] = (project_initial['margin_fact'] / project_initial[
-        'total_price_fact']) * 100
-    project_initial['profitability_percentage_plan'] = (project_initial['margin_plan'] / project_initial[
-        'total_price_plan']) * 100
+    project_initial["margin_fact"] = project_initial["total_price_plan"] - project_initial["total_price_fact"]
+    project_initial["profitability_percentage_fact"] = (
+        project_initial["margin_fact"] / project_initial["total_price_fact"]
+    ) * 100
+    project_initial["profitability_percentage_plan"] = (
+        project_initial["margin_plan"] / project_initial["total_price_plan"]
+    ) * 100
     project_initial = compare_fields(project_initial)
 
     return project_initial
@@ -192,6 +192,7 @@ def generation_total_amount_fields(project_fact, project_plan):
 
 def generation_project(qs):
     from django.db.models import Sum
+
     return qs.aggregate(
         total_price=Sum("total_price_with_additional_cost"),
         total_expenses=Sum("total_price_stage_and_task"),
@@ -210,44 +211,48 @@ def dictionary_check(status_amount, project_fact_total_price):
 
 
 def generation_task_status_fields(user, project_fact_total_price):
-    from django.db.models import Sum, Q
-    task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
-    task_fact_list = task_fact_list.aggregate(plan=Sum("total_price", filter=Q(action_status=TaskFactStatus.PLAN)),
-                                              active=Sum("total_price", filter=Q(action_status=TaskFactStatus.ACTIVE)),
-                                              finish=Sum("total_price",
-                                                         filter=Q(action_status=TaskFactStatus.COMPLETED)),
-                                              cancel=Sum("total_price",
-                                                         filter=Q(action_status=TaskFactStatus.CANCELLED)),
-                                              on_hold=Sum("total_price",
-                                                          filter=Q(action_status=TaskFactStatus.ON_HOLD)), )
+    from django.db.models import Q, Sum
 
-    task_fact_list['plan_p'] = dictionary_check(task_fact_list['plan'], project_fact_total_price)
-    task_fact_list['active_p'] = dictionary_check(task_fact_list['active'], project_fact_total_price)
-    task_fact_list['finish_p'] = dictionary_check(task_fact_list['finish'], project_fact_total_price)
-    task_fact_list['cancel_p'] = dictionary_check(task_fact_list['cancel'], project_fact_total_price)
-    task_fact_list['on_hold_p'] = dictionary_check(task_fact_list['on_hold'], project_fact_total_price)
+    task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
+    task_fact_list = task_fact_list.aggregate(
+        plan=Sum("total_price", filter=Q(action_status=TaskFactStatus.PLAN)),
+        active=Sum("total_price", filter=Q(action_status=TaskFactStatus.ACTIVE)),
+        finish=Sum("total_price", filter=Q(action_status=TaskFactStatus.COMPLETED)),
+        cancel=Sum("total_price", filter=Q(action_status=TaskFactStatus.CANCELLED)),
+        on_hold=Sum("total_price", filter=Q(action_status=TaskFactStatus.ON_HOLD)),
+    )
+
+    task_fact_list["plan_p"] = dictionary_check(task_fact_list["plan"], project_fact_total_price)
+    task_fact_list["active_p"] = dictionary_check(task_fact_list["active"], project_fact_total_price)
+    task_fact_list["finish_p"] = dictionary_check(task_fact_list["finish"], project_fact_total_price)
+    task_fact_list["cancel_p"] = dictionary_check(task_fact_list["cancel"], project_fact_total_price)
+    task_fact_list["on_hold_p"] = dictionary_check(task_fact_list["on_hold"], project_fact_total_price)
     return task_fact_list
 
 
 def generation_task_status_amount(user):
     from django.db.models import Count, Q
+
     task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
     task_fact_status_amount = task_fact_list.aggregate(
         plan=Count("action_status", filter=Q(action_status=TaskFactStatus.PLAN)),
         active=Count("action_status", filter=Q(action_status=TaskFactStatus.ACTIVE)),
-        finish=Count("action_status",
-                     filter=Q(action_status=TaskFactStatus.COMPLETED)),
-        cancel=Count("action_status",
-                     filter=Q(action_status=TaskFactStatus.CANCELLED)),
-        on_hold=Count("action_status",
-                      filter=Q(action_status=TaskFactStatus.ON_HOLD)), )
+        finish=Count("action_status", filter=Q(action_status=TaskFactStatus.COMPLETED)),
+        cancel=Count("action_status", filter=Q(action_status=TaskFactStatus.CANCELLED)),
+        on_hold=Count("action_status", filter=Q(action_status=TaskFactStatus.ON_HOLD)),
+    )
     return task_fact_status_amount
 
 
 def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_list):
     projects = {}
+    counter = 0
     for project in project_fact_list:
-        projects[project.name] = {"task_fact": project.task_fact_amount(), "task_plan": project.task_plan_amount()}
+        counter += 1
+        projects[f"project-{counter}"] = {
+            "task_fact": project.task_fact_amount(),
+            "task_plan": project.task_plan_amount(),
+        }
     return projects
 
 
@@ -284,6 +289,7 @@ def copy_stage_plan_to_fact(project_plan, project_fact_id):
 def copy_plan_to_fact_task(stage_plan, stage_fact_id, project_fact):
     from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
     from calculator_projects.apps.tasks.signals import update_project_fact_stage_and_project_fact_change
+
     task_list = TaskPlan.objects.filter(stage=stage_plan.id)
     stage_fact = StageFact.objects.get(pk=stage_fact_id)
     disconnect_signal(post_save, update_project_fact_stage_and_project_fact_change, TaskFact)
@@ -299,12 +305,11 @@ def copy_plan_to_fact_task(stage_plan, stage_fact_id, project_fact):
 
 
 def copy_plan_to_fact_additional_cost(project_plan, project_fact):
-    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
     from calculator_projects.apps.additionalCosts.signals import updating_project_plan
+    from calculator_projects.apps.stages.utils import disconnect_signal, reconnect_signal
+
     disconnect_signal(post_save, updating_project_plan, AdditionalCostFact)
-    additional_cost_plan_list = AdditionalCostPlan.objects.filter(
-        project=project_plan, deleted_status=False
-    )
+    additional_cost_plan_list = AdditionalCostPlan.objects.filter(project=project_plan, deleted_status=False)
     for additional_cost_plan in additional_cost_plan_list:
         additional_cost_fact = AdditionalCostFact()
         additional_cost_fact.__dict__.update(additional_cost_plan.__dict__)
@@ -322,12 +327,14 @@ def separate_date(date):
 
 def get_task_fact_datetime_from_string(date_string):
     from datetime import datetime
+
     date = datetime.strptime(date_string, "%d/%m/%Y %H:%M")
     return date
 
 
 def get_time_dif_from_string(start, finish):
     from datetime import datetime
+
     start_time = datetime.strptime(start, "%H:%M:%S")
     end_time = datetime.strptime(finish, "%H:%M:%S")
     delta = end_time - start_time
@@ -345,19 +352,20 @@ def generation_two_date(date_list):
 
 def regex_choose_date_range(daterange):
     import numpy as np
+
     start_time, finish_time = middle_function(daterange)
     if checking_date_time(start_time, finish_time):
         return False, {}
     else:
-        duration_per_day_new = np.busday_count(
-            start_time.date(), finish_time.date(), holidays=HOLIDAYS
-        )
-        hours = get_time_dif_from_string(
-            str(start_time.time()), str(finish_time.time())
-        )
+        duration_per_day_new = np.busday_count(start_time.date(), finish_time.date(), holidays=HOLIDAYS)
+        hours = get_time_dif_from_string(str(start_time.time()), str(finish_time.time()))
         duration_per_hour = duration_per_day_new * 8 + hours
-        return True, {"start_time": start_time, "finish_time": finish_time, "duration_per_day": duration_per_day_new,
-                      "duration_per_hour": duration_per_hour}
+        return True, {
+            "start_time": start_time,
+            "finish_time": finish_time,
+            "duration_per_day": duration_per_day_new,
+            "duration_per_hour": duration_per_hour,
+        }
 
 
 def middle_function(daterange):
@@ -367,28 +375,22 @@ def middle_function(daterange):
 
 
 def process_formation_four_fields_percentage(project):
-    project.percent_cost_price = (
-        project.cost_price / project.total_price_stage_and_task * 100
-    )
-    project.percent_salary_cost = (
-        project.salary_cost / project.total_price_stage_and_task * 100
-    )
-    project.percent_period_expenses = (
-        project.period_expenses / project.total_price_stage_and_task * 100
-    )
+    project.percent_cost_price = project.cost_price / project.total_price_stage_and_task * 100
+    project.percent_salary_cost = project.salary_cost / project.total_price_stage_and_task * 100
+    project.percent_period_expenses = project.period_expenses / project.total_price_stage_and_task * 100
     project.percent_margin = project.margin / project.total_price_stage_and_task * 100
     project.save()
 
 
 def process_formation_fields_with_additional_cost(project, additional_cost):
     from django.db.models import Sum
+
     add_costs = additional_cost.objects.filter(project=project, deleted_status=False)
     if add_costs:
         additional_cost_of_project = add_costs.aggregate(total_amount=Sum("amount"))
         project.additional_cost = additional_cost_of_project["total_amount"]
         project.total_price_with_additional_cost = (
-            project.total_price_with_margin
-            + additional_cost_of_project["total_amount"]
+            project.total_price_with_margin + additional_cost_of_project["total_amount"]
         )
     else:
         project.total_price_with_additional_cost = project.total_price_stage_and_task
