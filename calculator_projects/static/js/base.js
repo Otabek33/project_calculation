@@ -409,3 +409,128 @@ function toast_show(alert_type, message) {
 
 
 }
+
+
+$("#project_fact_select").on('submit', function (e) {
+    e.preventDefault()
+    let form = $(this);
+    let actionUrl = form.attr('action');
+    let project = document.getElementById("project_fact_select");
+    console.log(project)
+    let form_data = {
+        "project": $('select[name="project_fact_select"]').val(),
+    }
+    console.log(actionUrl, form_data)
+    if (form_data["project"].length > 0) {
+        $.ajax({
+            method: "POST",
+            url: actionUrl,
+            data: form_data,
+            dataType: 'json',
+            headers: {
+                "X-CSRFToken": csrftoken
+            },
+            success: function (data) {
+                // console.log(data)
+                var success_message = data["msg"];
+                var context = data["data"];
+                // console.log(context)
+                generation_chosen_project_fact_date(context)
+
+                toast_show("success", success_message)
+
+            },
+            error: function (response) {
+                var error_message = response["responseJSON"]["error"];
+                toast_show("error", error_message)
+            }
+        })
+
+    }
+
+
+})
+
+function changing_color_of_amount(context_data, html_object) {
+    if (context_data > 0) {
+        html_object.classList.add('text-success', 'font-weight-bold','w-15')
+    } else {
+        html_object.classList.add('text-danger', 'font-weight-bold','w-15')
+    }
+}
+
+function generation_chosen_project_fact_date(context) {
+    console.log("ishladi")
+    console.log(context)
+    // context generation
+    let duration_per_hour_plan = context.project.duration_per_hour_plan
+    let duration_per_hour_fact = context.project.duration_per_hour_fact
+    let total_price_fact = context.project.total_price_fact
+    let total_price_plan = context.project.total_price_plan
+    let total_price_compare = context.project.total_price_compare
+    let total_expenses_plan = context.project.total_expenses_plan
+    let total_expenses_fact = context.project.total_expenses_fact
+    let total_expenses_compare = context.project.total_expenses_compare
+    let additional_cost_plan = context.project.additional_cost_plan
+    let additional_cost_fact = context.project.additional_cost_fact
+    let additional_cost_compare = context.project.additional_cost_compare
+    let margin_plan = context.project.margin_plan
+    let margin_fact = context.project.margin_fact
+    let margin_compare = context.project.margin_compare
+    let profitability_percentage_fact = context.project.profitability_percentage_fact
+    let profitability_percentage_plan = context.project.profitability_percentage_plan
+    // getting value from html
+    let project_duration_plan = document.getElementById("project_duration_plan")
+    let project_duration_fact = document.getElementById("project_duration_fact")
+    let project_total_price_plan = document.getElementById("project_total_price_plan")
+    let project_total_price_fact = document.getElementById("project_total_price_fact")
+    let footer_project_total_price_fact = document.getElementById("footer_project_total_price_fact")
+    let footer_project_total_price_plan = document.getElementById("footer_project_total_price_plan")
+    let footer_project_total_expenses_plan = document.getElementById("footer_project_total_expenses_plan")
+    let footer_project_total_expenses_fact = document.getElementById("footer_project_total_expenses_fact")
+    let footer_project_additional_cost_plan = document.getElementById("footer_project_additional_cost_plan")
+    let footer_project_additional_cost_fact = document.getElementById("footer_project_additional_cost_fact")
+    let footer_project_margin_plan = document.getElementById("footer_project_margin_plan")
+    let footer_project_margin_fact = document.getElementById("footer_project_margin_fact")
+    let footer_project_profitability_percentage_plan = document.getElementById("footer_project_profitability_percentage_plan")
+    let footer_project_profitability_percentage_fact = document.getElementById("footer_project_profitability_percentage_fact")
+    let footer_project_total_price_compare = document.getElementById("footer_project_total_price_compare")
+    let footer_project_total_expenses_compare = document.getElementById("footer_project_total_expenses_compare")
+    let footer_project_additional_cost_compare = document.getElementById("footer_project_additional_cost_compare")
+    let footer_project_margin_compare = document.getElementById("footer_project_margin_compare")
+    // parsing context to html
+    project_duration_plan.textContent = duration_per_hour_plan.formatMoney(0, ' ', ',')
+    project_duration_fact.textContent = duration_per_hour_fact.formatMoney(0, ' ', ',')
+    project_total_price_plan.textContent = parseFloat(total_price_plan).formatMoney(2, ' ', ',')
+    project_total_price_fact.textContent = parseFloat(total_price_fact).formatMoney(2, ' ', ',')
+
+    footer_project_total_price_fact.textContent = parseFloat(total_price_fact).formatMoney(2, ' ', ',')
+    footer_project_total_price_plan.textContent = parseFloat(total_price_plan).formatMoney(2, ' ', ',')
+    footer_project_total_price_compare.innerHTML = parseFloat(total_price_compare).formatMoney(2, ' ', ',') + " сўм"
+    changing_color_of_amount(total_price_compare, footer_project_total_price_compare);
+
+    footer_project_additional_cost_fact.textContent = parseFloat(additional_cost_fact).formatMoney(2, ' ', ',')
+    footer_project_additional_cost_plan.textContent = parseFloat(additional_cost_plan).formatMoney(2, ' ', ',')
+    footer_project_total_expenses_compare.innerHTML = parseFloat(additional_cost_compare).formatMoney(2, ' ', ',') + " сўм"
+    changing_color_of_amount(additional_cost_compare, footer_project_additional_cost_compare);
+
+
+    footer_project_total_expenses_plan.textContent = parseFloat(total_expenses_plan).formatMoney(2, ' ', ',')
+    footer_project_total_expenses_fact.textContent = parseFloat(total_expenses_fact).formatMoney(2, ' ', ',')
+    footer_project_total_expenses_compare.innerHTML = parseFloat(total_expenses_compare).formatMoney(2, ' ', ',') + " сўм"
+    changing_color_of_amount(total_expenses_compare, footer_project_total_expenses_compare);
+
+    footer_project_margin_plan.textContent = parseFloat(margin_plan).formatMoney(2, ' ', ',')
+    footer_project_margin_fact.textContent = parseFloat(margin_fact).formatMoney(2, ' ', ',')
+    footer_project_margin_compare.innerHTML = parseFloat(margin_compare).formatMoney(2, ' ', ',') + " сўм"
+    changing_color_of_amount(margin_compare, footer_project_margin_compare);
+
+
+    footer_project_profitability_percentage_plan.textContent = parseFloat(profitability_percentage_plan).formatMoney(2, ' ', ',')
+    footer_project_profitability_percentage_fact.textContent = parseFloat(profitability_percentage_fact).formatMoney(2, ' ', ',')
+
+    // footer_project_profitability_percentage_fact.className = 'text-danger'
+    console.log(project_duration_plan)
+
+
+}

@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
 from calculator_projects.apps.additionalCosts.models import AdditionalCostFact, AdditionalCostPlan
@@ -13,10 +14,8 @@ from calculator_projects.apps.projects.models import ProjectCreationStage, Proje
 from calculator_projects.apps.projects.utils import (
     checking_date_time,
     checking_stage_exist,
-    generation_project_task_fact_and_plan_amount_by_project_fact,
-    generation_task_status_amount,
-    generation_task_status_fields,
-    generation_total_amount_fields,
+    compare_dashboard,
+    compare_dashboard_one_project,
     get_coefficient,
     middle_function,
     process_context_percentage_labour_cost,
@@ -487,21 +486,14 @@ class ComparePlanFactView(ListView):
         return qs.filter(deleted_status=False, created_by=self.request.user)
 
     def get_context_data(self, **kwargs):
-        import json
-
         context = super().get_context_data(**kwargs)
         project_plan_list = ProjectPlan.objects.filter(
             created_by=self.request.user,
             project_status=ProjectStatus.ACTIVE,
             deleted_status=False,
         )
-        project = generation_total_amount_fields(self.get_queryset(), project_plan_list)
-        project_list = generation_project_task_fact_and_plan_amount_by_project_fact(self.get_queryset())
-        context["project"] = project
-        context["task_status_list"] = generation_task_status_fields(self.request.user, project["total_expenses_fact"])
-        context["task_status"] = json.dumps(generation_task_status_amount(self.request.user))
-        context["project_list"] = json.dumps(project_list)
-        context["project_list_name"] = self.get_queryset()
+        context = compare_dashboard(self.request.user, context, self.get_queryset(), project_plan_list)
+
         return context
 
 
@@ -524,3 +516,29 @@ class ProjectAnalyzeView(ListView):
 
 
 analyze_list = ProjectAnalyzeView.as_view()
+
+
+class ProjectFactSelect(View):
+    model = ProjectFact
+
+    def post(self, request, *args, **kwargs):
+        if is_ajax(request):
+            pk = request.POST["project"]
+            project_fact = get_object_or_404(ProjectFact, pk=pk)
+            context = {}
+            context = compare_dashboard_one_project(
+                self.request.user, context, project_fact, project_fact.project_plan
+            )
+            print("ishladi")
+            print("ishladi")
+            print(context)
+            # print("ishladi")
+            # print("ishladi")
+            # print("ishladi")
+            # print(context)
+
+            message = f"{project_fact.name}"
+            return JsonResponse({"success": True, "data": context, "msg": message}, status=200)
+
+
+project_fact_select = ProjectFactSelect.as_view()

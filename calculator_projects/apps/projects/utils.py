@@ -172,9 +172,21 @@ def compare_fields(project_initial):
     return project_initial
 
 
+def generation_queryset(project_fact, project_plan):
+    return generation_project(project_fact), generation_project(project_plan)
+
+
+def generation_fields_from_project(project_fact, project_plan):
+    return generation_project(project_fact), generation_project(project_plan)
+
+
 def generation_total_amount_fields(project_fact, project_plan):
-    project_fact = generation_project(project_fact)
-    project_plan = generation_project(project_plan)
+    project_fact, project_plan = generation_queryset(project_fact, project_plan)
+    project_initial = generation_plan_fact_fields(project_fact, project_plan)
+    return project_initial
+
+
+def generation_plan_fact_fields(project_fact, project_plan):
     project_initial = {}
     project_initial = project_fields_generation("fact", project_fact, project_initial)
     project_initial = project_fields_generation("plan", project_plan, project_initial)
@@ -186,7 +198,36 @@ def generation_total_amount_fields(project_fact, project_plan):
         project_initial["margin_plan"] / project_initial["total_price_plan"]
     ) * 100
     project_initial = compare_fields(project_initial)
+    return project_initial
 
+
+def generation_total_amount_fields_for_one_project(project_fact, project_plan):
+    project_initial = generation_plan_fact_fields_from_one_project(project_fact, project_plan)
+    return project_initial
+
+
+def project_fields_generation_from_one_project(prefix, project, project_initial):
+    project_initial["total_price_" + prefix] = project.total_price_with_additional_cost
+    project_initial["total_expenses_" + prefix] = project.total_price_stage_and_task
+    project_initial["additional_cost_" + prefix] = project.additional_cost
+    project_initial["margin_" + prefix] = project.margin
+    project_initial["profitability_percentage_" + prefix] = project.profitability_percentage
+    project_initial["duration_per_hour_" + prefix] = project.duration_per_hour
+    return project_initial
+
+
+def generation_plan_fact_fields_from_one_project(project_fact, project_plan):
+    project_initial = {}
+    project_initial = project_fields_generation_from_one_project("fact", project_fact, project_initial)
+    project_initial = project_fields_generation_from_one_project("plan", project_plan, project_initial)
+    project_initial["margin_fact"] = project_initial["total_price_plan"] - project_initial["total_price_fact"]
+    project_initial["profitability_percentage_fact"] = (
+        project_initial["margin_fact"] / project_initial["total_price_fact"]
+    ) * 100
+    project_initial["profitability_percentage_plan"] = (
+        project_initial["margin_plan"] / project_initial["total_price_plan"]
+    ) * 100
+    project_initial = compare_fields(project_initial)
     return project_initial
 
 
@@ -247,12 +288,19 @@ def generation_task_status_amount(user):
 def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_list):
     projects = {}
     counter = 0
-    for project in project_fact_list:
-        counter += 1
+    if hasattr(project_fact_list, "__iter__"):
+        for project in project_fact_list:
+            counter += 1
+            projects[f"project-{counter}"] = {
+                "task_fact": project.task_fact_amount(),
+                "task_plan": project.task_plan_amount(),
+            }
+    else:
         projects[f"project-{counter}"] = {
-            "task_fact": project.task_fact_amount(),
-            "task_plan": project.task_plan_amount(),
+            "task_fact": project_fact_list.task_fact_amount(),
+            "task_plan": project_fact_list.task_plan_amount(),
         }
+
     return projects
 
 
@@ -397,3 +445,27 @@ def process_formation_fields_with_additional_cost(project, additional_cost):
         project.additional_cost = 0.0
     project.profitability_percentage = project.margin / project.total_price_with_additional_cost
     project.save()
+
+
+def compare_dashboard(user, context, project_fact, project_plan):
+    import json
+
+    project = generation_total_amount_fields(project_fact, project_plan)
+    project_list = generation_project_task_fact_and_plan_amount_by_project_fact(project_fact)
+    context["project"] = project
+    context["task_status_list"] = generation_task_status_fields(user, project["total_expenses_fact"])
+    context["task_status"] = json.dumps(generation_task_status_amount(user))
+    context["project_list"] = json.dumps(project_list)
+    context["project_list_name"] = project_fact
+    return context
+
+
+def compare_dashboard_one_project(user, context, project_fact, project_plan):
+    project = generation_total_amount_fields_for_one_project(project_fact, project_plan)
+    # project_list = generation_project_task_fact_and_plan_amount_by_project_fact(project_fact)
+    context["project"] = project
+    context["task_status_list"] = generation_task_status_fields(user, project["total_expenses_fact"])
+    # context["task_status"] = json.dumps(generation_task_status_amount(user))
+    # context["project_list"] = json.dumps(project_list)
+    # context["project_list_name"] = project_fact
+    return context

@@ -1,15 +1,29 @@
 from django.urls import path
 
-from calculator_projects.apps.projects.pdf_generation import pdf_generation, pdf_generation_class, generate_pdf
-from calculator_projects.apps.projects.views.finance import confirm_list, project_reject, project_confirm
-from calculator_projects.apps.projects.views.pm import (project_plan_stage_one, project_plan_initial_view,
-                                                        project_passport_update, project_plan_stage_two,
-                                                        task_add, project_plan_stage_three, project_plan_final_view,
-                                                        project_list_status, project_delete, project_fact,
-                                                        project_fact_detail, project_fact_task_update, task_fact_add,
-                                                        additional_cost_fact_add, additional_cost_fact_delete,
-                                                        additional_cost_fact_edit, project_fact_status_update,
-                                                        compare_plan_vs_fact, analyze_list)
+from calculator_projects.apps.projects.pdf_generation import generate_pdf
+from calculator_projects.apps.projects.views.finance import confirm_list, project_confirm, project_reject
+from calculator_projects.apps.projects.views.pm import (
+    additional_cost_fact_add,
+    additional_cost_fact_delete,
+    additional_cost_fact_edit,
+    analyze_list,
+    compare_plan_vs_fact,
+    project_delete,
+    project_fact,
+    project_fact_detail,
+    project_fact_select,
+    project_fact_status_update,
+    project_fact_task_update,
+    project_list_status,
+    project_passport_update,
+    project_plan_final_view,
+    project_plan_initial_view,
+    project_plan_stage_one,
+    project_plan_stage_three,
+    project_plan_stage_two,
+    task_add,
+    task_fact_add,
+)
 
 app_name = "projects"
 
@@ -37,5 +51,5 @@ urlpatterns = [
     path("<uuid:pk>/compare", compare_plan_vs_fact, name="compare"),
     path("<uuid:pk>/analyze", analyze_list, name="analyze_list"),
     path("<uuid:pk>/pdf_generation", generate_pdf, name="pdf_generation"),
-
+    path("project-fact-select/", project_fact_select, name="project_fact_select"),
 ]
