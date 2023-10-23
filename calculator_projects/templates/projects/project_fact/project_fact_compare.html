@@ -141,7 +141,7 @@
           <div class="row">
             <div class="col-xl-12 col-lg-8">
               <div class="d-flex justify-content-between">
-                <div class="col ml-lg-4 ">
+                <div class="col ">
                   <div>
                     <table class="table table-bordered">
                       <thead class="text-left" style="background-color:  #494a79;color: white">
@@ -155,16 +155,22 @@
                       </thead>
                       <tbody>
                       <tr>
-                        <td class="col-3 text-left"
+                        <td class="text-left"
                             style="background-color:  #494a79;
                                      color: white">
                           <b>План</b>
                         </td>
-                        <td class="col-1" id="cost_price_of_project_percent">
-                          {{ task_status_list.plan|floatformat:"2g"|default:0 }}
+                        <td class="w-10">
+                          <span
+                            id="footer_project_task_fact_plan_amount">{{ task_status_list.plan|floatformat:"2g"|default:0 }}</span>
+
                           сўм
                         </td>
-                        <td class="col-1">{{ task_status_list.plan_p|floatformat:"2g"|default:0 }} %</td>
+                        <td class="w-5">
+                          <span
+                            id="footer_project_task_fact_plan_percentage">{{ task_status_list.plan_p|floatformat:"2g"|default:0 }}</span>
+                          %
+                        </td>
                       </tr>
                       <tr>
                         <td class="col-3 text-left"
@@ -172,11 +178,17 @@
                                      color: white">
                           <b>Активный</b>
                         </td>
-                        <td id="salary_cost_of_project_percent">
-                          {{ task_status_list.active|floatformat:"2g"|default:0 }}
+                        <td>
+                          <span
+                            id="footer_project_task_fact_active_amount">{{ task_status_list.active|floatformat:"2g"|default:0 }}</span>
+
                           сўм
                         </td>
-                        <td>{{ task_status_list.active_p|floatformat:"2g"|default:0 }} %</td>
+                        <td>
+                          <span
+                            id="footer_project_task_fact_active_percentage">{{ task_status_list.active_p|floatformat:"2g"|default:0 }}</span>
+                          %
+                        </td>
                       </tr>
                       <tr>
                         <td class="col-3 text-left"
@@ -184,11 +196,17 @@
                                      color: white">
                           <b>Завершенный</b>
                         </td>
-                        <td id="period_expenses_of_project_percent">
-                          {{ task_status_list.finish|floatformat:"2g"|default:0 }}
+                        <td>
+                          <span
+                            id="footer_project_task_fact_finish_amount">{{ task_status_list.finish|floatformat:"2g"|default:0 }}</span>
+
                           сўм
                         </td>
-                        <td>{{ task_status_list.finish_p|floatformat:"2g"|default:0 }} %</td>
+                        <td>
+                          <span
+                            id="footer_project_task_fact_finish_percentage"> {{ task_status_list.finish_p|floatformat:"2g"|default:0 }}</span>
+                          %
+                        </td>
                       </tr>
                       <tr>
                         <td class="col-3 text-left"
@@ -197,11 +215,14 @@
                           <b>Отменено</b>
                         </td>
                         <td>
-                          {{ task_status_list.cancel|floatformat:"2g"|default:0 }}
+                          <span
+                            id="footer_project_task_fact_cancel_amount">{{ task_status_list.cancel|floatformat:"2g"|default:0 }}</span>
+
                           сўм
                         </td>
-                        <td id="project_tax_update_part">
-                          {{ task_status_list.cancel_p|floatformat:"2g"|default:0 }}
+                        <td>
+                          <span
+                            id="footer_project_task_fact_cancel_percentage">{{ task_status_list.cancel_p|floatformat:"2g"|default:0 }}</span>
                           %
                         </td>
                       </tr>
@@ -212,9 +233,14 @@
                           <b>На
                             удерживании</b>
                         </td>
-                        <td class="col-1">{{ task_status_list.on_hold|floatformat:"2g"|default:0 }} сўм</td>
+                        <td>
+                          <span
+                            id="footer_project_task_fact_on_hold_amount">{{ task_status_list.on_hold|floatformat:"2g"|default:0 }}</span>
+                          сўм
+                        </td>
                         <td id="project_tax_update_part">
-                          {{ task_status_list.on_hold_p|floatformat:"2g"|default:0 }}
+                          <span
+                            id="footer_project_task_fact_on_hold_percentage">{{ task_status_list.on_hold_p|floatformat:"2g"|default:0 }}</span>
                           %
                         </td>
                       </tr>
@@ -224,7 +250,11 @@
                                      color: white">
                           <b>Итого</b>
                         </td>
-                        <td class="col-1">{{ project.total_expenses_fact|floatformat:"2g" }} сўм</td>
+                        <td>
+                          <span
+                            id="footer_project_task_fact_total_expenses_amount">{{ project.total_expenses_fact|floatformat:"2g" }}</span>
+                          сўм
+                        </td>
                         <td></td>
                       </tr>
                       </tbody>
@@ -308,7 +338,7 @@
                           сўм
                         </td>
 
-                      <td
+                        <td
                           class="text-center  font-weight-bold" id="footer_project_total_expenses_compare">
                           {% if project.total_expenses_compare > 0 %}
                             <span class="text-success">{{ project.total_expenses_compare|floatformat:"2g" }} сўм</span>
@@ -335,8 +365,8 @@
                           сўм
                         </td>
 
-                      <td
-                          class="text-center  font-weight-bold"  id="footer_project_additional_cost_compare">
+                        <td
+                          class="text-center  font-weight-bold" id="footer_project_additional_cost_compare">
                           {% if project.additional_cost_compare > 0 %}
                             <span class="text-success">{{ project.additional_cost_compare|floatformat:"2g" }} сўм</span>
                           {% elif project.additional_cost_compare < 0 %}

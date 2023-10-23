@@ -453,16 +453,30 @@ $("#project_fact_select").on('submit', function (e) {
 
 function changing_color_of_amount(context_data, html_object) {
     if (context_data > 0) {
-        html_object.classList.add('text-success', 'font-weight-bold','w-15')
+        html_object.classList.add('text-success', 'font-weight-bold', 'w-15')
     } else {
-        html_object.classList.add('text-danger', 'font-weight-bold','w-15')
+        html_object.classList.add('text-danger', 'font-weight-bold', 'w-15')
     }
 }
 
-function generation_chosen_project_fact_date(context) {
-    console.log("ishladi")
-    console.log(context)
-    // context generation
+function generation_project_plan_fact_date(footer_project_margin_plan, margin_plan, footer_project_margin_fact, margin_fact, footer_project_margin_compare, margin_compare) {
+    footer_project_margin_plan.textContent = parseFloat(margin_plan).formatMoney(2, ' ', ',')
+    footer_project_margin_fact.textContent = parseFloat(margin_fact).formatMoney(2, ' ', ',')
+    footer_project_margin_compare.innerHTML = parseFloat(margin_compare).formatMoney(2, ' ', ',') + " сўм"
+    changing_color_of_amount(margin_compare, footer_project_margin_compare);
+}
+
+function header_card_project_plan_fact_duration(html_value, context) {
+    html_value.textContent = context.formatMoney(0, ' ', ',')
+
+}
+
+function header_card_project_plan_fact_total_price(html_value, context) {
+    html_value.textContent = parseFloat(context).formatMoney(2, ' ', ',')
+}
+
+function compare_table_plan_fact(context) {
+    // project
     let duration_per_hour_plan = context.project.duration_per_hour_plan
     let duration_per_hour_fact = context.project.duration_per_hour_fact
     let total_price_fact = context.project.total_price_fact
@@ -479,7 +493,22 @@ function generation_chosen_project_fact_date(context) {
     let margin_compare = context.project.margin_compare
     let profitability_percentage_fact = context.project.profitability_percentage_fact
     let profitability_percentage_plan = context.project.profitability_percentage_plan
+    // task
+
+    let active = context.task_status_list.active
+    let active_p = context.task_status_list.active_p
+    let cancel = context.task_status_list.cancel
+    let cancel_p = context.task_status_list.cancel_p
+    let finish = context.task_status_list.finish
+    let finish_p = context.task_status_list.finish_p
+    let on_hold = context.task_status_list.on_hold
+    let on_hold_p = context.task_status_list.on_hold_p
+    let plan = context.task_status_list.plan
+    let plan_p = context.task_status_list.plan_p
+
+
     // getting value from html
+    // PROJECT
     let project_duration_plan = document.getElementById("project_duration_plan")
     let project_duration_fact = document.getElementById("project_duration_fact")
     let project_total_price_plan = document.getElementById("project_total_price_plan")
@@ -498,39 +527,59 @@ function generation_chosen_project_fact_date(context) {
     let footer_project_total_expenses_compare = document.getElementById("footer_project_total_expenses_compare")
     let footer_project_additional_cost_compare = document.getElementById("footer_project_additional_cost_compare")
     let footer_project_margin_compare = document.getElementById("footer_project_margin_compare")
+
+
+    // Task
+    let footer_project_task_fact_plan_amount = document.getElementById("footer_project_task_fact_plan_amount")
+    let footer_project_task_fact_plan_percentage = document.getElementById("footer_project_task_fact_plan_percentage")
+    let footer_project_task_fact_active_amount = document.getElementById("footer_project_task_fact_active_amount")
+    let footer_project_task_fact_active_percentage = document.getElementById("footer_project_task_fact_active_percentage")
+    let footer_project_task_fact_finish_amount = document.getElementById("footer_project_task_fact_finish_amount")
+    let footer_project_task_fact_finish_percentage = document.getElementById("footer_project_task_fact_finish_percentage")
+    let footer_project_task_fact_cancel_amount = document.getElementById("footer_project_task_fact_cancel_amount")
+    let footer_project_task_fact_cancel_percentage = document.getElementById("footer_project_task_fact_cancel_percentage")
+    let footer_project_task_fact_on_hold_amount = document.getElementById("footer_project_task_fact_on_hold_amount")
+    let footer_project_task_fact_on_hold_percentage = document.getElementById("footer_project_task_fact_on_hold_percentage")
+    let footer_project_task_fact_total_expenses_amount = document.getElementById("footer_project_task_fact_total_expenses_amount")
+
+    footer_project_task_fact_plan_amount.textContent = parseFloat(plan).formatMoney(2, ' ', ',')
+    footer_project_task_fact_plan_percentage.textContent = parseFloat(plan_p).formatMoney(2, ' ', ',')
+    footer_project_task_fact_active_amount.textContent = parseFloat(active).formatMoney(2, ' ', ',')
+    footer_project_task_fact_active_percentage.textContent = parseFloat(active_p).formatMoney(2, ' ', ',')
+    footer_project_task_fact_finish_amount.textContent = parseFloat(finish).formatMoney(2, ' ', ',')
+    footer_project_task_fact_finish_percentage.textContent = parseFloat(finish_p).formatMoney(2, ' ', ',')
+    footer_project_task_fact_cancel_amount.textContent = parseFloat(cancel).formatMoney(2, ' ', ',')
+    footer_project_task_fact_cancel_percentage.textContent = parseFloat(cancel_p).formatMoney(2, ' ', ',')
+    footer_project_task_fact_on_hold_amount.textContent = parseFloat(on_hold).formatMoney(2, ' ', ',')
+    footer_project_task_fact_on_hold_percentage.textContent = parseFloat(on_hold_p).formatMoney(2, ' ', ',')
+
+    footer_project_task_fact_total_expenses_amount.textContent = parseFloat(total_expenses_fact).formatMoney(2, ' ', ',')
+
+
     // parsing context to html
-    project_duration_plan.textContent = duration_per_hour_plan.formatMoney(0, ' ', ',')
-    project_duration_fact.textContent = duration_per_hour_fact.formatMoney(0, ' ', ',')
-    project_total_price_plan.textContent = parseFloat(total_price_plan).formatMoney(2, ' ', ',')
-    project_total_price_fact.textContent = parseFloat(total_price_fact).formatMoney(2, ' ', ',')
-
-    footer_project_total_price_fact.textContent = parseFloat(total_price_fact).formatMoney(2, ' ', ',')
-    footer_project_total_price_plan.textContent = parseFloat(total_price_plan).formatMoney(2, ' ', ',')
-    footer_project_total_price_compare.innerHTML = parseFloat(total_price_compare).formatMoney(2, ' ', ',') + " сўм"
-    changing_color_of_amount(total_price_compare, footer_project_total_price_compare);
-
-    footer_project_additional_cost_fact.textContent = parseFloat(additional_cost_fact).formatMoney(2, ' ', ',')
-    footer_project_additional_cost_plan.textContent = parseFloat(additional_cost_plan).formatMoney(2, ' ', ',')
-    footer_project_total_expenses_compare.innerHTML = parseFloat(additional_cost_compare).formatMoney(2, ' ', ',') + " сўм"
-    changing_color_of_amount(additional_cost_compare, footer_project_additional_cost_compare);
+    header_card_project_plan_fact_duration(project_duration_plan, duration_per_hour_plan);
+    header_card_project_plan_fact_duration(project_duration_fact, duration_per_hour_fact);
+    header_card_project_plan_fact_total_price(project_total_price_plan, total_price_plan);
+    header_card_project_plan_fact_total_price(project_total_price_fact, total_price_fact);
 
 
-    footer_project_total_expenses_plan.textContent = parseFloat(total_expenses_plan).formatMoney(2, ' ', ',')
-    footer_project_total_expenses_fact.textContent = parseFloat(total_expenses_fact).formatMoney(2, ' ', ',')
-    footer_project_total_expenses_compare.innerHTML = parseFloat(total_expenses_compare).formatMoney(2, ' ', ',') + " сўм"
-    changing_color_of_amount(total_expenses_compare, footer_project_total_expenses_compare);
-
-    footer_project_margin_plan.textContent = parseFloat(margin_plan).formatMoney(2, ' ', ',')
-    footer_project_margin_fact.textContent = parseFloat(margin_fact).formatMoney(2, ' ', ',')
-    footer_project_margin_compare.innerHTML = parseFloat(margin_compare).formatMoney(2, ' ', ',') + " сўм"
-    changing_color_of_amount(margin_compare, footer_project_margin_compare);
-
+    generation_project_plan_fact_date(footer_project_total_price_plan, total_price_plan, footer_project_total_price_fact, total_price_fact, footer_project_total_price_compare, total_price_compare);
+    generation_project_plan_fact_date(footer_project_additional_cost_plan, additional_cost_plan, footer_project_additional_cost_fact, additional_cost_fact, footer_project_additional_cost_compare, additional_cost_compare);
+    generation_project_plan_fact_date(footer_project_total_expenses_plan, total_expenses_plan, footer_project_total_expenses_fact, total_expenses_fact, footer_project_total_expenses_compare, total_expenses_compare);
+    generation_project_plan_fact_date(footer_project_margin_plan, margin_plan, footer_project_margin_fact, margin_fact, footer_project_margin_compare, margin_compare);
 
     footer_project_profitability_percentage_plan.textContent = parseFloat(profitability_percentage_plan).formatMoney(2, ' ', ',')
     footer_project_profitability_percentage_fact.textContent = parseFloat(profitability_percentage_fact).formatMoney(2, ' ', ',')
 
+}
+
+function generation_chosen_project_fact_date(context) {
+    console.log(context)
+    console.log(context.data)
+    // context generation
+    compare_table_plan_fact(context);
+
     // footer_project_profitability_percentage_fact.className = 'text-danger'
-    console.log(project_duration_plan)
 
 
 }
