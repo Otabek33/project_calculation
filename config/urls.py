@@ -8,20 +8,18 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-                  # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-                  path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
-                  # Django Admin, use {% url 'admin:index' %}
-                  path(settings.ADMIN_URL, admin.site.urls),
-                  # User management
-                  path("", include("calculator_projects.apps.users.urls", namespace="users")),
-
-                  # Your stuff: custom urls includes go here
-                  path("labour-cost/", include("calculator_projects.apps.labour_costs.urls", namespace="labour_cost")),
-                  path("project/", include("calculator_projects.apps.projects.urls", namespace="projects")),
-                  path("accounts/", include("allauth.urls")),
-                  path('ckeditor/', include('ckeditor_uploader.urls')),
-
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
+    # Django Admin, use {% url 'admin:index' %}
+    path(settings.ADMIN_URL, admin.site.urls),
+    # User management
+    path("", include("calculator_projects.apps.users.urls", namespace="users")),
+    # Your stuff: custom urls includes go here
+    path("labour-cost/", include("calculator_projects.apps.labour_costs.urls", namespace="labour_cost")),
+    path("project/", include("calculator_projects.apps.projects.urls", namespace="projects")),
+    path("accounts/", include("allauth.urls")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
 urlpatterns += [
@@ -37,7 +35,13 @@ urlpatterns += [
     ),
     path("api-stage/", include("calculator_projects.apps.stages.urls", namespace="projectstageplan")),
     path("api-task/", include("calculator_projects.apps.tasks.urls", namespace="tasks")),
-    path("api-additional-cost/", include("calculator_projects.apps.additionalCosts.urls", namespace="additional_cost")),
+    path(
+        "api-additional-cost/", include("calculator_projects.apps.additionalCosts.urls", namespace="additional_cost")
+    ),
+]
+
+urlpatterns += [
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

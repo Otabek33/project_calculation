@@ -1,107 +1,88 @@
-{% load static %}
+{% load static i18n %}
 <div class="nav-header">
-    <a href="#" class="brand-logo">
-        <img  src="#" alt="">
+  <a href="#" class="brand-logo">
+    <img src="#" alt="">
 
-    </a>
+  </a>
 
-    <div class="nav-control">
-        <div class="hamburger">
-            <span class="line"></span><span class="line"></span><span class="line"></span>
-        </div>
+  <div class="nav-control">
+    <div class="hamburger">
+      <span class="line"></span><span class="line"></span><span class="line"></span>
     </div>
+  </div>
 </div>
 <div class="header">
-    <div class="header-content">
-        <nav class="navbar navbar-expand">
-            <div class="collapse navbar-collapse justify-content-between">
-                <div class="header-left">
-                </div>
+  <div class="header-content">
+    <nav class="navbar navbar-expand">
+      <div class="collapse navbar-collapse justify-content-between">
+        <div class="header-left">
+        </div>
 
-                <ul class="navbar-nav header-right">
-                    <li class="nav-item dropdown notification_dropdown">
-                        <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                            <i class="mdi mdi-bell"></i>
-                            <div class="pulse-css"></div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <ul class="list-unstyled">
-                                <li class="media dropdown-item">
-                                    <span class="success"><i class="ti-user"></i></span>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <p><strong>Martin</strong> has added a <strong>customer</strong>
-                                                Successfully
-                                            </p>
-                                        </a>
-                                    </div>
-                                    <span class="notify-time">3:20 am</span>
-                                </li>
-                                <li class="media dropdown-item">
-                                    <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                        </a>
-                                    </div>
-                                    <span class="notify-time">3:20 am</span>
-                                </li>
-                                <li class="media dropdown-item">
-                                    <span class="danger"><i class="ti-bookmark"></i></span>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
-                                            </p>
-                                        </a>
-                                    </div>
-                                    <span class="notify-time">3:20 am</span>
-                                </li>
-                                <li class="media dropdown-item">
-                                    <span class="primary"><i class="ti-heart"></i></span>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                        </a>
-                                    </div>
-                                    <span class="notify-time">3:20 am</span>
-                                </li>
-                                <li class="media dropdown-item">
-                                    <span class="success"><i class="ti-image"></i></span>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <p><strong> James.</strong> has added a<strong>customer</strong>
-                                                Successfully
-                                            </p>
-                                        </a>
-                                    </div>
-                                    <span class="notify-time">3:20 am</span>
-                                </li>
-                            </ul>
-                            <a class="all-notification" href="#">See all notifications <i
-                                    class="ti-arrow-right"></i></a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown header-profile">
-                        <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                            <i class="mdi mdi-account"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="{%  url 'users:detail' user.id %}" class="dropdown-item">
-                                <i class="icon-user"></i>
-                                <span class="ml-2">Profile </span>
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <i class="icon-envelope-open"></i>
-                                <span class="ml-2">Inbox </span>
-                            </a>
-                            <a href="{% url 'users:logout' %}" class="dropdown-item">
-                                <i class="icon-key"></i>
-                                <span class="ml-2">Logout </span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+
+        <ul class="navbar-nav header-right">
+          <li class="nav-item dropdown notification_dropdown">
+             <div  class="relative w-1/5 flex justify-end mobile_width">
+          {% get_available_languages as LANGUAGES %}
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_language_info_list for LANGUAGES as languages %}
+
+          <div class="right_content">
+            <div class="lang_btn relative">
+              <button @click="isOpen = !isOpen" class="btn">
+                {% if LANGUAGE_CODE == 'uz' %}
+                  {{ LANGUAGE_CODE|language_name_local }}
+                {% else %}
+                  {{ LANGUAGE_CODE|language_name_local|slice:":3" }}
+                {% endif %}
+                <i class="fas fa-caret-down"></i></button>
+              <div x-show="isOpen" class="absolute w-24 shadow-lg py-2 right-0 text-center">
+                {% for language in LANGUAGES %}
+                  {% if not language.0 == LANGUAGE_CODE %}
+                    <a class="block py-2 px-4 lang-switcher {% if language.0 == LANGUAGE_CODE %} active {% endif %}"
+                       data-lang="{{ language.0 }}" href="{{ request.get_full_path.language.0 }}">
+                      {{ language.1 }}
+                    </a>
+                  {% endif %}
+                {% endfor %}
+              </div>
             </div>
-        </nav>
-    </div>
+            {% if user.is_authenticated %}
+             <div class="dropdown-menu dropdown-menu-right">
+              <a href="{% url 'users:detail' user.id %}" class="dropdown-item">
+                <i class="icon-user"></i>
+                <span class="ml-2">Profile </span>
+              </a>
+              <a href="#" class="dropdown-item">
+                <i class="icon-envelope-open"></i>
+                <span class="ml-2">Inbox </span>
+              </a>
+              <a href="{% url 'users:logout' %}" class="dropdown-item">
+                <i class="icon-key"></i>
+                <span class="ml-2">Logout </span>
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+          </li>
+          <li class="nav-item dropdown header-profile">
+            <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+              <i class="mdi mdi-account"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="{% url 'users:detail' user.id %}" class="dropdown-item">
+                <i class="icon-user"></i>
+                <span class="ml-2">Profile </span>
+              </a>
+
+              <a href="{% url 'users:logout' %}" class="dropdown-item">
+                <i class="icon-key"></i>
+                <span class="ml-2">Logout </span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </div>
