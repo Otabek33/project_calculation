@@ -11,13 +11,13 @@ from calculator_projects.apps.projects.utils import (
     project_amount,
     project_change_status,
 )
+from calculator_projects.apps.users.mixins import FinanceRequiredMixin
 from calculator_projects.utils.helpers import is_ajax
 
 logger = logging.getLogger("main")
 
 
-class ProjectConfirmView(ListView):
-    logger.info("ishladi")
+class ProjectConfirmView(FinanceRequiredMixin, ListView):
     model = ProjectPlan
     tm_path = "projects/other/"
     tm_name = "project_confirm.html"
@@ -43,7 +43,7 @@ class ProjectConfirmView(ListView):
 confirm_list = ProjectConfirmView.as_view()
 
 
-class ProjectPlanRejectView(DetailView):
+class ProjectPlanRejectView(FinanceRequiredMixin, DetailView):
     model = ProjectPlan
 
     def post(self, request, *args, **kwargs):
@@ -57,7 +57,7 @@ class ProjectPlanRejectView(DetailView):
 project_reject = ProjectPlanRejectView.as_view()
 
 
-class ProjectPlanConfirmView(DetailView):
+class ProjectPlanConfirmView(FinanceRequiredMixin, DetailView):
     model = ProjectPlan
 
     def post(self, request, *args, **kwargs):
