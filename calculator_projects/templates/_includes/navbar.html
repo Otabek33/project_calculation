@@ -21,49 +21,44 @@
 
         <ul class="navbar-nav header-right">
           <li class="nav-item dropdown notification_dropdown">
-             <div  class="relative w-1/5 flex justify-end mobile_width">
-          {% get_available_languages as LANGUAGES %}
-          {% get_current_language as LANGUAGE_CODE %}
-          {% get_language_info_list for LANGUAGES as languages %}
+            <div>
+              {% get_available_languages as LANGUAGES %}
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_language_info_list for LANGUAGES as languages %}
 
-          <div class="right_content">
-            <div class="lang_btn relative">
-              <button @click="isOpen = !isOpen" class="btn">
-                {% if LANGUAGE_CODE == 'uz' %}
-                  {{ LANGUAGE_CODE|language_name_local }}
-                {% else %}
-                  {{ LANGUAGE_CODE|language_name_local|slice:":3" }}
-                {% endif %}
-                <i class="fas fa-caret-down"></i></button>
-              <div x-show="isOpen" class="absolute w-24 shadow-lg py-2 right-0 text-center">
-                {% for language in LANGUAGES %}
-                  {% if not language.0 == LANGUAGE_CODE %}
-                    <a class="block py-2 px-4 lang-switcher {% if language.0 == LANGUAGE_CODE %} active {% endif %}"
-                       data-lang="{{ language.0 }}" href="{{ request.get_full_path.language.0 }}">
-                      {{ language.1 }}
+              <div class="right_content">
+                <form action="{% url 'set_language' %}" method="post">
+                  {% csrf_token %}
+                  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>
+                  <select name="language" class="form-control">
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                      <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                              selected="selected"{% endif %}>
+                        {{ language.name_local }}
+                      </option>
+                    {% endfor %}
+                  </select>
+
+                </form>
+                {% if user.is_authenticated %}
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a href="{% url 'users:detail' user.id %}" class="dropdown-item">
+                      <i class="icon-user"></i>
+                      <span class="ml-2">Profile </span>
                     </a>
-                  {% endif %}
-                {% endfor %}
+                    <a href="#" class="dropdown-item">
+                      <i class="icon-envelope-open"></i>
+                      <span class="ml-2">Inbox </span>
+                    </a>
+                    <a href="{% url 'users:logout' %}" class="dropdown-item">
+                      <i class="icon-key"></i>
+                      <span class="ml-2">Logout </span>
+                    </a>
+                  </div>
+                {% endif %}
               </div>
             </div>
-            {% if user.is_authenticated %}
-             <div class="dropdown-menu dropdown-menu-right">
-              <a href="{% url 'users:detail' user.id %}" class="dropdown-item">
-                <i class="icon-user"></i>
-                <span class="ml-2">Profile </span>
-              </a>
-              <a href="#" class="dropdown-item">
-                <i class="icon-envelope-open"></i>
-                <span class="ml-2">Inbox </span>
-              </a>
-              <a href="{% url 'users:logout' %}" class="dropdown-item">
-                <i class="icon-key"></i>
-                <span class="ml-2">Logout </span>
-              </a>
-            </div>
-            {% endif %}
-          </div>
-        </div>
           </li>
           <li class="nav-item dropdown header-profile">
             <a class="nav-link" href="#" role="button" data-toggle="dropdown">
