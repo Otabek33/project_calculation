@@ -254,10 +254,7 @@ def dictionary_check(status_amount, project_fact_total_price):
 def generation_task_status_fields(user, project_fact_total_price, project, amount):
     from django.db.models import Q, Sum
 
-    if amount == "all":
-        task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
-    else:
-        task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user, project_fact=project)
+    task_fact_list = generation_task_fact_list(amount, project, user)
 
     task_fact_list = task_fact_list.aggregate(
         plan=Sum("total_price", filter=Q(action_status=TaskFactStatus.PLAN)),
@@ -275,10 +272,18 @@ def generation_task_status_fields(user, project_fact_total_price, project, amoun
     return task_fact_list
 
 
-def generation_task_status_amount(user):
+def generation_task_fact_list(amount, project, user):
+    if amount == "all":
+        task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
+    else:
+        task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user, project_fact=project)
+    return task_fact_list
+
+
+def generation_task_status_amount(user, project, amount):
     from django.db.models import Count, Q
 
-    task_fact_list = TaskFact.objects.filter(deleted_status=False, created_by=user)
+    task_fact_list = generation_task_fact_list(amount, project, user)
     task_fact_status_amount = task_fact_list.aggregate(
         plan=Count("action_status", filter=Q(action_status=TaskFactStatus.PLAN)),
         active=Count("action_status", filter=Q(action_status=TaskFactStatus.ACTIVE)),
@@ -289,10 +294,10 @@ def generation_task_status_amount(user):
     return task_fact_status_amount
 
 
-def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_list):
+def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_list, amount):
     projects = {}
     counter = 0
-    if hasattr(project_fact_list, "__iter__"):
+    if amount == "all":
         for project in project_fact_list:
             counter += 1
             projects[f"project-{counter}"] = {
@@ -300,7 +305,7 @@ def generation_project_task_fact_and_plan_amount_by_project_fact(project_fact_li
                 "task_plan": project.task_plan_amount(),
             }
     else:
-        projects[f"project-{counter}"] = {
+        projects["project-1"] = {
             "task_fact": project_fact_list.task_fact_amount(),
             "task_plan": project_fact_list.task_plan_amount(),
         }
@@ -455,12 +460,12 @@ def compare_dashboard(user, context, project_fact, project_plan):
     import json
 
     project = generation_total_amount_fields(project_fact, project_plan)
-    project_list = generation_project_task_fact_and_plan_amount_by_project_fact(project_fact)
+    project_list = generation_project_task_fact_and_plan_amount_by_project_fact(project_fact, "all")
     context["project"] = project
     context["task_status_list"] = generation_task_status_fields(
         user, project["total_expenses_fact"], project_fact, "all"
     )
-    context["task_status"] = json.dumps(generation_task_status_amount(user))
+    context["task_status"] = json.dumps(generation_task_status_amount(user, project_fact, "all"))
     context["project_list"] = json.dumps(project_list)
     context["project_list_name"] = project_fact
     return context
@@ -468,12 +473,11 @@ def compare_dashboard(user, context, project_fact, project_plan):
 
 def compare_dashboard_one_project(user, context, project_fact, project_plan):
     project = generation_total_amount_fields_for_one_project(project_fact, project_plan)
-    # project_list = generation_project_task_fact_and_plan_amount_by_project_fact(project_fact)
+    project_list = generation_project_task_fact_and_plan_amount_by_project_fact(project_fact, "one")
     context["project"] = project
     context["task_status_list"] = generation_task_status_fields(
         user, project["total_expenses_fact"], project_fact, "one"
     )
-    # context["task_status"] = json.dumps(generation_task_status_amount(user))
-    # context["project_list"] = json.dumps(project_list)
-    # context["project_list_name"] = project_fact
+    context["task_status"] = generation_task_status_amount(user, project_fact, "one")
+    context["project_list"] = project_list
     return context

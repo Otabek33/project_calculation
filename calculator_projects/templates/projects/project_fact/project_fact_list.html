@@ -118,7 +118,7 @@
                 <table class="table table-bordered  text-center">
                   <thead>
                     <tr>
-                      <th scope="col" class="w-25">Наименование проекта</th>
+                      <th scope="col" >Наименование проекта</th>
                       <th scope="col"  class="text-center">Детали проекта</th>
                       <th scope="col">Дата начало</th>
                       <th scope="col">Дата оканчание</th>
@@ -140,7 +140,7 @@
                     {% for project in project_fact_list %}
                       <tr>
                         <td class="w-25">
-                          <a class="dropdown-item"
+                          <a
                              href="{% url 'projects:project_fact_detail' project.id %}"><strong>{{ project.name }}</strong></a>
                         </td>
                         <td>

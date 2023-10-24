@@ -308,7 +308,8 @@ $("#additional_cost_fact_edit_modal").on('submit', function (e) {
 
 })
 
-function task_fact_and_plan(project_list, task_status) {
+function compare_graph_one(project_list) {
+
     let data = [];
     Object.entries(project_list).forEach(([key, value]) => {
         data.push({
@@ -317,7 +318,6 @@ function task_fact_and_plan(project_list, task_status) {
             b: `${value.task_fact}`
         })
     })
-
     Morris.Bar({
         element: 'morris-bar-chart',
         data: data,
@@ -329,8 +329,9 @@ function task_fact_and_plan(project_list, task_status) {
         gridLineColor: '#eef0f2',
         resize: true
     });
+}
 
-
+function compare_graph_two(task_status) {
     var nk = document.getElementById("sold-product");
     let amount = [];
     let task_status_name = [];
@@ -370,6 +371,11 @@ function task_fact_and_plan(project_list, task_status) {
             maintainAspectRatio: false
         }
     });
+}
+
+function task_fact_and_plan(project_list, task_status) {
+    compare_graph_one(project_list);
+    compare_graph_two(task_status);
 
 }
 
@@ -506,6 +512,10 @@ function compare_table_plan_fact(context) {
     let plan = context.task_status_list.plan
     let plan_p = context.task_status_list.plan_p
 
+    //graph
+    let project_list = context.project_list
+    let task_status = context.task_status
+
 
     // getting value from html
     // PROJECT
@@ -570,6 +580,13 @@ function compare_table_plan_fact(context) {
 
     footer_project_profitability_percentage_plan.textContent = parseFloat(profitability_percentage_plan).formatMoney(2, ' ', ',')
     footer_project_profitability_percentage_fact.textContent = parseFloat(profitability_percentage_fact).formatMoney(2, ' ', ',')
+
+    document.getElementById('morris-bar-chart')
+    document.getElementById('sold-product')
+
+
+    compare_graph_one(project_list);
+    compare_graph_two(task_status);
 
 }
 

@@ -1,18 +1,19 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, TemplateView, DetailView, UpdateView, DeleteView
-from django.views.generic.base import TemplateResponseMixin
 from datetime import datetime
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+
 from calculator_projects.apps.labour_costs.forms import LabourCostAddForm, LabourCostUpdateForm
 from calculator_projects.apps.labour_costs.models import LabourCost
 from calculator_projects.apps.labour_costs.utils import labour_cost_change_status
+from calculator_projects.apps.users.mixins import FinanceRequiredMixin
 from calculator_projects.utils.helpers import is_ajax
 
-
 # Create your views here.
+
 
 class LabourCostView(LoginRequiredMixin, ListView):
     model = LabourCost
@@ -27,7 +28,7 @@ class LabourCostView(LoginRequiredMixin, ListView):
 labour_cost_view = LabourCostView.as_view()
 
 
-class LabourCostAddView(CreateView):
+class LabourCostAddView(FinanceRequiredMixin, CreateView):
     model = LabourCost
     form_class = LabourCostAddForm
     template_name = "labour_cost/labour_cost_add.html"
@@ -44,7 +45,7 @@ class LabourCostAddView(CreateView):
 labour_cost_add = LabourCostAddView.as_view()
 
 
-class LabourCostUpdateView(UpdateView):
+class LabourCostUpdateView(FinanceRequiredMixin, UpdateView):
     model = LabourCost
     form_class = LabourCostUpdateForm
     template_name = "labour_cost/labour_cost_add.html"
@@ -60,14 +61,12 @@ class LabourCostUpdateView(UpdateView):
 labour_cost_update = LabourCostUpdateView.as_view()
 
 
-class LabourCostUpdateStatus(DetailView):
+class LabourCostUpdateStatus(FinanceRequiredMixin, DetailView):
     model = LabourCost
 
     def post(self, request, *args, **kwargs):
         if is_ajax(request):
-            LabourCost.objects.filter(deleted_status=False).update(
-                calculation_for_projects=False
-            )
+            LabourCost.objects.filter(deleted_status=False).update(calculation_for_projects=False)
 
             pk = request.POST.get("id")
             labour_cost = LabourCost.objects.get(id=pk)
@@ -75,19 +74,14 @@ class LabourCostUpdateStatus(DetailView):
             labour_cost.updated_at = datetime.now(tz=timezone.utc)
             labour_cost.updated_by = self.request.user
             labour_cost.save()
-            return JsonResponse(
-                {
-                    "success": True,
-                    "data": None
-                }
-            )
+            return JsonResponse({"success": True, "data": None})
         return JsonResponse({"success": False, "data": None})
 
 
 labour_cost_update_status = LabourCostUpdateStatus.as_view()
 
 
-class LabourCostDeleteView(DeleteView):
+class LabourCostDeleteView(FinanceRequiredMixin, DeleteView):
     model = LabourCost
 
     def post(self, request, *args, **kwargs):
