@@ -32,12 +32,13 @@ from calculator_projects.apps.projects.utils import (
 )
 from calculator_projects.apps.stages.models import StageFact, StagePlan
 from calculator_projects.apps.tasks.models import TaskFact, TaskPlan
+from calculator_projects.apps.users.mixins import ProjectUsageRequiredMixin
 from calculator_projects.apps.users.models import User, UserRoleTypes
 from calculator_projects.utils.helpers import defining_total_price, is_ajax
 
 
 # Create your views here.
-class ProjectPlanStageOne(CreateView):
+class ProjectPlanStageOne(ProjectUsageRequiredMixin, CreateView):
     model = ProjectPlan
     form_class = ProjectCreateForm
     tm_path = "projects/project_plan/"
@@ -61,7 +62,7 @@ class ProjectPlanStageOne(CreateView):
 project_plan_stage_one = ProjectPlanStageOne.as_view()
 
 
-class ProjectPassportView(DetailView):
+class ProjectPassportView(ProjectUsageRequiredMixin, DetailView):
     model = ProjectPlan
     tm_path = "projects/project_plan/"
     tm_name = "project_passport.html"
@@ -77,7 +78,7 @@ class ProjectPassportView(DetailView):
 project_plan_initial_view = ProjectPassportView.as_view()
 
 
-class ProjectPlanPassportUpdateView(UpdateView):
+class ProjectPlanPassportUpdateView(ProjectUsageRequiredMixin, UpdateView):
     model = ProjectPlan
     form_class = ProjectCreateForm
     tm_path = "projects/project_plan/"
@@ -106,7 +107,7 @@ class ProjectPlanPassportUpdateView(UpdateView):
 project_passport_update = ProjectPlanPassportUpdateView.as_view()
 
 
-class ProjectPlanStageTwo(DetailView):
+class ProjectPlanStageTwo(ProjectUsageRequiredMixin, DetailView):
     model = ProjectPlan
     tm_path = "projects/project_plan/"
     tm_name = "project_plan_stage_2.html"
@@ -137,7 +138,7 @@ class ProjectPlanStageTwo(DetailView):
 project_plan_stage_two = ProjectPlanStageTwo.as_view()
 
 
-class TaskPlanListView(ListView):
+class TaskPlanListView(ProjectUsageRequiredMixin, ListView):
     model = TaskPlan
     tm_path = "projects/project_plan/"
     tm_name = "project_plan_task_add.html"
@@ -156,7 +157,7 @@ class TaskPlanListView(ListView):
 task_add = TaskPlanListView.as_view()
 
 
-class ProjectPlanStageThree(DetailView):
+class ProjectPlanStageThree(ProjectUsageRequiredMixin, DetailView):
     model = ProjectPlan
     tm_path = "projects/project_plan/"
     tm_name = "project_plan_stage_3.html"
@@ -196,7 +197,7 @@ class ProjectPlanStageThree(DetailView):
 project_plan_stage_three = ProjectPlanStageThree.as_view()
 
 
-class ProjectPlanFinalView(DetailView):
+class ProjectPlanFinalView(ProjectUsageRequiredMixin, DetailView):
     model = ProjectPlan
     tm_path = "projects/project_plan/"
     tm_name = "project_plan_final_view.html"
@@ -213,7 +214,7 @@ class ProjectPlanFinalView(DetailView):
 project_plan_final_view = ProjectPlanFinalView.as_view()
 
 
-class ProjectStatusList(ListView):
+class ProjectStatusList(ProjectUsageRequiredMixin, ListView):
     model = ProjectPlan
     tm_path = "projects/other/"
     tm_name = "project_status_list.html"
@@ -235,7 +236,7 @@ class ProjectStatusList(ListView):
 project_list_status = ProjectStatusList.as_view()
 
 
-class ProjectPlanDelete(DeleteView):
+class ProjectPlanDelete(ProjectUsageRequiredMixin, DeleteView):
     model = ProjectPlan
 
     def post(self, request, *args, **kwargs):
@@ -254,7 +255,7 @@ class ProjectPlanDelete(DeleteView):
 project_delete = ProjectPlanDelete.as_view()
 
 
-class ProjectFactListView(ListView):
+class ProjectFactListView(ProjectUsageRequiredMixin, ListView):
     model = ProjectFact
     tm_path = "projects/project_fact/"
     tm_name = "project_fact_list.html"
@@ -283,7 +284,7 @@ class ProjectFactListView(ListView):
 project_fact = ProjectFactListView.as_view()
 
 
-class ProjectFactDetailView(DetailView):
+class ProjectFactDetailView(ProjectUsageRequiredMixin, DetailView):
     model = ProjectFact
     tm_path = "projects/project_fact/"
     tm_name = "project_fact_detail.html"
@@ -305,7 +306,7 @@ class ProjectFactDetailView(DetailView):
 project_fact_detail = ProjectFactDetailView.as_view()
 
 
-class ProjectFactTaskUpdateView(UpdateView):
+class ProjectFactTaskUpdateView(ProjectUsageRequiredMixin, UpdateView):
     model = TaskFact
 
     def post(self, request, *args, **kwargs):
@@ -339,7 +340,7 @@ class ProjectFactTaskUpdateView(UpdateView):
 project_fact_task_update = ProjectFactTaskUpdateView.as_view()
 
 
-class TaskFactAddView(CreateView):
+class TaskFactAddView(ProjectUsageRequiredMixin, CreateView):
     model = TaskFact
 
     def post(self, request, *args, **kwargs):
@@ -376,7 +377,7 @@ class TaskFactAddView(CreateView):
 task_fact_add = TaskFactAddView.as_view()
 
 
-class AdditionalCostAddFact(CreateView):
+class AdditionalCostAddFact(ProjectUsageRequiredMixin, CreateView):
     model = AdditionalCostFact
 
     def post(self, request, *args, **kwargs):
@@ -407,7 +408,7 @@ class AdditionalCostAddFact(CreateView):
 additional_cost_fact_add = AdditionalCostAddFact.as_view()
 
 
-class AdditionalCostDelete(DeleteView):
+class AdditionalCostDelete(ProjectUsageRequiredMixin, DeleteView):
     model = AdditionalCostFact
 
     def post(self, request, *args, **kwargs):
@@ -421,7 +422,7 @@ class AdditionalCostDelete(DeleteView):
 additional_cost_fact_delete = AdditionalCostDelete.as_view()
 
 
-class AdditionalCostFactEditView(UpdateView):
+class AdditionalCostFactEditView(ProjectUsageRequiredMixin, UpdateView):
     model = AdditionalCostFact
 
     def get(self, request, *args, **kwargs):
@@ -458,7 +459,7 @@ class AdditionalCostFactEditView(UpdateView):
 additional_cost_fact_edit = AdditionalCostFactEditView.as_view()
 
 
-class ProjectFactStatusUpdateView(TemplateView):
+class ProjectFactStatusUpdateView(ProjectUsageRequiredMixin, TemplateView):
     model = ProjectFact
 
     def post(self, request, *args, **kwargs):
@@ -475,7 +476,7 @@ class ProjectFactStatusUpdateView(TemplateView):
 project_fact_status_update = ProjectFactStatusUpdateView.as_view()
 
 
-class ComparePlanFactView(ListView):
+class ComparePlanFactView(ProjectUsageRequiredMixin, ListView):
     model = ProjectFact
     tm_path = "projects/project_fact/"
     tm_name = "project_fact_compare.html"
@@ -500,7 +501,7 @@ class ComparePlanFactView(ListView):
 compare_plan_vs_fact = ComparePlanFactView.as_view()
 
 
-class ProjectAnalyzeView(ListView):
+class ProjectAnalyzeView(ProjectUsageRequiredMixin, ListView):
     model = ProjectFact
     tm_path = "projects/other/"
     tm_name = "project_analyze.html"
@@ -518,7 +519,7 @@ class ProjectAnalyzeView(ListView):
 analyze_list = ProjectAnalyzeView.as_view()
 
 
-class ProjectFactSelect(View):
+class ProjectFactSelect(ProjectUsageRequiredMixin, View):
     model = ProjectFact
 
     def post(self, request, *args, **kwargs):
