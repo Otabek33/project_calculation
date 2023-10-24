@@ -1,14 +1,14 @@
+from django.contrib import auth, messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView, TemplateView, ListView
-from django.contrib import auth, messages
+from django.urls import reverse
+from django.views.generic import DetailView, ListView, RedirectView, TemplateView, UpdateView
 
 from calculator_projects.apps.tasks.models import TaskFact
 from calculator_projects.apps.users.forms import UserUpdateForm
+from calculator_projects.apps.users.mixins import ProjectUsageRequiredMixin
 from calculator_projects.apps.users.models import UserRoleTypes
 
 User = get_user_model()
@@ -24,13 +24,13 @@ user_detail_view = UserDetailView.as_view()
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
-    template_name = 'users/user_form.html'
+    template_name = "users/user_form.html"
     form_class = UserUpdateForm
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.save()
-        return redirect('users:detail', pk=self.object.id)
+        return redirect("users:detail", pk=self.object.id)
 
 
 user_update_view = UserUpdateView.as_view()
@@ -48,9 +48,7 @@ user_redirect_view = UserRedirectView.as_view()
 
 def login_request(request):
     if request.method == "POST":
-        user = auth.authenticate(
-            username=request.POST.get("username"), password=request.POST.get("password")
-        )
+        user = auth.authenticate(username=request.POST.get("username"), password=request.POST.get("password"))
 
         if user is not None:
             auth.login(request, user)
@@ -77,7 +75,7 @@ def logout(request):
     return redirect("users:login")
 
 
-class WorkloadView(ListView):
+class WorkloadView(ProjectUsageRequiredMixin, ListView):
     model = TaskFact
     tm_path = "users/"
     tm_name = "workload.html"
@@ -87,11 +85,9 @@ class WorkloadView(ListView):
         qs = super().get_queryset()
         user_role = self.request.user.user_role
         if user_role == UserRoleTypes.SUPER_USER or user_role == UserRoleTypes.FINANCE:
-            return qs.filter(
-                deleted_status=False
-            ).order_by('worker')
+            return qs.filter(deleted_status=False).order_by("worker")
         else:
-            return qs.filter(deleted_status=False, created_by=self.request.user).order_by('worker')
+            return qs.filter(deleted_status=False, created_by=self.request.user).order_by("worker")
 
 
 workload = WorkloadView.as_view()
