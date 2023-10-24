@@ -1,3 +1,6 @@
+let data = [];
+const graph_1 = document.getElementById('morris-bar-chart')
+const graph_2 = document.getElementById('sold-product')
 $("#confirm-delete-project-button").on("click", function (e) {
     e.preventDefault();
 
@@ -308,10 +311,12 @@ $("#additional_cost_fact_edit_modal").on('submit', function (e) {
 
 })
 
+
 function compare_graph_one(project_list) {
 
-    let data = [];
+
     Object.entries(project_list).forEach(([key, value]) => {
+        graph_1.innerHTML = ''
         data.push({
             y: `${key}`,
             a: `${value.task_plan}`,
@@ -332,15 +337,16 @@ function compare_graph_one(project_list) {
 }
 
 function compare_graph_two(task_status) {
-    var nk = document.getElementById("sold-product");
+
     let amount = [];
     let task_status_name = [];
 
     Object.entries(task_status).forEach(([key, value]) => {
+        graph_2.innerHTML = ''
         amount.push(`${value}`)
         task_status_name.push(`${key}`)
     })
-    new Chart(nk, {
+    new Chart(graph_2, {
         type: 'pie',
         data: {
             defaultFontFamily: 'Poppins',
@@ -419,15 +425,16 @@ function toast_show(alert_type, message) {
 
 $("#project_fact_select").on('submit', function (e) {
     e.preventDefault()
+
     let form = $(this);
     let actionUrl = form.attr('action');
     let project = document.getElementById("project_fact_select");
-    console.log(project)
     let form_data = {
         "project": $('select[name="project_fact_select"]').val(),
     }
     console.log(actionUrl, form_data)
     if (form_data["project"].length > 0) {
+        data = []
         $.ajax({
             method: "POST",
             url: actionUrl,
@@ -580,9 +587,6 @@ function compare_table_plan_fact(context) {
 
     footer_project_profitability_percentage_plan.textContent = parseFloat(profitability_percentage_plan).formatMoney(2, ' ', ',')
     footer_project_profitability_percentage_fact.textContent = parseFloat(profitability_percentage_fact).formatMoney(2, ' ', ',')
-
-    document.getElementById('morris-bar-chart')
-    document.getElementById('sold-product')
 
 
     compare_graph_one(project_list);
