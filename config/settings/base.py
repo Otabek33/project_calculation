@@ -3,7 +3,10 @@ Base settings to build other settings files upon.
 """
 from pathlib import Path
 
+import django.conf.locale
 import environ
+from django.conf import global_settings
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # calculator_projects/
@@ -25,13 +28,39 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "Asia/Tashkent"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
 # from django.utils.translation import gettext_lazy as _
-# LANGUAGES = [
-#     ('en', _('English')),
-#     ('pt-br', _('Português')),
-# ]
+# extra O'zbek cyrlillic language define
+EXTRA_LANG_INFO = {
+    "uzc": {
+        "bidi": False,
+        "code": "uzc",
+        "name": "Ozbek",
+        "name_local": "Ўзбек",
+    },
+    "uz": {
+        "bidi": False,
+        "code": "uz",
+        "name": "Uzbek",
+        "name_local": "O'zb",
+    },
+}
+
+LANG_INFO = {**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO}
+django.conf.locale.LANG_INFO = LANG_INFO
+global_settings.LANGUAGES = global_settings.LANGUAGES + [("uzc", "Ўзбек")]
+
+RUSSIAN = "ru"
+UZBEK = "uz"
+CYRILLIC = "uzc"
+LANGUAGE_CODE = UZBEK
+
+LANGUAGES = (
+    (RUSSIAN, _("Рус")),
+    (UZBEK, _("O'z")),
+    (CYRILLIC, _("Ўзб")),
+)
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n

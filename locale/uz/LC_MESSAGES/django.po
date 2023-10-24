@@ -1,0 +1,1431 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-23 10:15+0500\n"
+"PO-Revision-Date: 2021-11-19 10:53+0437\n"
+"Last-Translator:   <sh@sh.sh>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Translated-Using: django-rosetta 0.9.7\n"
+
+#: config/settings/base.py:57
+msgid "Рус"
+msgstr ""
+
+#: config/settings/base.py:58
+msgid "O'z"
+msgstr ""
+
+#: config/settings/base.py:59
+msgid "Ўзб"
+msgstr ""
+
+#: qonun/apps/authors/apps.py:7
+msgid "Qonun mualliflari"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:7
+msgid "O'zbekiston Respublikasi Prezidenti"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:8
+msgid "Qoraqalpog'iston Respublikasi Jo'qorg'i Kengesi"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:9
+msgid ""
+"O'zbekiston Respublikasi Oliy Majlisining Qonunchilik palatasi deputatlari"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:10
+msgid "O'zbekiston Respublikasi Vazirlar Mahkamasi"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:11
+msgid "O'zbekiston Respublikasi Konstitutsiyaviy Sudi"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:12
+msgid "O'zbekiston Respublikasi Oliy sudi"
+msgstr ""
+
+#: qonun/apps/authors/constants.py:13
+msgid "O'zbekiston Respublikasi Bosh Prokurori"
+msgstr ""
+
+#: qonun/apps/authors/forms.py:13 qonun/apps/law/models.py:70
+msgid "Qonun bosqichlari"
+msgstr ""
+
+#: qonun/apps/authors/models.py:7 qonun/templates/discuss/discuss_list.html:27
+msgid "Qo'mita nomi"
+msgstr ""
+
+#: qonun/apps/authors/models.py:13 qonun/apps/users/forms.py:45
+#: qonun/templates/discuss/includes/stage_history.html:61
+#: qonun/templates/discuss/includes/stage_history.html:96
+msgid "Qo'mita"
+msgstr ""
+
+#: qonun/apps/authors/models.py:14 qonun/apps/discuss/forms.py:75
+#: qonun/apps/discuss/forms.py:136 qonun/apps/law/models.py:23
+#: qonun/apps/law/models.py:87 qonun/templates/authors/qumita_list.html:14
+#: qonun/templates/discuss/discuss_form.html:150
+#: qonun/templates/discuss/listing.html:55
+#: qonun/templates/discuss/pendingstage_form.html:78
+msgid "Qo'mitalar"
+msgstr ""
+
+#: qonun/apps/authors/models.py:19 qonun/apps/authors/models.py:25
+msgid "Deputat"
+msgstr ""
+
+#: qonun/apps/authors/models.py:26 qonun/apps/discuss/forms.py:82
+#: qonun/apps/discuss/forms.py:143 qonun/apps/law/models.py:24
+#: qonun/apps/law/models.py:88 qonun/templates/authors/deputy_form.html:5
+#: qonun/templates/authors/deputy_list.html:5
+#: qonun/templates/authors/deputy_list.html:14
+#: qonun/templates/authors/doc_type_form.html:5
+#: qonun/templates/discuss/discuss_form.html:153
+#: qonun/templates/discuss/pendingstage_form.html:81
+#: qonun/templates/includes/sidebar.html:38
+#: qonun/templates/includes/sidebar.html:39
+msgid "Deputatlar"
+msgstr ""
+
+#: qonun/apps/discuss/admin.py:100 qonun/templates/base.html:9
+msgid "Qonun loyihalari portali"
+msgstr ""
+
+#: qonun/apps/discuss/admin.py:103
+msgid "OLIY MAJLIS QONUNCHILIK FAOLIYATI TIZIMI"
+msgstr ""
+
+#: qonun/apps/discuss/apps.py:7 qonun/apps/discuss/models.py:99
+msgid "Qonun muhokamalari"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:8 qonun/apps/discuss/constants.py:33
+msgid "Noma'lum"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:10
+#: qonun/templates/discuss/includes/stage_history.html:7
+msgid "Qonun loyihasi ro‘yxatga olindi va Qonunchilik palatasiga kiritildi"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:11
+msgid ""
+"Qonun loyihasi masʼul qo‘mitaga kiritildi va dastlabki kelishuv jarayonida"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:12
+#: qonun/templates/discuss/includes/stage_history.html:25
+msgid "Qonun loyihasi birinchi o‘qishda"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:13
+#: qonun/templates/discuss/includes/stage_history.html:50
+msgid "Qonun loyihasi ikkinchi o‘qishda"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:14
+#: qonun/templates/discuss/includes/stage_history.html:85
+msgid "Qonun loyihasi uchinchi o‘qishda"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:15
+#: qonun/templates/discuss/includes/stage_history.html:118
+msgid ""
+"Qonun loyihasi Qonunchilik palatasi tomonidan qabul qilindi va Senatga "
+"kiritildi"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:16
+#: qonun/templates/discuss/includes/stage_history.html:133
+msgid ""
+"Qonun loyihasi Qonunchilik palatasi tomonidan qabul qilinmadi va "
+"tashabbuskorga qaytarildi"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:17
+msgid "Qonun hujjati qabul qilingan"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:21
+msgid "Umumiy to'plam"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:22
+#: qonun/templates/discuss/discuss_detail.html:5
+msgid "Qonun loyihasi"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:23
+msgid "Kuzatuv xati"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:24
+msgid "Tushuntirish xati"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:25
+msgid "Qiyosiy jadval"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:26
+msgid "Taqqoslash jadvali"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:27
+msgid "Tahliliy materiallar"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:28
+msgid "Fraksiyalar kesimida ma'lumot"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:29
+msgid "Boshqasi"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:34
+msgid "Kengash"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:35
+msgid "Yalpi majlis"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:55
+#: qonun/templates/discuss/filtered_list.html:119
+msgid "Yanvar"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:56
+#: qonun/templates/discuss/filtered_list.html:120
+msgid "Fevral"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:57
+#: qonun/templates/discuss/filtered_list.html:121
+msgid "Mart"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:58
+#: qonun/templates/discuss/filtered_list.html:122
+msgid "Aprel"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:59
+#: qonun/templates/discuss/filtered_list.html:123
+msgid "May"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:60
+#: qonun/templates/discuss/filtered_list.html:124
+msgid "Iyun"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:61
+#: qonun/templates/discuss/filtered_list.html:125
+msgid "Iyul"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:62
+msgid "August"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:63
+#: qonun/templates/discuss/filtered_list.html:127
+msgid "Sentabr"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:64
+#: qonun/templates/discuss/filtered_list.html:128
+msgid "Oktabr"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:65
+#: qonun/templates/discuss/filtered_list.html:129
+msgid "Noyabr"
+msgstr ""
+
+#: qonun/apps/discuss/constants.py:66
+#: qonun/templates/discuss/filtered_list.html:130
+msgid "Dekabr"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:26 qonun/apps/discuss/models.py:225
+#: qonun/apps/law/models.py:52 qonun/templates/discuss/discuss_form.html:56
+msgid "Hujjat turi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:30 qonun/templates/base.html:52
+#: qonun/templates/discuss/discuss_form.html:67
+msgid "Fayllar"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:34 qonun/apps/law/models.py:17
+#: qonun/apps/law/models.py:83 qonun/templates/base.html:53
+#: qonun/templates/discuss/discuss_form.html:87
+msgid "Hujjat nomi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:40 qonun/templates/base.html:47
+#: qonun/templates/includes/extra_data.html:3
+#: qonun/templates/includes/pending_extra.html:3
+msgid "Tarafdorlar"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:41 qonun/templates/base.html:48
+#: qonun/templates/includes/extra_data.html:4
+#: qonun/templates/includes/pending_extra.html:4
+msgid "Qarshilar"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:42 qonun/templates/base.html:49
+#: qonun/templates/includes/extra_data.html:5
+#: qonun/templates/includes/pending_extra.html:5
+msgid "Betaraflar"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:43 qonun/templates/includes/extra_data.html:6
+#: qonun/templates/includes/pending_extra.html:6
+msgid "Ovoz bermaganlar"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:44 qonun/templates/includes/extra_data.html:7
+#: qonun/templates/includes/pending_extra.html:7
+msgid "Jami"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:49 qonun/apps/discuss/forms.py:113
+msgid "Qonun hujjati nomi [Ўзб]"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:50 qonun/apps/discuss/forms.py:114
+msgid "Qonun hujjati nomi [O'zb]"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:51 qonun/apps/discuss/forms.py:115
+msgid "Qonun hujjati nomi [Рус]"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:53 qonun/apps/discuss/forms.py:118
+#: qonun/templates/discuss/listing.html:72
+msgid "Ro'yxatdan o'tkazilgan sana"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:66
+msgid "Ro'yxatdan o'tkazilgan raqami [Ўзб]"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:67
+msgid "Ro'yxatdan o'tkazilgan raqami [O'zb]"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:68
+msgid "Ro'yxatdan o'tkazilgan raqami [Рус]"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:70 qonun/apps/discuss/forms.py:131
+msgid "Tashabbuskor"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:93 qonun/apps/discuss/forms.py:100
+#: qonun/apps/discuss/forms.py:107
+msgid "Ushbu raqam bilan qonun ro'yxatdan o'tkazilgan"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:154
+msgid "Ko'rib chiqishga kiritish"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:175 qonun/apps/discuss/forms.py:196
+msgid "Birinchi o'qishga kiritish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:217 qonun/apps/discuss/forms.py:238
+msgid "Ikkinchi o'qishga kiritish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:259 qonun/apps/discuss/forms.py:280
+msgid "Uchinchi o'qishga kiritish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:301
+msgid "Senatga kiritish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:322
+msgid "Qonunni qaytarish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:343
+msgid "Qonun loyihasini qo'mitaga qaytarish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/forms.py:360 qonun/templates/discuss/detail.html:26
+#: qonun/templates/discuss/discuss_detail.html:32
+msgid "Mas'ul qo'mita"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:27
+msgid "Muhokama bosqichi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:31
+msgid "Qonun loyihasi nomi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:34
+msgid "Muhokamaga kiritilish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:35
+msgid "Kiritish bosqichi tugallangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:40
+msgid "Dastlabki muhokama sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:41
+msgid "Dastlabki muhokama tugallangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:45
+msgid "Birinchi o'qish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:46
+msgid "Birinchi o'qish tugallangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:47 qonun/apps/discuss/models.py:56
+#: qonun/apps/discuss/models.py:65
+msgid "Ovoz berish haqidagi ma'lumotlar"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:49
+msgid "Birinchi o'qish qabul qilinmadi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:50
+msgid "Birinchi o'qish qabul qilindi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:54
+msgid "Ikkinchi o'qish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:55
+msgid "Ikkinchi o'qish tugallangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:58
+msgid "Ikkinchi o'qish qabul qilinmadi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:59
+msgid "Ikkinchi o'qish qabul qilindi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:63
+msgid "Uchinchi o'qish sanasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:64
+msgid "Uchinchi o'qish tugallangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:67
+msgid "Uchinchi o'qish qabul qilinmadi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:68
+msgid "Uchinchi o'qish qabul qilindi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:72
+msgid "Senatga yuborilgan sana"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:73
+msgid "Senatga yuborish bosqichi yakullangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:75
+msgid "Qo'shimcha ma'lumotlar"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:79
+msgid "Qaytarilgan sana"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:81
+msgid "Qaytarilgan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:84
+msgid "Muhokama yakunlangan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:88
+msgid "Muhokama o'chirilgan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:90
+msgid "Muhokama yangilangan sana"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:98 qonun/apps/law/models.py:15
+#: qonun/apps/law/models.py:82 qonun/templates/discuss/discuss_form.html:35
+#: qonun/templates/discuss/pendingstage_form.html:37
+msgid "Qonun muhokamasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:220
+msgid "Fayl tili"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:227
+msgid "Yashirilgan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:234
+msgid "Muhokama bosqichi fayli"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:235
+msgid "Muhokama bosqichi fayllari"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:257 qonun/apps/discuss/models.py:276
+msgid "Bosqich"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:258
+msgid "Ovozlar"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:260
+msgid "Rad etish sababi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:264
+msgid "Muzlatilgan bosqich"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:265
+msgid "Muzlatilgan bosqichlar"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:277
+msgid "Sarlavha"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:278
+msgid "Qabul qilingan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:279
+msgid "Rad etilgan"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:283
+msgid "Qonun muhokamasi logi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:284
+msgid "Qonun muhokamasi loglari"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:293
+msgid "Fayl havolasi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:294
+msgid "Fayl yashirilgan edi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:298
+msgid "Faylni yuklab olish logi"
+msgstr ""
+
+#: qonun/apps/discuss/models.py:299
+msgid "Faylni yuklab olish loglari"
+msgstr ""
+
+#: qonun/apps/law/apps.py:7 qonun/apps/law/models.py:33
+msgid "Qonunlar"
+msgstr ""
+
+#: qonun/apps/law/models.py:19 qonun/apps/law/models.py:84
+msgid "Ro'yxatdan o'tkazish raqami"
+msgstr ""
+
+#: qonun/apps/law/models.py:21 qonun/apps/law/models.py:85
+msgid "Ro'yxatdan o'tkazish sanasi"
+msgstr ""
+
+#: qonun/apps/law/models.py:22 qonun/apps/law/models.py:86
+msgid "Muallif"
+msgstr ""
+
+#: qonun/apps/law/models.py:26
+msgid "Qonun o'chirilgan"
+msgstr ""
+
+#: qonun/apps/law/models.py:27
+msgid "Omma uchun ochiq"
+msgstr ""
+
+#: qonun/apps/law/models.py:32
+msgid "Qonun"
+msgstr ""
+
+#: qonun/apps/law/models.py:45 qonun/apps/law/models.py:62
+#: qonun/templates/discuss/discuss_list.html:27
+#: qonun/templates/discuss/listing.html:71
+msgid "Nomi"
+msgstr ""
+
+#: qonun/apps/law/models.py:53 qonun/apps/law/models.py:64
+#: qonun/templates/authors/doc_type_list.html:14
+#: qonun/templates/includes/sidebar.html:44
+#: qonun/templates/includes/sidebar.html:45
+msgid "Hujjat turlari"
+msgstr ""
+
+#: qonun/apps/law/models.py:63
+msgid "Tartib raqami"
+msgstr ""
+
+#: qonun/apps/law/models.py:69
+msgid "qonun bosqichi"
+msgstr ""
+
+#: qonun/apps/law/models.py:91
+msgid "Qonun logi"
+msgstr ""
+
+#: qonun/apps/law/models.py:92
+msgid "Qonun loglari"
+msgstr ""
+
+#: qonun/apps/users/admin.py:17
+msgid "Personal info"
+msgstr ""
+
+#: qonun/apps/users/admin.py:19
+msgid "Permissions"
+msgstr ""
+
+#: qonun/apps/users/admin.py:32
+msgid "Important dates"
+msgstr ""
+
+#: qonun/apps/users/apps.py:7
+msgid "Users"
+msgstr ""
+
+#: qonun/apps/users/forms.py:21
+msgid "Qo'mita katta referenti uchun qo'mitani belgilash kerak!"
+msgstr ""
+
+#: qonun/apps/users/forms.py:30
+msgid "Ushbu foydalanuvchi nomi band."
+msgstr ""
+
+#: qonun/apps/users/forms.py:50
+msgid "Parol"
+msgstr ""
+
+#: qonun/apps/users/forms.py:56
+msgid "Parolni tasdiqlang"
+msgstr ""
+
+#: qonun/apps/users/forms.py:72 qonun/templates/users/user_detail.html:32
+#: qonun/templates/users/user_list.html:21
+msgid "Foydalanuvchi nomi"
+msgstr ""
+
+#: qonun/apps/users/forms.py:73 qonun/templates/users/user_list.html:19
+msgid "Ismi"
+msgstr ""
+
+#: qonun/apps/users/forms.py:74
+msgid "Familiyasi"
+msgstr ""
+
+#: qonun/apps/users/forms.py:75
+msgid "E.pochta"
+msgstr ""
+
+#: qonun/apps/users/forms.py:76 qonun/apps/users/models.py:29
+#: qonun/templates/users/user_list.html:45
+msgid "Moderator"
+msgstr ""
+
+#: qonun/apps/users/forms.py:84
+msgid "Parollar mos kelmadi!"
+msgstr ""
+
+#: qonun/apps/users/models.py:10
+msgid "Kansellariya"
+msgstr ""
+
+#: qonun/apps/users/models.py:11
+msgid "Tashkiliy ishlar sektori"
+msgstr ""
+
+#: qonun/apps/users/models.py:12
+msgid "Qo'mita katta referenti"
+msgstr ""
+
+#: qonun/apps/users/models.py:13
+msgid "Universal foydalanuvchi"
+msgstr ""
+
+#: qonun/apps/users/models.py:14
+msgid "Ommaga chop etuvchi"
+msgstr ""
+
+#: qonun/apps/users/models.py:15 qonun/templates/users/user_list.html:48
+msgid "Oddiy foydalanuvchi"
+msgstr ""
+
+#: qonun/apps/users/models.py:22
+msgid "Name of User"
+msgstr ""
+
+#: qonun/apps/users/models.py:23
+msgid "Foydalanuvchi ismi"
+msgstr ""
+
+#: qonun/apps/users/models.py:24
+msgid "Foydalanuvchi familiyasi"
+msgstr ""
+
+#: qonun/apps/users/models.py:25
+msgid "Foydalanuvchi turi"
+msgstr ""
+
+#: qonun/apps/users/models.py:32
+msgid "Foydalanuvchi"
+msgstr ""
+
+#: qonun/apps/users/models.py:33
+msgid "Foydalanuvchilar"
+msgstr ""
+
+#: qonun/apps/users/tests/test_forms.py:39
+msgid "This username has already been taken."
+msgstr ""
+
+#: qonun/apps/users/views.py:32
+msgid "Information successfully updated"
+msgstr ""
+
+#: qonun/templates/403.html:15
+msgid "Forbidden"
+msgstr ""
+
+#: qonun/templates/403.html:18
+msgid "Ushbu sahifaga kirish uchun <br>sizda huquq yetarli emas!"
+msgstr ""
+
+#: qonun/templates/account/account_inactive.html:5
+#: qonun/templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr ""
+
+#: qonun/templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr ""
+
+#: qonun/templates/account/email.html:7
+msgid "Account"
+msgstr ""
+
+#: qonun/templates/account/email.html:18
+msgid "E-mail Addresses"
+msgstr ""
+
+#: qonun/templates/account/email.html:21
+msgid "Quyidagi pochta manzillari foydalanuvchiga bog'langan:"
+msgstr ""
+
+#: qonun/templates/account/email.html:35
+msgid "Tasdiqlangan"
+msgstr ""
+
+#: qonun/templates/account/email.html:37
+msgid "Tasdiqlanmagan"
+msgstr ""
+
+#: qonun/templates/account/email.html:39
+msgid "Asosiy"
+msgstr ""
+
+#: qonun/templates/account/email.html:45
+msgid "Asosiy qilish"
+msgstr ""
+
+#: qonun/templates/account/email.html:46
+msgid "Tasdiqlash xatini qayta jo'natish"
+msgstr ""
+
+#: qonun/templates/account/email.html:47 qonun/templates/base.html:54
+#: qonun/templates/discuss/discuss_form.html:96
+msgid "O'chirish"
+msgstr ""
+
+#: qonun/templates/account/email.html:54
+msgid "Warning:"
+msgstr ""
+
+#: qonun/templates/account/email.html:54
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: qonun/templates/account/email.html:59
+msgid "E-pochta qo'shish"
+msgstr ""
+
+#: qonun/templates/account/email.html:64
+#: qonun/templates/discuss/discuss_list.html:21
+#: qonun/templates/users/user_list.html:13
+msgid "Qo'shish"
+msgstr ""
+
+#: qonun/templates/account/email.html:78
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: qonun/templates/account/email_confirm.html:6
+#: qonun/templates/account/email_confirm.html:15
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: qonun/templates/account/email_confirm.html:21
+#, python-format
+msgid ""
+"Please confirm that\n"
+"              <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s\n"
+"              ."
+msgstr ""
+
+#: qonun/templates/account/email_confirm.html:27
+msgid "Confirm"
+msgstr ""
+
+#: qonun/templates/account/email_confirm.html:34
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please\n"
+"              <a href=\"%(email_url)s\">issue a new e-mail confirmation "
+"request</a>."
+msgstr ""
+
+#: qonun/templates/account/login.html:13
+msgid "Tizimga kirish"
+msgstr ""
+
+#: qonun/templates/account/login.html:15
+msgid "Tizimga kirish faqat mas'ul xodimlar uchun!"
+msgstr ""
+
+#: qonun/templates/account/login.html:19
+msgid "Foydalanuvchi nomini kiriting"
+msgstr ""
+
+#: qonun/templates/account/login.html:20
+msgid "Parol kiriting"
+msgstr ""
+
+#: qonun/templates/account/login.html:21
+msgid "Kirish"
+msgstr ""
+
+#: qonun/templates/account/login.html:22
+msgid "Forgot Password?"
+msgstr ""
+
+#: qonun/templates/account/logout.html:5
+msgid "Sign Out"
+msgstr ""
+
+#: qonun/templates/account/logout.html:13
+msgid "Tizimdan chiqish"
+msgstr ""
+
+#: qonun/templates/account/logout.html:15
+msgid "Tizimdan chiqishga ishonchingiz komilmi?"
+msgstr ""
+
+#: qonun/templates/account/logout.html:22
+#: qonun/templates/includes/header_home.html:61
+msgid "Chiqish"
+msgstr ""
+
+#: qonun/templates/account/password_change.html:6
+#: qonun/templates/account/password_change.html:9
+#: qonun/templates/account/password_change.html:14
+#: qonun/templates/account/password_reset_from_key.html:5
+#: qonun/templates/account/password_reset_from_key.html:8
+#: qonun/templates/account/password_reset_from_key_done.html:4
+#: qonun/templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr ""
+
+#: qonun/templates/account/password_reset.html:7
+#: qonun/templates/account/password_reset.html:11
+#: qonun/templates/account/password_reset_done.html:6
+#: qonun/templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr ""
+
+#: qonun/templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: qonun/templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr ""
+
+#: qonun/templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: qonun/templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: qonun/templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr ""
+
+#: qonun/templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: qonun/templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr ""
+
+#: qonun/templates/account/password_reset_from_key.html:21
+#: qonun/templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr ""
+
+#: qonun/templates/account/password_set.html:6
+#: qonun/templates/account/password_set.html:9
+#: qonun/templates/account/password_set.html:14
+msgid "Set Password"
+msgstr ""
+
+#: qonun/templates/account/signup.html:6
+msgid "Signup"
+msgstr ""
+
+#: qonun/templates/account/signup.html:9 qonun/templates/account/signup.html:19
+msgid "Sign Up"
+msgstr ""
+
+#: qonun/templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: qonun/templates/account/signup_closed.html:5
+#: qonun/templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr ""
+
+#: qonun/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: qonun/templates/account/verification_sent.html:5
+#: qonun/templates/account/verification_sent.html:13
+#: qonun/templates/account/verified_email_required.html:5
+#: qonun/templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: qonun/templates/account/verification_sent.html:14
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: qonun/templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: qonun/templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: qonun/templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: qonun/templates/authors/deputy_form.html:16
+#: qonun/templates/authors/doc_type_form.html:16
+#: qonun/templates/authors/qumita_form.html:16
+#: qonun/templates/users/create.html:28
+msgid "Saqlash"
+msgstr ""
+
+#: qonun/templates/authors/deputy_list.html:16
+msgid "Deputat qo'shish"
+msgstr ""
+
+#: qonun/templates/authors/doc_type_list.html:5
+#: qonun/templates/authors/qumita_form.html:5
+#: qonun/templates/authors/qumita_list.html:5
+#: qonun/templates/includes/sidebar.html:32
+#: qonun/templates/includes/sidebar.html:33
+msgid "Qumitalar"
+msgstr ""
+
+#: qonun/templates/authors/doc_type_list.html:16
+msgid "Hujjat turi yaratish"
+msgstr ""
+
+#: qonun/templates/authors/qumita_list.html:16
+msgid "Qo'mita qo'shish"
+msgstr ""
+
+#: qonun/templates/base.html:50
+msgid "Ovoz Bermaganlar"
+msgstr ""
+
+#: qonun/templates/base.html:110
+msgid "Bekor qilish"
+msgstr ""
+
+#: qonun/templates/base.html:111 qonun/templates/discuss/discuss_form.html:122
+msgid "Qabul qilish"
+msgstr ""
+
+#: qonun/templates/discuss/detail.html:15
+#: qonun/templates/discuss/discuss_detail.html:21
+msgid "Qonunchilik tashabbusi huquqi subyekti"
+msgstr ""
+
+#: qonun/templates/discuss/detail.html:42
+#: qonun/templates/discuss/discuss_detail.html:48
+msgid "Birinchi o'qish"
+msgstr ""
+
+#: qonun/templates/discuss/detail.html:48
+#: qonun/templates/discuss/discuss_detail.html:54
+msgid "Ikkinchi o'qish"
+msgstr ""
+
+#: qonun/templates/discuss/detail.html:55
+#: qonun/templates/discuss/discuss_detail.html:61
+msgid "Uchinchi o'qish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_detail.html:70
+#: qonun/templates/users/user_detail.html:42
+msgid "Tahrirlash"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_detail.html:76
+msgid "Qonun loyihasi o'chirilgan"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:5
+#: qonun/templates/discuss/pendingstage_form.html:6
+msgid "Qonun loyihasi | Tahrirlash"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:40
+#: qonun/templates/discuss/pendingstage_form.html:42
+msgid "Ko'rib chiqilayotgan qonunlar"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:49
+#: qonun/templates/discuss/pendingstage_form.html:54
+msgid "Ovozlar soni 150 tadan oshmasligi kerak!"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:72
+msgid "Joriy fayl"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:74
+msgid "Faylni yuklab olish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:80
+msgid "Yashirish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:101
+msgid "Fayl qo'shish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:109
+msgid "Avvalgi bosqichga o'tkazish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:111
+msgid "Keyingi bosqichga o'tkazish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:114
+msgid "O'tkazib yuborish"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:119
+msgid "Qabul qilinmadi"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:124
+msgid "Qabul qilindi"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:147
+#: qonun/templates/discuss/pendingstage_form.html:75
+msgid "Ro'yhatdan o'tkazilgan sana"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_form.html:148
+#: qonun/templates/discuss/discuss_list.html:27
+#: qonun/templates/discuss/listing.html:51
+#: qonun/templates/discuss/pendingstage_form.html:76
+msgid "Qonun tashabbuskori"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_list.html:4
+#: qonun/templates/discuss/filtered_list.html:15
+#: qonun/templates/includes/sidebar.html:11
+msgid "Qonun loyihalari"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_list.html:27
+msgid "Raqami"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_list.html:27
+msgid "Holati"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_list.html:27
+msgid "Qo'shilgan sana"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_list.html:45
+msgid "Izlash"
+msgstr ""
+
+#: qonun/templates/discuss/discuss_list.html:73
+#: qonun/templates/discuss/filtered_list.html:28
+#: qonun/templates/discuss/listing.html:93
+msgid "Qonun hujjatlari topilmadi"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:20
+msgid "Ro'yxatga olingan"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:126
+msgid "Avgust"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Ya"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Du"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Se"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Ch"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Pa"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Ju"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:132
+msgid "Sh"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:150
+msgid "Ko'k mavzu"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:154
+msgid "Qizil mavuz"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:158
+msgid "Sariq mavzu"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:162
+msgid "Yashil mavzu"
+msgstr ""
+
+#: qonun/templates/discuss/filtered_list.html:166
+msgid "Binafsharang mavzu"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:7
+msgid "Qonun loyihasini tashabbuskorga qaytarishga ishonchingiz komilmi?"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:9
+msgid "Yo'q"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:10
+msgid "Ha"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:13
+msgid "Qonun muhokamasini qaytarish"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:15
+msgid "Yopish"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:16
+msgid "Qonun loyihasini qo'mitaga qaytarish"
+msgstr ""
+
+#: qonun/templates/discuss/includes/modal.html:17
+msgid "Qonun loyihasini tashabbuskorga qaytarish"
+msgstr ""
+
+#: qonun/templates/discuss/includes/stage_history.html:3
+msgid "Qonun loyihasini ko'rib chiqish uchun kiritildi"
+msgstr ""
+
+#: qonun/templates/discuss/includes/stage_history.html:16
+msgid "Qonun loyihasi masʼul qo‘mitaga kiritildi"
+msgstr ""
+
+#: qonun/templates/discuss/includes/stage_history.html:35
+msgid "Ikkinchi o'qish o'tkazib yuborildi"
+msgstr ""
+
+#: qonun/templates/discuss/includes/stage_history.html:37
+msgid ""
+"\n"
+"        O‘zbekiston Respublikasining  «O‘zbekiston Respublikasi Oliy Majlisi "
+"Qonunchilik palatasining Reglamenti \n"
+"        to‘g‘risida»gi Qonuni 15-moddasining o‘n beshinchi qismiga muvofiq \n"
+"        qonun loyihasi birinchi o‘qishda qabul qilingandan \n"
+"        so‘ng O‘zbekiston Respublikasi Oliy Majlisi Qonunchilik palatasi "
+"majlisida \n"
+"        qonunni ikkinchi o‘qish tartib-taomilini istisno etgan holda \n"
+"        qabul qilish to‘g‘risida qaror qabul qilindi.\n"
+"        "
+msgstr ""
+
+#: qonun/templates/discuss/includes/stage_history.html:53
+#: qonun/templates/discuss/includes/stage_history.html:88
+msgid "Qonun loyihasi qo'mitaga qaytarildi"
+msgstr ""
+
+#: qonun/templates/discuss/includes/stage_history.html:127
+msgid "Qonun loyihasi qabul qilindi"
+msgstr ""
+
+#: qonun/templates/discuss/includes/state_transactions.html:4
+#: qonun/templates/discuss/includes/state_transactions.html:6
+msgid "Ortga"
+msgstr ""
+
+#: qonun/templates/discuss/includes/state_transactions.html:8
+msgid "Ko'rib chiqish bosqichlari"
+msgstr ""
+
+#: qonun/templates/discuss/listing.html:38
+msgid "Barcha qonun loyilahalri"
+msgstr ""
+
+#: qonun/templates/discuss/listing.html:43
+msgid "Yil"
+msgstr ""
+
+#: qonun/templates/discuss/listing.html:47
+msgid "Oy"
+msgstr ""
+
+#: qonun/templates/discuss/listing.html:59
+msgid "Qonun loyihasi bosqichi"
+msgstr ""
+
+#: qonun/templates/discuss/listing.html:63
+msgid "Sanalar oralig'i"
+msgstr ""
+
+#: qonun/templates/discuss/pendingstage_form.html:47
+msgid "Qonun muhokamasini qo'mitaga qaytarish"
+msgstr ""
+
+#: qonun/templates/discuss/pendingstage_form.html:56
+msgid "Qonun loyihasini qaytarish"
+msgstr ""
+
+#: qonun/templates/includes/header_admin.html:19
+#: qonun/templates/includes/header_home.html:22
+msgid ""
+"\n"
+"          <span>Oliy Majlis <i class=\"block\">Qonunchilik faoliyati tizimi</"
+"i></span>\n"
+"        "
+msgstr ""
+
+#: qonun/templates/includes/header_home.html:26
+msgid ""
+"\n"
+"         <span>O'zbekiston Respublikasi Oliy Majlisi <i class=\"block"
+"\">Qonunchilik palatasi</i></span>\n"
+"        "
+msgstr ""
+
+#: qonun/templates/includes/header_home.html:59
+msgid "Moderator paneli"
+msgstr ""
+
+#: qonun/templates/includes/sidebar.html:19
+#: qonun/templates/includes/sidebar.html:20
+msgid "Barcha hujjatlar"
+msgstr ""
+
+#: qonun/templates/includes/sidebar.html:25
+#: qonun/templates/includes/sidebar.html:26
+msgid "Mening malumotlarim"
+msgstr ""
+
+#: qonun/templates/pages/home.html:9
+msgid "O'zbekiston Respublikasi <i>Oliy Majlisi Qonunchilik palatasi</i>"
+msgstr ""
+
+#: qonun/templates/pages/home.html:15
+msgid "Kiritildi"
+msgstr ""
+
+#: qonun/templates/pages/home.html:21
+msgid "Dastlabki kelishuv"
+msgstr ""
+
+#: qonun/templates/pages/home.html:27
+msgid "1-o'qish"
+msgstr ""
+
+#: qonun/templates/pages/home.html:33
+msgid "2-o'qish"
+msgstr ""
+
+#: qonun/templates/pages/home.html:39
+msgid "3-o'qish"
+msgstr ""
+
+#: qonun/templates/pages/home.html:45
+msgid "Senatga yuborildi"
+msgstr ""
+
+#: qonun/templates/pages/home.html:51
+msgid "Qaytarildi"
+msgstr ""
+
+#: qonun/templates/pages/home.html:56
+msgid "Barcha qonun loyihalari"
+msgstr ""
+
+#: qonun/templates/pages/home.html:62
+msgid "O'zbekiston Respublikasi <i>Oliy Majlis Senati</i>"
+msgstr ""
+
+#: qonun/templates/users/user_detail.html:20
+msgid "Ism"
+msgstr ""
+
+#: qonun/templates/users/user_detail.html:24
+msgid "Familiya"
+msgstr ""
+
+#: qonun/templates/users/user_detail.html:28
+#: qonun/templates/users/user_detail.html:43
+msgid "E-pochta"
+msgstr ""
+
+#: qonun/templates/users/user_form.html:21
+msgid "Yangilash"
+msgstr ""
+
+#: qonun/templates/users/user_list.html:20
+msgid "Sharifi"
+msgstr ""
+
+#: qonun/templates/users/user_list.html:22
+msgid "Qo'mitasi"
+msgstr ""
+
+#: qonun/templates/users/user_list.html:23
+msgid "Email"
+msgstr ""
+
+#: qonun/templates/users/user_list.html:24
+msgid "Maqomi"
+msgstr ""
+
+#: qonun/templates/users/user_list.html:39
+msgid "Topilmadi"
+msgstr ""
