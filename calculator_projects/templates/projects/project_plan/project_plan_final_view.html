@@ -192,7 +192,7 @@
         </button>
         <div class="dropdown-menu">
          <a type="button" class="dropdown-item" href="#"  onclick="print_stage_duration_graph()">pdf</a>
-          <a class="dropdown-item" href="#">excel</a>
+          <a class="dropdown-item" href="{% url 'projects:export_excel_plan_graph_project' projectplan.id %}">excel</a>
         </div>
       </div>
         </div>

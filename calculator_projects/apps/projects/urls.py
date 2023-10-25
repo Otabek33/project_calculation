@@ -1,6 +1,10 @@
 from django.urls import path
 
-from calculator_projects.apps.projects.file_generation import export_excel, generate_pdf
+from calculator_projects.apps.projects.file_generation import (
+    export_excel,
+    export_excel_plan_graph_project,
+    generate_pdf,
+)
 from calculator_projects.apps.projects.views.finance import confirm_list, project_confirm, project_reject
 from calculator_projects.apps.projects.views.pm import (
     additional_cost_fact_add,
@@ -52,5 +56,10 @@ urlpatterns = [
     path("<uuid:pk>/analyze", analyze_list, name="analyze_list"),
     path("<uuid:pk>/pdf_generation", generate_pdf, name="pdf_generation"),
     path("<uuid:pk>/excel_generation", export_excel, name="export_excel"),
+    path(
+        "<uuid:pk>/export_excel_plan_graph_project",
+        export_excel_plan_graph_project,
+        name="export_excel_plan_graph_project",
+    ),
     path("project-fact-select/", project_fact_select, name="project_fact_select"),
 ]

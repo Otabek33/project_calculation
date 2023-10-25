@@ -105,3 +105,46 @@ def export_excel(request, pk):
     workbook.save(response)
 
     return response
+
+
+def export_excel_plan_graph_project(request, pk):
+    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response["Content-Disposition"] = 'attachment; filename="plan_graph.xlsx"'
+
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+
+    # Write header row
+    header = ["ЭТАП", "НАИМЕНОВАНИЕ", "ДАТА НАЧАЛО", "ДАТА ОКОНЧАНИЕ", "СРОКИ В ДНЯХ", "СРОКИ В ЧАСАХ", "СТОИМОСТЬ"]
+    for col_num, column_title in enumerate(header, 1):
+        cell = worksheet.cell(row=1, column=col_num)
+        cell.value = column_title
+
+    project = ProjectPlan.objects.get(id=pk)
+    stage_list = project.stage_list()
+
+    counter = 2
+    for stage in stage_list:
+        worksheet.cell(row=counter, column=1).value = stage.stage_number
+        worksheet.cell(row=counter, column=2).value = stage.description
+        worksheet.cell(row=counter, column=3).value = stage.start_time
+        worksheet.cell(row=counter, column=4).value = stage.finish_time
+        worksheet.cell(row=counter, column=5).value = stage.duration_per_day
+        worksheet.cell(row=counter, column=6).value = stage.duration_per_hour
+        worksheet.cell(row=counter, column=7).value = stage.total_price_stage_and_task
+        for task in stage.task_list():
+            counter += 1
+            worksheet.cell(row=counter, column=1).value = ""
+            worksheet.cell(row=counter, column=2).value = task.description
+            worksheet.cell(row=counter, column=3).value = task.start_time
+            worksheet.cell(row=counter, column=4).value = task.finish_time
+            worksheet.cell(row=counter, column=5).value = task.duration_per_day
+            worksheet.cell(row=counter, column=6).value = task.duration_per_hour
+            worksheet.cell(row=counter, column=7).value = task.total_price
+        counter += 1
+    project = ProjectPlan.objects.get(id=pk)
+    worksheet.title = str(project.id)
+
+    workbook.save(response)
+
+    return response
