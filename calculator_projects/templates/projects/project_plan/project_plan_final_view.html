@@ -42,7 +42,7 @@
         </button>
         <div class="dropdown-menu">
          <a type="button" class="dropdown-item" href="#"  onclick="print_password_project()">pdf</a>
-          <a class="dropdown-item" href="#">excel</a>
+          <a class="dropdown-item" href="{% url 'projects:export_excel' projectplan.id %}">excel</a>
         </div>
       </div>
         </div>
