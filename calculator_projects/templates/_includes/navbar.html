@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n  custom_tags %}
 <div class="nav-header">
   <a href="#" class="brand-logo">
     <img src="#" alt="">
@@ -27,20 +27,46 @@
               {% get_language_info_list for LANGUAGES as languages %}
 
               <div class="right_content">
-                <form action="{% url 'set_language' %}" method="post">
-                  {% csrf_token %}
-                  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>
-                  <select name="language" class="form-control">
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                      <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-                              selected="selected"{% endif %}>
-                        {{ language.name_local }}
-                      </option>
-                    {% endfor %}
-                  </select>
+                {#                <form action="{% url 'set_language' %}" method="post">#}
+                {#                  {% csrf_token %}#}
+                {#                  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>#}
+                {#                  <select name="language" class="form-control">#}
+                {#                    {% get_language_info_list for LANGUAGES as languages %}#}
+                {#                    {% for language in languages %}#}
+                {#                      <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}#}
+                {#                              selected="selected"{% endif %}>#}
+                {#                        {{ language.name_local }}#}
+                {#                      </option>#}
+                {#                    {% endfor %}#}
+                {#                  </select>#}
 
-                </form>
+                {#                {% for language in LANGUAGES %}#}
+                {##}
+                {#                  <a class="btn font-weight-bold {% if language.0 == LANGUAGE_CODE %} active {% endif %}"#}
+                {#                     data-lang="{{ language.0 }}" href="{{ request.get_full_path }}">#}
+                {#                    {{ language.1 }}#}
+                {#                  </a>#}
+                {##}
+                {#                {% endfor %}#}
+                <ul class="navbar-nav header-right">
+                  {% get_current_language as LANGUAGE_CODE %}
+                  {% get_available_languages as LANGUAGES %}
+                  {% get_language_info_list for LANGUAGES as languages %}
+                  {% for language in languages %}
+                    {# IMPORTANT! enclose the 'current_url' tag in a 'language' block #}
+
+
+                    <li
+                      class="dropdown  {% if language.code == LANGUAGE_CODE %} font-weight-bold {% endif %}">
+                      <a
+                        href="{{ request.get_full_path|lang_switch_link:language.code }}">{{ language.name_local }}</a>
+                    </li>
+
+
+                  {% endfor %}
+                </ul>
+
+                {#                </form>#}
                 {% if user.is_authenticated %}
                   <div class="dropdown-menu dropdown-menu-right">
                     <a href="{% url 'users:detail' user.id %}" class="dropdown-item">

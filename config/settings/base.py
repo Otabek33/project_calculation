@@ -5,7 +5,6 @@ from pathlib import Path
 
 import django.conf.locale
 import environ
-from django.conf import global_settings
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
@@ -33,12 +32,6 @@ TIME_ZONE = "Asia/Tashkent"
 # from django.utils.translation import gettext_lazy as _
 # extra O'zbek cyrlillic language define
 EXTRA_LANG_INFO = {
-    "uzc": {
-        "bidi": False,
-        "code": "uzc",
-        "name": "Ozbek",
-        "name_local": "Ўзбек",
-    },
     "uz": {
         "bidi": False,
         "code": "uz",
@@ -49,17 +42,14 @@ EXTRA_LANG_INFO = {
 
 LANG_INFO = {**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO}
 django.conf.locale.LANG_INFO = LANG_INFO
-global_settings.LANGUAGES = global_settings.LANGUAGES + [("uzc", "Ўзбек")]
 
 RUSSIAN = "ru"
 UZBEK = "uz"
-CYRILLIC = "uzc"
-LANGUAGE_CODE = UZBEK
+LANGUAGE_CODE = RUSSIAN
 
 LANGUAGES = (
     (RUSSIAN, _("Рус")),
     (UZBEK, _("O'z")),
-    (CYRILLIC, _("Ўзб")),
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -133,6 +123,9 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "django_fsm",
+    "django_fsm_log",
+    "django_filters",
     "drf_spectacular",
     "ckeditor",
     "ckeditor_uploader",
