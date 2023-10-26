@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 10:15+0500\n"
+"POT-Creation-Date: 2023-10-26 15:49+0500\n"
 "PO-Revision-Date: 2022-05-23 10:44+0437\n"
 "Last-Translator: Admin User <a@mail.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,933 +16,360 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.7\n"
 
-#: config/settings/base.py:57
-msgid "Рус"
-msgstr "Рус"
-
-#: config/settings/base.py:58
-msgid "O'z"
-msgstr "O'zb"
-
-#: config/settings/base.py:59
-msgid "Ўзб"
-msgstr "Ўзб"
-
-#: qonun/apps/authors/apps.py:7
-msgid "Qonun mualliflari"
-msgstr "Авторы законопроекта"
-
-#: qonun/apps/authors/constants.py:7
-msgid "O'zbekiston Respublikasi Prezidenti"
-msgstr "Президент Республики Узбекистан"
-
-#: qonun/apps/authors/constants.py:8
-msgid "Qoraqalpog'iston Respublikasi Jo'qorg'i Kengesi"
-msgstr "Жокаргы Кенес Республики Каракалпакстан"
-
-#: qonun/apps/authors/constants.py:9
-msgid ""
-"O'zbekiston Respublikasi Oliy Majlisining Qonunchilik palatasi deputatlari"
-msgstr "Депутаты Законодательной палаты Олий Мажлиса Республики Узбекистан"
-
-#: qonun/apps/authors/constants.py:10
-msgid "O'zbekiston Respublikasi Vazirlar Mahkamasi"
-msgstr "Кабинет Миистров Республики Узбекистан"
-
-#: qonun/apps/authors/constants.py:11
-msgid "O'zbekiston Respublikasi Konstitutsiyaviy Sudi"
-msgstr "Конституционный суд Республики Узбекистан"
-
-#: qonun/apps/authors/constants.py:12
-msgid "O'zbekiston Respublikasi Oliy sudi"
-msgstr "Верховный суд Республики Узбекистан"
-
-#: qonun/apps/authors/constants.py:13
-msgid "O'zbekiston Respublikasi Bosh Prokurori"
-msgstr "Генеральный прокурор Республики Узбекистан"
-
-#: qonun/apps/authors/forms.py:13 qonun/apps/law/models.py:70
-#| msgid "Qonun loyihalari"
-msgid "Qonun bosqichlari"
-msgstr "Этапы законов"
-
-#: qonun/apps/authors/models.py:7 qonun/templates/discuss/discuss_list.html:27
-msgid "Qo'mita nomi"
-msgstr "Название комитета"
-
-#: qonun/apps/authors/models.py:13 qonun/apps/users/forms.py:45
-#: qonun/templates/discuss/includes/stage_history.html:61
-#: qonun/templates/discuss/includes/stage_history.html:96
-msgid "Qo'mita"
-msgstr "Комитет"
-
-#: qonun/apps/authors/models.py:14 qonun/apps/discuss/forms.py:75
-#: qonun/apps/discuss/forms.py:136 qonun/apps/law/models.py:23
-#: qonun/apps/law/models.py:87 qonun/templates/authors/qumita_list.html:14
-#: qonun/templates/discuss/discuss_form.html:150
-#: qonun/templates/discuss/listing.html:55
-#: qonun/templates/discuss/pendingstage_form.html:78
-msgid "Qo'mitalar"
-msgstr "Комитеты"
-
-#: qonun/apps/authors/models.py:19 qonun/apps/authors/models.py:25
-msgid "Deputat"
-msgstr "Депутат"
-
-#: qonun/apps/authors/models.py:26 qonun/apps/discuss/forms.py:82
-#: qonun/apps/discuss/forms.py:143 qonun/apps/law/models.py:24
-#: qonun/apps/law/models.py:88 qonun/templates/authors/deputy_form.html:5
-#: qonun/templates/authors/deputy_list.html:5
-#: qonun/templates/authors/deputy_list.html:14
-#: qonun/templates/authors/doc_type_form.html:5
-#: qonun/templates/discuss/discuss_form.html:153
-#: qonun/templates/discuss/pendingstage_form.html:81
-#: qonun/templates/includes/sidebar.html:38
-#: qonun/templates/includes/sidebar.html:39
-msgid "Deputatlar"
-msgstr "Депутаты"
-
-#: qonun/apps/discuss/admin.py:100 qonun/templates/base.html:9
-msgid "Qonun loyihalari portali"
-msgstr "Портал законадательних проектов"
-
-#: qonun/apps/discuss/admin.py:103
-msgid "OLIY MAJLIS QONUNCHILIK FAOLIYATI TIZIMI"
-msgstr "Система законодательной деятельности Олий Мажлиса"
-
-#: qonun/apps/discuss/apps.py:7 qonun/apps/discuss/models.py:99
-msgid "Qonun muhokamalari"
-msgstr "Обсуждения законопроектов"
-
-#: qonun/apps/discuss/constants.py:8 qonun/apps/discuss/constants.py:33
-msgid "Noma'lum"
-msgstr "Неизвестно"
-
-#: qonun/apps/discuss/constants.py:10
-#: qonun/templates/discuss/includes/stage_history.html:7
-msgid "Qonun loyihasi ro‘yxatga olindi va Qonunchilik palatasiga kiritildi"
-msgstr "Законопроект зарегистрирован и внесен в Законодательную палату"
-
-#: qonun/apps/discuss/constants.py:11
-msgid ""
-"Qonun loyihasi masʼul qo‘mitaga kiritildi va dastlabki kelishuv jarayonida"
+#: .\calculator_projects\apps\additionalCosts\models.py:11
+msgid "Аутсорсинг"
 msgstr ""
-"Законопроект внесен ответственному комитету и находиться в процессе "
-"предварительного рассмотрение"
 
-#: qonun/apps/discuss/constants.py:12
-#: qonun/templates/discuss/includes/stage_history.html:25
-msgid "Qonun loyihasi birinchi o‘qishda"
-msgstr "Рассмотрение законопроекта в первом чтении"
+#: .\calculator_projects\apps\additionalCosts\models.py:12
+msgid "Оборудование"
+msgstr ""
 
-#: qonun/apps/discuss/constants.py:13
-#: qonun/templates/discuss/includes/stage_history.html:50
-msgid "Qonun loyihasi ikkinchi o‘qishda"
-msgstr "Рассмотрение законопроекта во втором чтении"
+#: .\calculator_projects\apps\additionalCosts\models.py:13
+msgid "Прочие расходы"
+msgstr ""
 
-#: qonun/apps/discuss/constants.py:14
-#: qonun/templates/discuss/includes/stage_history.html:85
-msgid "Qonun loyihasi uchinchi o‘qishda"
-msgstr "Рассмотрение законопроекта в третьем чтении"
-
-#: qonun/apps/discuss/constants.py:15
-#: qonun/templates/discuss/includes/stage_history.html:118
+#: .\calculator_projects\apps\projects\models.py:13
 msgid ""
-"Qonun loyihasi Qonunchilik palatasi tomonidan qabul qilindi va Senatga "
-"kiritildi"
-msgstr "Законопроект принят Законодательной палатой и направлен в Сенат"
-
-#: qonun/apps/discuss/constants.py:16
-#: qonun/templates/discuss/includes/stage_history.html:133
-msgid ""
-"Qonun loyihasi Qonunchilik palatasi tomonidan qabul qilinmadi va "
-"tashabbuskorga qaytarildi"
-msgstr "Законопроект отклонён Законодательной палатой"
-
-#: qonun/apps/discuss/constants.py:17
-msgid "Qonun hujjati qabul qilingan"
-msgstr "Законопроект принят "
-
-#: qonun/apps/discuss/constants.py:21
-msgid "Umumiy to'plam"
-msgstr "Единый пакет документов"
-
-#: qonun/apps/discuss/constants.py:22
-#: qonun/templates/discuss/discuss_detail.html:5
-msgid "Qonun loyihasi"
-msgstr "Законопроект"
-
-#: qonun/apps/discuss/constants.py:23
-msgid "Kuzatuv xati"
-msgstr "Сопроводительное письмо "
-
-#: qonun/apps/discuss/constants.py:24
-msgid "Tushuntirish xati"
-msgstr "Пояснительная записка"
-
-#: qonun/apps/discuss/constants.py:25
-msgid "Qiyosiy jadval"
-msgstr "Cопоставительная таблица"
-
-#: qonun/apps/discuss/constants.py:26
-msgid "Taqqoslash jadvali"
-msgstr "Таблица разногласий"
-
-#: qonun/apps/discuss/constants.py:27
-msgid "Tahliliy materiallar"
-msgstr "Аналитические материалы"
-
-#: qonun/apps/discuss/constants.py:28
-msgid "Fraksiyalar kesimida ma'lumot"
-msgstr "Сведения в разрезе фракции"
-
-#: qonun/apps/discuss/constants.py:29
-msgid "Boshqasi"
-msgstr "Другие"
-
-#: qonun/apps/discuss/constants.py:34
-#| msgid "Kengash qarori"
-msgid "Kengash"
-msgstr "Кенгаш"
-
-#: qonun/apps/discuss/constants.py:35
-msgid "Yalpi majlis"
-msgstr "Ялпи Мажлис"
-
-#: qonun/apps/discuss/constants.py:55
-#: qonun/templates/discuss/filtered_list.html:119
-msgid "Yanvar"
-msgstr "Январь"
-
-#: qonun/apps/discuss/constants.py:56
-#: qonun/templates/discuss/filtered_list.html:120
-msgid "Fevral"
-msgstr "Февраль"
-
-#: qonun/apps/discuss/constants.py:57
-#: qonun/templates/discuss/filtered_list.html:121
-msgid "Mart"
-msgstr "Март"
-
-#: qonun/apps/discuss/constants.py:58
-#: qonun/templates/discuss/filtered_list.html:122
-msgid "Aprel"
-msgstr "Апрель"
-
-#: qonun/apps/discuss/constants.py:59
-#: qonun/templates/discuss/filtered_list.html:123
-msgid "May"
-msgstr "Май"
-
-#: qonun/apps/discuss/constants.py:60
-#: qonun/templates/discuss/filtered_list.html:124
-msgid "Iyun"
-msgstr "Июнь"
-
-#: qonun/apps/discuss/constants.py:61
-#: qonun/templates/discuss/filtered_list.html:125
-msgid "Iyul"
-msgstr "Июль"
-
-#: qonun/apps/discuss/constants.py:62
-msgid "August"
-msgstr "Август"
-
-#: qonun/apps/discuss/constants.py:63
-#: qonun/templates/discuss/filtered_list.html:127
-msgid "Sentabr"
-msgstr "Сентябрь"
-
-#: qonun/apps/discuss/constants.py:64
-#: qonun/templates/discuss/filtered_list.html:128
-msgid "Oktabr"
-msgstr "Октябрь"
-
-#: qonun/apps/discuss/constants.py:65
-#: qonun/templates/discuss/filtered_list.html:129
-msgid "Noyabr"
-msgstr "Ноябрь"
-
-#: qonun/apps/discuss/constants.py:66
-#: qonun/templates/discuss/filtered_list.html:130
-msgid "Dekabr"
-msgstr "Декабрь"
-
-#: qonun/apps/discuss/forms.py:26 qonun/apps/discuss/models.py:225
-#: qonun/apps/law/models.py:52 qonun/templates/discuss/discuss_form.html:56
-msgid "Hujjat turi"
-msgstr "Вид документа"
-
-#: qonun/apps/discuss/forms.py:30 qonun/templates/base.html:52
-#: qonun/templates/discuss/discuss_form.html:67
-msgid "Fayllar"
-msgstr "Файл"
-
-#: qonun/apps/discuss/forms.py:34 qonun/apps/law/models.py:17
-#: qonun/apps/law/models.py:83 qonun/templates/base.html:53
-#: qonun/templates/discuss/discuss_form.html:87
-msgid "Hujjat nomi"
-msgstr "Название документа"
-
-#: qonun/apps/discuss/forms.py:40 qonun/templates/base.html:47
-#: qonun/templates/includes/extra_data.html:3
-#: qonun/templates/includes/pending_extra.html:3
-msgid "Tarafdorlar"
-msgstr "За"
-
-#: qonun/apps/discuss/forms.py:41 qonun/templates/base.html:48
-#: qonun/templates/includes/extra_data.html:4
-#: qonun/templates/includes/pending_extra.html:4
-msgid "Qarshilar"
-msgstr "Против"
-
-#: qonun/apps/discuss/forms.py:42 qonun/templates/base.html:49
-#: qonun/templates/includes/extra_data.html:5
-#: qonun/templates/includes/pending_extra.html:5
-msgid "Betaraflar"
-msgstr "Воздержались"
-
-#: qonun/apps/discuss/forms.py:43 qonun/templates/includes/extra_data.html:6
-#: qonun/templates/includes/pending_extra.html:6
-msgid "Ovoz bermaganlar"
-msgstr "Не голосовали"
-
-#: qonun/apps/discuss/forms.py:44 qonun/templates/includes/extra_data.html:7
-#: qonun/templates/includes/pending_extra.html:7
-msgid "Jami"
-msgstr "Общее"
-
-#: qonun/apps/discuss/forms.py:49 qonun/apps/discuss/forms.py:113
-msgid "Qonun hujjati nomi [Ўзб]"
-msgstr "Название законопроекта [Ўзб]"
-
-#: qonun/apps/discuss/forms.py:50 qonun/apps/discuss/forms.py:114
-msgid "Qonun hujjati nomi [O'zb]"
-msgstr "Название законопроекта [O'zb]"
-
-#: qonun/apps/discuss/forms.py:51 qonun/apps/discuss/forms.py:115
-msgid "Qonun hujjati nomi [Рус]"
-msgstr "Название законопроекта [Рус]"
-
-#: qonun/apps/discuss/forms.py:53 qonun/apps/discuss/forms.py:118
-#: qonun/templates/discuss/listing.html:72
-msgid "Ro'yxatdan o'tkazilgan sana"
-msgstr "Дата регистрации"
-
-#: qonun/apps/discuss/forms.py:66
-msgid "Ro'yxatdan o'tkazilgan raqami [Ўзб]"
-msgstr "Номер регистрации [Ўзб]"
-
-#: qonun/apps/discuss/forms.py:67
-msgid "Ro'yxatdan o'tkazilgan raqami [O'zb]"
-msgstr "Номер регистрации [O'zb]"
-
-#: qonun/apps/discuss/forms.py:68
-msgid "Ro'yxatdan o'tkazilgan raqami [Рус]"
-msgstr "Номер регистрации [Рус]"
-
-#: qonun/apps/discuss/forms.py:70 qonun/apps/discuss/forms.py:131
-msgid "Tashabbuskor"
-msgstr "Инициатор"
-
-#: qonun/apps/discuss/forms.py:93 qonun/apps/discuss/forms.py:100
-#: qonun/apps/discuss/forms.py:107
-msgid "Ushbu raqam bilan qonun ro'yxatdan o'tkazilgan"
-msgstr "Закон зарегистрирован под этим номером"
-
-#: qonun/apps/discuss/forms.py:154
-#| msgid "Ko'rib chiqish bosqichlari"
-msgid "Ko'rib chiqishga kiritish"
-msgstr "Введение на рассмотрение"
-
-#: qonun/apps/discuss/forms.py:175 qonun/apps/discuss/forms.py:196
-msgid "Birinchi o'qishga kiritish sanasi"
-msgstr "Дата рассмотрение в первом чтении"
-
-#: qonun/apps/discuss/forms.py:217 qonun/apps/discuss/forms.py:238
-msgid "Ikkinchi o'qishga kiritish sanasi"
-msgstr "Дата рассмотрение во втором чтении"
-
-#: qonun/apps/discuss/forms.py:259 qonun/apps/discuss/forms.py:280
-msgid "Uchinchi o'qishga kiritish sanasi"
-msgstr "Дата рассмотрение в третьем чтении"
-
-#: qonun/apps/discuss/forms.py:301
-msgid "Senatga kiritish sanasi"
-msgstr "Дата внесение в Сенат"
-
-#: qonun/apps/discuss/forms.py:322
-msgid "Qonunni qaytarish sanasi"
-msgstr "Дата отклонение"
-
-#: qonun/apps/discuss/forms.py:343
-msgid "Qonun loyihasini qo'mitaga qaytarish sanasi"
-msgstr "Дата отправление законопроекта на комитет"
-
-#: qonun/apps/discuss/forms.py:360 qonun/templates/discuss/detail.html:26
-#: qonun/templates/discuss/discuss_detail.html:32
-msgid "Mas'ul qo'mita"
-msgstr "Ответственный комитет"
-
-#: qonun/apps/discuss/models.py:27
-msgid "Muhokama bosqichi"
-msgstr "Этапы рассмотрение"
-
-#: qonun/apps/discuss/models.py:31
-msgid "Qonun loyihasi nomi"
-msgstr "Название законопроекта"
-
-#: qonun/apps/discuss/models.py:34
-msgid "Muhokamaga kiritilish sanasi"
-msgstr "Дата внесение на обсуждение"
-
-#: qonun/apps/discuss/models.py:35
-msgid "Kiritish bosqichi tugallangan"
-msgstr "Этап внесение завершен"
-
-#: qonun/apps/discuss/models.py:40
-msgid "Dastlabki muhokama sanasi"
-msgstr "Дата предварительного рассмотрение"
-
-#: qonun/apps/discuss/models.py:41
-msgid "Dastlabki muhokama tugallangan"
-msgstr "Предварительное рассмотрение законопроекта завершено"
-
-#: qonun/apps/discuss/models.py:45
-msgid "Birinchi o'qish sanasi"
-msgstr "Дата проведение первого чтение"
-
-#: qonun/apps/discuss/models.py:46
-msgid "Birinchi o'qish tugallangan"
-msgstr "Первое чтение завершено"
-
-#: qonun/apps/discuss/models.py:47 qonun/apps/discuss/models.py:56
-#: qonun/apps/discuss/models.py:65
-msgid "Ovoz berish haqidagi ma'lumotlar"
-msgstr "Данные о результатах голосование"
-
-#: qonun/apps/discuss/models.py:49
-msgid "Birinchi o'qish qabul qilinmadi"
-msgstr "Первое чтение не одобрено"
-
-#: qonun/apps/discuss/models.py:50
-msgid "Birinchi o'qish qabul qilindi"
-msgstr "Первое чтение одобрено"
-
-#: qonun/apps/discuss/models.py:54
-msgid "Ikkinchi o'qish sanasi"
-msgstr "Дата проведение второго чтение"
-
-#: qonun/apps/discuss/models.py:55
-msgid "Ikkinchi o'qish tugallangan"
-msgstr "Второе чтение завершено"
-
-#: qonun/apps/discuss/models.py:58
-msgid "Ikkinchi o'qish qabul qilinmadi"
-msgstr "Второе чтение не одобрено"
-
-#: qonun/apps/discuss/models.py:59
-msgid "Ikkinchi o'qish qabul qilindi"
-msgstr "Второе чтение одобрено"
-
-#: qonun/apps/discuss/models.py:63
-msgid "Uchinchi o'qish sanasi"
-msgstr "Дата проведение третьего чтение"
-
-#: qonun/apps/discuss/models.py:64
-msgid "Uchinchi o'qish tugallangan"
-msgstr "Третье чтение завершено"
-
-#: qonun/apps/discuss/models.py:67
-msgid "Uchinchi o'qish qabul qilinmadi"
-msgstr "Третье чтение не одобрено"
-
-#: qonun/apps/discuss/models.py:68
-msgid "Uchinchi o'qish qabul qilindi"
-msgstr "Третье чтение одобрено"
-
-#: qonun/apps/discuss/models.py:72
-msgid "Senatga yuborilgan sana"
-msgstr "Дата внесение в Сенат"
-
-#: qonun/apps/discuss/models.py:73
-msgid "Senatga yuborish bosqichi yakullangan"
-msgstr "Этап по внесению в Сенат завершено"
-
-#: qonun/apps/discuss/models.py:75
-msgid "Qo'shimcha ma'lumotlar"
-msgstr "Дополнительная информация"
-
-#: qonun/apps/discuss/models.py:79
-msgid "Qaytarilgan sana"
-msgstr "Дата возвращение "
-
-#: qonun/apps/discuss/models.py:81
-msgid "Qaytarilgan"
-msgstr "Отклонено"
-
-#: qonun/apps/discuss/models.py:84
-msgid "Muhokama yakunlangan"
-msgstr "Обсуждение завершено"
-
-#: qonun/apps/discuss/models.py:88
-msgid "Muhokama o'chirilgan"
-msgstr "Обсуждение удалено"
-
-#: qonun/apps/discuss/models.py:90
-msgid "Muhokama yangilangan sana"
-msgstr "Да обновлении обсуждения закона"
-
-#: qonun/apps/discuss/models.py:98 qonun/apps/law/models.py:15
-#: qonun/apps/law/models.py:82 qonun/templates/discuss/discuss_form.html:35
-#: qonun/templates/discuss/pendingstage_form.html:37
-msgid "Qonun muhokamasi"
-msgstr "Рассмотрение законопроекта"
-
-#: qonun/apps/discuss/models.py:220
-msgid "Fayl tili"
-msgstr "Язык файла"
-
-#: qonun/apps/discuss/models.py:227
-#| msgid "Qaytarilgan"
-msgid "Yashirilgan"
-msgstr "Скрыто"
-
-#: qonun/apps/discuss/models.py:234
-msgid "Muhokama bosqichi fayli"
-msgstr "Файл этапа рассмотрении"
-
-#: qonun/apps/discuss/models.py:235
-msgid "Muhokama bosqichi fayllari"
-msgstr "Файлы этапа рассмотрении"
-
-#: qonun/apps/discuss/models.py:257 qonun/apps/discuss/models.py:276
-msgid "Bosqich"
-msgstr "Этап"
-
-#: qonun/apps/discuss/models.py:258
-msgid "Ovozlar"
-msgstr "Голоса"
-
-#: qonun/apps/discuss/models.py:260
-msgid "Rad etish sababi"
-msgstr "Причина отклонения"
-
-#: qonun/apps/discuss/models.py:264
-msgid "Muzlatilgan bosqich"
-msgstr "Приостановленный этап"
-
-#: qonun/apps/discuss/models.py:265
-msgid "Muzlatilgan bosqichlar"
-msgstr "Приостановленные этапы"
-
-#: qonun/apps/discuss/models.py:277
-msgid "Sarlavha"
-msgstr "Заголовок"
-
-#: qonun/apps/discuss/models.py:278
-#| msgid "Qabul qilinmadi"
-msgid "Qabul qilingan"
-msgstr "Принято"
-
-#: qonun/apps/discuss/models.py:279
-#| msgid "Qaytarilgan"
-msgid "Rad etilgan"
-msgstr "Отклонено"
-
-#: qonun/apps/discuss/models.py:283
-#| msgid "Qonun muhokamasi"
-msgid "Qonun muhokamasi logi"
-msgstr "Лог законопроекта"
-
-#: qonun/apps/discuss/models.py:284
-#| msgid "Qonun muhokamalari"
-msgid "Qonun muhokamasi loglari"
-msgstr "Логи законопроектов"
-
-#: qonun/apps/discuss/models.py:293
-#| msgid "Fayl tili"
-msgid "Fayl havolasi"
-msgstr "Ссылка на файл"
-
-#: qonun/apps/discuss/models.py:294
-msgid "Fayl yashirilgan edi"
-msgstr "Файл был скрыт "
-
-#: qonun/apps/discuss/models.py:298
-msgid "Faylni yuklab olish logi"
-msgstr "Лог скачивание файлов"
-
-#: qonun/apps/discuss/models.py:299
-msgid "Faylni yuklab olish loglari"
-msgstr "Лог скачивание файлов"
-
-#: qonun/apps/law/apps.py:7 qonun/apps/law/models.py:33
-msgid "Qonunlar"
-msgstr "Законы"
-
-#: qonun/apps/law/models.py:19 qonun/apps/law/models.py:84
-msgid "Ro'yxatdan o'tkazish raqami"
-msgstr "Номер регистрации"
-
-#: qonun/apps/law/models.py:21 qonun/apps/law/models.py:85
-msgid "Ro'yxatdan o'tkazish sanasi"
-msgstr "Дата регистрации"
-
-#: qonun/apps/law/models.py:22 qonun/apps/law/models.py:86
-msgid "Muallif"
-msgstr "Инициатор"
-
-#: qonun/apps/law/models.py:26
-msgid "Qonun o'chirilgan"
-msgstr "Закон удалён"
-
-#: qonun/apps/law/models.py:27
-msgid "Omma uchun ochiq"
-msgstr "Публичный"
-
-#: qonun/apps/law/models.py:32
-msgid "Qonun"
-msgstr "Закон"
-
-#: qonun/apps/law/models.py:45 qonun/apps/law/models.py:62
-#: qonun/templates/discuss/discuss_list.html:27
-#: qonun/templates/discuss/listing.html:71
-msgid "Nomi"
-msgstr "Название"
-
-#: qonun/apps/law/models.py:53 qonun/apps/law/models.py:64
-#: qonun/templates/authors/doc_type_list.html:14
-#: qonun/templates/includes/sidebar.html:44
-#: qonun/templates/includes/sidebar.html:45
-msgid "Hujjat turlari"
-msgstr "Виды документов"
-
-#: qonun/apps/law/models.py:63
-msgid "Tartib raqami"
-msgstr "Порядковый номер"
-
-#: qonun/apps/law/models.py:69
-#| msgid "Qonun loyihasi bosqichi"
-msgid "qonun bosqichi"
-msgstr "этап закона"
-
-#: qonun/apps/law/models.py:91
-#| msgid "Qonun loyihasi"
-msgid "Qonun logi"
-msgstr "Лог закона"
-
-#: qonun/apps/law/models.py:92
-#| msgid "Qonun loyihalari"
-msgid "Qonun loglari"
-msgstr "Логи законов"
-
-#: qonun/apps/users/admin.py:17
-msgid "Personal info"
-msgstr "Личная информация"
-
-#: qonun/apps/users/admin.py:19
-msgid "Permissions"
-msgstr "Разрешения"
-
-#: qonun/apps/users/admin.py:32
-msgid "Important dates"
-msgstr "Важные даты"
-
-#: qonun/apps/users/apps.py:7
+"«Единый интегратор по созданию государственных информационных систем "
+"UZINFOCOM»"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:14
+#: .\calculator_projects\apps\projects\models.py:22
+msgid "Другой"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:19
+msgid "ФРИКТ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:20
+msgid "Государственное учреждение"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:21
+msgid "Частный сектор"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:26
+msgid "ПРАВООХРАНИТЕЛЬНЫЕ ОРГАНЫ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:27
+msgid "БЛАГОТВОРИТЕЛЬНОСТЬ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:28
+msgid "ГОССЕКТОР"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:29
+msgid "АГРОПРОМЫШЛЕННОСТЬ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:30
+msgid "ОБРАЗОВАНИЕ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:31
+msgid "ИНТЕРНЕТ И ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:32
+msgid "МЕДИЦИНА"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:33
+msgid "ФИНАНСОВЫЕ ТЕХНОЛОГИИ"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:37
+msgid "Этап 1"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:39
+msgid "Этап 2"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:40
+msgid "Этап 3"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:41
+#: .\calculator_projects\apps\projects\models.py:54
+msgid "В подтверждении"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:53
+msgid "В создании"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:55
+#: .\calculator_projects\apps\projects\models.py:72
+#: .\calculator_projects\apps\tasks\models.py:18
+msgid "Активный"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:56
+#: .\calculator_projects\apps\projects\models.py:73
+#: .\calculator_projects\apps\tasks\models.py:19
+msgid "Завершенный"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:57
+#: .\calculator_projects\apps\tasks\models.py:20
+msgid "Отменено"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:58
+#: .\calculator_projects\apps\tasks\models.py:21
+msgid "На удерживании"
+msgstr ""
+
+#: .\calculator_projects\apps\projects\models.py:71
+#: .\calculator_projects\apps\tasks\models.py:17
+msgid "План"
+msgstr ""
+
+#: .\calculator_projects\apps\users\apps.py:7
 msgid "Users"
 msgstr "Пользователи"
 
-#: qonun/apps/users/forms.py:21
-msgid "Qo'mita katta referenti uchun qo'mitani belgilash kerak!"
-msgstr "Нужно выбрать комитет для референта"
-
-#: qonun/apps/users/forms.py:30
-msgid "Ushbu foydalanuvchi nomi band."
-msgstr "Это имя пользователя занято."
-
-#: qonun/apps/users/forms.py:50
-msgid "Parol"
-msgstr "Пароль"
-
-#: qonun/apps/users/forms.py:56
-msgid "Parolni tasdiqlang"
-msgstr "Подтверждение"
-
-#: qonun/apps/users/forms.py:72 qonun/templates/users/user_detail.html:32
-#: qonun/templates/users/user_list.html:21
-msgid "Foydalanuvchi nomi"
-msgstr "Имя пользователя"
-
-#: qonun/apps/users/forms.py:73 qonun/templates/users/user_list.html:19
-msgid "Ismi"
-msgstr "Имя"
-
-#: qonun/apps/users/forms.py:74
-msgid "Familiyasi"
-msgstr "Фамилия"
-
-#: qonun/apps/users/forms.py:75
-msgid "E.pochta"
-msgstr "Э-почта"
-
-#: qonun/apps/users/forms.py:76 qonun/apps/users/models.py:29
-#: qonun/templates/users/user_list.html:45
-msgid "Moderator"
-msgstr "Модератор"
-
-#: qonun/apps/users/forms.py:84
-msgid "Parollar mos kelmadi!"
-msgstr "Пароли не совпадает!"
-
-#: qonun/apps/users/models.py:10
-msgid "Kansellariya"
-msgstr "Канселярия"
-
-#: qonun/apps/users/models.py:11
-msgid "Tashkiliy ishlar sektori"
-msgstr "Сектор организационных дел"
-
-#: qonun/apps/users/models.py:12
-#| msgid "Qo'mita hujjatlari"
-msgid "Qo'mita katta referenti"
-msgstr "Больй референт комитета"
-
-#: qonun/apps/users/models.py:13
-#| msgid "Oddiy foydalanuvchi"
-msgid "Universal foydalanuvchi"
-msgstr "Унивирсальный пользователь"
-
-#: qonun/apps/users/models.py:14
-msgid "Ommaga chop etuvchi"
-msgstr "Публичный издатель"
-
-#: qonun/apps/users/models.py:15 qonun/templates/users/user_list.html:48
-msgid "Oddiy foydalanuvchi"
-msgstr "Ползователь"
-
-#: qonun/apps/users/models.py:22
-msgid "Name of User"
-msgstr "Имя пользователя"
-
-#: qonun/apps/users/models.py:23
-msgid "Foydalanuvchi ismi"
-msgstr "Имя пользователя"
-
-#: qonun/apps/users/models.py:24
-msgid "Foydalanuvchi familiyasi"
-msgstr "Фамилия пользователя"
-
-#: qonun/apps/users/models.py:25
-#| msgid "Foydalanuvchi"
-msgid "Foydalanuvchi turi"
-msgstr "Тип пользователей"
-
-#: qonun/apps/users/models.py:32
-msgid "Foydalanuvchi"
-msgstr "Пользователь"
-
-#: qonun/apps/users/models.py:33
-msgid "Foydalanuvchilar"
-msgstr "Ползователи"
-
-#: qonun/apps/users/tests/test_forms.py:39
+#: .\calculator_projects\apps\users\forms.py:25
+#: .\calculator_projects\apps\users\tests\test_forms.py:36
 msgid "This username has already been taken."
 msgstr "Это имя пользователя уже занято."
 
-#: qonun/apps/users/views.py:32
+#: .\calculator_projects\apps\users\models.py:10
+msgid "Финансист"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:11
+msgid "Менеджер проекта"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:12
+msgid "Бизнес-аналитик"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:13
+msgid "Супер пользователь"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:14
+#: .\calculator_projects\apps\users\models.py:68
+msgid "Пользователь"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:18
+msgid "Должность"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:19
+#: .\calculator_projects\apps\users\models.py:31
+msgid "Код"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:30
+#: .\calculator_projects\apps\users\models.py:38
+msgid "Подразделение"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:39
+msgid "Подразделении"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:51
+msgid "Имя"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:52
+msgid "Фамилия"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:53
+msgid "Отчество"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:54
+msgid "Эл.почта"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:56
+msgid "Тип пользователя"
+msgstr ""
+
+#: .\calculator_projects\apps\users\models.py:69
+msgid "Пользователи"
+msgstr ""
+
+#: .\calculator_projects\apps\users\tests\test_views.py:71
 msgid "Information successfully updated"
 msgstr "Information successfully updated"
 
-#: qonun/templates/403.html:15
-msgid "Forbidden"
-msgstr "Запрещено"
-
-#: qonun/templates/403.html:18
-msgid "Ushbu sahifaga kirish uchun <br>sizda huquq yetarli emas!"
-msgstr "Вы не имеете доступа<br>к этой странице!"
-
-#: qonun/templates/account/account_inactive.html:5
-#: qonun/templates/account/account_inactive.html:8
+#: .\calculator_projects\templates\account\account_inactive.html:6
+#: .\calculator_projects\templates\account\account_inactive.html:9
 msgid "Account Inactive"
 msgstr "Аккаунт не активен"
 
-#: qonun/templates/account/account_inactive.html:10
+#: .\calculator_projects\templates\account\account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Этот аккаунт не активен."
 
-#: qonun/templates/account/email.html:7
+#: .\calculator_projects\templates\account\email.html:8
 msgid "Account"
 msgstr "Аккаунт"
 
-#: qonun/templates/account/email.html:18
+#: .\calculator_projects\templates\account\email.html:11
 msgid "E-mail Addresses"
 msgstr "Адрес электронной почты"
 
-#: qonun/templates/account/email.html:21
-msgid "Quyidagi pochta manzillari foydalanuvchiga bog'langan:"
-msgstr "Следующие адреса электронной почты связаны с пользователем:"
+#: .\calculator_projects\templates\account\email.html:13
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
 
-#: qonun/templates/account/email.html:35
-msgid "Tasdiqlangan"
-msgstr "Подтвержден"
+#: .\calculator_projects\templates\account\email.html:28
+msgid "Verified"
+msgstr ""
 
-#: qonun/templates/account/email.html:37
-msgid "Tasdiqlanmagan"
-msgstr "Не подтверждено"
+#: .\calculator_projects\templates\account\email.html:30
+msgid "Unverified"
+msgstr ""
 
-#: qonun/templates/account/email.html:39
-msgid "Asosiy"
-msgstr "Главный"
+#: .\calculator_projects\templates\account\email.html:33
+msgid "Primary"
+msgstr ""
 
-#: qonun/templates/account/email.html:45
-msgid "Asosiy qilish"
-msgstr "Сделать главным"
+#: .\calculator_projects\templates\account\email.html:41
+msgid "Make Primary"
+msgstr ""
 
-#: qonun/templates/account/email.html:46
-msgid "Tasdiqlash xatini qayta jo'natish"
-msgstr "Отправить письмо с подтверждением заново"
+#: .\calculator_projects\templates\account\email.html:44
+msgid "Re-send Verification"
+msgstr ""
 
-#: qonun/templates/account/email.html:47 qonun/templates/base.html:54
-#: qonun/templates/discuss/discuss_form.html:96
-msgid "O'chirish"
-msgstr "Удалить"
+#: .\calculator_projects\templates\account\email.html:47
+msgid "Remove"
+msgstr ""
 
-#: qonun/templates/account/email.html:54
+#: .\calculator_projects\templates\account\email.html:53
 msgid "Warning:"
 msgstr "Предупреждение:"
 
-#: qonun/templates/account/email.html:54
+#: .\calculator_projects\templates\account\email.html:53
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
-"an e-mail address so you can receive notifications, reset your password, "
-"etc."
+"an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "В настоящее время у вас не настроен адрес электронной почты. Вам "
 "действительно стоит добавить адрес электронной почты, чтобы вы могли "
 "получать уведомления, сбрасывать пароль и т. Д."
 
-#: qonun/templates/account/email.html:59
-msgid "E-pochta qo'shish"
-msgstr "Добавить электронную почту"
+#: .\calculator_projects\templates\account\email.html:56
+#, fuzzy
+#| msgid "E-mail Addresses"
+msgid "Add E-mail Address"
+msgstr "Адрес электронной почты"
 
-#: qonun/templates/account/email.html:64
-#: qonun/templates/discuss/discuss_list.html:21
-#: qonun/templates/users/user_list.html:13
-msgid "Qo'shish"
-msgstr "Добавить"
+#: .\calculator_projects\templates\account\email.html:60
+#, fuzzy
+#| msgid "Email"
+msgid "Add E-mail"
+msgstr "Электронная почта "
 
-#: qonun/templates/account/email.html:78
+#: .\calculator_projects\templates\account\email.html:67
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Вы действительно хотите удалить выбранный адрес электронной почты?"
 
-#: qonun/templates/account/email_confirm.html:6
-#: qonun/templates/account/email_confirm.html:15
+#: .\calculator_projects\templates\account\email_confirm.html:7
+#: .\calculator_projects\templates\account\email_confirm.html:10
 msgid "Confirm E-mail Address"
 msgstr "Подтвердите адрес электронной почты"
 
-#: qonun/templates/account/email_confirm.html:21
-#, python-format
+#: .\calculator_projects\templates\account\email_confirm.html:14
+#, fuzzy, python-format
+#| msgid ""
+#| "Please confirm that\n"
+#| "              <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+#| "address for user %(user_display)s\n"
+#| "              ."
 msgid ""
-"Please confirm that\n"
-"              <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s\n"
-"              ."
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
 msgstr ""
 "Пожалуйста, подтвердите, что\n"
-"<a href=\"mailto:%(email)s\"> %(email)s </a> - это адрес электронной почты для пользователя %(user_display)s\n"
+"<a href=\"mailto:%(email)s\"> %(email)s </a> - это адрес электронной почты "
+"для пользователя %(user_display)s\n"
 "."
 
-#: qonun/templates/account/email_confirm.html:27
+#: .\calculator_projects\templates\account\email_confirm.html:19
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: qonun/templates/account/email_confirm.html:34
-#, python-format
+#: .\calculator_projects\templates\account\email_confirm.html:24
+#, fuzzy, python-format
+#| msgid ""
+#| "This e-mail confirmation link expired or is invalid. Please\n"
+#| "              <a href=\"%(email_url)s\">issue a new e-mail confirmation "
+#| "request</a>."
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please\n"
-"              <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Срок действия ссылки для подтверждения по электронной почте истек или она недействительна. Пожалуйста\n"
-"<a href=\"%(email_url)s\"> отправьте новый запрос подтверждения по электронной почте </a>."
+"Срок действия ссылки для подтверждения по электронной почте истек или она "
+"недействительна. Пожалуйста\n"
+"<a href=\"%(email_url)s\"> отправьте новый запрос подтверждения по "
+"электронной почте </a>."
 
-#: qonun/templates/account/login.html:13
-msgid "Tizimga kirish"
-msgstr "Войти в систему"
-
-#: qonun/templates/account/login.html:15
-msgid "Tizimga kirish faqat mas'ul xodimlar uchun!"
-msgstr "Вход только для ответственных сотрудников!"
-
-#: qonun/templates/account/login.html:19
-msgid "Foydalanuvchi nomini kiriting"
-msgstr "Введите имя пользователя"
-
-#: qonun/templates/account/login.html:20
-msgid "Parol kiriting"
-msgstr "Введите пароль"
-
-#: qonun/templates/account/login.html:21
-msgid "Kirish"
-msgstr "Вход"
-
-#: qonun/templates/account/login.html:22
-msgid "Forgot Password?"
-msgstr "Забыли пароль?"
-
-#: qonun/templates/account/logout.html:5
+#: .\calculator_projects\templates\account\logout.html:6
+#: .\calculator_projects\templates\account\logout.html:9
+#: .\calculator_projects\templates\account\logout.html:18
 msgid "Sign Out"
 msgstr "Выйти "
 
-#: qonun/templates/account/logout.html:13
-msgid "Tizimdan chiqish"
-msgstr "Выйти из системы"
+#: .\calculator_projects\templates\account\logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr ""
 
-#: qonun/templates/account/logout.html:15
-msgid "Tizimdan chiqishga ishonchingiz komilmi?"
-msgstr "Хотите выйти из системы?"
-
-#: qonun/templates/account/logout.html:22
-#: qonun/templates/includes/header_home.html:61
-msgid "Chiqish"
-msgstr "Выйти"
-
-#: qonun/templates/account/password_change.html:6
-#: qonun/templates/account/password_change.html:9
-#: qonun/templates/account/password_change.html:14
-#: qonun/templates/account/password_reset_from_key.html:5
-#: qonun/templates/account/password_reset_from_key.html:8
-#: qonun/templates/account/password_reset_from_key_done.html:4
-#: qonun/templates/account/password_reset_from_key_done.html:7
+#: .\calculator_projects\templates\account\password_change.html:7
+#: .\calculator_projects\templates\account\password_change.html:10
+#: .\calculator_projects\templates\account\password_change.html:16
+#: .\calculator_projects\templates\account\password_reset_from_key.html:7
+#: .\calculator_projects\templates\account\password_reset_from_key.html:14
+#: .\calculator_projects\templates\account\password_reset_from_key_done.html:6
+#: .\calculator_projects\templates\account\password_reset_from_key_done.html:9
 msgid "Change Password"
 msgstr "Измени пароль"
 
-#: qonun/templates/account/password_reset.html:7
-#: qonun/templates/account/password_reset.html:11
-#: qonun/templates/account/password_reset_done.html:6
-#: qonun/templates/account/password_reset_done.html:9
+#: .\calculator_projects\templates\account\password_reset.html:8
+#: .\calculator_projects\templates\account\password_reset.html:11
+#: .\calculator_projects\templates\account\password_reset_done.html:7
+#: .\calculator_projects\templates\account\password_reset_done.html:10
 msgid "Password Reset"
 msgstr "Восстановление пароля"
 
-#: qonun/templates/account/password_reset.html:16
+#: .\calculator_projects\templates\account\password_reset.html:16
 msgid ""
-"Forgotten your password? Enter your e-mail address below, and we'll send you"
-" an e-mail allowing you to reset it."
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
 msgstr ""
-"Забыли свой пароль? Введите ниже свой адрес электронной почты, и мы отправим"
-" вам электронное письмо, позволяющее изменить его."
+"Забыли свой пароль? Введите ниже свой адрес электронной почты, и мы отправим "
+"вам электронное письмо, позволяющее изменить его."
 
-#: qonun/templates/account/password_reset.html:21
+#: .\calculator_projects\templates\account\password_reset.html:25
 msgid "Reset My Password"
 msgstr "Сбросить пароль"
 
-#: qonun/templates/account/password_reset.html:24
+#: .\calculator_projects\templates\account\password_reset.html:27
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Свяжитесь с нами, если у вас возникнут проблемы со сбросом пароля."
 
-#: qonun/templates/account/password_reset_done.html:15
+#: .\calculator_projects\templates\account\password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
@@ -950,69 +377,69 @@ msgstr ""
 "Мы отправили вам электронное письмо. Пожалуйста, свяжитесь с нами, если вы "
 "не получите его в течение нескольких минут."
 
-#: qonun/templates/account/password_reset_from_key.html:8
+#: .\calculator_projects\templates\account\password_reset_from_key.html:12
 msgid "Bad Token"
 msgstr "Неверный токен"
 
-#: qonun/templates/account/password_reset_from_key.html:12
+#: .\calculator_projects\templates\account\password_reset_from_key.html:20
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
-"reset</a>."
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
 msgstr ""
 "Ссылка для сброса пароля недействительна, возможно, потому, что она уже "
 "использовалась. Запросите <ahref = \"%(passwd_reset_url)s\"> новый сброс "
 "пароля </a>."
 
-#: qonun/templates/account/password_reset_from_key.html:18
+#: .\calculator_projects\templates\account\password_reset_from_key.html:30
 msgid "change password"
 msgstr "Измени пароль"
 
-#: qonun/templates/account/password_reset_from_key.html:21
-#: qonun/templates/account/password_reset_from_key_done.html:8
+#: .\calculator_projects\templates\account\password_reset_from_key.html:33
+#: .\calculator_projects\templates\account\password_reset_from_key_done.html:10
 msgid "Your password is now changed."
 msgstr "Ваш пароль теперь изменен."
 
-#: qonun/templates/account/password_set.html:6
-#: qonun/templates/account/password_set.html:9
-#: qonun/templates/account/password_set.html:14
+#: .\calculator_projects\templates\account\password_set.html:7
+#: .\calculator_projects\templates\account\password_set.html:10
+#: .\calculator_projects\templates\account\password_set.html:19
 msgid "Set Password"
 msgstr "Установка пароля"
 
-#: qonun/templates/account/signup.html:6
+#: .\calculator_projects\templates\account\signup.html:7
 msgid "Signup"
 msgstr "Зарегистрироваться"
 
-#: qonun/templates/account/signup.html:9
-#: qonun/templates/account/signup.html:19
+#: .\calculator_projects\templates\account\signup.html:10
+#: .\calculator_projects\templates\account\signup.html:25
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: qonun/templates/account/signup.html:11
+#: .\calculator_projects\templates\account\signup.html:12
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Уже есть аккаунт? Затем <a href=\"%(login_url)s\"> войдите в систему </a>."
 
-#: qonun/templates/account/signup_closed.html:5
-#: qonun/templates/account/signup_closed.html:8
+#: .\calculator_projects\templates\account\signup_closed.html:6
+#: .\calculator_projects\templates\account\signup_closed.html:9
 msgid "Sign Up Closed"
 msgstr "Регистрация закрыта"
 
-#: qonun/templates/account/signup_closed.html:10
+#: .\calculator_projects\templates\account\signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
 msgstr "Сожалеем, но регистрация в настоящее время закрыта."
 
-#: qonun/templates/account/verification_sent.html:5
-#: qonun/templates/account/verification_sent.html:13
-#: qonun/templates/account/verified_email_required.html:5
-#: qonun/templates/account/verified_email_required.html:8
+#: .\calculator_projects\templates\account\verification_sent.html:6
+#: .\calculator_projects\templates\account\verification_sent.html:9
+#: .\calculator_projects\templates\account\verified_email_required.html:6
+#: .\calculator_projects\templates\account\verified_email_required.html:9
 msgid "Verify Your E-mail Address"
 msgstr "Проверьте свой адрес электронной почты"
 
-#: qonun/templates/account/verification_sent.html:14
+#: .\calculator_projects\templates\account\verification_sent.html:11
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
@@ -1022,7 +449,7 @@ msgstr ""
 "предоставленной ссылке, чтобы завершить процесс регистрации. Пожалуйста, "
 "свяжитесь с нами, если вы не получите его в течение нескольких минут."
 
-#: qonun/templates/account/verified_email_required.html:12
+#: .\calculator_projects\templates\account\verified_email_required.html:12
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
@@ -1032,7 +459,7 @@ msgstr ""
 "вы тот, кем вы себя называете. Для этого мы требуем, чтобы вы\n"
 "подтвердите право собственности на свой адрес электронной почты."
 
-#: qonun/templates/account/verified_email_required.html:16
+#: .\calculator_projects\templates\account\verified_email_required.html:17
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside this e-mail. Please\n"
@@ -1042,594 +469,23 @@ msgstr ""
 "проверка. Щелкните ссылку в этом электронном письме. Пожалуйста\n"
 "свяжитесь с нами, если вы не получите его в течение нескольких минут."
 
-#: qonun/templates/account/verified_email_required.html:20
+#: .\calculator_projects\templates\account\verified_email_required.html:22
 #, python-format
 msgid ""
-"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
-"e-mail address</a>."
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
 msgstr ""
-"<strong> Примечание. </strong> вы все равно можете <a "
-"href=\"%(email_url)s\"> изменить свой адрес электронной почты </a>."
+"<strong> Примечание. </strong> вы все равно можете <a href=\"%(email_url)s"
+"\"> изменить свой адрес электронной почты </a>."
 
-#: qonun/templates/authors/deputy_form.html:16
-#: qonun/templates/authors/doc_type_form.html:16
-#: qonun/templates/authors/qumita_form.html:16
-#: qonun/templates/users/create.html:28
-msgid "Saqlash"
-msgstr "Сохранить "
-
-#: qonun/templates/authors/deputy_list.html:16
-msgid "Deputat qo'shish"
-msgstr "Добавить депутат"
-
-#: qonun/templates/authors/doc_type_list.html:5
-#: qonun/templates/authors/qumita_form.html:5
-#: qonun/templates/authors/qumita_list.html:5
-#: qonun/templates/includes/sidebar.html:32
-#: qonun/templates/includes/sidebar.html:33
-msgid "Qumitalar"
-msgstr "Комитеты"
-
-#: qonun/templates/authors/doc_type_list.html:16
-msgid "Hujjat turi yaratish"
-msgstr "Создать вид документа"
-
-#: qonun/templates/authors/qumita_list.html:16
-msgid "Qo'mita qo'shish"
-msgstr "Добавить комитет"
-
-#: qonun/templates/base.html:50
-msgid "Ovoz Bermaganlar"
-msgstr "Не голосовали"
-
-#: qonun/templates/base.html:110
-msgid "Bekor qilish"
-msgstr "Отклонить"
-
-#: qonun/templates/base.html:111 qonun/templates/discuss/discuss_form.html:122
-msgid "Qabul qilish"
-msgstr "Принять"
-
-#: qonun/templates/discuss/detail.html:15
-#: qonun/templates/discuss/discuss_detail.html:21
-msgid "Qonunchilik tashabbusi huquqi subyekti"
-msgstr "Субъект права законодательной инициативы"
-
-#: qonun/templates/discuss/detail.html:42
-#: qonun/templates/discuss/discuss_detail.html:48
-msgid "Birinchi o'qish"
-msgstr "Первое чтение"
-
-#: qonun/templates/discuss/detail.html:48
-#: qonun/templates/discuss/discuss_detail.html:54
-msgid "Ikkinchi o'qish"
-msgstr "Второе чтение"
-
-#: qonun/templates/discuss/detail.html:55
-#: qonun/templates/discuss/discuss_detail.html:61
-msgid "Uchinchi o'qish"
-msgstr "Третье чтение"
-
-#: qonun/templates/discuss/discuss_detail.html:70
-#: qonun/templates/users/user_detail.html:42
-msgid "Tahrirlash"
-msgstr "Редактировать"
-
-#: qonun/templates/discuss/discuss_detail.html:76
-#| msgid "Qonun o'chirilgan"
-msgid "Qonun loyihasi o'chirilgan"
-msgstr "Законопроект удалён"
-
-#: qonun/templates/discuss/discuss_form.html:5
-#: qonun/templates/discuss/pendingstage_form.html:6
-msgid "Qonun loyihasi | Tahrirlash"
-msgstr "Законопроект | Редактировать "
-
-#: qonun/templates/discuss/discuss_form.html:40
-#: qonun/templates/discuss/pendingstage_form.html:42
-msgid "Ko'rib chiqilayotgan qonunlar"
-msgstr "Рассматриваемые законы"
-
-#: qonun/templates/discuss/discuss_form.html:49
-#: qonun/templates/discuss/pendingstage_form.html:54
-msgid "Ovozlar soni 150 tadan oshmasligi kerak!"
-msgstr "Количество голосов не должно превышать 150!"
-
-#: qonun/templates/discuss/discuss_form.html:72
-msgid "Joriy fayl"
-msgstr "Текущий файл"
-
-#: qonun/templates/discuss/discuss_form.html:74
-msgid "Faylni yuklab olish"
-msgstr "Скачать файл"
-
-#: qonun/templates/discuss/discuss_form.html:80
-#| msgid "O'chirish"
-msgid "Yashirish"
-msgstr "Скрыть"
-
-#: qonun/templates/discuss/discuss_form.html:101
-msgid "Fayl qo'shish"
-msgstr "Добавить файл"
-
-#: qonun/templates/discuss/discuss_form.html:109
-msgid "Avvalgi bosqichga o'tkazish"
-msgstr "Вернуться предыдущему этапу "
-
-#: qonun/templates/discuss/discuss_form.html:111
-msgid "Keyingi bosqichga o'tkazish"
-msgstr "Перейти в следующий этап"
-
-#: qonun/templates/discuss/discuss_form.html:114
-msgid "O'tkazib yuborish"
-msgstr "Пропустить"
-
-#: qonun/templates/discuss/discuss_form.html:119
-msgid "Qabul qilinmadi"
-msgstr "Отклонить"
-
-#: qonun/templates/discuss/discuss_form.html:124
-msgid "Qabul qilindi"
-msgstr "Принять"
-
-#: qonun/templates/discuss/discuss_form.html:147
-#: qonun/templates/discuss/pendingstage_form.html:75
-msgid "Ro'yhatdan o'tkazilgan sana"
-msgstr "Дата регистрации"
-
-#: qonun/templates/discuss/discuss_form.html:148
-#: qonun/templates/discuss/discuss_list.html:27
-#: qonun/templates/discuss/listing.html:51
-#: qonun/templates/discuss/pendingstage_form.html:76
-msgid "Qonun tashabbuskori"
-msgstr "Инициатор законопроекта "
-
-#: qonun/templates/discuss/discuss_list.html:4
-#: qonun/templates/discuss/filtered_list.html:15
-#: qonun/templates/includes/sidebar.html:11
-msgid "Qonun loyihalari"
-msgstr "Законопроекты"
-
-#: qonun/templates/discuss/discuss_list.html:27
-msgid "Raqami"
-msgstr "Номерь"
-
-#: qonun/templates/discuss/discuss_list.html:27
-msgid "Holati"
-msgstr "Состояние"
-
-#: qonun/templates/discuss/discuss_list.html:27
-msgid "Qo'shilgan sana"
-msgstr "Дата добавдение"
-
-#: qonun/templates/discuss/discuss_list.html:45
-msgid "Izlash"
-msgstr "Искать"
-
-#: qonun/templates/discuss/discuss_list.html:73
-#: qonun/templates/discuss/filtered_list.html:28
-#: qonun/templates/discuss/listing.html:93
-msgid "Qonun hujjatlari topilmadi"
-msgstr "Законопроекты по выданным параметрам не найдены "
-
-#: qonun/templates/discuss/filtered_list.html:20
-msgid "Ro'yxatga olingan"
-msgstr "Дата регистрации"
-
-#: qonun/templates/discuss/filtered_list.html:126
-msgid "Avgust"
-msgstr "Август"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Ya"
-msgstr "Вс"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Du"
-msgstr "Пн"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Se"
-msgstr "Вт"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Ch"
-msgstr "Ср"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Pa"
-msgstr "Чт"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Ju"
-msgstr "Пт"
-
-#: qonun/templates/discuss/filtered_list.html:132
-msgid "Sh"
-msgstr "Сб"
-
-#: qonun/templates/discuss/filtered_list.html:150
-msgid "Ko'k mavzu"
-msgstr "Синяя тема"
-
-#: qonun/templates/discuss/filtered_list.html:154
-msgid "Qizil mavuz"
-msgstr "Красная тема"
-
-#: qonun/templates/discuss/filtered_list.html:158
-msgid "Sariq mavzu"
-msgstr "Желтая тема"
-
-#: qonun/templates/discuss/filtered_list.html:162
-msgid "Yashil mavzu"
-msgstr "Зеленая тема"
-
-#: qonun/templates/discuss/filtered_list.html:166
-msgid "Binafsharang mavzu"
-msgstr "Фиолетовая тема"
-
-#: qonun/templates/discuss/includes/modal.html:7
-msgid "Qonun loyihasini tashabbuskorga qaytarishga ishonchingiz komilmi?"
-msgstr "Вы уверены, что хотите вернуть законопроект инициатору?"
-
-#: qonun/templates/discuss/includes/modal.html:9
-msgid "Yo'q"
-msgstr "Нет"
-
-#: qonun/templates/discuss/includes/modal.html:10
-msgid "Ha"
-msgstr "Да"
-
-#: qonun/templates/discuss/includes/modal.html:13
-msgid "Qonun muhokamasini qaytarish"
-msgstr "Отклонить законопроект"
-
-#: qonun/templates/discuss/includes/modal.html:15
-msgid "Yopish"
-msgstr "Закрыть"
-
-#: qonun/templates/discuss/includes/modal.html:16
-msgid "Qonun loyihasini qo'mitaga qaytarish"
-msgstr "Отправление законопроекта в комитет"
-
-#: qonun/templates/discuss/includes/modal.html:17
-msgid "Qonun loyihasini tashabbuskorga qaytarish"
-msgstr "Вернуть законопроект инициатору"
-
-#: qonun/templates/discuss/includes/stage_history.html:3
-msgid "Qonun loyihasini ko'rib chiqish uchun kiritildi"
-msgstr "Законопроект внесён на рассмотрение"
-
-#: qonun/templates/discuss/includes/stage_history.html:16
-#| msgid "Qonun loyihasi qo'mitaga qaytarildi"
-msgid "Qonun loyihasi masʼul qo‘mitaga kiritildi"
-msgstr "Законопроект отправлен в ответственный комитет"
-
-#: qonun/templates/discuss/includes/stage_history.html:35
-msgid "Ikkinchi o'qish o'tkazib yuborildi"
-msgstr "Второе чтение было пропущено"
-
-#: qonun/templates/discuss/includes/stage_history.html:37
-msgid ""
-"\n"
-"        O‘zbekiston Respublikasining  «O‘zbekiston Respublikasi Oliy Majlisi Qonunchilik palatasining Reglamenti \n"
-"        to‘g‘risida»gi Qonuni 15-moddasining o‘n beshinchi qismiga muvofiq \n"
-"        qonun loyihasi birinchi o‘qishda qabul qilingandan \n"
-"        so‘ng O‘zbekiston Respublikasi Oliy Majlisi Qonunchilik palatasi majlisida \n"
-"        qonunni ikkinchi o‘qish tartib-taomilini istisno etgan holda \n"
-"        qabul qilish to‘g‘risida qaror qabul qilindi.\n"
-"        "
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
+msgid "Стоимость труда в час"
 msgstr ""
-"\n"
-"В соответствии с частью пятнадцатой статьи 15 Закона Республики Узбекистан «О Регламенте Законодательной палаты Олий Мажлиса Республики Узбекистан» после принятия законопроекта в первом чтении на заседании Законодательной палаты Олий Мажлиса Республики Узбекистан принято решение о принятии закона, исключая процедуру второго чтения."
 
-#: qonun/templates/discuss/includes/stage_history.html:53
-#: qonun/templates/discuss/includes/stage_history.html:88
-msgid "Qonun loyihasi qo'mitaga qaytarildi"
-msgstr "Законопроект отправлен в комитет"
+#: .\config\settings\base.py:51
+msgid "Рус"
+msgstr "Рус"
 
-#: qonun/templates/discuss/includes/stage_history.html:127
-msgid "Qonun loyihasi qabul qilindi"
-msgstr "Законопроект принят"
-
-#: qonun/templates/discuss/includes/state_transactions.html:4
-#: qonun/templates/discuss/includes/state_transactions.html:6
-msgid "Ortga"
-msgstr "Назад"
-
-#: qonun/templates/discuss/includes/state_transactions.html:8
-msgid "Ko'rib chiqish bosqichlari"
-msgstr "Этапы рассмотрения"
-
-#: qonun/templates/discuss/listing.html:38
-msgid "Barcha qonun loyilahalri"
-msgstr "Все законопроекты"
-
-#: qonun/templates/discuss/listing.html:43
-msgid "Yil"
-msgstr "Год"
-
-#: qonun/templates/discuss/listing.html:47
-msgid "Oy"
-msgstr "Месяц"
-
-#: qonun/templates/discuss/listing.html:59
-msgid "Qonun loyihasi bosqichi"
-msgstr "Этап рассмотрение законопроекта"
-
-#: qonun/templates/discuss/listing.html:63
-msgid "Sanalar oralig'i"
-msgstr "Промежуток дат"
-
-#: qonun/templates/discuss/pendingstage_form.html:47
-msgid "Qonun muhokamasini qo'mitaga qaytarish"
-msgstr "Отправление законопроекта на комитет"
-
-#: qonun/templates/discuss/pendingstage_form.html:56
-msgid "Qonun loyihasini qaytarish"
-msgstr "Отклонение законопроекта"
-
-#: qonun/templates/includes/header_admin.html:19
-#: qonun/templates/includes/header_home.html:22
-msgid ""
-"\n"
-"          <span>Oliy Majlis <i class=\"block\">Qonunchilik faoliyati tizimi</i></span>\n"
-"        "
-msgstr ""
-"\n"
-"<span>Система законодательной деятельности <i class=\"block\">Олий Мажлиса</i></span>"
-
-#: qonun/templates/includes/header_home.html:26
-msgid ""
-"\n"
-"         <span>O'zbekiston Respublikasi Oliy Majlisi <i class=\"block\">Qonunchilik palatasi</i></span>\n"
-"        "
-msgstr ""
-"\n"
-"<span>Законодательная палата Олий Мажлиса  <i class=\"block\">Республики Узбекистан</i></span>"
-
-#: qonun/templates/includes/header_home.html:59
-msgid "Moderator paneli"
-msgstr "Панель модератора"
-
-#: qonun/templates/includes/sidebar.html:19
-#: qonun/templates/includes/sidebar.html:20
-msgid "Barcha hujjatlar"
-msgstr "Все документы"
-
-#: qonun/templates/includes/sidebar.html:25
-#: qonun/templates/includes/sidebar.html:26
-msgid "Mening malumotlarim"
-msgstr "Мои данные"
-
-#: qonun/templates/pages/home.html:9
-msgid "O'zbekiston Respublikasi <i>Oliy Majlisi Qonunchilik palatasi</i>"
-msgstr "Законодательная палата <i>Олий Мажлиса Республики Узбекистан</i>"
-
-#: qonun/templates/pages/home.html:15
-msgid "Kiritildi"
-msgstr "Внесено"
-
-#: qonun/templates/pages/home.html:21
-msgid "Dastlabki kelishuv"
-msgstr "Предварительное рассмотрение"
-
-#: qonun/templates/pages/home.html:27
-msgid "1-o'qish"
-msgstr "1-чтение"
-
-#: qonun/templates/pages/home.html:33
-msgid "2-o'qish"
-msgstr "2-чтение"
-
-#: qonun/templates/pages/home.html:39
-msgid "3-o'qish"
-msgstr "3-чтение"
-
-#: qonun/templates/pages/home.html:45
-msgid "Senatga yuborildi"
-msgstr "Отправлен в Сенат"
-
-#: qonun/templates/pages/home.html:51
-msgid "Qaytarildi"
-msgstr "Отклонено"
-
-#: qonun/templates/pages/home.html:56
-msgid "Barcha qonun loyihalari"
-msgstr "Все законопроекты"
-
-#: qonun/templates/pages/home.html:62
-msgid "O'zbekiston Respublikasi <i>Oliy Majlis Senati</i>"
-msgstr "Сенат Олий Мажлиса <i>Республики Узбекистан</i>"
-
-#: qonun/templates/users/user_detail.html:20
-msgid "Ism"
-msgstr "Имя"
-
-#: qonun/templates/users/user_detail.html:24
-msgid "Familiya"
-msgstr "Фамилия"
-
-#: qonun/templates/users/user_detail.html:28
-#: qonun/templates/users/user_detail.html:43
-msgid "E-pochta"
-msgstr "Электронная почта "
-
-#: qonun/templates/users/user_form.html:21
-msgid "Yangilash"
-msgstr "Обновить"
-
-#: qonun/templates/users/user_list.html:20
-msgid "Sharifi"
-msgstr "Отчества"
-
-#: qonun/templates/users/user_list.html:22
-msgid "Qo'mitasi"
-msgstr "Комитет"
-
-#: qonun/templates/users/user_list.html:23
-msgid "Email"
-msgstr "Электронная почта "
-
-#: qonun/templates/users/user_list.html:24
-msgid "Maqomi"
-msgstr "Статус"
-
-#: qonun/templates/users/user_list.html:39
-msgid "Topilmadi"
-msgstr "Не найдено"
-
-#~ msgid "Qonun muhokamasini o'chirish"
-#~ msgstr "Удалить законопроект"
-
-#~ msgid ""
-#~ "Qonun loyihasi masʼul qo‘mitaga kiritildi va dastlabki kelishuv jarayoni "
-#~ "yakunlandi"
-#~ msgstr ""
-#~ "Законопроект внесен ответственному комитету и процесс предварительного "
-#~ "рассмотрение окончено"
-
-#~ msgid "Qonun loyihasi birinchi o‘qishi yakunlandi"
-#~ msgstr "Первое чтение законопроекта окончен"
-
-#~ msgid "Qonun loyihasi ikkinchi o'qishi yakunlandi"
-#~ msgstr "Второе чтение законопроекта завершено"
-
-#~ msgid "Qonun loyihasi uchinchi o'qishi yakunlandi"
-#~ msgstr "Третье чтение законопроекта завершено"
-
-#~ msgid "Mening hujjatlarim"
-#~ msgstr "Мои документы"
-
-#~ msgid "Palata qarori"
-#~ msgstr "Постановления палаты"
-
-#~ msgid ""
-#~ "\n"
-#~ "        Oliy Majlis <span>Qonunchilik faoliyati tizimi</span>\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "Система законодательной деятельности <span>Олий Мажлиса</span>"
-
-#~ msgid "Admin panel"
-#~ msgstr "Админ-панель"
-
-#~ msgid "Mas'ul xodimlar uchun!"
-#~ msgstr "Для ответственных сотрудников!"
-
-#~ msgid "Senatda"
-#~ msgstr "В Сенате"
-
-#~ msgid "F.I.Sh."
-#~ msgstr "Ф.И.О."
-
-#~ msgid "Hodisa haqida malumot qo'shing"
-#~ msgstr "Добавить данные по событию"
-
-#~ msgid "Hodisa nomi"
-#~ msgstr "Название событие"
-
-#~ msgid "Hodisa sanasi"
-#~ msgstr "Дата события"
-
-#~ msgid "Mavzuni tanlang"
-#~ msgstr "Выберете тематику "
-
-#~ msgid "Hodisani saqlash"
-#~ msgstr "Сохранить"
-
-#~ msgid "Deputat yoki Deputatlar guruhi"
-#~ msgstr "Депутат или группа депутатов"
-
-#, fuzzy
-#~ msgid "Qonun hujjati nomi [Kiril]"
-#~ msgstr "Название законопроекта"
-
-#, fuzzy
-#~ msgid "Qonun hujjati nomi [Lotin]"
-#~ msgstr "Название законопроекта"
-
-#~ msgid "Qonun loyihasi muhokamasi"
-#~ msgstr "Рассмотрение законопроекта"
-
-#~ msgid "Ovoz berish <span>natijasi</span>"
-#~ msgstr "Результат <span>голосования</span>"
-
-#~ msgid "Qonun Senat tomonidan rad etildi"
-#~ msgstr "Закон отклонен Сенатом"
-
-#~ msgid "Qonun Senat tomonidan qabul qilindi"
-#~ msgstr "Закон одобрен Сенатом"
-
-#~ msgid "Йил"
-#~ msgstr "Год"
-
-#~ msgid "Ой"
-#~ msgstr "Месяц"
-
-#~ msgid "Муаллиф"
-#~ msgstr "Инициатор"
-
-#~ msgid "Маъсул қўмита"
-#~ msgstr "Ответственный комитет "
-
-#~ msgid "Ҳужжат ҳолати"
-#~ msgstr "Состояния документа"
-
-#~ msgid "Номи"
-#~ msgstr "Название"
-
-#~ msgid "Natija topilmadi"
-#~ msgstr "Данные отсутствуют"
-
-#~ msgid "Зарегистрирован"
-#~ msgstr "Зарегистрирован"
-
-#~ msgid "January"
-#~ msgstr "Январь"
-
-#~ msgid "February"
-#~ msgstr "Февраль"
-
-#~ msgid "March"
-#~ msgstr "Март"
-
-#~ msgid "April"
-#~ msgstr "Апрель"
-
-#~ msgid "July"
-#~ msgstr "Июль"
-
-#~ msgid "September"
-#~ msgstr "Сентябрь"
-
-#~ msgid "October"
-#~ msgstr "Октябрь"
-
-#~ msgid "November"
-#~ msgstr "Ноябрь"
-
-#~ msgid "December"
-#~ msgstr "Декабрь"
-
-#~ msgid "Sun"
-#~ msgstr "Вс"
-
-#~ msgid "Mon"
-#~ msgstr "Пн"
-
-#~ msgid "Tue"
-#~ msgstr "Вт"
-
-#~ msgid "Wed"
-#~ msgstr "Ср"
-
-#~ msgid "Thu"
-#~ msgstr "Чт"
-
-#~ msgid "Fri"
-#~ msgstr "Пт"
-
-#~ msgid "Sat"
-#~ msgstr "Сб"
+#: .\config\settings\base.py:52
+msgid "O'z"
+msgstr "O'zb"
