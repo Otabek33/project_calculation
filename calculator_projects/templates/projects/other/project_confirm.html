@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load static  i18n %}
 {% block title %}
   Project Status
 {% endblock title %}
@@ -11,7 +11,7 @@
   <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
       <div class="welcome-text">
-        <h4>Список проектов для подтверждения</h4>
+        <h4>{% trans "Список проектов для подтверждения" %}</h4>
 
       </div>
     </div>

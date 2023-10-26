@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 15:49+0500\n"
+"POT-Creation-Date: 2023-10-26 16:27+0500\n"
 "PO-Revision-Date: 2022-05-23 10:44+0437\n"
 "Last-Translator: Admin User <a@mail.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -480,6 +480,10 @@ msgstr ""
 
 #: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
 msgid "Стоимость труда в час"
+msgstr ""
+
+#: .\calculator_projects\templates\projects\other\project_confirm.html:14
+msgid "Список проектов для подтверждения"
 msgstr ""
 
 #: .\config\settings\base.py:51
