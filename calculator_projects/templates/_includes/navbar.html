@@ -27,27 +27,6 @@
               {% get_language_info_list for LANGUAGES as languages %}
 
               <div class="right_content">
-                {#                <form action="{% url 'set_language' %}" method="post">#}
-                {#                  {% csrf_token %}#}
-                {#                  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>#}
-                {#                  <select name="language" class="form-control">#}
-                {#                    {% get_language_info_list for LANGUAGES as languages %}#}
-                {#                    {% for language in languages %}#}
-                {#                      <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}#}
-                {#                              selected="selected"{% endif %}>#}
-                {#                        {{ language.name_local }}#}
-                {#                      </option>#}
-                {#                    {% endfor %}#}
-                {#                  </select>#}
-
-                {#                {% for language in LANGUAGES %}#}
-                {##}
-                {#                  <a class="btn font-weight-bold {% if language.0 == LANGUAGE_CODE %} active {% endif %}"#}
-                {#                     data-lang="{{ language.0 }}" href="{{ request.get_full_path }}">#}
-                {#                    {{ language.1 }}#}
-                {#                  </a>#}
-                {##}
-                {#                {% endfor %}#}
                 <ul class="navbar-nav header-right">
                   {% get_current_language as LANGUAGE_CODE %}
                   {% get_available_languages as LANGUAGES %}
