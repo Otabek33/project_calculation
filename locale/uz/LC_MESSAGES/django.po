@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-27 11:02+0500\n"
+"POT-Creation-Date: 2023-10-27 11:49+0500\n"
 "PO-Revision-Date: 2021-11-19 10:53+0437\n"
 "Last-Translator:   <sh@sh.sh>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,8 +110,9 @@ msgstr ""
 #: .\calculator_projects\apps\projects\models.py:55
 #: .\calculator_projects\apps\projects\models.py:72
 #: .\calculator_projects\apps\tasks\models.py:18
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:75
 msgid "Активный"
-msgstr ""
+msgstr "Фаол"
 
 #: .\calculator_projects\apps\projects\models.py:56
 #: .\calculator_projects\apps\projects\models.py:73
@@ -212,6 +213,7 @@ msgid "Information successfully updated"
 msgstr ""
 
 #: .\calculator_projects\templates\_includes\sidebar_1.html:5
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:17
 #: .\calculator_projects\templates\users\workload.html:18
 msgid "Панель"
 msgstr "Panel"
@@ -248,6 +250,7 @@ msgstr "Moliyaviy hisobotlar"
 
 #: .\calculator_projects\templates\_includes\sidebar_1.html:42
 #: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:19
 msgid "Стоимость труда в час"
 msgstr "Bir soatlik mehnat qiymati"
 
@@ -501,6 +504,79 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:32
+msgid "Добавить"
+msgstr "Qo'shmoq"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:33
+msgid "Cтоимость труда в час"
+msgstr "Soatiga mehnat narxi"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:41
+msgid "Месяц"
+msgstr "Oy"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:42
+msgid "Общая цена"
+msgstr "Umumiy qiymat"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:43
+msgid "Себестоимость <br>(Расходы на опл.труда)"
+msgstr "Tannarx (Oyliq uchun xarajatlar)"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:44
+msgid "Себестоимость<br>реализованной услуги <br>(другие издержки без ФОТ)"
+msgstr "Tannarx (boshqa xarajatlar)"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:46
+msgid "Косвенные<br>производственные<br>затраты"
+msgstr "Bilvosita xarajatlar"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:47
+msgid "Расходы<br>на взносы<br>в IT-парк"
+msgstr "IT-park uchun harajatlar (soliq)"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:48
+msgid "Файл"
+msgstr "Fayl"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:49
+msgid "Статус"
+msgstr "Status"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:50
+msgid "Действие"
+msgstr "Amal"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:70
+msgid "Приказ"
+msgstr "Hujjat"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:77
+msgid "Не Активный"
+msgstr "Фаол эмас"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:162
+msgid "Удалить расчет"
+msgstr "Hisobotni o'chirish"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:167
+msgid "Вы уверены, что хотите удалить этот расчет ?"
+msgstr "Bu hisobotni o'chirishga rozimisiz ?"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:176
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:203
+msgid "Назад"
+msgstr "Ortga"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:190
+msgid "Активировать расчет"
+msgstr "Hisbotni faollashtirish"
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:195
+msgid "Вы уверены, что хотите активировать этот расчет для проектов?"
+msgstr "Bu hisobotni faollashtirishni hohlaysizmi ?"
 
 #: .\calculator_projects\templates\projects\other\project_confirm.html:14
 msgid "Список проектов для подтверждения"

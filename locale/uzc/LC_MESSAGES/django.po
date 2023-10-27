@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-27 10:55+0500\n"
+"POT-Creation-Date: 2023-10-27 11:49+0500\n"
 "PO-Revision-Date: 2022-05-23 10:50+0437\n"
 "Last-Translator: Admin User <a@mail.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,6 +109,7 @@ msgstr ""
 #: .\calculator_projects\apps\projects\models.py:55
 #: .\calculator_projects\apps\projects\models.py:72
 #: .\calculator_projects\apps\tasks\models.py:18
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:75
 msgid "Активный"
 msgstr ""
 
@@ -211,6 +212,7 @@ msgid "Information successfully updated"
 msgstr "Маълумотлар мувоффақиятли янгиланди"
 
 #: .\calculator_projects\templates\_includes\sidebar_1.html:5
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:17
 #: .\calculator_projects\templates\users\workload.html:18
 msgid "Панель"
 msgstr ""
@@ -247,6 +249,7 @@ msgstr ""
 
 #: .\calculator_projects\templates\_includes\sidebar_1.html:42
 #: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:19
 msgid "Стоимость труда в час"
 msgstr ""
 
@@ -541,6 +544,79 @@ msgid ""
 msgstr ""
 "<strong>Еслатма:</strong>сиз ҳали ҳам <a href=\"%(email_url)s\">електрон "
 "почта манзилингизни ўзгартиришингиз мумкин</a>."
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:32
+msgid "Добавить"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:33
+msgid "Cтоимость труда в час"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:41
+msgid "Месяц"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:42
+msgid "Общая цена"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:43
+msgid "Себестоимость <br>(Расходы на опл.труда)"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:44
+msgid "Себестоимость<br>реализованной услуги <br>(другие издержки без ФОТ)"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:46
+msgid "Косвенные<br>производственные<br>затраты"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:47
+msgid "Расходы<br>на взносы<br>в IT-парк"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:48
+msgid "Файл"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:49
+msgid "Статус"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:50
+msgid "Действие"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:70
+msgid "Приказ"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:77
+msgid "Не Активный"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:162
+msgid "Удалить расчет"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:167
+msgid "Вы уверены, что хотите удалить этот расчет ?"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:176
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:203
+msgid "Назад"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:190
+msgid "Активировать расчет"
+msgstr ""
+
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:195
+msgid "Вы уверены, что хотите активировать этот расчет для проектов?"
+msgstr ""
 
 #: .\calculator_projects\templates\projects\other\project_confirm.html:14
 msgid "Список проектов для подтверждения"

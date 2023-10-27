@@ -14,8 +14,9 @@
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">Панель </a></li>
-        <li class="breadcrumb-item active"><a href="{% url 'labour_cost:view' %}">Стоимость труда в час </a></li>
+        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">{% trans "Панель" %} </a></li>
+        <li class="breadcrumb-item active"><a
+          href="{% url 'labour_cost:view' %}">{% trans "Стоимость труда в час" %} </a></li>
       </ol>
     </div>
   </div>
@@ -28,8 +29,8 @@
         <div class="d-flex justify-content-between ">
           <h5 class="card-header"></h5>
 
-          <h5 class="card-header"><a href="{% url 'labour_cost:add' %}" class="btn btn-primary">Добавить
-            <br>Cтоимость труда в час</a></h5>
+          <h5 class="card-header"><a href="{% url 'labour_cost:add' %}" class="btn btn-primary">{% trans "Добавить" %}
+            <br>{% trans "Cтоимость труда в час" %}</a></h5>
 
         </div>
         <div class="card-body">
@@ -37,17 +38,16 @@
             <table class="table table-bordered verticle-middle table-responsive-sm text-center">
               <thead>
               <tr>
-                <th scope="col">Месяц</th>
-                <th scope="col">Общая цена</th>
-                <th scope="col">Себестоимость <br>(Расходы на опл.труда)</th>
-                <th scope="col">Себестоимость<br>реализованной услуги<br>(другие
-                  издержки без ФОТ)
+                <th scope="col">{% trans "Месяц" %}</th>
+                <th scope="col">{% trans "Общая цена" %}</th>
+                <th scope="col">{% trans "Себестоимость <br>(Расходы на опл.труда)" %}</th>
+                <th scope="col">{% trans "Себестоимость<br>реализованной услуги <br>(другие издержки без ФОТ)" %}
                 </th>
-                <th scope="col">Косвенные<br>производственные<br>затраты</th>
-                <th scope="col">Расходы<br>на взносы<br>в IT-парк</th>
-                <th scope="col">Файл</th>
-                <th scope="col">Статус</th>
-                <th scope="col">Действие</th>
+                <th scope="col">{% trans "Косвенные<br>производственные<br>затраты" %}</th>
+                <th scope="col">{% trans "Расходы<br>на взносы<br>в IT-парк" %}</th>
+                <th scope="col">{% trans "Файл" %}</th>
+                <th scope="col">{% trans "Статус" %}</th>
+                <th scope="col">{% trans "Действие" %}</th>
 
               </tr>
               </thead>
@@ -67,14 +67,14 @@
                     <td><span
                     >{{ labour_cost.contributions_to_IT_park|floatformat:"2g" }}</span>
                     </td>
-                    <td><a href="{{ labour_cost.file_order.url }}">Приказ</a>
+                    <td><a href="{{ labour_cost.file_order.url }}">{% trans "Приказ" %}</a>
                     </td>
                     </td>
                     <td>
                       {% if labour_cost.calculation_for_projects %}
-                        <span class="badge badge-success">Активный</span>
+                        <span class="badge badge-success">{% trans "Активный" %}</span>
                       {% else %}
-                        <span class="badge badge-dark">Не Активный</span>
+                        <span class="badge badge-dark">{% trans "Не Активный" %}</span>
                       {% endif %}
                     </td>
                     <td>
@@ -159,12 +159,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Удалить расчет</h5>
+          <h5 class="modal-title">{% trans "Удалить расчет" %}</h5>
           <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Вы уверены, что хотите удалить этот расчет ?</p>
+          <p>{% trans "Вы уверены, что хотите удалить этот расчет ?" %}</p>
         </div>
         <div class="modal-footer">
           <form method="post"
@@ -173,7 +173,7 @@
             <input type="hidden" name="labour_cost_delete_name"
                    id="labour_cost_delete_id">
 
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Назад" %}</button>
             <button type="button" class="btn btn-primary" data-href-template="{% url 'labour_cost:delete' %}"
                     id="labour_cost_delete_modal">Да
             </button>
@@ -187,13 +187,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Активировать расчет</h5>
+          <h5 class="modal-title">{% trans "Активировать расчет" %}</h5>
           <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Вы уверены, что хотите активировать этот расчет для
-            проектов?</p>
+          <p>{% trans "Вы уверены, что хотите активировать этот расчет для проектов?" %}</p>
         </div>
         <div class="modal-footer">
           <form method="post"
@@ -201,7 +200,7 @@
             {% csrf_token %}
             <input type="hidden" name="activation_labour_cost"
                    id="activation_labour_cost_id">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Назад" %}</button>
             <button type="button" class="btn btn-primary" data-href-template="{% url 'labour_cost:update_status' %}"
                     id="labour_cost_for_project_calculation">Да
             </button>
