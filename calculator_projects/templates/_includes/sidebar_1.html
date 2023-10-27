@@ -1,28 +1,29 @@
-{% load static %}
+{% load static i18n %}
 <div class="quixnav" id="sidebar">
   <div class="quixnav-scroll">
     <ul class="metismenu" id="menu">
-      <li class="nav-label first font-weight-bold">Панель</li>
+      <li class="nav-label first font-weight-bold">{% trans 'Панель' %}</li>
 
       {% if request.user.is_finance %}
-        <li><a class="has-arrow" href="https://cbu.uz/oz/arkhiv-kursov-valyut/json/USD/2023-10-24/ " aria-expanded="false"><i
-          class="icon icon-app-store"></i><span class="nav-text">Финансист Панель</span></a>
+        <li><a class="has-arrow" href="https://cbu.uz/oz/arkhiv-kursov-valyut/json/USD/2023-10-24/ "
+               aria-expanded="false"><i
+          class="icon icon-app-store"></i><span class="nav-text">{% trans 'Финансист Панель' %}</span></a>
 
         </li>
       {% elif request.user.is_super_user %}
         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-          class="icon icon-app-store"></i><span class="nav-text">SuperUser Панель</span></a>
+          class="icon icon-app-store"></i><span class="nav-text">{% trans 'SuperUser Панель' %}</span></a>
         </li>
 
       {% elif request.user.is_business_analytic %}
         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-          class="icon icon-app-store"></i><span class="nav-text">Проект Менеджер Панель</span></a>
+          class="icon icon-app-store"></i><span class="nav-text">{% trans 'Бизнес аналитик Панель' %}</span></a>
 
         </li>
 
       {% elif request.user.is_pm %}
         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-          class="icon icon-app-store"></i><span class="nav-text">Проект Менеджер Панель</span></a>
+          class="icon icon-app-store"></i><span class="nav-text">{% trans 'Проект Менеджер Панель' %}</span></a>
 
         </li>
 
@@ -30,54 +31,46 @@
 
 
 
-      <li class="nav-label font-weight-bold">Организация</li>
+      <li class="nav-label font-weight-bold">{% trans 'Организация' %}</li>
       <li><a class="has-arrow" href="{% url 'users:workload' %}" aria-expanded="false"><i
-        class="icon icon-preferences-circle"></i><span class="nav-text">Загруженность сотрудников</span></a>
+        class="icon icon-preferences-circle"></i><span class="nav-text">{% trans 'Загруженность сотрудников' %}</span></a>
       </li>
 
 
-      <li class="nav-label font-weight-bold">Финансовые отчеты</li>
+      <li class="nav-label font-weight-bold">{% trans 'Финансовые отчеты' %}</li>
       <li><a class="has-arrow" href="{% url 'labour_cost:view' %}" aria-expanded="false"><i
-        class="icon icon-wallet-90 "></i><span class="nav-text">Стоимость труда в час</span></a>
+        class="icon icon-wallet-90 "></i><span class="nav-text">{% trans 'Стоимость труда в час' %}</span></a>
 
       </li>
       <li><a class="has-arrow" href="{% url 'projects:confirm_list' %}" aria-expanded="false"><i
-        class="icon icon-layout-25"></i><span class="nav-text">Список проектов<br> для подтверждения</span></a>
+        class="icon icon-layout-25"></i><span class="nav-text">{% trans 'Список проектов<br> для подтверждения' %}</span></a>
 
       </li>
 
-      <li class="nav-label font-weight-bold">Проекты</li>
+      <li class="nav-label font-weight-bold">{% trans 'Проекты' %}</li>
       <li><a class="has-arrow" href="{% url 'projects:project_creation_stage_one' %}" aria-expanded="false"><i
-        class="icon icon-time"></i><span class="nav-text">План</span></a>
+        class="icon icon-time"></i><span class="nav-text">{% trans 'План' %}</span></a>
 
       </li>
 
       <li><a class="has-arrow" href="{% url 'projects:project_fact' user.id %}" aria-expanded="false"><i
-        class="icon icon-check-2"></i><span class="nav-text">Факт</span></a>
+        class="icon icon-check-2"></i><span class="nav-text">{% trans 'Факт' %}</span></a>
 
       </li>
       <li><a class="has-arrow" href="{% url 'projects:status_list' user.id %}" aria-expanded="false"><i
-        class="icon icon-analytics"></i><span class="nav-text">Список проектов<br> по этапам создания</span></a>
+        class="icon icon-analytics"></i><span class="nav-text">{% trans 'Список проектов<br>по этапам создания' %}</span></a>
 
       </li>
       </li>
       <li><a class="has-arrow" href="{% url 'projects:compare' user.id %}" aria-expanded="false"><i
-        class="icon icon-puzzle-10"></i><span class="nav-text">План-факт анализ</span></a>
+        class="icon icon-puzzle-10"></i><span class="nav-text">{% trans 'План-факт анализ' %}</span></a>
 
       </li>
-      {#                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i#}
-      {#                        class="icon icon-form"></i><span class="nav-text">Контракт</span></a>#}
-      {##}
-      {#                </li>#}
-      {#                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i#}
-      {#                        class="icon icon-credit-card"></i><span class="nav-text">Денежный <br> поступление</span></a></li>#}
-
-
-      <li class="nav-label font-weight-bold">Анализ</li>
+      <li class="nav-label font-weight-bold">{% trans 'Анализ' %}</li>
 
 
       <li><a class="has-arrow" href="{% url 'projects:analyze_list' user.id %}" aria-expanded="false"><i
-        class="icon icon-world-2"></i><span class="nav-text">Статус проектов</span></a>
+        class="icon icon-world-2"></i><span class="nav-text">{% trans 'Статус проектов' %}</span></a>
 
       </li>
 

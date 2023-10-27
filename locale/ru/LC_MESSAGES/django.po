@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 16:27+0500\n"
+"POT-Creation-Date: 2023-10-27 11:01+0500\n"
 "PO-Revision-Date: 2022-05-23 10:44+0437\n"
 "Last-Translator: Admin User <a@mail.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,6 +133,7 @@ msgstr ""
 
 #: .\calculator_projects\apps\projects\models.py:71
 #: .\calculator_projects\apps\tasks\models.py:17
+#: .\calculator_projects\templates\_includes\sidebar_1.html:52
 msgid "План"
 msgstr ""
 
@@ -211,6 +212,74 @@ msgstr ""
 #: .\calculator_projects\apps\users\tests\test_views.py:71
 msgid "Information successfully updated"
 msgstr "Information successfully updated"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:5
+#: .\calculator_projects\templates\users\workload.html:18
+msgid "Панель"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:10
+msgid "Финансист Панель"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:15
+msgid "SuperUser Панель"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:20
+msgid "Бизнес аналитик Панель"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:26
+msgid "Проект Менеджер Панель"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:34
+msgid "Организация"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:36
+#: .\calculator_projects\templates\users\workload.html:12
+#: .\calculator_projects\templates\users\workload.html:19
+msgid "Загруженность сотрудников"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:40
+msgid "Финансовые отчеты"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:42
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
+msgid "Стоимость труда в час"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:46
+msgid "Список проектов<br> для подтверждения"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:50
+msgid "Проекты"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:57
+msgid "Факт"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:61
+msgid "Список проектов<br>по этапам создания"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:66
+msgid "План-факт анализ"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:69
+msgid "Анализ"
+msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:73
+msgid "Статус проектов"
+msgstr ""
 
 #: .\calculator_projects\templates\account\account_inactive.html:6
 #: .\calculator_projects\templates\account\account_inactive.html:9
@@ -478,12 +547,40 @@ msgstr ""
 "<strong> Примечание. </strong> вы все равно можете <a href=\"%(email_url)s"
 "\"> изменить свой адрес электронной почты </a>."
 
-#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
-msgid "Стоимость труда в час"
-msgstr ""
-
 #: .\calculator_projects\templates\projects\other\project_confirm.html:14
 msgid "Список проектов для подтверждения"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:27
+msgid "Cотрудники"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:35
+msgid "Сотрудник"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:36
+msgid "Наименование проекта"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:37
+msgid "Наименование задачи"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:38
+msgid "Дедлайн"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:39
+msgid "Статус задачи"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:40
+msgid "Рабочая нагрузка в часах"
+msgstr ""
+
+#: .\calculator_projects\templates\users\workload.html:67
+msgid "Еще не назначен"
 msgstr ""
 
 #: .\config\settings\base.py:51

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load static i18n %}
 {% block title %}
   Workload
 {% endblock title %}
@@ -9,14 +9,14 @@
   <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
       <div class="welcome-text">
-        <h4>Загруженность сотрудников</h4>
+        <h4>{% trans 'Загруженность сотрудников' %}</h4>
 
       </div>
     </div>
     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">Панель </a></li>
-        <li class="breadcrumb-item active"><a href="#">Загруженность сотрудников </a></li>
+        <li class="breadcrumb-item"><a href="{% url 'users:entrance' %}">{% trans 'Панель' %}</a></li>
+        <li class="breadcrumb-item active"><a href="#">{% trans 'Загруженность сотрудников' %}</a></li>
       </ol>
     </div>
   </div>
@@ -24,7 +24,7 @@
 
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">Cотрудники</h4>
+      <h4 class="card-title">{% trans 'Cотрудники' %}</h4>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -32,12 +32,12 @@
           <thead>
           <tr>
             <th scope="col">№</th>
-            <th scope="col">Сотрудник</th>
-            <th scope="col">Наименование проекта</th>
-            <th scope="col">Наименование задачи</th>
-            <th scope="col">Дедлайн</th>
-            <th scope="col">Статус задачи</th>
-            <th scope="col">Рабочая нагрузка в часах</th>
+            <th scope="col">{% trans 'Сотрудник' %}</th>
+            <th scope="col">{% trans 'Наименование проекта' %}</th>
+            <th scope="col">{% trans 'Наименование задачи' %}</th>
+            <th scope="col">{% trans 'Дедлайн' %}</th>
+            <th scope="col">{% trans 'Статус задачи' %}</th>
+            <th scope="col">{% trans 'Рабочая нагрузка в часах' %}</th>
           </tr>
           </thead>
           <tbody>
@@ -64,11 +64,11 @@
 
 
               {% else %}
-                <td>Еще не назначен</td>
+                <td>{% trans 'Еще не назначен' %}</td>
                 <td>{{ task.project_fact.name }}</td>
                 <td>{{ task.description }}</td>
                 <td>{{ task.finish_time|date:"d-m-Y" }}</td>
-                 {% if task.action_status == 1 %}
+                {% if task.action_status == 1 %}
                   <td><span class="badge badge-primary">{{ task.get_action_status_display }}</span></td>
                 {% elif task.action_status == 2 %}
                   <td><span class="badge badge-warning">{{ task.get_action_status_display }}</span></td>

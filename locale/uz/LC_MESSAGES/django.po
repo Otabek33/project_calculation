@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 16:27+0500\n"
+"POT-Creation-Date: 2023-10-27 11:02+0500\n"
 "PO-Revision-Date: 2021-11-19 10:53+0437\n"
 "Last-Translator:   <sh@sh.sh>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,8 +131,9 @@ msgstr ""
 
 #: .\calculator_projects\apps\projects\models.py:71
 #: .\calculator_projects\apps\tasks\models.py:17
+#: .\calculator_projects\templates\_includes\sidebar_1.html:52
 msgid "План"
-msgstr ""
+msgstr "Reja"
 
 #: .\calculator_projects\apps\users\apps.py:7
 msgid "Users"
@@ -209,6 +210,74 @@ msgstr ""
 #: .\calculator_projects\apps\users\tests\test_views.py:71
 msgid "Information successfully updated"
 msgstr ""
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:5
+#: .\calculator_projects\templates\users\workload.html:18
+msgid "Панель"
+msgstr "Panel"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:10
+msgid "Финансист Панель"
+msgstr "Moliyachi Paneli"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:15
+msgid "SuperUser Панель"
+msgstr "SuperUser Paneli"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:20
+msgid "Бизнес аналитик Панель"
+msgstr "Biznes analitik Paneli"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:26
+msgid "Проект Менеджер Панель"
+msgstr "Loyiha menejeri Paneli"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:34
+msgid "Организация"
+msgstr "Tashkilot"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:36
+#: .\calculator_projects\templates\users\workload.html:12
+#: .\calculator_projects\templates\users\workload.html:19
+msgid "Загруженность сотрудников"
+msgstr "Xodimlar bandligi"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:40
+msgid "Финансовые отчеты"
+msgstr "Moliyaviy hisobotlar"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:42
+#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
+msgid "Стоимость труда в час"
+msgstr "Bir soatlik mehnat qiymati"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:46
+msgid "Список проектов<br> для подтверждения"
+msgstr "Tasdiqlash uchun loyihalar ro'yxati"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:50
+msgid "Проекты"
+msgstr "Loyihalar"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:57
+msgid "Факт"
+msgstr "Fakt"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:61
+msgid "Список проектов<br>по этапам создания"
+msgstr "Yaratish bosqichlari bo'yicha loyihalar ro'yxati"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:66
+msgid "План-факт анализ"
+msgstr "Plan-Fakt tahlil"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:69
+msgid "Анализ"
+msgstr "Tahlil"
+
+#: .\calculator_projects\templates\_includes\sidebar_1.html:73
+msgid "Статус проектов"
+msgstr "Loyihalar statusi"
 
 #: .\calculator_projects\templates\account\account_inactive.html:6
 #: .\calculator_projects\templates\account\account_inactive.html:9
@@ -433,13 +502,43 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: .\calculator_projects\templates\labour_cost\labour_cost_list.html:11
-msgid "Стоимость труда в час"
-msgstr "Ish haqi bir soat uchun"
-
 #: .\calculator_projects\templates\projects\other\project_confirm.html:14
 msgid "Список проектов для подтверждения"
 msgstr "Tasdiqlash uchun loyihalar"
+
+#: .\calculator_projects\templates\users\workload.html:27
+#, fuzzy
+#| msgid "Сотрудник"
+msgid "Cотрудники"
+msgstr "Xodimlar"
+
+#: .\calculator_projects\templates\users\workload.html:35
+msgid "Сотрудник"
+msgstr "Xodimlar"
+
+#: .\calculator_projects\templates\users\workload.html:36
+msgid "Наименование проекта"
+msgstr "Loyiha nomlanishi"
+
+#: .\calculator_projects\templates\users\workload.html:37
+msgid "Наименование задачи"
+msgstr "Vazifa nomlanishi"
+
+#: .\calculator_projects\templates\users\workload.html:38
+msgid "Дедлайн"
+msgstr "Tugatish muddati"
+
+#: .\calculator_projects\templates\users\workload.html:39
+msgid "Статус задачи"
+msgstr "Vazifa statusi"
+
+#: .\calculator_projects\templates\users\workload.html:40
+msgid "Рабочая нагрузка в часах"
+msgstr "Xodimlar bandligi (soatlar ko'rsatkichida)"
+
+#: .\calculator_projects\templates\users\workload.html:67
+msgid "Еще не назначен"
+msgstr "Mavjud emas"
 
 #: .\config\settings\base.py:51
 msgid "Рус"
