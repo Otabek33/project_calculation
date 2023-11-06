@@ -493,8 +493,9 @@ class ComparePlanFactView(ProjectUsageRequiredMixin, ListView):
             project_status=ProjectStatus.ACTIVE,
             deleted_status=False,
         )
-        context = compare_dashboard(self.request.user, context, self.get_queryset(), project_plan_list)
-
+        qs = self.get_queryset()
+        if bool(qs):
+            context = compare_dashboard(self.request.user, context, self.get_queryset(), project_plan_list)
         return context
 
 
