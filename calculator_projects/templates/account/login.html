@@ -13,6 +13,20 @@
 
   {% block navbar %}
   {% endblock %}
+ {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% elif message.tags == 'info' %}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% elif message.tags == 'warning' %}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% elif message.tags == 'error' %}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
   <body>
   <div class="authincation">
     <div class="container-fluid h-100">
@@ -27,7 +41,7 @@
                     {% csrf_token %}
                     <div class="form-group">
                       <label><strong>Имя пользователя</strong></label>
-                      <input type="text" name="username" class="form-control" >
+                      <input type="text" name="username" class="form-control">
                     </div>
                     <div class="form-group">
                       <label><strong>Пароль </strong></label>
@@ -60,4 +74,3 @@
 
 
 {% endblock %}
-
