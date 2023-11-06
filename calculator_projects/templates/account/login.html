@@ -1,9 +1,9 @@
 {% extends "account/base.html" %}
 {% load static %}
-{% block title %}Focus - Bootstrap Admin Dashboard {% endblock %}
+{% block title %}Log in {% endblock %}
 <!-- Favicon icon -->
 {% block css %}
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
@@ -13,19 +13,19 @@
 
   {% block navbar %}
   {% endblock %}
- {% if messages %}
-        {% for message in messages %}
-            {% if message.tags == 'success'%}
-                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-            {% elif message.tags == 'info' %}
-                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-            {% elif message.tags == 'warning' %}
-                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-            {% elif message.tags == 'error' %}
-                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-            {% endif %}
-        {% endfor %}
+
+  <script type="text/javascript">
+    {% if messages %}
+      {% for message in messages %}
+        var row_data = "{{ message }}";
+        toastr_danger_top_right(row_data)
+
+        {#            {% endif %}#}
+      {% endfor %}
     {% endif %}
+  </script>
+
+
 
   <body>
   <div class="authincation">
@@ -36,7 +36,7 @@
             <div class="row no-gutters">
               <div class="col-xl-12">
                 <div class="auth-form">
-                  <h4 class="text-center mb-4">Вход</h4>
+                  <h4 class="text-center mb-4">Добро пожаловать</h4>
                   <form action="." method="POST">
                     {% csrf_token %}
                     <div class="form-group">
