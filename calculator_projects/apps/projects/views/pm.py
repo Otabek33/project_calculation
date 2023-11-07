@@ -531,14 +531,6 @@ class ProjectFactSelect(ProjectUsageRequiredMixin, View):
             context = compare_dashboard_one_project(
                 self.request.user, context, project_fact, project_fact.project_plan
             )
-            print("ishladi")
-            print("ishladi")
-            print(context)
-            # print("ishladi")
-            # print("ishladi")
-            # print("ishladi")
-            # print(context)
-
             message = f"{project_fact.name}"
             return JsonResponse({"success": True, "data": context, "msg": message}, status=200)
 
