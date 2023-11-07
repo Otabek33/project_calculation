@@ -20,19 +20,14 @@ class StagePlanSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
-        stage_number = data['stage_number']
+        stage_number = data["stage_number"]
         # project_id = data['projectPlan'].id
-        if data['start_time'] > data['finish_time']:
+        if data["start_time"] > data["finish_time"]:
             message = "Неправильно выбранная дата"
-            raise serializers.ValidationError(
-                {"error": message})
+            raise serializers.ValidationError({"error": message})
         elif stage_number < 0:
             message = "Номер этапа должен быть положительным"
             raise serializers.ValidationError({"error": message})
-        # stage = StagePlan.objects.filter(projectPlan=project_id, stage_number=stage_number).exists()
-        # if stage:
-        #     message = "Этот этап уже существует"
-        #     raise serializers.ValidationError({"error": message})
         return data
 
     def save(self, **kwargs):
@@ -42,7 +37,24 @@ class StagePlanSerializer(serializers.ModelSerializer):
         return instance
 
     def update(self, instance, validated_data):
-        instance.process_price()
-        process_formation_fields_with_labour_cost(instance)
+        task_plan_list = instance.task_list()
+        print("ishladi")
+        print("ishladi")
+        print("ishladi")
+        print(validated_data)
+        print(validated_data.get("description"))
 
-        return super().update(instance, validated_data)
+        if len(task_plan_list) > 0:
+            instance.description = validated_data.get("description")
+            instance.stage_number = validated_data.get("stage_number")
+            instance.start_time = instance.start_time
+            instance.finish_time = instance.finish_time
+            instance.total_price_stage_and_task = instance.total_price_stage_and_task
+            instance.duration_per_hour = instance.duration_per_hour
+            instance.duration_per_day = instance.duration_per_day
+            instance.save()
+            return instance
+        else:
+            instance.process_price()
+            process_formation_fields_with_labour_cost(instance)
+            return super().update(instance, validated_data)

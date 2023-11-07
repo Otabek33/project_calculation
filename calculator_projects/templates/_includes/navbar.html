@@ -35,11 +35,11 @@
                     {% for language in languages %}
                       <option class="form-control" value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
                               selected{% endif %}>
-                        {{ language.name_local }} ({{ language.code }})
+                         {{ language.code }}
                       </option>
                     {% endfor %}
                   </select>
-                  <input type="submit" value="Go" class="form-control">
+                  <input type="submit" value="Select" class="form-control">
                 </form>
                 {% if user.is_authenticated %}
                   <div class="dropdown-menu dropdown-menu-right">
