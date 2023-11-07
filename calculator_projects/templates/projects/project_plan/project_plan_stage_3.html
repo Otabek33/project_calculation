@@ -234,7 +234,7 @@
             <td><strong>{{ projectplan.start_time|date:"d-m-Y" }}</strong></td>
             <td><strong>{{ projectplan.finish_time|date:"d-m-Y" }}</strong></td>
             <td><strong>{{ projectplan.duration_per_day }}</strong></td>
-            <td><strong>{{ projectplan.duration_per_hour }}</strong></td>
+            <td><strong>{{ projectplan.duration_per_hour|floatformat:"g" }}</strong></td>
             <td>
               <strong>{{ projectplan.total_price_stage_and_task|floatformat:"2g" }}
                 сўм</strong></td>
@@ -300,7 +300,7 @@
                 <td class="col-xs-4 col-sm-7 active"><strong> Длителность проекта в часах: </strong>
                 </td>
                 <td>
-                  {{ projectplan.duration_per_hour }} часа
+                  {{ projectplan.duration_per_hour|floatformat:"g" }} часа
                 </td>
               </tr>
 
