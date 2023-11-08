@@ -21,7 +21,6 @@ class StagePlanSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         stage_number = data["stage_number"]
-        # project_id = data['projectPlan'].id
         if data["start_time"] > data["finish_time"]:
             message = "Неправильно выбранная дата"
             raise serializers.ValidationError({"error": message})
@@ -38,12 +37,6 @@ class StagePlanSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         task_plan_list = instance.task_list()
-        print("ishladi")
-        print("ishladi")
-        print("ishladi")
-        print(validated_data)
-        print(validated_data.get("description"))
-
         if len(task_plan_list) > 0:
             instance.description = validated_data.get("description")
             instance.stage_number = validated_data.get("stage_number")
