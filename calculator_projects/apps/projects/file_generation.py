@@ -23,8 +23,6 @@ def generate_pdf_file(stage_list, project):
     buffer = BytesIO()
     p = canvas.Canvas(buffer)
 
-    # Create a PDF document
-
     p.drawString(100, 750, "Book Catalog")
 
     y = 700

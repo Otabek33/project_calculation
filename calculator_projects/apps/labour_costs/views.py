@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -15,7 +14,7 @@ from calculator_projects.utils.helpers import is_ajax
 # Create your views here.
 
 
-class LabourCostView(LoginRequiredMixin, ListView):
+class LabourCostView(FinanceRequiredMixin, ListView):
     model = LabourCost
     template_name = "labour_cost/labour_cost_list.html"
     paginate_by = 5
