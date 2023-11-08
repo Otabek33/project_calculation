@@ -284,7 +284,7 @@
 
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">pdf</a>
+{#          <a class="dropdown-item" href="#">pdf</a>#}
           <a class="dropdown-item" href="{% url 'projects:export_excel_cost_estimation_by_stage' projectplan.id %}">excel</a>
         </div>
       </div>
@@ -456,7 +456,7 @@
         </button>
         <div class="dropdown-menu">
           <a type="button" class="dropdown-item" href="#"  onclick="total_detail_info_project()">pdf</a>
-          <a class="dropdown-item" href="#">excel</a>
+          <a class="dropdown-item" href="{% url 'projects:export_excel_overall_project' projectplan.id %}">excel</a>
         </div>
       </div>
         </div>

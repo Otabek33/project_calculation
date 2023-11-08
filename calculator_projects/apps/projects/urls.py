@@ -3,6 +3,7 @@ from django.urls import path
 from calculator_projects.apps.projects.file_generation import (
     export_excel,
     export_excel_cost_estimation_by_stage,
+    export_excel_overall_project,
     export_excel_plan_graph_project,
     generate_pdf,
 )
@@ -66,6 +67,11 @@ urlpatterns = [
         "<uuid:pk>/export_excel_cost_estimation_by_stage",
         export_excel_cost_estimation_by_stage,
         name="export_excel_cost_estimation_by_stage",
+    ),
+    path(
+        "<uuid:pk>/export_excel_overall_project",
+        export_excel_overall_project,
+        name="export_excel_overall_project",
     ),
     path("project-fact-select/", project_fact_select, name="project_fact_select"),
 ]

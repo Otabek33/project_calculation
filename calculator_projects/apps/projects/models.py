@@ -166,38 +166,11 @@ class ProjectPlan(models.Model):
     def is_active(self):
         return self.project_status not in [ProjectStatus.CREATION, ProjectStatus.CONFORM]
 
-    # def process_formation_four_fields_percentage(self):
-    #     self.percent_cost_price = (
-    #         self.cost_price / self.total_price_stage_and_task * 100
-    #     )
-    #     self.percent_salary_cost = (
-    #         self.salary_cost / self.total_price_stage_and_task * 100
-    #     )
-    #     self.percent_period_expenses = (
-    #         self.period_expenses / self.total_price_stage_and_task * 100
-    #     )
-    #     self.percent_margin = self.margin / self.total_price_stage_and_task * 100
-
     def stage_counter(self):
         return self.stageplan_set.filter(deleted_status=False).count()
 
     def task_counter(self):
         return self.project_plan_task.filter(deleted_status=False).count()
-
-    # def process_formation_fields_with_additional_cost(self):
-    #     from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
-    #     from django.db.models import Sum
-    #     add_costs = AdditionalCostPlan.objects.filter(project=self, deleted_status=False)
-    #     if add_costs:
-    #         additional_cost_of_project = add_costs.aggregate(total_amount=Sum("amount"))
-    #         self.additional_cost = additional_cost_of_project["total_amount"]
-    #         self.total_price_with_additional_cost = (
-    #             self.total_price_with_margin
-    #             + additional_cost_of_project["total_amount"]
-    #         )
-    #     else:
-    #         self.total_price_with_additional_cost = self.total_price_stage_and_task
-    #         self.additional_cost = 0.0
 
     def additional_cost_exist(self):
         return self.additionalcostplan_set.filter(deleted_status=False).exists()
@@ -209,6 +182,11 @@ class ProjectPlan(models.Model):
         from calculator_projects.apps.stages.models import StagePlan
 
         return StagePlan.objects.filter(projectPlan=self.id, deleted_status=False).order_by("stage_number")
+
+    def additional_cost_plan_list(self):
+        from calculator_projects.apps.additionalCosts.models import AdditionalCostPlan
+
+        return AdditionalCostPlan.objects.filter(project=self.id, deleted_status=False)
 
 
 class ProjectFact(models.Model):
