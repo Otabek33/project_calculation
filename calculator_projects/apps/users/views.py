@@ -82,7 +82,6 @@ class WorkloadView(ProjectUsageRequiredMixin, ListView):
     template_name = f"{tm_path}{tm_name}"
 
     def get_queryset(self):
-        print("ishladi")
         qs = super().get_queryset()
         user_role = self.request.user.user_role
         if user_role == UserRoleTypes.SUPER_USER or user_role == UserRoleTypes.FINANCE:
