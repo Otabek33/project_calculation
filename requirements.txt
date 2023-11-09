@@ -159,7 +159,7 @@ pylint-celery==0.3
 pylint-django==2.5.3
 pylint-plugin-utils==0.8.2
 pyparsing==3.0.9
-pypdf==3.16.1
+pypdf==3.17.0
 pyphen==0.14.0
 pypng==0.20220715.0
 pyTelegramBotAPI==4.12.0
