@@ -80,7 +80,6 @@ class WorkloadView(ProjectUsageRequiredMixin, ListView):
     tm_path = "users/"
     tm_name = "workload.html"
     template_name = f"{tm_path}{tm_name}"
-    print("change")
 
     def get_queryset(self):
         qs = super().get_queryset()
