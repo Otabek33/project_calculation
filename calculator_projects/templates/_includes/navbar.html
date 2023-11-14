@@ -26,21 +26,21 @@
 
               <div class="right_content">
 
-                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                  <input name="next" type="hidden" value="{{ redirect_to }}">
-                  <select name="language" class="form-control">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                      <option class="form-control" value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-                              selected{% endif %}>
-                         {{ language.code }}
-                      </option>
-                    {% endfor %}
-                  </select>
-                  <input type="submit" value="Select" class="form-control">
-                </form>
+{#                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}#}
+{#                  <input name="next" type="hidden" value="{{ redirect_to }}">#}
+{#                  <select name="language" class="form-control">#}
+{#                    {% get_current_language as LANGUAGE_CODE %}#}
+{#                    {% get_available_languages as LANGUAGES %}#}
+{#                    {% get_language_info_list for LANGUAGES as languages %}#}
+{#                    {% for language in languages %}#}
+{#                      <option class="form-control" value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}#}
+{#                              selected{% endif %}>#}
+{#                         {{ language.code }}#}
+{#                      </option>#}
+{#                    {% endfor %}#}
+{#                  </select>#}
+{#                  <input type="submit" value="Select" class="form-control">#}
+{#                </form>#}
                 {% if user.is_authenticated %}
                   <div class="dropdown-menu dropdown-menu-right">
                     <a href="{% url 'users:detail' user.id %}" class="dropdown-item">

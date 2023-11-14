@@ -1,9 +1,7 @@
-{% extends "account/base.html" %}
-{% load static %}
-{% block title %}Log in {% endblock %}
+{% load static i18n %}
+<title>{% block title %}Log in {% endblock %}</title>
 <!-- Favicon icon -->
 {% block css %}
-
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
@@ -19,13 +17,9 @@
       {% for message in messages %}
         var row_data = "{{ message }}";
         toastr_danger_top_right(row_data)
-
-        {#            {% endif %}#}
       {% endfor %}
     {% endif %}
   </script>
-
-
 
   <body>
   <div class="authincation">
@@ -67,10 +61,7 @@
 {% endblock %}
 
 {% block js %}
-
   <script src="{% static 'vendor/global/global.min.js' %}"></script>
   <script src="{% static 'js/quixnav-init.js' %}"></script>
   <script src="{% static 'js/custom.min.js' %}"></script>
-
-
 {% endblock %}
