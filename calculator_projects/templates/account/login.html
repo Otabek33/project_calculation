@@ -1,53 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" class="h-100">
 {% load static i18n %}
-<title>{% block title %}Log in {% endblock %}</title>
-<!-- Favicon icon -->
-{% block css %}
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-{% endblock %}
-{% block content %}
+<head>
+  <title>{% block title %}Log in {% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/toastr/css/toastr.min.css' %}">
+</head>
 
-  {% block sidebar %}
-  {% endblock %}
 
-  {% block navbar %}
-  {% endblock %}
+<body class="mt-lg-5">
+<div class="authincation">
+  <div class="container-fluid h-100">
+    <div class="row justify-content-center h-100 align-items-center">
+      <div class="col-md-6">
+        <div class="authincation-content">
+          <div class="row no-gutters">
+            <div class="col-xl-12">
+              <div class="auth-form">
+                <h4 class="text-center mb-4">Добро пожаловать</h4>
+                <form action="." method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label><strong>Имя пользователя</strong></label>
+                    <input type="text" name="username" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label><strong>Пароль </strong></label>
+                    <input type="password" name="password" class="form-control" autocomplete="off">
+                  </div>
 
-  <script type="text/javascript">
-    {% if messages %}
-      {% for message in messages %}
-        var row_data = "{{ message }}";
-        toastr_danger_top_right(row_data)
-      {% endfor %}
-    {% endif %}
-  </script>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-block">Вход</button>
+                  </div>
+                </form>
 
-  <body>
-  <div class="authincation">
-    <div class="container-fluid h-100">
-      <div class="row justify-content-center h-100 align-items-center">
-        <div class="col-md-6">
-          <div class="authincation-content">
-            <div class="row no-gutters">
-              <div class="col-xl-12">
-                <div class="auth-form">
-                  <h4 class="text-center mb-4">Добро пожаловать</h4>
-                  <form action="." method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                      <label><strong>Имя пользователя</strong></label>
-                      <input type="text" name="username" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label><strong>Пароль </strong></label>
-                      <input type="password" name="password" class="form-control">
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary btn-block">Вход</button>
-                    </div>
-                  </form>
-
-                </div>
               </div>
             </div>
           </div>
@@ -55,13 +42,23 @@
       </div>
     </div>
   </div>
+</div>
 
-  {% block footer %}
-  {% endblock %}
-{% endblock %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="{% static 'vendor/toastr/js/toastr.min.js' %}"></script>
+<!-- All init script -->
+<script src="{% static 'js/plugins-init/toastr-init.js' %}"></script>
 
-{% block js %}
-  <script src="{% static 'vendor/global/global.min.js' %}"></script>
-  <script src="{% static 'js/quixnav-init.js' %}"></script>
-  <script src="{% static 'js/custom.min.js' %}"></script>
-{% endblock %}
+
+<script type="text/javascript">
+  {% if messages %}
+    {% for message in messages %}
+      var row_data = "{{ message }}";
+      toastr_danger_top_right(row_data)
+
+    {% endfor %}
+  {% endif %}
+</script>
+</body>
+
+</html>
