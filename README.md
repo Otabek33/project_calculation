@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-localda ham o'zgarish bor
-=======
+
 test uchun tekshirish
->>>>>>> 4f57d040301b769478efa615fcb2c3a1e9186b39
+
 # calculator-projects
 
 automation project calculations
