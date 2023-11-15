@@ -1,5 +1,4 @@
-I want to change
-dwadawdwadawdawdawd
+localda ham o'zgarish bor
 # calculator-projects
 
 automation project calculations
