@@ -18,7 +18,7 @@
   {#toast#}
   <link rel="stylesheet" href="{% static 'vendor/toastr/css/toastr.min.css' %}">
 
-  {# datapicker#}
+{#   datapicker#}
   <!-- Daterange picker -->
   <link href="{% static 'vendor/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'vendor/pickadate/themes/default.css' %}">
@@ -145,7 +145,7 @@
 <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'js/plugins-init/datatables.init.js' %}"></script>
 
-{#select2 for choosing worker for task fact project#}
+select2 for choosing worker for task fact project
 <script src="{% static 'vendor/select2/js/select2.full.min.js' %}"></script>
 <script src="{% static 'js/plugins-init/select2-init.js' %}"></script>
 
@@ -202,10 +202,6 @@
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   });
-
-  {#toastMixin.fire({#}
-  {#      title: localStorage.getItem("msg")#}
-  {#    })#}
   if (localStorage.getItem("msg")) {
     toastr_success_top_right(localStorage.getItem("msg"))
     localStorage.removeItem("msg")
