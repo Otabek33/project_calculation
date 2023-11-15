@@ -1,4 +1,4 @@
-
+test uchun tekshirish
 # calculator-projects
 
 automation project calculations
