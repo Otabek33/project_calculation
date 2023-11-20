@@ -481,3 +481,19 @@ def compare_dashboard_one_project(user, context, project_fact, project_plan):
     context["task_status"] = generation_task_status_amount(user, project_fact, "one")
     context["project_list"] = project_list
     return context
+
+
+def excel_generation_plan_fact_compare(project_fact_list, worksheet):
+    counter = 2
+    for count, project in enumerate(project_fact_list, start=1):
+        worksheet.cell(row=counter, column=1).value = count
+        worksheet.cell(row=counter, column=2).value = project.name
+        worksheet.cell(row=counter, column=3).value = f"{project.created_by.first_name} {project.created_by.last_name}"
+        worksheet.cell(row=counter, column=4).value = f"{project.created_by.deportment.name}"
+        worksheet.cell(row=counter, column=5).value = f"{project.completed_status() } %"
+        worksheet.cell(row=counter, column=6).value = project.finish_time
+        worksheet.cell(row=counter, column=7).value = project.get_project_status_display()
+        worksheet.cell(row=counter, column=8).value = f"{project.project_plan.total_price_with_additional_cost:,.2f}"
+        worksheet.cell(row=counter, column=9).value = f"{project.total_price_with_additional_cost:,.2f}"
+        worksheet.cell(row=counter, column=10).value = f"{project.plan_fact_difference():,.2f}"
+        counter += 1

@@ -1,10 +1,13 @@
 import openpyxl
 from django.http import FileResponse, HttpResponse
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.dimensions import ColumnDimension, DimensionHolder
 from reportlab.pdfgen import canvas
 
-from calculator_projects.apps.projects.models import ProjectPlan
+from calculator_projects.apps.projects.models import ProjectFact, ProjectPlan
+from calculator_projects.apps.projects.utils import excel_generation_plan_fact_compare
 from calculator_projects.apps.stages.models import StagePlan
+from calculator_projects.apps.users.models import UserRoleTypes
 
 
 def generate_pdf(request, pk):
@@ -274,4 +277,45 @@ def export_excel_overall_project(request, pk):
     worksheet.title = "project"
     workbook.save(response)
 
+    return response
+
+
+def export_excel_compare_plan_fact(request, pk):
+    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response["Content-Disposition"] = 'attachment; filename="compare_plan_fact.xlsx"'
+
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.title = "test"
+
+    header = [
+        "№",
+        "НАИМЕНОВАНИЕ",
+        "Ответственный",
+        "Департамент",
+        "Выполнимость проекта",
+        "Дедлайн",
+        "Статус",
+        "Проектная стоимость",
+        "Фактическая стоимость",
+        "Ставнение",
+    ]
+    for col_num, column_title in enumerate(header, 1):
+        cell = worksheet.cell(row=1, column=col_num)
+        cell.value = column_title
+
+    project_fact_list = ProjectFact.objects.filter(deleted_status=False)
+    user_role = request.user.user_role
+
+    if user_role == UserRoleTypes.SUPER_USER or user_role == UserRoleTypes.FINANCE:
+        excel_generation_plan_fact_compare(project_fact_list, worksheet)
+    else:
+        project_fact_list = project_fact_list.filter(created_by=request.user)
+        excel_generation_plan_fact_compare(project_fact_list, worksheet)
+
+    dim_holder = DimensionHolder(worksheet=worksheet)
+    for col in range(worksheet.min_column, worksheet.max_column + 1):
+        dim_holder[get_column_letter(col)] = ColumnDimension(worksheet, min=col, max=col, width=20)
+    worksheet.column_dimensions = dim_holder
+    workbook.save(response)
     return response
