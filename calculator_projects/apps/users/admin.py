@@ -1,10 +1,8 @@
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth import get_user_model, decorators
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import decorators, get_user_model
 
-from calculator_projects.apps.users.forms import UserAdminChangeForm, UserAdminCreationForm
 from calculator_projects.apps.users.models import Department, JobTitle
 
 User = get_user_model()
@@ -26,9 +24,8 @@ class UserAdmin(auth_admin.UserAdmin):
         "email",
         "user_role",
         "photo",
-
     ]
-    list_editable = ['user_role']
+    list_editable = ["user_role"]
     fieldsets = (
         (
             None,
@@ -43,7 +40,6 @@ class UserAdmin(auth_admin.UserAdmin):
                     "deportment",
                     "job_title",
                     "photo",
-
                 )
             },
         ),
