@@ -48,12 +48,12 @@ def checking_stage_exist(project):
 
 
 def project_plan_fields_regex(total_price_with_margin: str, tax_amount: str, margin_amount: str):
+    import re
     from decimal import Decimal
 
-    total_price_with_margin = total_price_with_margin.replace(" ", "").replace(",", ".").replace("сўм", "")
-    project_tax = tax_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
-    margin = margin_amount.replace(" ", "").replace(",", ".").replace("сўм", "")
-
+    total_price_with_margin = re.sub(r"\s", "", total_price_with_margin).replace(",", ".").replace("сўм", "")
+    project_tax = re.sub(r"\s", "", tax_amount).replace(",", ".").replace("сўм", "")
+    margin = re.sub(r"\s", "", margin_amount).replace(",", ".").replace("сўм", "")
     return [Decimal(total_price_with_margin), Decimal(project_tax), Decimal(margin)]
 
 
@@ -490,7 +490,7 @@ def excel_generation_plan_fact_compare(project_fact_list, worksheet):
         worksheet.cell(row=counter, column=2).value = project.name
         worksheet.cell(row=counter, column=3).value = f"{project.created_by.first_name} {project.created_by.last_name}"
         worksheet.cell(row=counter, column=4).value = f"{project.created_by.deportment.name}"
-        worksheet.cell(row=counter, column=5).value = f"{project.completed_status() } %"
+        worksheet.cell(row=counter, column=5).value = f"{project.completed_status()} %"
         worksheet.cell(row=counter, column=6).value = project.finish_time
         worksheet.cell(row=counter, column=7).value = project.get_project_status_display()
         worksheet.cell(row=counter, column=8).value = f"{project.project_plan.total_price_with_additional_cost:,.2f}"
