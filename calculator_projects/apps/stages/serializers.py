@@ -32,13 +32,6 @@ class StagePlanSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        # try:
-        #     instance = StagePlan.objects.create(**validated_data)
-        # except Exception as e:
-        #     print(f"Error creating StagePlan: {e}")
-        # print("##############################")
-        # print("instance dan oldin")
-        # print(validated_data)
         stage = StagePlan()
         stage.stage_number = validated_data["stage_number"]
         stage.start_time = validated_data["start_time"]
