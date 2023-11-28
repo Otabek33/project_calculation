@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
 
-from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
@@ -122,7 +121,8 @@ class ProjectPlanStageTwo(ProjectUsageRequiredMixin, DetailView):
         project_plan = get_object_or_404(ProjectPlan, pk=self.kwargs["pk"])
         stage_count = checking_stage_exist(project_plan)
         if not stage_count:
-            messages.error(request, "Добавьте  этап проекта, пожалуйста!")
+            # message = "Добавьте  этап проекта, пожалуйста!"
+            # return JsonResponse({"error": message}, status=400)
             return redirect(request.headers["referer"])
         else:
             project_plan.project_creation_stage = ProjectCreationStage.STAGE_3

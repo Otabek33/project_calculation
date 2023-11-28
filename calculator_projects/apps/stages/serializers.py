@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import serializers
 
 from calculator_projects.apps.stages.models import StagePlan
@@ -29,11 +31,26 @@ class StagePlanSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"error": message})
         return data
 
-    def save(self, **kwargs):
-        instance = super().save(**kwargs)
-        instance.process_price()
-        process_formation_fields_with_labour_cost(instance)
-        return instance
+    def create(self, validated_data):
+        # try:
+        #     instance = StagePlan.objects.create(**validated_data)
+        # except Exception as e:
+        #     print(f"Error creating StagePlan: {e}")
+        # print("##############################")
+        # print("instance dan oldin")
+        # print(validated_data)
+        stage = StagePlan()
+        stage.stage_number = validated_data["stage_number"]
+        stage.start_time = validated_data["start_time"]
+        stage.finish_time = validated_data["finish_time"]
+        stage.description = validated_data["description"]
+        stage.created_by = validated_data["created_by"]
+        stage.created_at = datetime.now()
+        stage.projectPlan = validated_data["projectPlan"]
+        stage.process_price()
+        process_formation_fields_with_labour_cost(stage)
+        stage.save()
+        return stage
 
     def update(self, instance, validated_data):
         task_plan_list = instance.task_list()

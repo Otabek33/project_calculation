@@ -20,9 +20,13 @@ def generation_fields(project, stage_list, stage_amount):
     if stage_amount > 0:
         project.duration_per_hour = stage_list.aggregate(Sum("duration_per_hour"))["duration_per_hour__sum"]
         project.duration_per_day = stage_list.aggregate(Sum("duration_per_day"))["duration_per_day__sum"]
-        project.total_price_stage_and_task = stage_list.aggregate(Sum("total_price_stage_and_task"))[
-            "total_price_stage_and_task__sum"
-        ]
+        if stage_amount == 1:
+            project.total_price_stage_and_task = stage_list[0].total_price_stage_and_task
+        else:
+            project.total_price_stage_and_task = stage_list.aggregate(Sum("total_price_stage_and_task"))[
+                "total_price_stage_and_task__sum"
+            ]
+
         project.start_time = stage_list.aggregate(Min("start_time"))["start_time__min"]
         project.finish_time = stage_list.aggregate(Max("finish_time"))["finish_time__max"]
     else:
@@ -41,9 +45,11 @@ def project_plan_update(obj):
 
     project_plan = ProjectPlan.objects.get(id=obj.projectPlan.id)
     stage_plan_list = StagePlan.objects.filter(deleted_status=False, projectPlan=project_plan.id)
+
     project_plan = generation_fields(project_plan, stage_plan_list, len(stage_plan_list))
     project_plan.save()
     process_formation_fields_with_labour_cost(project_plan)
+
     process_formation_four_fields_percentage(project_plan)
 
 
