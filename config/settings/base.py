@@ -90,8 +90,6 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "django_fsm",
-    "django_fsm_log",
     "django_filters",
     "drf_spectacular",
     "ckeditor",
