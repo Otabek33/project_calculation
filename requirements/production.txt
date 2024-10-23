@@ -30,6 +30,7 @@ pandas==2.2.1 # https://github.com/pandas-dev/pandas
 numpy==1.26.4 # https://github.com/numpy/numpy
 openpyxl==3.1.2 # https://openpyxl.readthedocs.io/en/stable/
 django-fsm==3.0.0 # https://pypi.org/project/django-fsm/
+django-fsm-log==3.1.0 # https://github.com/gizmag/django-fsm-log
 # Postgres
 psycopg2-binary==2.9.9 # https://pypi.org/project/psycopg2-binary/
 django-extensions==3.2.3  # https://github.com/django-extensions/django-extensions
