@@ -6,7 +6,7 @@ redis==5.0.0  # https://github.com/redis/redis-py
 hiredis==2.3.2  # https://github.com/redis/hiredis-py
 # Addition
 django-filter==24.3 # https://pypi.org/project/django-filter/
-django-ckeditor==6.7.1 # https://pypi.org/project/django-ckeditor/
+django-ckeditor-5==0.2.15 # https://pypi.org/project/django-ckeditor-5/
 # Django
 # ------------------------------------------------------------------------------
 django==4.2.4  # pyup: < 5.0  # https://www.djangoproject.com/
