@@ -1,11 +1,12 @@
 from .base import *  # noqa
+from .base import env
 
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = "8dIfgl361gIPUGeUAxDcyCAB1BBEZB3xcsMqaxxMy0ncrbVeBCIILXiP0V21bX7I"
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "185.238.3.130", ".project-calculation.uz"]
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["calculation.fintechdev.uz"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -16,7 +17,7 @@ ALLOWED_HOSTS = ["localhost", "185.238.3.130", ".project-calculation.uz"]
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/0",
+        "LOCATION": env("REDIS_URL"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "IGNORE_EXCEPTIONS": True,
@@ -57,7 +58,7 @@ DEBUG = True
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
-ADMIN_URL = "WW94knxVgqvs9jH4hfPt5JQ20A1thgcS"
+ADMIN_URL = env("DJANGO_ADMIN_URL")
 
 # LOGGING
 # ------------------------------------------------------------------------------

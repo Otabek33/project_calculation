@@ -13,9 +13,11 @@ APPS_DIR = BASE_DIR / "calculator_projects"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(BASE_DIR / ".env"))
+POSTGRES_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".postgres"
+GENERAL_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".django"
+
+env.read_env(str(GENERAL_ENV_FILE_PATH))
+env.read_env(str(POSTGRES_ENV_FILE_PATH))
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -66,27 +68,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASES = {"default": env.db("DATABASE_URL")}
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('POSTGRES_DB',"calculator_projects"),
-#         'USER':  os.getenv('POSTGRES_USER',"NgCHJDnWjAZetBIMnLviiIIEKOfBTGvp"),
-#         'PASSWORD':  os.getenv('POSTGRES_PASSWORD',
-#         "ydt38l5ctRbIpoOYCcOd8nKcxOQaoRbnxFdO3eIDy2X8Mkwods4q0kWesqgDW1bx"),
-#         'HOST':  os.getenv('POSTGRES_HOST',"postgres"),
-#         'PORT': os.getenv("POSTGRES_PORT", "5432"),
-#     }}
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
+DATABASES = {"default": env.db("DATABASE_URL")}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD

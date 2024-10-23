@@ -202,6 +202,8 @@
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   });
+
+
   if (localStorage.getItem("msg")) {
     toastr_success_top_right(localStorage.getItem("msg"))
     localStorage.removeItem("msg")

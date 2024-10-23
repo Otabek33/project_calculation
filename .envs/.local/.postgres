@@ -1,9 +1,9 @@
 #Docker user = NgCHJDnWjAZetBIMnLviiIIEKOfBTGvp ; password = ydt38l5ctRbIpoOYCcOd8nKcxOQaoRbnxFdO3eIDy2X8Mkwods4q0kWesqgDW1bx
 # PostgreSQL
 # ------------------------------------------------------------------------------
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_DB=postgres
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
