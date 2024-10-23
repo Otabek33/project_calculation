@@ -1,6 +1,11 @@
 from .base import *  # noqa
-from .base import env
+from .base import BASE_DIR, env
 
+POSTGRES_ENV_FILE_PATH = BASE_DIR / ".envs" / ".production" / ".postgres"
+GENERAL_ENV_FILE_PATH = BASE_DIR / ".envs" / ".production" / ".django"
+
+env.read_env(str(GENERAL_ENV_FILE_PATH))
+env.read_env(str(POSTGRES_ENV_FILE_PATH))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key

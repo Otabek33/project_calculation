@@ -13,11 +13,7 @@ APPS_DIR = BASE_DIR / "calculator_projects"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-POSTGRES_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".postgres"
-GENERAL_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".django"
 
-env.read_env(str(GENERAL_ENV_FILE_PATH))
-env.read_env(str(POSTGRES_ENV_FILE_PATH))
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -62,14 +58,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(BASE_DIR / "locale")]
 
-# DATABASES
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-# DATABASES = {"default": env.db("DATABASE_URL")}
-
-
-DATABASES = {"default": env.db("DATABASE_URL")}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

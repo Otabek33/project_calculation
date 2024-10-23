@@ -1,6 +1,11 @@
 from .base import *  # noqa
-from .base import env
+from .base import BASE_DIR, env
 
+POSTGRES_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".postgres"
+GENERAL_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".django"
+
+env.read_env(str(GENERAL_ENV_FILE_PATH))
+env.read_env(str(POSTGRES_ENV_FILE_PATH))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -22,7 +27,14 @@ CACHES = {
         "LOCATION": "",
     }
 }
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+# DATABASES = {"default": env.db("DATABASE_URL")}
 
+
+DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
