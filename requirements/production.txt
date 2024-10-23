@@ -16,7 +16,7 @@ openpyxl==3.1.2 # https://openpyxl.readthedocs.io/en/stable/
 # Postgres
 psycopg2-binary==2.9.9 # https://pypi.org/project/psycopg2-binary/
 django-extensions==3.2.3  # https://github.com/django-extensions/django-extensions
-django_redis==23.2.1 # https://pypi.org/project/django-redis/
+
 
 #########################
 
