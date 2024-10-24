@@ -1,15 +1,10 @@
 from .base import *  # noqa
-from .base import BASE_DIR, env
+from .base import env
 
-POSTGRES_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".postgres"
-GENERAL_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".django"
-
-env.read_env(str(GENERAL_ENV_FILE_PATH))
-env.read_env(str(POSTGRES_ENV_FILE_PATH))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = True
+DEBUG = env.bool("DJANGO_DEBUG", False)
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",

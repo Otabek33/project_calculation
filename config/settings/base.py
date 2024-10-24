@@ -11,13 +11,17 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # calculator_projects/
 APPS_DIR = BASE_DIR / "calculator_projects"
 env = environ.Env()
+POSTGRES_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".postgres"
+GENERAL_ENV_FILE_PATH = BASE_DIR / ".envs" / ".local" / ".django"
 
+env.read_env(str(GENERAL_ENV_FILE_PATH))
+env.read_env(str(POSTGRES_ENV_FILE_PATH))
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool("DJANGO_DEBUG", False)
+
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
