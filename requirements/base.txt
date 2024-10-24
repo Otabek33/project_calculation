@@ -17,7 +17,7 @@ django-allauth==65.1.0  # https://github.com/pennersr/django-allauth
 django-crispy-forms==2.3  # https://github.com/django-crispy-forms/django-crispy-forms
 crispy-bootstrap5==2024.10  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
-django-storage==1.14.4 # https://pypi.org/project/django-storages/
+django-storages==1.14.4 # https://pypi.org/project/django-storages/
 # Django REST Framework
 djangorestframework==3.14.0  # https://github.com/encode/django-rest-framework
 django-cors-headers==4.2.0  # https://github.com/adamchainz/django-cors-headers
